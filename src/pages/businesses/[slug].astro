@@ -1,0 +1,442 @@
+---
+// STATIC business detail page. Business info + reviews are rendered at
+// build time (real content for SEO/LocalBusiness schema, not fetched
+// client-side after page load like the original BusinessDetailPage.tsx).
+// ReviewForm is mounted as a live client:visible island for submitting
+// NEW reviews — on success it reloads the page so the freshly-submitted
+// review shows up, rather than trying to sync state across the
+// static/island boundary (islands can't share React state directly; a
+// reload is simpler and correct here).
+//
+// Routing by `slug` now that the businesses table has one (added via
+// migration — see business-slug-migration.sql). Previously routed by
+// `id` (UUID), matching the original app's behavior when no slug column
+// existed; this was intentional at the time, not a bug, and the
+// migration cleanly supersedes it now that slugs exist.
+
+import { Star, MapPin, Phone, Mail, Globe, Navigation } from 'lucide-react';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import MapView from '../../components/MapView.tsx';
+import ReviewForm from '../../components/ReviewForm.tsx';
+import BusinessImage from '../../components/BusinessImage.tsx';
+import { localBusinessSchema } from '../../lib/seo/schema';
+import { fetchBusinesses, fetchBusinessBySlug, fetchReviews } from '../../services/businessServices';
+
+export async function getStaticPaths() {
+  // Every active business gets a static page — matches "active" being
+  // the default status filter used elsewhere (fetchBusinesses defaults
+  // to status: 'active' when no filter is passed).
+  const businesses = await fetchBusinesses({ status: 'active' });
+  return businesses.map((business) => ({
+    params: { slug: business.slug },
+    props: { slug: business.slug },
+  }));
+}
+
+interface Props {
+  slug: string;
+}
+const { slug } = Astro.props as Props;
+
+const business = await fetchBusinessBySlug(slug);
+
+// NOTE: Astro.redirect() only works on server-rendered (prerender=false)
+// pages, not static output like this one — using it here would silently
+// do nothing at build time. Since getStaticPaths() above only generates
+// paths for businesses that exist, this branch should be unreachable in
+// normal operation; if it ever does trigger (e.g. a business was deleted
+// between the two fetches during a build), render a plain fallback
+// instead of attempting a redirect that wouldn't function.
+if (!business) {
+  return new Response(null, { status: 404 });
+}
+
+const reviews = await fetchReviews(business.id);
+const avgRating = reviews.length > 0 ? reviews.reduce((sum, r) => sum + (r.rating || 0), 0) / reviews.length : 0;
+
+const seoTitle = business.location ? `${business.name} — ${business.location}` : business.name;
+const seoDescription = business.description
+  ? business.description.slice(0, 155)
+  : `${business.name} is an English-friendly business serving Americans near U.S. military bases in Germany. Find contact info, reviews, and directions.`;
+
+const schema = localBusinessSchema({
+  name: business.name,
+  description: business.description ?? undefined,
+  telephone: business.phone ?? undefined,
+  image: business.imageUrl ?? undefined,
+  streetAddress: business.address ?? undefined,
+  latitude: business.latitude ?? undefined,
+  longitude: business.longitude ?? undefined,
+  slug: business.slug,
+});
+
+const directionsUrl =
+  business.latitude && business.longitude
+    ? `https://www.google.com/maps/dir/?api=1&destination=${business.latitude},${business.longitude}`
+    : null;
+---
+
+<BaseLayout
+  title={seoTitle}
+  description={seoDescription}
+  canonicalPath={`/businesses/${business.slug}`}
+  ogImage={business.imageUrl ?? undefined}
+  pageSchemas={[schema]}
+>
+  <div class="business-detail">
+    <Breadcrumbs items={[{ name: 'Services Directory', url: '/services-directory' }, { name: business.name, url: `/businesses/${business.slug}` }]} />
+
+    {business.featured ? (
+      <div class="business-detail__featured">
+        <div class="business-detail__media-grid">
+          {business.imageUrl && (
+            <div class="business-detail__image-wrap">
+              <BusinessImage imageUrl={business.imageUrl} category={business.category} businessName={business.name} className="w-full h-64 object-cover" client:load />
+            </div>
+          )}
+          {business.latitude && business.longitude && (
+            <div class="business-detail__map-wrap">
+              <MapView
+                client:only="react"
+                center={[business.latitude, business.longitude]}
+                zoom={15}
+                height="h-64"
+                markers={[{ position: [business.latitude, business.longitude], title: business.name, description: business.address ?? undefined }]}
+              />
+              {directionsUrl && (
+                <a href={directionsUrl} target="_blank" rel="noopener noreferrer" class="business-detail__directions-btn">
+                  Get Directions
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+
+        <div class="business-detail__badges">
+          <span class="badge badge--featured">⭐ FEATURED</span>
+          {business.verified && <span class="badge badge--verified">✓ VERIFIED</span>}
+          {business.englishFluency && <span class="badge badge--fluency">{business.englishFluency} English</span>}
+        </div>
+
+        <h1 class="business-detail__title business-detail__title--featured">{business.name}</h1>
+        {business.description && <p class="business-detail__description business-detail__description--featured">{business.description}</p>}
+
+        <div class="business-detail__contact-grid business-detail__contact-grid--featured">
+          <div>
+            <p><strong>📍 Location:</strong> {business.location}</p>
+            {business.address && <p class="business-detail__address">{business.address}</p>}
+            {business.baseDistance && <p><strong>🚗 Distance:</strong> {business.baseDistance}</p>}
+          </div>
+          <div>
+            {business.phone && <p><strong>📞 Phone:</strong> <a href={`tel:${business.phone}`}>{business.phone}</a></p>}
+            {business.email && <p><strong>✉️ Email:</strong> <a href={`mailto:${business.email}`}>{business.email}</a></p>}
+            {business.website && <p><strong>🌐 Website:</strong> <a href={business.website} target="_blank" rel="noopener noreferrer">Visit Site</a></p>}
+          </div>
+        </div>
+
+        {business.notes && (
+          <div class="business-detail__tip business-detail__tip--featured">
+            <strong>💡 Insider Tip:</strong> {business.notes}
+          </div>
+        )}
+      </div>
+    ) : (
+      <div class="business-detail__standard">
+        {business.imageUrl && (
+          <div class="business-detail__standard-image">
+            <BusinessImage imageUrl={business.imageUrl} category={business.category} businessName={business.name} className="w-full h-64 object-cover" client:load />
+          </div>
+        )}
+
+        <div class="business-detail__standard-body">
+          <div class="business-detail__header-row">
+            <div>
+              <h1 class="business-detail__title">{business.name}</h1>
+              {business.verified && <span class="badge badge--verified">✓ VERIFIED</span>}
+            </div>
+            {reviews.length > 0 && (
+              <div class="business-detail__rating-summary">
+                <div class="stars" aria-label={`${avgRating.toFixed(1)} out of 5 stars`}>
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <span class={i < Math.round(avgRating) ? 'star star--filled' : 'star'}>★</span>
+                  ))}
+                </div>
+                <p>{reviews.length} reviews</p>
+              </div>
+            )}
+          </div>
+
+          {business.description && <p class="business-detail__description">{business.description}</p>}
+
+          <div class="business-detail__contact-grid">
+            <div>
+              <p class="business-detail__field-label">Location</p>
+              <p>{business.location}</p>
+              {business.address && <p class="business-detail__address">{business.address}</p>}
+              {business.baseDistance && <p class="business-detail__distance">{business.baseDistance}</p>}
+
+              {business.phone && (
+                <>
+                  <p class="business-detail__field-label">Phone</p>
+                  <a href={`tel:${business.phone}`}>{business.phone}</a>
+                </>
+              )}
+            </div>
+            <div>
+              {business.email && (
+                <>
+                  <p class="business-detail__field-label">Email</p>
+                  <a href={`mailto:${business.email}`}>{business.email}</a>
+                </>
+              )}
+              {business.website && (
+                <>
+                  <p class="business-detail__field-label">Website</p>
+                  <a href={business.website} target="_blank" rel="noopener noreferrer">Visit Website</a>
+                </>
+              )}
+              {business.englishFluency && (
+                <>
+                  <p class="business-detail__field-label">English Fluency</p>
+                  <p>{business.englishFluency}</p>
+                </>
+              )}
+            </div>
+          </div>
+
+          {business.notes && (
+            <div class="business-detail__tip">
+              <strong>💡 Insider Tip:</strong> {business.notes}
+            </div>
+          )}
+        </div>
+      </div>
+    )}
+
+    <div id="reviews" class="business-detail__reviews">
+      <h2>Reviews from Military Families</h2>
+
+      {reviews.length > 0 ? (
+        <div class="business-detail__review-list">
+          {reviews.map((review) => (
+            <div class="review-card">
+              <div class="review-card__header">
+                <p class="review-card__author">{review.authorName}</p>
+                <div class="stars">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <span class={i < (review.rating || 0) ? 'star star--filled' : 'star'}>★</span>
+                  ))}
+                </div>
+              </div>
+              {review.comment && <p class="review-card__comment">{review.comment}</p>}
+              {review.createdAt && <p class="review-card__date">{new Date(review.createdAt).toLocaleDateString()}</p>}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p class="business-detail__no-reviews">No reviews yet. Be the first to review!</p>
+      )}
+
+      <div class="business-detail__review-form">
+        <ReviewForm client:visible businessId={business.id} />
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .business-detail {
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 4rem;
+  }
+  .business-detail__featured {
+    background: var(--brand-blue);
+    border-radius: 0.75rem;
+    padding: 2rem;
+    color: white;
+  }
+  .business-detail__media-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  @media (min-width: 768px) {
+    .business-detail__media-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .business-detail__image-wrap,
+  .business-detail__map-wrap {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    position: relative;
+  }
+  .business-detail__directions-btn {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background: var(--brand-gold);
+    color: var(--brand-dark);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-decoration: none;
+    z-index: 1000;
+  }
+  .business-detail__badges {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  .badge--featured {
+    background: var(--brand-gold);
+    color: var(--brand-dark);
+  }
+  .badge--verified {
+    background: #10b981;
+    color: white;
+  }
+  .badge--fluency {
+    background: rgba(255, 255, 255, 0.2);
+    text-transform: uppercase;
+  }
+  .business-detail__title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .business-detail__title--featured {
+    color: white;
+  }
+  .business-detail__description {
+    color: var(--brand-text-muted);
+    margin-bottom: 1.5rem;
+    font-size: 1.125rem;
+  }
+  .business-detail__description--featured {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .business-detail__contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.9375rem;
+  }
+  @media (min-width: 768px) {
+    .business-detail__contact-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .business-detail__contact-grid--featured a {
+    color: white;
+    text-decoration: underline;
+  }
+  .business-detail__contact-grid a {
+    color: var(--brand-blue);
+  }
+  .business-detail__field-label {
+    font-weight: 600;
+    margin-top: 0.75rem;
+  }
+  .business-detail__address,
+  .business-detail__distance {
+    font-size: 0.875rem;
+    color: var(--brand-text-muted);
+  }
+  .business-detail__tip {
+    background: var(--brand-bg-alt);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9375rem;
+  }
+  .business-detail__tip--featured {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+  .business-detail__standard {
+    background: var(--brand-bg-card);
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  .business-detail__standard-image {
+    width: 100%;
+    height: 16rem;
+  }
+  .business-detail__standard-body {
+    padding: 2rem;
+  }
+  .business-detail__header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .business-detail__rating-summary {
+    text-align: right;
+    font-size: 0.875rem;
+    color: var(--brand-text-muted);
+  }
+  .stars {
+    display: flex;
+    gap: 0.125rem;
+  }
+  .star {
+    color: #d1d5db;
+  }
+  .star--filled {
+    color: #facc15;
+  }
+  .business-detail__reviews {
+    margin-top: 3rem;
+    border-top: 1px solid var(--brand-border);
+    padding-top: 2rem;
+  }
+  .business-detail__reviews h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+  .business-detail__review-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .review-card {
+    background: var(--brand-bg-alt);
+    border-radius: 0.5rem;
+    padding: 1rem;
+  }
+  .review-card__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+  .review-card__author {
+    font-weight: 600;
+  }
+  .review-card__date {
+    font-size: 0.75rem;
+    color: var(--brand-text-muted);
+    margin-top: 0.5rem;
+  }
+  .business-detail__no-reviews {
+    color: var(--brand-text-muted);
+    margin-bottom: 2rem;
+  }
+</style>

@@ -1,0 +1,315 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/page/HeroSection.astro';
+// Keep files imported, but we will bypass rendering them to see if it fixes the crash
+import FeaturesSection from '../components/page/FeaturesSection.tsx';
+import ServicesCategoriesSection from '../components/page/ServicesCategoriesSection.tsx';
+import ContactSection from '../components/page/ContactSection.tsx';
+import TravelPhrasesSection from '../components/page/TravelPhrasesSection.tsx';
+import { getAllDestinationArticles } from '../lib/supabaseArticles';
+
+const destinationArticles = await getAllDestinationArticles();
+console.log('DESTINATIONS FETCHED:', destinationArticles.length, destinationArticles.map(d => d.slug));
+
+const FIXED_ORDER = ['stuttgart', 'london', 'berlin'];
+const fixedDestinations = FIXED_ORDER
+  .map((slug) => destinationArticles.find((a) => a.slug === slug))
+  .filter((a): a is NonNullable<typeof a> => a !== undefined);
+const remainingDestinations = destinationArticles
+  .filter((a) => !FIXED_ORDER.includes(a.slug))
+  .sort((a, b) => (b.view_count ?? 0) - (a.view_count ?? 0));
+const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
+---
+
+<BaseLayout
+  title="Guides for U.S. Military Families & Expats in Germany"
+  description="Housing, driver's licenses, healthcare, schools, and day trips for Americans stationed near Stuttgart, Ramstein/KMC, Wiesbaden, Grafenwöhr, and Spangdahlem."
+  canonicalPath="/"
+>
+  <HeroSection />
+
+  <section id="destinations" class="destinations">
+    <div class="destinations__intro">
+      <h2>Explore Destinations</h2>
+      <p>Discover amazing places within driving distance from your base</p>
+    </div>
+
+    <div class="destinations__carousel">
+      <button
+        type="button"
+        class="destinations__arrow destinations__arrow--prev"
+        id="destinations-prev"
+        aria-label="Previous destinations"
+      >
+        ‹
+      </button>
+
+      <div class="destinations__track" id="destinations-track">
+        {sortedDestinations.map((dest) => {
+          const name = dest.destination_name || dest.title;
+          return (
+            <a href={`/articles/${dest.slug}`} class="destination-card">
+              <div class="destination-card__image-wrap">
+                <img
+                  src={dest.featured_image_url || 'https://pkacbcohrygpyapgtzpq.supabase.co/storage/v1/object/public/images/hero-bg.jpg'}
+                  alt={name}
+                  class="destination-card__image"
+                  loading="lazy"
+                />
+              </div>
+              <div class="destination-card__body">
+                <h3>{dest.title}</h3>
+                <div class="destination-card__cta">
+                  <span>View Details</span>
+                  <span aria-hidden="true">›</span>
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+
+      <button
+        type="button"
+        class="destinations__arrow destinations__arrow--next"
+        id="destinations-next"
+        aria-label="Next destinations"
+      >
+        ›
+      </button>
+    </div>
+
+    <div class="destinations__dots" id="destinations-dots"></div>
+  </section>
+
+  <!-- Temporary fallback placeholder for the newsletter form to stop the server crash -->
+  <div id="email-signup" class="placeholder-section">
+    <h2>Join the Newsletter</h2>
+    <p>Sign up to receive free travel tips and updates directly in your inbox.</p>
+  </div>
+
+  <!-- We comment these out temporarily to guarantee the site boots safely -->
+  <!--
+  <FeaturesSection client:visible />
+  <TravelPhrasesSection client:visible />
+  <ServicesCategoriesSection client:visible />
+  <ContactSection client:visible />
+  -->
+</BaseLayout>
+
+<script>
+  function scrollToHashSection() {
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) return;
+    const element = document.getElementById(hash);
+    if (!element) return;
+
+    const headerHeight = 64;
+    const offset = element.getBoundingClientRect().top + window.scrollY - headerHeight;
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+    });
+  }
+
+  scrollToHashSection();
+  window.addEventListener('hashchange', scrollToHashSection);
+
+  // Circular carousel: advancing past the last card wraps back to the
+  // first (e.g. with 19 cards, clicking next from card 18 shows
+  // 19, 1, 2 — not a reset to a short/empty page). Uses modulo
+  // arithmetic against the total card count so this works correctly
+  // regardless of how many destinations exist, even if that count
+  // isn't a multiple of pageSize (3).
+  const track = document.getElementById('destinations-track');
+  const cards = track ? Array.from(track.querySelectorAll<HTMLElement>('.destination-card')) : [];
+  const dotsContainer = document.getElementById('destinations-dots');
+  const prevBtn = document.getElementById('destinations-prev');
+  const nextBtn = document.getElementById('destinations-next');
+  const pageSize = 3;
+  const total = cards.length;
+  let startIndex = 0;
+
+  function renderPage() {
+    cards.forEach((card, i) => {
+      // How far is this card from the current window's start,
+      // wrapping around the end of the list?
+      const offset = (i - startIndex + total) % total;
+      const isVisible = offset < pageSize;
+      card.hidden = !isVisible;
+      // CSS `order` controls visual left-to-right position within the
+      // grid independent of DOM order, so a wrapped window (e.g. cards
+      // 18, 0, 1) still displays in the correct 1-2-3 left-to-right
+      // sequence rather than following original document order.
+      card.style.order = isVisible ? String(offset) : '';
+    });
+
+    if (dotsContainer) {
+      const dots = Array.from(dotsContainer.querySelectorAll('button'));
+      const activeDot = Math.floor(startIndex / pageSize) % dots.length;
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('is-active', idx === activeDot);
+      });
+    }
+  }
+
+  function buildDots() {
+    if (!dotsContainer || total <= pageSize) return;
+    const dotCount = Math.ceil(total / pageSize);
+    for (let i = 0; i < dotCount; i++) {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `Go to page ${i + 1}`);
+      dot.addEventListener('click', () => {
+        startIndex = (i * pageSize) % total;
+        renderPage();
+      });
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  if (total > pageSize) {
+    prevBtn?.addEventListener('click', () => {
+      startIndex = (startIndex - pageSize + total) % total;
+      renderPage();
+    });
+    nextBtn?.addEventListener('click', () => {
+      startIndex = (startIndex + pageSize) % total;
+      renderPage();
+    });
+  } else {
+    prevBtn?.setAttribute('hidden', '');
+    nextBtn?.setAttribute('hidden', '');
+  }
+
+  buildDots();
+  renderPage();
+</script>
+
+<style>
+  .destinations {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+  .destinations__intro {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .destinations__intro h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .destinations__intro p {
+    color: var(--brand-text-muted);
+    font-size: 1.125rem;
+  }
+  .destinations__carousel {
+    position: relative;
+  }
+  .destinations__track {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .destinations__track .destination-card[hidden] {
+    display: none;
+  }
+  .destination-card {
+    display: flex; flex-direction: column;
+    background: var(--brand-bg-card);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .destination-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+  .destination-card__image-wrap {
+    height: 14rem;
+  }
+  .destination-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .destination-card__body {
+      padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .destination-card__body h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .destination-card__cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid var(--brand-border);
+    font-weight: 600;
+    color: var(--brand-blue);
+    margin-top: auto;
+  }
+  .destinations__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    background: white;
+    border: 1px solid var(--brand-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 5;
+  }
+  .destinations__arrow--prev {
+    left: -1.5rem;
+  }
+  .destinations__arrow--next {
+    right: -1.5rem;
+  }
+  .destinations__dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .destinations__dots :global(button) {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    border: none;
+    background: var(--brand-border);
+    cursor: pointer;
+    padding: 0;
+  }
+  .destinations__dots :global(button.is-active) {
+    width: 2rem;
+    background: var(--brand-blue);
+  }
+  .placeholder-section {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    border-top: 1px solid var(--brand-border, #94a3b8);
+  }
+  .placeholder-section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .placeholder-section p {
+    color: var(--brand-text-muted, #475569);
+  }
+</style>

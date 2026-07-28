@@ -1,0 +1,275 @@
+// src/components/page/Header.tsx
+//
+// Ported from the React Router version. Astro islands render real
+// static HTML pages, not an SPA, so:
+//   - <Link to="/day-trips"> becomes a plain <a href="/day-trips">
+//     (a full page navigation — which is correct here, since each page
+//     is now pre-rendered static HTML, not a client-side route change)
+//   - useNavigate/useLocation are replaced with window.location, since
+//     there's no router context to read from
+//   - scrollToSection's old behavior (navigate('/', { state: { scrollTo }}))
+//     relied on React Router's location state, which doesn't exist
+//     outside an SPA. Replaced with a URL hash (`/#destinations`) plus a
+//     small plain-JS scroll handler on the homepage itself (see the
+//     inline script in index.astro) that runs once the page loads.
+//
+// resetBaseSelection now also clears the nanostore and dispatches
+// 'baseChanged', so any page listening for that event (e.g. the
+// day-trips filter script) updates immediately on Reset, not just
+// once a new base is picked in the reopened modal.
+
+import { useState, useCallback } from 'react';
+import { Menu, X } from 'lucide-react';
+import { updateBase } from '../../stores/baseStore';
+
+const NAV_SECTIONS = [
+  { id: 'destinations', label: 'Destinations' },
+  { id: 'travel-tips', label: 'Travel Tips' },
+  { id: 'german-phrases', label: 'Travel Phrases' },
+  { id: 'english-services', label: 'English Services' },
+] as const;
+
+export default function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const resetBaseSelection = () => {
+    localStorage.removeItem('selectedBase');
+    localStorage.removeItem('hasVisitedSite');
+    updateBase('all');
+    window.dispatchEvent(new CustomEvent('baseChanged', { detail: { baseId: 'all' } }));
+    window.dispatchEvent(new CustomEvent('openBaseSelectionModal'));
+    setMobileMenuOpen(false);
+  };
+
+  // Handles both same-page smooth scroll (on the homepage) and
+  // cross-page navigation to /#sectionId (from any other page).
+  const handleSectionClick = useCallback(
+    (sectionId: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (window.location.pathname === '/') {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          e.preventDefault();
+          const headerHeight = 64;
+          const offset = element.getBoundingClientRect().top + window.scrollY - headerHeight;
+          window.scrollTo({ top: offset, behavior: 'smooth' });
+        }
+        // If the section isn't on the page yet (e.g. not built out yet),
+        // let the default #hash jump happen rather than doing nothing.
+      }
+      // On any other page, let the browser navigate to `/#sectionId`
+      // normally — index.astro's inline script picks up the hash on load.
+      setMobileMenuOpen(false);
+    },
+    []
+  );
+
+  const handleLogoClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (window.location.pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    setMobileMenuOpen(false);
+  }, []);
+
+  const handleBackdropClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    setMobileMenuOpen(false);
+  }, []);
+
+  return (
+    <>
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--brand-bg-card)]/95 backdrop-blur-md border-b border-[var(--brand-border)] shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo */}
+            <a href="/" onClick={handleLogoClick} className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+              <img src="/EL_Logo.png" alt="European Living" className="h-10 w-10 object-contain" />
+              <div className="flex flex-col">
+                <span className="font-bold text-lg text-[var(--brand-primary-dark)] leading-tight">
+                  European Living
+                </span>
+                <span className="text-xs text-[var(--brand-text-muted)]">Your Guide to Europe</span>
+              </div>
+            </a>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-1">
+              
+              <a
+                href="/"
+                onClick={handleLogoClick}
+                className="px-4 py-2 text-sm font-medium text-[var(--brand-text)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-bg-alt)] rounded-lg"
+              >
+                Home
+              </a>
+
+              {NAV_SECTIONS.slice(0, 1).map((section) => (
+                
+                <a
+                  key={section.id}
+                  href={`/#${section.id}`}
+                  onClick={handleSectionClick(section.id)}
+                  className="px-4 py-2 text-sm font-medium text-[var(--brand-text)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-bg-alt)] rounded-lg"
+                >
+                  {section.label}
+                </a>
+              ))}
+
+              <a href="/day-trips" className="px-4 py-2 text-sm rounded-lg hover:bg-[var(--brand-bg-alt)]">
+                Day Trips
+              </a>
+
+              <a
+                href="/pcs-guide"
+                className="px-4 py-2 text-sm font-semibold rounded-lg flex items-center gap-1.5 text-[#1B3A5C] hover:bg-[#1B3A5C]/10 transition-colors"
+              >
+                <span className="text-[#9da586] text-xs">✈</span>
+                PCS Guide
+              </a>
+
+              {NAV_SECTIONS.slice(1).map((section) => (
+                
+                <a
+                  key={section.id}
+                  href={`/#${section.id}`}
+                  onClick={handleSectionClick(section.id)}
+                  className="px-4 py-2 text-sm rounded-lg hover:bg-[var(--brand-bg-alt)]"
+                >
+                  {section.label}
+                </a>
+              ))}
+
+              <a href="/about" className="px-4 py-2 text-sm rounded-lg hover:bg-[var(--brand-bg-alt)]">
+                About
+              </a>
+            </nav>
+
+            {/* Desktop CTA */}
+            <div className="hidden lg:flex items-center gap-3">
+              
+              <a
+                href="/#contact"
+                onClick={handleSectionClick('contact')}
+                className="px-6 py-2.5 bg-[var(--brand-primary)] text-white text-sm font-semibold rounded-full hover:scale-105 transition whitespace-nowrap"
+              >
+                Contact Us
+              </a>
+              <button
+                onClick={resetBaseSelection}
+                className="text-sm text-red-500 hover:text-red-700 underline whitespace-nowrap"
+              >
+                Reset Base
+              </button>
+            </div>
+
+            {/* Mobile Toggle */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden p-2 rounded-lg hover:bg-[var(--brand-bg-alt)] transition"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-40 lg:hidden">
+          <div
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={handleBackdropClick}
+            role="button"
+            tabIndex={-1}
+            aria-label="Close menu"
+          />
+
+          <nav className="absolute top-16 left-0 right-0 bg-white border-b border-[var(--brand-border)] shadow-lg max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <div className="px-4 py-4 space-y-1">
+              
+              <a
+                href="/"
+                onClick={handleLogoClick}
+                className="block w-full text-left px-4 py-3 text-base font-medium text-[var(--brand-text)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-bg-alt)] rounded-lg transition"
+              >
+                Home
+              </a>
+
+              {NAV_SECTIONS.slice(0, 1).map((section) => (
+                
+                <a
+                  key={section.id}
+                  href={`/#${section.id}`}
+                  onClick={handleSectionClick(section.id)}
+                  className="block w-full text-left px-4 py-3 text-base font-medium text-[var(--brand-text)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-bg-alt)] rounded-lg transition"
+                >
+                  {section.label}
+                </a>
+              ))}
+
+              <a  
+                href="/day-trips"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-3 text-base font-medium text-[var(--brand-text)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-bg-alt)] rounded-lg transition"
+              >
+                Day Trips
+              </a>
+
+              <a
+                href="/pcs-guide"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-3 rounded-lg transition bg-[#1B3A5C]/5 border border-[#1B3A5C]/15"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-base font-semibold text-[#1B3A5C]">✈ PCS Guide to Germany</span>
+                  <span className="text-xs bg-[#9da586] text-white px-2 py-0.5 rounded-full font-semibold">
+                    USO
+                  </span>
+                </div>
+                <p className="text-xs text-gray-500 mt-0.5 pl-0">Moving to Germany? Start here.</p>
+              </a>
+
+              {NAV_SECTIONS.slice(1).map((section) => (
+
+                <a
+                  key={section.id}
+                  href={`/#${section.id}`}
+                  onClick={handleSectionClick(section.id)}
+                  className="block w-full text-left px-4 py-3 text-base font-medium text-[var(--brand-text)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-bg-alt)] rounded-lg transition"
+                >
+                  {section.label}
+                </a>
+              ))}
+
+              <a
+                href="/about"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-3 text-base font-medium text-[var(--brand-text)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-bg-alt)] rounded-lg transition"
+              >
+                About
+              </a>
+
+              <div className="pt-4 border-t border-[var(--brand-border)] mt-4">
+                
+                <a
+                  href="/#contact"
+                  onClick={handleSectionClick('contact')}
+                  className="block text-center w-full px-4 py-3 bg-[var(--brand-primary)] text-white text-base font-semibold rounded-lg hover:bg-[var(--brand-dark)] transition"
+                >
+                  Contact Us
+                </a>
+                <button
+                  onClick={resetBaseSelection}
+                  className="w-full text-center px-4 py-3 text-sm text-red-500 hover:text-red-700 underline mt-2"
+                >
+                  Reset Base Selection
+                </button>
+              </div>
+            </div>
+          </nav>
+        </div>
+      )}
+    </>
+  );
+}

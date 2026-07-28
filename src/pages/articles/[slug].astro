@@ -1,0 +1,97 @@
+---
+// STATIC, HIGH PRIORITY SEO/AEO page — pre-rendered at build time from
+// the real `articles` table, EXCLUDING City Guides (those live at
+// /destinations/[slug].astro — confirmed via Search Console indexed
+// pages 2026-07-11: destinations are indexed at /destinations/<slug>,
+// separate from genuine articles at /articles/<slug>).
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AnswerBox from '../../components/seo/AnswerBox.astro';
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import { articleSchema } from '../../lib/seo/schema';
+import { getAllArticles, renderArticleContent, type ArticleRow } from '../../lib/supabaseArticles';
+
+export async function getStaticPaths() {
+  const articles = await getAllArticles();
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+interface Props {
+  article: ArticleRow;
+}
+const { article } = Astro.props as Props;
+
+const description =
+  article.excerpt ??
+  `${article.title} — practical guidance for U.S. military families and expats in Germany.`;
+
+const schema = articleSchema({
+  headline: article.title,
+  description,
+  slug: article.slug,
+  datePublished: article.created_at,
+  dateModified: article.updated_at,
+  image: article.featured_image_url ?? undefined,
+  authorName: article.author ?? undefined,
+});
+
+const contentHtml = renderArticleContent(article.content);
+
+const lastUpdatedHuman = new Date(article.updated_at).toLocaleDateString('en-US', {
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<BaseLayout
+  title={article.title}
+  description={description}
+  canonicalPath={`/articles/${article.slug}`}
+  ogImage={article.featured_image_url ?? undefined}
+  pageSchemas={[schema]}
+>
+  <article class="article">
+    <Breadcrumbs
+      items={[
+        { name: 'Articles', url: '/articles' },
+        { name: article.title, url: `/articles/${article.slug}` },
+      ]}
+    />
+
+    <h1>{article.title}</h1>
+    {article.subtitle && <p class="article__subtitle">{article.subtitle}</p>}
+
+    {article.excerpt && <AnswerBox answer={article.excerpt} lastUpdated={lastUpdatedHuman} />}
+
+    <div class="prose article__body" set:html={contentHtml} />
+
+    <!--
+      No FAQ schema here: the real `articles` table has no dedicated FAQ
+      column/relation, so we don't fabricate FAQPage markup that wouldn't
+      match visible content. If Q&A-style content gets added later, wire
+      FaqBlock.astro back in against that.
+    -->
+  </article>
+</BaseLayout>
+
+<style>
+  .article {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+  .article h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 0.25rem;
+  }
+  .article__subtitle {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+  }
+</style>

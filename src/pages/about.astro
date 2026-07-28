@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+---
+
+<BaseLayout
+  title="About European Living"
+  description="European Living is a resource for U.S. military families and American expats living near U.S. bases in Germany."
+  canonicalPath="/about"
+>
+  <div class="about">
+    <Breadcrumbs items={[{ name: 'About', url: '/about' }]} />
+
+    <h1>About European Living</h1>
+
+    <div class="prose about__body">
+      <p>
+        European Living is a resource for U.S. military families and American expats living near U.S. bases in
+        Germany. It covers Overseas Housing Allowance (OHA), German driver's licenses, USAREUR vehicle registration,
+        DoDEA schools, TRICARE and local healthcare, and day trips within reach of Stuttgart, Ramstein/KMC,
+        Wiesbaden, Grafenwöhr, and Spangdahlem.
+      </p>
+      <p>
+        Have a question, a business to add to the directory, or feedback on the site? Reach out anytime at
+        <a href="mailto:info@european-living.live">info@european-living.live</a>.
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .about {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+  .about h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+</style>

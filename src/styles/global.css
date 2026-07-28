@@ -1,0 +1,430 @@
+/* === Base Imports === */
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* === Global Reset & Base Styles === */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body, #root {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  background: #F8FAFC;
+  color: #1F2937;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === Brand Colors === */
+:root {
+  --brand-primary: #0284C7;
+  --brand-primary-light: #0EA5E9;
+  --brand-primary-dark: #0C4A6E;
+
+  --brand-secondary: #F59E0B;
+  --brand-secondary-light: #FBBF24;
+
+  --brand-gold: #F59E0B;
+  --brand-amber: #D97706;
+
+  --brand-bg: #FEFDFB;
+  --brand-bg-alt: #F9F7F4;
+  --brand-bg-card: #FFFFFF;
+
+  --brand-text: #1F2937;
+  --brand-text-muted: #475569;
+  --brand-dark: #1F2937;
+
+  --brand-button: #F59E0B;
+  --brand-light: #FFFFFF;
+
+  --brand-ocean: #0C4A6E;
+  --brand-blue: #0284C7;
+  --brand-sky: #7DD3FC;
+  --brand-ice: #F0F9FF;
+  --brand-sunset: #FEF3C7;
+  --brand-bronze: #92400E;
+  --brand-charcoal: #1F2937;
+  --brand-slate: #475569;
+  --brand-gray: #94A3B8;
+  --brand-soft: #F9F7F4;
+  --brand-white: #FFFFFF;
+
+  --primary: #0C4A6E;
+  --primary-foreground: #FFFFFF;
+  --secondary: #D97706;
+  --secondary-foreground: #FFFFFF;
+  --accent: #F59E0B;
+  --accent-foreground: #1F2937;
+  --muted: #F8FAFC;
+  --muted-foreground: #475569;
+  --border: #94A3B8;
+  --brand-border: #94A3B8;
+  --input: #94A3B8;
+  --ring: #0284C7;
+
+  --success: #10B981;
+  --success-foreground: #FFFFFF;
+  --warning: #F59E0B;
+  --warning-foreground: #92400E;
+  --error: #EF4444;
+  --error-foreground: #FFFFFF;
+  --info: #0284C7;
+  --info-foreground: #FFFFFF;
+
+  --radius: 0.625rem;
+  --background: #F8FAFC;
+  --foreground: #1F2937;
+
+  /*
+    === SEO/AEO component aliases ===
+    AnswerBox.astro, FaqBlock.astro, Breadcrumbs.astro, and BaseLayout.astro
+    reference these generic --color-* names so they weren't hard-coded to
+    a guessed palette while we hadn't ported the real one yet. Point them
+    at the real brand tokens above instead of editing every component.
+  */
+  --color-brand: var(--brand-blue);
+  --color-surface: var(--brand-bg-card);
+  --color-surface-subtle: var(--brand-bg-alt);
+  --color-text-primary: var(--brand-text);
+  --color-text-secondary: var(--brand-text-muted);
+  --color-text-muted: var(--brand-slate);
+  --color-border: var(--border);
+}
+
+/* === Dark Mode === */
+.dark {
+  --brand-bg: #0F172A;
+  --brand-bg-alt: #1E293B;
+  --brand-bg-card: #1E293B;
+  --brand-soft: #1E293B;
+  --brand-text: #F8FAFC;
+  --brand-text-muted: #94A3B8;
+  --brand-charcoal: #F8FAFC;
+  --brand-slate: #CBD5E1;
+  --background: #0F172A;
+  --foreground: #F8FAFC;
+  --muted: #1E293B;
+  --muted-foreground: #94A3B8;
+  --border: #334155;
+  --primary: #0284C7;
+  --secondary: #F59E0B;
+}
+
+/* === Leaflet Map Styling === */
+.leaflet-container,
+.leaflet-pane,
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 1 !important;
+}
+
+/* === Prose/Article Styling === */
+.prose {
+  line-height: 1.8;
+  color: var(--brand-slate);
+}
+
+.prose h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--brand-ocean);
+  background: linear-gradient(135deg, var(--brand-ocean), var(--brand-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.prose h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-top: 1.75rem;
+  margin-bottom: 1rem;
+  color: var(--brand-ocean);
+  border-bottom: 2px solid var(--brand-gold);
+  padding-bottom: 0.3em;
+}
+
+.prose h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--brand-blue);
+}
+
+.prose h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--brand-blue);
+}
+
+.prose p {
+  margin: 1rem 0;
+  color: var(--brand-slate);
+}
+
+.prose a {
+  color: var(--brand-blue);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.prose a:hover {
+  color: var(--brand-ocean);
+  border-bottom-color: var(--brand-gold);
+}
+
+.prose ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.prose ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.prose li {
+  margin: 0.25rem 0;
+  color: var(--brand-slate);
+}
+
+.prose blockquote {
+  border-left: 4px solid var(--brand-gold);
+  background: var(--brand-sunset);
+  padding: 1rem 1rem 1rem 1.5rem;
+  border-radius: 0.5rem;
+  color: var(--brand-bronze);
+  font-style: italic;
+  margin: 1.5rem 0;
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  margin: 1.5rem auto;
+  display: block;
+  box-shadow: 0 4px 12px rgba(12, 74, 110, 0.1),
+              0 2px 4px rgba(245, 158, 11, 0.05);
+}
+
+.prose code {
+  background: var(--brand-ice);
+  color: var(--brand-blue);
+  padding: 0.25rem 0.4rem;
+  border-radius: 0.375rem;
+  font-size: 0.9rem;
+  border: 1px solid var(--brand-sky);
+}
+
+.prose pre {
+  background: var(--brand-ocean);
+  color: var(--brand-ice);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.prose pre code {
+  background: transparent;
+  color: inherit;
+  border: none;
+  padding: 0;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.prose th,
+.prose td {
+  border: 1px solid var(--brand-gray);
+  padding: 0.75rem;
+}
+
+.prose th {
+  background: var(--brand-ice);
+  color: var(--brand-ocean);
+  font-weight: 600;
+}
+
+.prose td {
+  background: var(--brand-white);
+}
+
+.prose tr:hover td {
+  background: var(--brand-soft);
+}
+
+/* === Featured Content Styling === */
+.prose .featured-tip,
+.prose .pro-tip {
+  background: linear-gradient(135deg, var(--brand-ice), var(--brand-sunset));
+  border-left: 4px solid var(--brand-gold);
+  padding: 1rem 1rem 1rem 1.5rem;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+/* === Utility Classes === */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.bg-gradient-ocean {
+  background: linear-gradient(135deg, var(--brand-ocean), var(--brand-blue));
+}
+
+.bg-gradient-gold {
+  background: linear-gradient(135deg, var(--brand-gold), var(--brand-amber));
+}
+
+.bg-gradient-sky {
+  background: linear-gradient(135deg, var(--brand-sky), var(--brand-ice));
+}
+
+.btn-primary {
+  background: var(--brand-blue);
+  color: white;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--brand-ocean);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+}
+
+.btn-gold {
+  background: var(--brand-gold);
+  color: white;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-gold:hover {
+  background: var(--brand-amber);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+/* === Tailwind Theme Extensions === */
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-card: var(--brand-bg-card);
+  --color-card-foreground: var(--brand-text);
+
+  --color-ocean: var(--brand-ocean);
+  --color-blue: var(--brand-blue);
+  --color-sky: var(--brand-sky);
+  --color-ice: var(--brand-ice);
+  --color-gold: var(--brand-gold);
+  --color-amber: var(--brand-amber);
+  --color-sunset: var(--brand-sunset);
+  --color-bronze: var(--brand-bronze);
+  --color-charcoal: var(--brand-charcoal);
+  --color-slate: var(--brand-slate);
+  --color-gray: var(--brand-gray);
+  --color-soft: var(--brand-soft);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* === Animation Utilities === */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.5s ease-out;
+}
+
+/* === Cursor pointer for all interactive elements === */
+button,
+a,
+[role="button"],
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+button:not(:disabled),
+a:not([disabled]),
+[onClick]:not([disabled]) {
+  cursor: pointer !important;
+}
+
+button:disabled,
+a[disabled],
+[disabled] {
+  cursor: not-allowed !important;
+}

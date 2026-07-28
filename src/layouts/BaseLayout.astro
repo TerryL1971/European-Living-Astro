@@ -1,0 +1,148 @@
+---
+import SeoHead from '../components/seo/SeoHead.astro';
+import Header from '../components/page/Header.tsx';
+import { BaseSelectionModal } from '../components/page/BaseSelectionModal.tsx';
+import CookieConsentModal from '../components/CookieConsentModal.tsx';
+import { organizationSchema, websiteSchema } from '../lib/seo/schema';
+import { SITE } from '../lib/seo/siteConfig';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath: string;
+  ogImage?: string;
+  noindex?: boolean;
+  /** Page-specific schemas (Article, FAQPage, etc). Organization + WebSite
+   *  are added automatically on every page — don't pass those in again. */
+  pageSchemas?: object[];
+}
+
+const { title, description, canonicalPath, ogImage, noindex, pageSchemas = [] } = Astro.props;
+
+const schemas = [organizationSchema(), websiteSchema(), ...pageSchemas];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <SeoHead
+      title={title}
+      description={description}
+      canonicalPath={canonicalPath}
+      ogImage={ogImage}
+      noindex={noindex}
+      schemas={schemas}
+    />
+    <!--
+      GA4 is wired via CookieConsentModal below — it calls initGA()
+      (src/utils/analytics.ts) only after the user consents, and
+      initGA() itself is a no-op in dev (import.meta.env.DEV check) and
+      requires PUBLIC_GA4_ID to be set, so this won't fire from a
+      preview URL or local dev by accident.
+
+      Sentry still pending — need the original init code (DSN handling,
+      requestIdleCallback deferral) before porting; not guessing at it.
+    -->
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <!-- 1. Bring back the Header -->
+    <Header client:load />
+
+    <!-- Leave these two commented out for a moment -->
+
+    <BaseSelectionModal client:load />
+    <CookieConsentModal client:idle />
+
+
+    <main id="main-content" class="main-content">
+      <slot />
+    </main>
+
+    <!-- Footer.astro — static, no JS needed -->
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p>&copy; {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
+        <nav aria-label="Footer">
+          <a href="/impressum">Impressum</a>
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/terms-of-service">Terms of Service</a>
+          <a href="/contact">Contact</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  /*
+    Single source of truth for the fixed-header offset. The old site had
+    a documented bug where this same 64px offset got applied twice (once
+    here, once again inside individual page components) — stacking to
+    128px of dead space at the top of every page. Set it here, ONCE, and
+    don't duplicate it in page-level styles.
+  */
+  .main-content {
+    padding-top: 4rem; /* 64px, matches header's h-16 */
+  }
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--color-brand);
+    color: white;
+    padding: 0.75rem 1rem;
+    z-index: 100;
+  }
+  .skip-link:focus {
+    left: 0;
+  }
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    margin-top: 4rem;
+    padding: 2rem 1.5rem;
+    background: var(--color-surface-subtle);
+  }
+  .site-footer__inner {
+    max-width: 72rem;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+  .site-footer__inner nav {
+    display: flex;
+    gap: 1.25rem;
+  }
+  .site-footer__inner a {
+    color: inherit;
+  }
+</style>
+
+<script>
+  import { initWebVitals } from '../utils/webVitals';
+  import { initSentryDeferred } from '../utils/sentry';
+  initWebVitals();
+  initSentryDeferred();
+</script>

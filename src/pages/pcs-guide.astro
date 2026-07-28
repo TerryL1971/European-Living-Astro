@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import AnswerBox from '../components/seo/AnswerBox.astro';
+---
+
+<BaseLayout
+  title="PCS Guide to Germany"
+  description="A starting-point guide for U.S. service members and families PCSing to Germany — housing, vehicles, schools, and the first steps to take."
+  canonicalPath="/pcs-guide"
+>
+  <div class="pcs-guide">
+    <Breadcrumbs items={[{ name: 'PCS Guide', url: '/pcs-guide' }]} />
+
+    <h1>PCS Guide to Germany</h1>
+
+    <AnswerBox answer="Moving to Germany on PCS orders means sorting out housing (on- or off-base), a German driver's license or USAREUR license, vehicle registration, and school enrollment for dependents — usually in that order, within your first few weeks." />
+
+    <div class="prose pcs-guide__body">
+      <h2>Before you arrive</h2>
+      <p>
+        Confirm your sponsor, review your Overseas Housing Allowance (OHA) rate for your specific installation, and
+        start researching on-base vs. off-base housing options — availability and wait times vary a lot by base.
+      </p>
+
+      <h2>Your first few weeks</h2>
+      <p>
+        Priorities typically include: in-processing at your gaining unit, temporary lodging, a German driver's
+        license (or converting your U.S. license), USAREUR vehicle registration and insurance, and — if you have
+        kids — DoDEA school enrollment.
+      </p>
+
+      <h2>Explore related guides</h2>
+      <p>
+        See the <a href="/day-trips">day trips section</a> for weekend ideas once you're settled, and check the
+        articles library for specifics on housing allowances, banking, and SOFA status.
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .pcs-guide {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+  .pcs-guide h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+</style>

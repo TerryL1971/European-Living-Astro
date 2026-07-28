@@ -1,0 +1,208 @@
+---
+// STATIC, HIGH PRIORITY SEO/AEO page — real public.day_trips schema.
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AnswerBox from '../../components/seo/AnswerBox.astro';
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import MapView from '../../components/MapView.tsx';
+import { placeSchema } from '../../lib/seo/schema';
+import { getAllDayTrips, type DayTripRow } from '../../lib/supabaseDayTrips';
+
+export async function getStaticPaths() {
+  const trips = await getAllDayTrips();
+  return trips
+    .filter((t) => t.slug) // slug is nullable in the schema; skip rows without one
+    .map((trip) => ({
+      params: { slug: trip.slug as string },
+      props: { trip },
+    }));
+}
+
+interface Props {
+  trip: DayTripRow;
+}
+const { trip } = Astro.props as Props;
+
+const heroImage = trip.hero_image_url ?? trip.image_url ?? undefined;
+const description =
+  trip.short_description ??
+  trip.description ??
+  `${trip.name} day trip from ${trip.base_name} — distance, travel time, and what to see.`;
+
+const schema = placeSchema({
+  name: trip.name,
+  description,
+  slug: trip.slug as string,
+  path: '/day-trips',
+  image: heroImage,
+  latitude: trip.latitude ?? undefined,
+  longitude: trip.longitude ?? undefined,
+});
+
+const answerText =
+  trip.short_description ??
+  `${trip.name} is ${trip.distance} from ${trip.base_name} (about ${trip.drive_time} by car${
+    trip.train_time ? `, ${trip.train_time} by train` : ''
+  }). Difficulty: ${trip.difficulty}. Cost level: ${trip.cost}.`;
+---
+
+<BaseLayout
+  title={`${trip.name} Day Trip from ${trip.base_name}`}
+  description={description}
+  canonicalPath={`/day-trips/${trip.slug}`}
+  ogImage={heroImage}
+  pageSchemas={[schema]}
+>
+  <article class="trip">
+    <Breadcrumbs
+      items={[
+        { name: 'Day Trips', url: '/day-trips' },
+        { name: trip.name, url: `/day-trips/${trip.slug}` },
+      ]}
+    />
+
+    {heroImage && <img src={heroImage} alt={trip.name} class="trip__hero" loading="lazy" />}
+
+    <h1>{trip.name} Day Trip from {trip.base_name}</h1>
+
+    <AnswerBox answer={answerText} />
+
+    <dl class="trip__facts">
+      <div><dt>Distance</dt><dd>{trip.distance}</dd></div>
+      <div><dt>Drive time</dt><dd>{trip.drive_time}</dd></div>
+      {trip.train_time && <div><dt>Train time</dt><dd>{trip.train_time}</dd></div>}
+      <div><dt>Difficulty</dt><dd>{trip.difficulty}</dd></div>
+      <div><dt>Cost</dt><dd>{trip.cost}</dd></div>
+      {trip.recommended_duration && <div><dt>Recommended time</dt><dd>{trip.recommended_duration}</dd></div>}
+      {trip.rating && <div><dt>Rating</dt><dd>{trip.rating} / 5</dd></div>}
+    </dl>
+
+    {trip.best_for && trip.best_for.length > 0 && (
+      <p class="trip__best-for">
+        <strong>Best for:</strong> {trip.best_for.join(', ')}
+      </p>
+    )}
+
+    <div class="prose trip__body">
+      {trip.full_description ? (
+        <div set:html={trip.full_description} />
+      ) : (
+        <p>{trip.description}</p>
+      )}
+
+      {trip.what_to_see && (
+        <>
+          <h2>What to See</h2>
+          <p>{trip.what_to_see}</p>
+        </>
+      )}
+
+      {trip.food_info && (
+        <>
+          <h2>Food</h2>
+          <p>{trip.food_info}</p>
+        </>
+      )}
+
+      {trip.ticket_info && (
+        <>
+          <h2>Tickets</h2>
+          <p>{trip.ticket_info}</p>
+        </>
+      )}
+
+      {trip.best_time_to_visit && (
+        <>
+          <h2>Best Time to Visit</h2>
+          <p>{trip.best_time_to_visit}</p>
+        </>
+      )}
+
+      {trip.local_tips && (
+        <div class="featured-tip">
+          <strong>Local tip:</strong> {trip.local_tips}
+        </div>
+      )}
+    </div>
+
+    {trip.official_website && (
+      <a href={trip.official_website} target="_blank" rel="noopener noreferrer" class="btn-primary trip__official-link">
+        Official Website
+      </a>
+    )}
+
+    <!--
+      client:only="react" — NOT client:visible. Leaflet touches `window`
+      synchronously at module-load time, which breaks Astro's normal
+      server-render pass entirely (even client:visible still does an
+      initial SSR pass to produce pre-hydration HTML). client:only skips
+      SSR for this component and renders exclusively in the browser.
+      This is fine for SEO: the actual coordinates are already exposed
+      via the page's TouristAttraction schema above, so the map itself
+      isn't carrying SEO weight — it's a pure UX enhancement.
+    -->
+    {trip.latitude && trip.longitude && (
+      <div class="trip__map">
+        <MapView
+          client:only="react"
+          center={[trip.latitude, trip.longitude]}
+          zoom={13}
+          height="h-72"
+          markers={[{ position: [trip.latitude, trip.longitude], title: trip.name }]}
+        />
+      </div>
+    )}
+  </article>
+</BaseLayout>
+
+<style>
+  .trip {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+  .trip__hero {
+    width: 100%;
+    height: 16rem;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .trip h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .trip__facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 1rem;
+    background: var(--color-surface-subtle);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    margin: 1.5rem 0;
+  }
+  .trip__facts dt {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--color-text-muted);
+  }
+  .trip__facts dd {
+    margin: 0.125rem 0 0;
+    font-weight: 600;
+  }
+  .trip__best-for {
+    margin-bottom: 1.5rem;
+  }
+  .trip__official-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+  }
+  .trip__map {
+    margin-top: 2rem;
+  }
+</style>

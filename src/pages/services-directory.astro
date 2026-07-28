@@ -1,0 +1,142 @@
+---
+// Full business directory — every active business, static-rendered at
+// build time (real content for SEO, not fetched client-side after page
+// load). Search/category/base filtering is a lightweight plain-JS
+// layer on top (same pattern as the homepage destinations search),
+// filtering already-rendered cards rather than re-fetching data.
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import BusinessListCard from '../components/BusinessListCard.astro';
+import { fetchBusinesses } from '../services/businessServices';
+import { serviceCategories } from '../data/serviceCategories';
+import { BASES } from '../lib/seo/siteConfig';
+
+const businesses = await fetchBusinesses({ status: 'active' });
+const sortedBusinesses = [...businesses].sort((a, b) => {
+  if (a.featured !== b.featured) return a.featured ? -1 : 1;
+  return a.name.localeCompare(b.name);
+});
+---
+
+<BaseLayout
+  title="Services Directory"
+  description="Browse English-speaking, military-friendly businesses across Germany — automotive, healthcare, restaurants, legal, real estate, and more."
+  canonicalPath="/services-directory"
+>
+  <div class="services-directory">
+    <Breadcrumbs items={[{ name: 'Services Directory', url: '/services-directory' }]} />
+
+    <h1>Services Directory</h1>
+    <p class="services-directory__lede">
+      {sortedBusinesses.length} verified, English-speaking businesses serving U.S. military families across Germany.
+    </p>
+
+    <div class="services-directory__filters">
+      <input type="text" id="directory-search" placeholder="Search by name, description, or location..." class="services-directory__search" />
+
+      <select id="directory-category" class="services-directory__select">
+        <option value="">All Categories</option>
+        {serviceCategories.map((cat) => <option value={cat.id}>{cat.title}</option>)}
+      </select>
+
+      <select id="directory-base" class="services-directory__select">
+        <option value="">All Bases</option>
+        {BASES.map((base) => <option value={base.toLowerCase()}>{base}</option>)}
+      </select>
+    </div>
+
+    <div class="services-directory__grid" id="directory-grid">
+      {sortedBusinesses.map((business) => <BusinessListCard business={business} />)}
+    </div>
+
+    <p id="directory-empty" class="services-directory__empty" hidden>No businesses match your filters.</p>
+  </div>
+</BaseLayout>
+
+<script>
+  const searchInput = document.getElementById('directory-search') as HTMLInputElement | null;
+  const categorySelect = document.getElementById('directory-category') as HTMLSelectElement | null;
+  const baseSelect = document.getElementById('directory-base') as HTMLSelectElement | null;
+  const grid = document.getElementById('directory-grid');
+  const emptyMessage = document.getElementById('directory-empty');
+
+  function applyFilters() {
+    const query = (searchInput?.value ?? '').trim().toLowerCase();
+    const category = categorySelect?.value ?? '';
+    const base = baseSelect?.value ?? '';
+
+    const cards = grid?.querySelectorAll<HTMLElement>('.business-card') ?? [];
+    let visibleCount = 0;
+
+    cards.forEach((card) => {
+      const matchesQuery = !query || (card.dataset.search ?? '').includes(query);
+      const matchesCategory = !category || card.dataset.category === category;
+      const matchesBase = !base || (card.dataset.bases ?? '').split(',').includes(base);
+      const matches = matchesQuery && matchesCategory && matchesBase;
+
+      card.hidden = !matches;
+      if (matches) visibleCount += 1;
+    });
+
+    if (emptyMessage) emptyMessage.hidden = visibleCount > 0;
+  }
+
+  searchInput?.addEventListener('input', applyFilters);
+  categorySelect?.addEventListener('change', applyFilters);
+  baseSelect?.addEventListener('change', applyFilters);
+
+  // Support ?category=automotive style deep links (e.g. from
+  // ServicesCategoriesSection's category cards on the homepage).
+  const params = new URLSearchParams(window.location.search);
+  const initialCategory = params.get('category');
+  const initialBase = params.get('base');
+  if (initialCategory && categorySelect) categorySelect.value = initialCategory;
+  if (initialBase && baseSelect) baseSelect.value = initialBase;
+  applyFilters();
+</script>
+
+<style>
+  .services-directory {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 4rem;
+  }
+  .services-directory h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .services-directory__lede {
+    color: var(--brand-text-muted);
+    margin-bottom: 1.5rem;
+  }
+  .services-directory__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  .services-directory__search {
+    flex: 1 1 16rem;
+    border: 1px solid var(--brand-border);
+    border-radius: 0.5rem;
+    padding: 0.625rem 1rem;
+  }
+  .services-directory__select {
+    border: 1px solid var(--brand-border);
+    border-radius: 0.5rem;
+    padding: 0.625rem 1rem;
+    background: white;
+  }
+  .services-directory__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 1.25rem;
+  }
+  .services-directory__empty {
+    text-align: center;
+    color: var(--brand-text-muted);
+    padding: 3rem 0;
+  }
+</style>

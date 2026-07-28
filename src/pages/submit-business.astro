@@ -1,0 +1,17 @@
+---
+// Matches the real, already-indexed production URL: /submit-business
+// (confirmed via Google Search Console export earlier). The form needs
+// to be interactive immediately on load — client:load, not
+// client:visible — since it's the entire point of the page and sits
+// above the fold.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BusinessSubmissionForm from '../components/BusinessSubmissionForm.tsx';
+---
+
+<BaseLayout
+  title="Submit Your Business"
+  description="List your English-speaking business in European Living's directory to reach American military families and expats across Germany."
+  canonicalPath="/submit-business"
+>
+  <BusinessSubmissionForm client:load />
+</BaseLayout>

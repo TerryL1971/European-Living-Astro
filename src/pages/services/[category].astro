@@ -1,0 +1,139 @@
+---
+// Per-category listing — matches the URLs ServicesCategoriesSection.tsx
+// already generates (`/services/${category.id}?base=${selectedBase}`).
+// Statically generated for all 9 known categories regardless of
+// current business count, so a category with zero businesses today
+// still gets a real page (matching the "Coming Soon" treatment
+// ServicesCategoriesSection shows on the homepage) rather than 404ing.
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import BusinessListCard from '../../components/BusinessListCard.astro';
+import { fetchBusinessesByCategory } from '../../services/businessServices';
+import { serviceCategories } from '../../data/serviceCategories';
+import { BASES } from '../../lib/seo/siteConfig';
+import type { ServiceCategory } from '../../types/business';
+
+export async function getStaticPaths() {
+  return serviceCategories.map((cat) => ({
+    params: { category: cat.id },
+    props: { categoryId: cat.id },
+  }));
+}
+
+interface Props {
+  categoryId: string;
+}
+const { categoryId } = Astro.props as Props;
+
+const categoryDef = serviceCategories.find((c) => c.id === categoryId);
+const businesses = await fetchBusinessesByCategory(categoryId as ServiceCategory);
+const sortedBusinesses = [...businesses].sort((a, b) => {
+  if (a.featured !== b.featured) return a.featured ? -1 : 1;
+  return a.name.localeCompare(b.name);
+});
+---
+
+<BaseLayout
+  title={categoryDef?.title ?? categoryId}
+  description={categoryDef?.description ?? `English-speaking ${categoryId} businesses serving U.S. military families in Germany.`}
+  canonicalPath={`/services/${categoryId}`}
+>
+  <div class="category-listing">
+    <Breadcrumbs items={[{ name: 'Services Directory', url: '/services-directory' }, { name: categoryDef?.title ?? categoryId, url: `/services/${categoryId}` }]} />
+
+    <h1>{categoryDef?.title ?? categoryId}</h1>
+    {categoryDef?.description && <p class="category-listing__lede">{categoryDef.description}</p>}
+    <p class="category-listing__count">{sortedBusinesses.length} business{sortedBusinesses.length === 1 ? '' : 'es'}</p>
+
+    {sortedBusinesses.length > 0 && (
+      <div class="category-listing__filters">
+        <select id="category-base-filter" class="category-listing__select">
+          <option value="">All Bases</option>
+          {BASES.map((base) => <option value={base.toLowerCase()}>{base}</option>)}
+        </select>
+      </div>
+    )}
+
+    <div class="category-listing__grid" id="category-grid">
+      {sortedBusinesses.map((business) => <BusinessListCard business={business} />)}
+    </div>
+
+    {sortedBusinesses.length === 0 && (
+      <div class="category-listing__empty">
+        <p>No businesses in this category yet.</p>
+        <a href="/submit-business">List your business</a>
+      </div>
+    )}
+  </div>
+</BaseLayout>
+
+<script>
+  const baseSelect = document.getElementById('category-base-filter') as HTMLSelectElement | null;
+  const grid = document.getElementById('category-grid');
+
+  function applyBaseFilter() {
+    const base = baseSelect?.value ?? '';
+    const cards = grid?.querySelectorAll<HTMLElement>('.business-card') ?? [];
+    cards.forEach((card) => {
+      const matches = !base || (card.dataset.bases ?? '').split(',').includes(base);
+      card.hidden = !matches;
+    });
+  }
+
+  baseSelect?.addEventListener('change', applyBaseFilter);
+
+  const params = new URLSearchParams(window.location.search);
+  const initialBase = params.get('base');
+  if (initialBase && baseSelect) {
+    baseSelect.value = initialBase;
+    applyBaseFilter();
+  }
+</script>
+
+<style>
+  .category-listing {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 4rem;
+  }
+  .category-listing h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .category-listing__lede {
+    color: var(--brand-text-muted);
+    max-width: 42rem;
+  }
+  .category-listing__count {
+    font-size: 0.875rem;
+    color: var(--brand-text-muted);
+    margin: 0.5rem 0 1.5rem;
+  }
+  .category-listing__filters {
+    margin-bottom: 1.5rem;
+  }
+  .category-listing__select {
+    border: 1px solid var(--brand-border);
+    border-radius: 0.5rem;
+    padding: 0.625rem 1rem;
+    background: white;
+  }
+  .category-listing__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 1.25rem;
+  }
+  .category-listing__empty {
+    text-align: center;
+    padding: 3rem 0;
+    color: var(--brand-text-muted);
+  }
+  .category-listing__empty a {
+    display: inline-block;
+    margin-top: 0.75rem;
+    color: var(--brand-blue);
+    font-weight: 600;
+  }
+</style>

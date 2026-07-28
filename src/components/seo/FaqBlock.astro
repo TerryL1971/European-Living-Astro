@@ -1,0 +1,62 @@
+---
+// Renders visible, crawlable FAQ content AND emits the matching FAQPage
+// schema from the same data — deliberately in one component so the
+// visible text and the JSON-LD can never drift out of sync (Google
+// treats markup that doesn't match visible content as a spam signal,
+// and it's a real risk on pages edited over time by different people).
+//
+// Only mount this on pages with genuine Q&A content. Don't fabricate
+// FAQs to get the schema — answer engines and Google both increasingly
+// penalize this.
+import { faqSchema } from '../../lib/seo/schema';
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+interface Props {
+  items: FaqItem[];
+  heading?: string;
+}
+const { items, heading = 'Frequently Asked Questions' } = Astro.props;
+const schema = faqSchema(items);
+---
+
+<section class="faq-block" aria-labelledby="faq-heading">
+  <h2 id="faq-heading">{heading}</h2>
+  <div class="faq-block__list">
+    {
+      items.map((item, i) => (
+        <details class="faq-block__item" name={`faq-${i}`}>
+          <summary class="faq-block__question">{item.question}</summary>
+          <p class="faq-block__answer">{item.answer}</p>
+        </details>
+      ))
+    }
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+<style>
+  .faq-block {
+    margin: 2.5rem 0;
+  }
+  .faq-block__item {
+    border-bottom: 1px solid var(--color-border, #e5e7eb);
+    padding: 0.875rem 0;
+  }
+  .faq-block__question {
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq-block__question::-webkit-details-marker {
+    display: none;
+  }
+  .faq-block__answer {
+    margin: 0.75rem 0 0;
+    line-height: 1.6;
+    color: var(--color-text-secondary, #374151);
+  }
+</style>

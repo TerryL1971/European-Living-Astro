@@ -1,0 +1,13 @@
+---
+// /destinations/<slug> is a legacy, unlinked URL from the old app —
+// nothing on the live site actually links here (confirmed 2026-07-27),
+// but external links/bookmarks/old search results may still hit it.
+// Redirect to the real canonical page (/articles/<slug>) instead of
+// serving duplicate content at two URLs. prerender = false makes this
+// an on-demand (server) route via the Vercel adapter, so this is a
+// real HTTP 301, not a client-side/meta-refresh redirect.
+export const prerender = false;
+
+const { slug } = Astro.params;
+return Astro.redirect(`/articles/${slug}`, 301);
+---

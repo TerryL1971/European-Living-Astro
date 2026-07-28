@@ -1,0 +1,58 @@
+---
+import { breadcrumbSchema } from '../../lib/seo/schema';
+
+interface Crumb {
+  name: string;
+  url: string; // path, e.g. "/articles" — "/" for home is added automatically
+}
+interface Props {
+  items: Crumb[]; // do NOT include home; it's prepended automatically
+}
+const { items } = Astro.props;
+const fullTrail = [{ name: 'Home', url: '/' }, ...items];
+const schema = breadcrumbSchema(fullTrail);
+---
+
+<nav aria-label="Breadcrumb" class="breadcrumbs">
+  <ol class="breadcrumbs__list">
+    {
+      fullTrail.map((crumb, i) => (
+        <li class="breadcrumbs__item">
+          {i < fullTrail.length - 1 ? (
+            <>
+              <a href={crumb.url}>{crumb.name}</a>
+              <span aria-hidden="true"> / </span>
+            </>
+          ) : (
+            <span aria-current="page">{crumb.name}</span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+<style>
+  .breadcrumbs__list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    font-size: 0.875rem;
+    color: var(--color-text-muted, #6b7280);
+  }
+  .breadcrumbs__item a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .breadcrumbs__item a:hover {
+    text-decoration: underline;
+  }
+  .breadcrumbs__item [aria-current='page'] {
+    color: var(--color-text-primary, #111827);
+    font-weight: 500;
+  }
+</style>

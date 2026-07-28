@@ -1,0 +1,47 @@
+---
+// AEO PATTERN: "answer-first" content structure.
+//
+// AI Overviews, Perplexity, and voice assistants extract short, direct
+// answers to lift into their own responses — they favor content that
+// states the answer plainly before elaborating, over articles that build
+// up to the point narratively. This component renders that direct answer
+// as the first thing after the H1, visually distinct, in plain prose
+// (no bullet fragments — answer engines extract better from complete
+// sentences).
+//
+// Usage: write the 2-3 sentence answer as if someone asked the exact
+// question in your H1 and you had to answer it in a text message.
+// Define any acronym on first use here even if defined again later in
+// the body — this box is often extracted in isolation.
+interface Props {
+  answer: string;
+  lastUpdated?: string; // human-readable, e.g. "July 2026" — shown for freshness signal
+}
+const { answer, lastUpdated } = Astro.props;
+---
+
+<div class="answer-box" role="complementary" aria-label="Quick answer">
+  <p class="answer-box__text">{answer}</p>
+  {lastUpdated && <p class="answer-box__updated">Last updated: {lastUpdated}</p>}
+</div>
+
+<style>
+  .answer-box {
+    background: var(--color-surface-subtle, #f4f6f5);
+    border-left: 4px solid var(--color-brand, #2f5d50);
+    border-radius: 0.375rem;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0 2rem;
+  }
+  .answer-box__text {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 500;
+  }
+  .answer-box__updated {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted, #6b7280);
+    margin: 0.5rem 0 0;
+  }
+</style>

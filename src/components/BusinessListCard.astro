@@ -1,0 +1,110 @@
+---
+// Lightweight, fully static business card — used by both
+// /services-directory and /services/[category].astro. Deliberately NOT
+// using BusinessCardWithMap.tsx here: mounting a live Leaflet map + a
+// live review-stats fetch for every one of 200+ businesses on one page
+// would be a real performance problem. The rich, live version lives on
+// the business detail page (/businesses/[slug].astro) instead — these
+// listing pages just need enough to help someone find and click through
+// to the right one.
+import type { Business } from '../types/business';
+
+interface Props {
+  business: Business;
+}
+const { business } = Astro.props as Props;
+
+const searchText = `${business.name} ${business.description ?? ''} ${business.location}`.toLowerCase();
+---
+
+<a
+  href={`/businesses/${business.slug}`}
+  class="business-card"
+  data-search={searchText}
+  data-category={business.category}
+  data-bases={business.basesServed.join(',')}
+>
+  <div class="business-card__header">
+    <h3>{business.name}</h3>
+    {business.featured && <span class="business-card__badge business-card__badge--featured">⭐ Featured</span>}
+  </div>
+
+  <div class="business-card__badges">
+    {business.verified && <span class="business-card__badge business-card__badge--verified">✓ Verified</span>}
+    {business.englishFluency && <span class="business-card__badge">{business.englishFluency} English</span>}
+  </div>
+
+  {business.description && <p class="business-card__description">{business.description}</p>}
+
+  <p class="business-card__location">📍 {business.location}</p>
+  {business.baseDistance && <p class="business-card__distance">{business.baseDistance}</p>}
+</a>
+
+<style>
+  .business-card {
+    display: block;
+    background: var(--brand-bg-card);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .business-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+  .business-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .business-card__header h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+  .business-card__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin-bottom: 0.5rem;
+  }
+  .business-card__badge {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    background: var(--brand-bg-alt);
+    color: var(--brand-text-muted);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .business-card__badge--featured {
+    background: var(--brand-gold);
+    color: var(--brand-dark);
+  }
+  .business-card__badge--verified {
+    background: #10b981;
+    color: white;
+  }
+  .business-card__description {
+    font-size: 0.875rem;
+    color: var(--brand-text-muted);
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .business-card__location {
+    font-size: 0.8125rem;
+    color: var(--brand-text-muted);
+  }
+  .business-card__distance {
+    font-size: 0.75rem;
+    color: var(--brand-blue);
+  }
+</style>

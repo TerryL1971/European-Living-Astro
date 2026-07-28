@@ -1,0 +1,319 @@
+---
+// src/components/page/HeroSection.astro
+//
+// Ported from HeroSection.tsx as a fully STATIC component — no React
+// island needed at all. Every interaction in the original was either:
+//   - scrollToDestinations/scrollToEmailSignup: smooth-scroll to an
+//     anchor, which plain <a href="#id"> already does since
+//     `scroll-behavior: smooth` is set globally in global.css
+//   - the Facebook link: already a plain external <a>
+//   - the PCS Guide banner Link and "Read Terry's story" navigate():
+//     both just internal navigation, which is a plain <a href="..."> in
+//     Astro's multi-page model (same reasoning as Header.tsx's port)
+// Zero client-side JS is a genuine win here, not just a simplification —
+// this is above-the-fold content, so shipping no JS for it helps time-
+// to-interactive on every single page load.
+
+const bgUrl = 'https://pkacbcohrygpyapgtzpq.supabase.co/storage/v1/object/public/images/hero-bg.jpg';
+---
+
+<section
+  id="home"
+  aria-label="Hero"
+  class="hero-section"
+  style={`background-image: url("${bgUrl}");`}
+>
+  <div class="hero-section__overlay-gradient" aria-hidden="true"></div>
+  <div class="hero-section__overlay-vignette" aria-hidden="true"></div>
+
+  <div class="hero-section__content">
+    <h1 class="hero-section__title">
+      Discover Europe <span class="hero-section__title-accent">Beyond</span> the Base
+    </h1>
+
+    <p class="hero-section__subtitle">
+      Your complete guide to exploring Europe with confidence. From weekend trips to English-friendly services — all
+      in one place.
+    </p>
+
+    <div class="hero-section__stats">
+      <div class="hero-section__stat">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hero-section__stat-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+        <span>33 Day Trips</span>
+      </div>
+      <div class="hero-section__stat">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hero-section__stat-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-1.13a4 4 0 10-4-4 4 4 0 004 4zm6 0a4 4 0 10-4-4" /></svg>
+        <span>200+ Businesses</span>
+      </div>
+      <div class="hero-section__stat">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hero-section__stat-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
+        <span>1,200+ Phrases</span>
+      </div>
+    </div>
+
+    <p class="hero-section__trust">
+      Built by Americans who've lived in Germany for 9+ years and helped hundreds of military families. We understand
+      the fear of leaving base — and we're here to help you explore with confidence.
+    </p>
+
+    <div class="hero-section__ctas">
+      <a href="#destinations" class="hero-section__cta hero-section__cta--primary">🗺️ Explore Destinations</a>
+
+      <a href="#email-signup" class="hero-section__cta hero-section__cta--gold">✉️ Get Free Travel Tips</a>
+
+      <a
+        href="https://www.facebook.com/EuropeanLivingOfficial"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hero-section__cta hero-section__cta--facebook"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="hero-section__fb-icon" aria-hidden="true">
+          <path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z" />
+        </svg>
+        Join Our Community
+      </a>
+    </div>
+
+    <!--
+      PCS Guide banner — understated on purpose, shouldn't compete with
+      the primary CTAs above but should be unmissable for someone about
+      to PCS. Matches Header.tsx's "PCS Guide" nav treatment.
+    -->
+    <div class="hero-section__pcs-banner-wrap">
+      <a href="/pcs-guide" class="hero-section__pcs-banner">
+        <span class="hero-section__pcs-icon">✈️</span>
+        <div class="hero-section__pcs-text">
+          <div class="hero-section__pcs-title">PCSing to Germany?</div>
+          <div class="hero-section__pcs-subtitle">Our step-by-step guide — available at USO lounges nationwide</div>
+        </div>
+        <span class="hero-section__pcs-badge">USO</span>
+        <span class="hero-section__pcs-arrow">→</span>
+      </a>
+    </div>
+
+    <p class="hero-section__secondary-cta">
+      <a href="/about">Read Terry's story →</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #000;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center 55%;
+  }
+  .hero-section__overlay-gradient {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.3) 100%);
+  }
+  .hero-section__overlay-vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.4) 100%);
+  }
+  .hero-section__content {
+    position: relative;
+    z-index: 10;
+    padding: 0 1.5rem;
+    text-align: center;
+    color: white;
+    max-width: 64rem;
+  }
+  .hero-section__title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
+  }
+  .hero-section__title-accent {
+    color: var(--brand-gold, #f5c04a);
+  }
+  @media (min-width: 768px) {
+    .hero-section__title {
+      font-size: 3.75rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .hero-section__title {
+      font-size: 4.5rem;
+    }
+  }
+  .hero-section__subtitle {
+    max-width: 48rem;
+    margin: 0 auto 2rem;
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 1.6;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 1px 3px rgba(0, 0, 0, 0.6);
+  }
+  @media (min-width: 768px) {
+    .hero-section__subtitle {
+      font-size: 1.25rem;
+    }
+  }
+  .hero-section__stats {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    font-size: 0.9375rem;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+  }
+  .hero-section__stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+  }
+  .hero-section__stat-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--brand-gold, #f5c04a);
+    flex-shrink: 0;
+  }
+  .hero-section__trust {
+    max-width: 42rem;
+    margin: 0 auto 2.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+  }
+  .hero-section__ctas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  @media (min-width: 640px) {
+    .hero-section__ctas {
+      flex-direction: row;
+    }
+  }
+  .hero-section__cta {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 1.125rem;
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+  @media (min-width: 640px) {
+    .hero-section__cta {
+      width: auto;
+    }
+  }
+  .hero-section__cta:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+  }
+  .hero-section__cta--primary {
+    background: var(--brand-primary, #1e40af);
+    color: white;
+  }
+  .hero-section__cta--primary:hover {
+    background: var(--brand-dark, #153a84);
+  }
+  .hero-section__cta--gold {
+    background: var(--brand-gold, #f5c04a);
+    color: #131312;
+  }
+  .hero-section__cta--gold:hover {
+    background: var(--brand-button);
+  }
+  .hero-section__cta--facebook {
+    background: #1877f2;
+    color: white;
+  }
+  .hero-section__cta--facebook:hover {
+    background: #0f5bbf;
+  }
+  .hero-section__fb-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  .hero-section__pcs-banner-wrap {
+    margin-top: 2rem;
+  }
+  .hero-section__pcs-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 1rem;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+    background: rgba(27, 58, 92, 0.75);
+    border: 1px solid rgba(157, 165, 134, 0.5);
+    backdrop-filter: blur(8px);
+  }
+  .hero-section__pcs-banner:hover {
+    transform: scale(1.05);
+  }
+  .hero-section__pcs-icon {
+    font-size: 1.25rem;
+  }
+  .hero-section__pcs-text {
+    text-align: left;
+  }
+  .hero-section__pcs-title {
+    color: white;
+    font-weight: 700;
+    font-size: 0.875rem;
+    line-height: 1.2;
+  }
+  .hero-section__pcs-subtitle {
+    color: #c8d4b4;
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+  .hero-section__pcs-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    background-color: #9da586;
+    color: white;
+    flex-shrink: 0;
+  }
+  .hero-section__pcs-arrow {
+    color: #9da586;
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+  .hero-section__secondary-cta {
+    margin-top: 1.5rem;
+    font-size: 0.9375rem;
+    opacity: 0.8;
+  }
+  .hero-section__secondary-cta a {
+    color: white;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+  }
+  .hero-section__secondary-cta a:hover {
+    color: var(--brand-gold, #f5c04a);
+  }
+</style>
