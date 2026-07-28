@@ -1,0 +1,276 @@
+---
+// GDPR-compliant privacy policy. Ported from PrivacyPolicy.tsx.
+// Styled to match impressum.astro and terms-of-service.astro for
+// visual consistency across legal pages.
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="Privacy Policy for European Living — how we collect, use, and protect your data, including GDPR rights for EU users."
+  canonicalPath="/privacy-policy"
+>
+  <div class="legal">
+    <Breadcrumbs items={[{ name: 'Privacy Policy', url: '/privacy-policy' }]} />
+
+    <div class="legal__header">
+      <span class="legal__eyebrow">Legal</span>
+      <h1>Privacy Policy</h1>
+      <p class="legal__subtitle">Effective date: June 2026 · Last updated: June 2026</p>
+    </div>
+
+    <section class="legal__section">
+      <p class="legal__muted">
+        European Living (<strong>european-living.live</strong>) is
+        operated by Terrell C Lombardi, Untere Burggasse 4, 71063
+        Sindelfingen, Germany ("we", "us", "our"). This Privacy Policy
+        explains what personal data we collect, why we collect it, who
+        we share it with, and the rights you have over it — including
+        rights under the EU General Data Protection Regulation (GDPR).
+      </p>
+    </section>
+
+    <section class="legal__section">
+      <h2>1. Information We Collect</h2>
+      <p class="legal__muted">We collect information you provide directly to us, including when you:</p>
+      <ul class="legal__list">
+        <li>Select your military base or location preference</li>
+        <li>Submit a business listing through the Submit Your Business form</li>
+        <li>Contact us through the contact form, email, or WhatsApp</li>
+        <li>Sign up for travel tips or email updates</li>
+      </ul>
+      <p class="legal__muted">
+        We also automatically collect limited technical information
+        when you visit the site, such as your IP address (anonymized),
+        browser type, device type, and pages visited, via Google
+        Analytics (see Section 3).
+      </p>
+    </section>
+
+    <section class="legal__section">
+      <h2>2. Service Providers Who Process Your Data</h2>
+      <p class="legal__muted">
+        We use the following third-party service providers to operate
+        the site. Each processes data on our behalf under their own
+        privacy and security terms:
+      </p>
+      <ul class="legal__list">
+        <li><strong>Supabase</strong> — database and image storage for site content and business listings.</li>
+        <li><strong>Vercel</strong> — website hosting and content delivery.</li>
+        <li><strong>Formspree</strong> — processes contact form submissions and forwards them to our email.</li>
+        <li><strong>Google Analytics (GA4)</strong> — anonymized website usage analytics. See Section 3 for details.</li>
+        <li><strong>Sentry</strong> — error monitoring to help us identify and fix technical issues. Sentry may incidentally log technical data (browser, URL) at the time of an error.</li>
+        <li><strong>ImprovMX</strong> — forwards email sent to our info@european-living.live address to our personal inbox.</li>
+      </ul>
+      <p class="legal__muted">
+        We do not sell your personal data to any third party. Some of
+        these providers may process data on servers located outside
+        the European Economic Area (EEA), including in the United
+        States. Where this occurs, the provider relies on an approved
+        data transfer mechanism, such as the EU Standard Contractual
+        Clauses, to ensure your data remains protected.
+      </p>
+    </section>
+
+    <section class="legal__section">
+      <h2>3. Cookies and Tracking</h2>
+
+      <h3>Necessary Cookies</h3>
+      <p class="legal__muted">
+        Required for the website to function properly. These do not
+        require consent under GDPR and include:
+      </p>
+      <ul class="legal__list">
+        <li>Your selected military base or location preference</li>
+        <li>Your cookie consent choice itself, so we don't ask again</li>
+      </ul>
+
+      <h3>Analytics Cookies</h3>
+      <p class="legal__muted">
+        With your consent, we use Google Analytics (GA4) to understand
+        how visitors use the site — which pages are popular, how people
+        navigate, and general traffic patterns. We have enabled IP
+        anonymization. This data is used in aggregate and is not used
+        to personally identify you.
+      </p>
+
+      <h3>Marketing Cookies</h3>
+      <p class="legal__muted">
+        We do not currently use any marketing, advertising, or
+        retargeting cookies. If this changes in the future, this
+        Privacy Policy will be updated and you will be asked for
+        renewed consent through our cookie banner before any such
+        cookies are set.
+      </p>
+
+      <p class="legal__muted">
+        You can change your cookie preferences at any time using the
+        "Cookie Settings" link in the site footer, which reopens the
+        consent banner and lets you update your choices.
+      </p>
+    </section>
+
+    <section class="legal__section">
+      <h2>4. Data Retention</h2>
+      <p class="legal__muted">
+        We retain personal data only as long as necessary for the
+        purposes described in this policy:
+      </p>
+      <ul class="legal__list">
+        <li>Contact form messages: retained for up to 24 months, then deleted</li>
+        <li>Business listing submissions: retained for as long as the listing remains active, plus 12 months</li>
+        <li>Analytics data: retained according to Google Analytics' default retention settings (currently 14 months)</li>
+      </ul>
+      <p class="legal__muted">
+        You may request earlier deletion of your data at any time — see Section 5.
+      </p>
+    </section>
+
+    <section class="legal__section">
+      <h2>5. Your Rights (GDPR)</h2>
+      <p class="legal__muted">
+        If you are located in the European Economic Area, you have the
+        following rights under the GDPR:
+      </p>
+      <ul class="legal__list">
+        <li>Access the personal data we hold about you</li>
+        <li>Correct inaccurate or incomplete data</li>
+        <li>Request deletion of your data ("right to be forgotten")</li>
+        <li>Object to or restrict certain processing of your data</li>
+        <li>Receive your data in a portable format</li>
+        <li>Withdraw consent at any time, without affecting prior lawful processing</li>
+        <li>Lodge a complaint with your local data protection authority</li>
+      </ul>
+      <p class="legal__muted">
+        To exercise any of these rights, contact us using the details
+        in Section 7. We will respond within one month as required by
+        the GDPR.
+      </p>
+    </section>
+
+    <section class="legal__section">
+      <h2>6. Children's Privacy</h2>
+      <p class="legal__muted">
+        European Living is not directed at children, and we do not
+        knowingly collect personal data from anyone under 16. If you
+        believe a child has provided us with personal data, please
+        contact us so we can delete it.
+      </p>
+    </section>
+
+    <section class="legal__section">
+      <h2>7. Contact Us</h2>
+      <p class="legal__muted">
+        For privacy-related questions or to exercise your GDPR rights, contact:
+      </p>
+      <div class="legal__block legal__muted">
+        <p>Terrell C Lombardi</p>
+        <p>Untere Burggasse 4, 71063 Sindelfingen, Deutschland</p>
+        <p><a href="mailto:privacy@european-living.live">privacy@european-living.live</a></p>
+      </div>
+    </section>
+
+    <section class="legal__section">
+      <h2>8. Changes to This Policy</h2>
+      <p class="legal__muted">
+        We may update this Privacy Policy from time to time. Changes
+        will be posted on this page with an updated effective date.
+        Material changes affecting how we use your data will be
+        accompanied by a renewed cookie consent prompt where required.
+      </p>
+    </section>
+
+    <div class="legal__updated">
+      <p>Effective date: June 2026 · Last updated: June 2026</p>
+      <div class="legal__updated-links">
+        <a href="/terms-of-service">Terms of Service</a>
+        <a href="/impressum">Impressum</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+  .legal__header {
+    margin-bottom: 2.5rem;
+  }
+  .legal__eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--brand-secondary, var(--brand-blue));
+    margin-bottom: 0.75rem;
+  }
+  .legal__header h1 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--brand-primary-dark, var(--brand-dark));
+    margin-bottom: 0.5rem;
+  }
+  .legal__subtitle {
+    font-size: 0.875rem;
+    color: var(--brand-text-muted);
+  }
+  .legal__section {
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+  .legal__section h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--brand-primary-dark, var(--brand-dark));
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid var(--brand-border);
+  }
+  .legal__section h3 {
+    font-weight: 600;
+    margin-top: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+  .legal__list {
+    list-style: disc;
+    padding-left: 1.25rem;
+    margin-top: 0.5rem;
+    color: var(--brand-text-muted);
+  }
+  .legal__list li {
+    margin-bottom: 0.25rem;
+  }
+  .legal__block p {
+    margin: 0.125rem 0;
+  }
+  .legal__muted {
+    color: var(--brand-text-muted);
+    margin-top: 0.5rem;
+  }
+  .legal a {
+    color: var(--brand-primary, var(--brand-blue));
+  }
+  .legal a:hover {
+    text-decoration: underline;
+  }
+  .legal__updated {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--brand-border);
+    font-size: 0.75rem;
+    color: var(--brand-text-muted);
+  }
+  .legal__updated-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.75rem;
+    font-size: 0.75rem;
+  }
+</style>

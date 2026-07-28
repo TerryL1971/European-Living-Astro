@@ -1,0 +1,295 @@
+---
+// Ported from TermsOfServicePage.tsx.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+---
+
+<BaseLayout
+  title="Terms of Service"
+  description="Terms of Service for European Living — the independent resource for US military families and American expats in Europe."
+  canonicalPath="/terms-of-service"
+>
+  <div class="legal">
+    <Breadcrumbs items={[{ name: 'Terms of Service', url: '/terms-of-service' }]} />
+
+    <div class="legal__header">
+      <span class="legal__eyebrow">Legal</span>
+      <h1>Terms of Service</h1>
+      <p class="legal__subtitle">Effective date: June 2026 · Last updated: June 2026</p>
+    </div>
+
+    <section class="legal__section">
+      <p>
+        Welcome to European Living (<strong>european-living.live</strong>).
+        By accessing or using this website, you agree to be bound by
+        these Terms of Service. If you do not agree, please do not use
+        the site.
+      </p>
+      <p class="legal__muted">
+        European Living is operated by Terrell C Lombardi, Sindelfingen,
+        Germany ("we", "us", "our"). The site is an independent
+        information resource for US military families and American expats
+        living in or moving to Europe.
+      </p>
+      <p class="legal__muted">
+        This site is intended for use by individuals who are at least
+        18 years of age, or the age of legal majority in their
+        jurisdiction. By using the site or submitting content, you
+        represent that you meet this requirement.
+      </p>
+    </section>
+
+    <section class="legal__section">
+      <h2>1. Use of the Site</h2>
+      <p class="legal__muted">
+        You may use European Living for personal, non-commercial purposes.
+        You agree not to:
+      </p>
+      <ul class="legal__list">
+        <li>Reproduce, copy, or redistribute site content without written permission</li>
+        <li>Use the site for any unlawful purpose</li>
+        <li>Attempt to gain unauthorized access to any part of the site or its infrastructure</li>
+        <li>Submit false, misleading, or fraudulent business listings or reviews</li>
+        <li>Impersonate any person, business, or military organization</li>
+      </ul>
+    </section>
+
+    <section class="legal__section">
+      <h2>2. Information Accuracy</h2>
+      <p class="legal__muted">
+        European Living provides general guidance for informational
+        purposes only. We make reasonable efforts to keep content
+        accurate and current, but we make no warranties — express or
+        implied — regarding the completeness, accuracy, or fitness for
+        a particular purpose of any information on this site.
+      </p>
+      <p class="legal__muted">
+        Military regulations, SOFA provisions, German laws, housing
+        allowances, and official procedures change regularly. Always
+        verify critical information with your unit, installation legal
+        office, or the relevant official authority before making
+        decisions.
+      </p>
+      <p class="legal__muted">
+        European Living is not affiliated with the U.S. Department of
+        Defense, the U.S. Army, USAREUR-AF, or any U.S. government
+        agency. Nothing on this site constitutes legal, financial,
+        medical, or official military advice.
+      </p>
+    </section>
+
+    <section class="legal__section">
+      <h2>3. Business Listings</h2>
+      <p class="legal__muted">
+        Businesses listed in the European Living Services Directory are
+        included for informational purposes. Inclusion does not
+        constitute an endorsement, recommendation, or guarantee of
+        quality. We reserve the right to:
+      </p>
+      <ul class="legal__list">
+        <li>Accept or decline any business submission at our sole discretion</li>
+        <li>Remove any listing at any time without notice or explanation</li>
+        <li>Edit submitted listing information for accuracy, clarity, or appropriateness</li>
+        <li>Mark listings as unverified, verified, or sponsored as appropriate</li>
+      </ul>
+      <p class="legal__muted">
+        Businesses submitting listings represent that all information
+        provided is accurate and that they have the legal right to offer
+        the services described. Fraudulent submissions may be reported
+        to relevant authorities.
+      </p>
+    </section>
+
+    <section class="legal__section">
+      <h2>4. User-Submitted Content</h2>
+      <p class="legal__muted">
+        By submitting any content to European Living — including business
+        listings, reviews, or contact form messages — you grant us a
+        non-exclusive, royalty-free, worldwide license to use, display,
+        and distribute that content in connection with the operation of
+        the site.
+      </p>
+      <p class="legal__muted">
+        You are solely responsible for content you submit. You agree not
+        to submit content that is defamatory, fraudulent, harassing,
+        unlawful, or that infringes on the rights of any third party.
+      </p>
+      <p class="legal__muted">
+        We reserve the right, but are not obligated, to review, edit,
+        refuse, or remove any submitted content at our sole discretion,
+        and to suspend or restrict access to the site for users who
+        violate these Terms.
+      </p>
+    </section>
+
+    <section class="legal__section">
+      <h2>5. Third-Party Links</h2>
+      <p class="legal__muted">
+        European Living contains links to external websites including
+        official U.S. government sites, German government sites,
+        and third-party businesses. These links are provided for
+        convenience only. We have no control over and assume no
+        responsibility for the content, privacy policies, or practices
+        of any third-party sites.
+      </p>
+    </section>
+
+    <section class="legal__section">
+      <h2>6. Intellectual Property</h2>
+      <p class="legal__muted">
+        All original content on European Living — including articles,
+        guides, graphics, and the site's design — is the property of
+        Terrell C Lombardi and is protected by applicable copyright law.
+        Unauthorized reproduction, distribution, or commercial use of
+        any content is prohibited without prior written permission.
+      </p>
+      <p class="legal__muted">
+        The European Living name, logo, and brand identity may not be
+        used without express written permission.
+      </p>
+    </section>
+
+    <section class="legal__section">
+      <h2>7. Limitation of Liability</h2>
+      <p class="legal__muted">
+        To the fullest extent permitted by applicable law, European
+        Living and its operator shall not be liable for any direct,
+        indirect, incidental, consequential, or punitive damages arising
+        from your use of — or inability to use — this site or any
+        content, service, or information obtained through it.
+      </p>
+      <p class="legal__muted">
+        This includes but is not limited to damages arising from reliance
+        on business listings, article content, PCS guidance, or any
+        external links provided on the site.
+      </p>
+    </section>
+
+    <section class="legal__section">
+      <h2>8. Privacy</h2>
+      <p class="legal__muted">
+        Your use of European Living is also governed by our
+        <a href="/privacy-policy">Privacy Policy</a>, which is incorporated
+        into these Terms by reference. By using the site you consent to
+        the data practices described in the Privacy Policy.
+      </p>
+    </section>
+
+    <section class="legal__section">
+      <h2>9. Governing Law</h2>
+      <p class="legal__muted">
+        These Terms are governed by the laws of the Federal Republic of
+        Germany. Any disputes arising under these Terms shall be subject
+        to the exclusive jurisdiction of the courts of Baden-Württemberg,
+        Germany, unless mandatory consumer protection laws in your
+        jurisdiction provide otherwise.
+      </p>
+    </section>
+
+    <section class="legal__section">
+      <h2>10. Changes to These Terms</h2>
+      <p class="legal__muted">
+        We reserve the right to update these Terms at any time. Changes
+        will be posted on this page with an updated effective date.
+        Continued use of the site after changes are posted constitutes
+        acceptance of the revised Terms.
+      </p>
+    </section>
+
+    <section class="legal__section">
+      <h2>11. Contact</h2>
+      <p class="legal__muted">Questions about these Terms can be directed to:</p>
+      <div class="legal__block legal__muted">
+        <p>Terrell C Lombardi</p>
+        <p>Untere Burggasse 4, 71063 Sindelfingen, Deutschland</p>
+        <p><a href="mailto:info@european-living.live">info@european-living.live</a></p>
+      </div>
+    </section>
+
+    <div class="legal__updated">
+      <p>Effective date: June 2026 · Last updated: June 2026</p>
+      <div class="legal__updated-links">
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/impressum">Impressum</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+  .legal__header {
+    margin-bottom: 2.5rem;
+  }
+  .legal__eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--brand-secondary, var(--brand-blue));
+    margin-bottom: 0.75rem;
+  }
+  .legal__header h1 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--brand-primary-dark, var(--brand-dark));
+    margin-bottom: 0.5rem;
+  }
+  .legal__subtitle {
+    font-size: 0.875rem;
+    color: var(--brand-text-muted);
+  }
+  .legal__section {
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+  .legal__section h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--brand-primary-dark, var(--brand-dark));
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid var(--brand-border);
+  }
+  .legal__list {
+    list-style: disc;
+    padding-left: 1.25rem;
+    margin-top: 0.5rem;
+    color: var(--brand-text-muted);
+  }
+  .legal__list li {
+    margin-bottom: 0.25rem;
+  }
+  .legal__block p {
+    margin: 0.125rem 0;
+  }
+  .legal__muted {
+    color: var(--brand-text-muted);
+    margin-top: 0.5rem;
+  }
+  .legal a {
+    color: var(--brand-primary, var(--brand-blue));
+  }
+  .legal a:hover {
+    text-decoration: underline;
+  }
+  .legal__updated {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--brand-border);
+    font-size: 0.75rem;
+    color: var(--brand-text-muted);
+  }
+  .legal__updated-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.75rem;
+    font-size: 0.75rem;
+  }
+</style>

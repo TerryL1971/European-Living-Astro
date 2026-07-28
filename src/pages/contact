@@ -1,0 +1,81 @@
+---
+// Standalone /contact page. Wraps the existing ContactSection island
+// (already ported, used on the homepage at #contact previously) with
+// dedicated SEO metadata and a static NAP (Name/Address/Phone) block
+// for E-E-A-T trust signals. ContactSection.tsx itself is untouched —
+// this page just adds static context/schema around it.
+//
+// Ported from ContactPage.tsx. That original imported BreadcrumbSchema
+// from a custom SEO.tsx component; here we use the existing
+// Breadcrumbs.astro component instead, which already handles this
+// site's breadcrumb schema pattern consistently across every other
+// page (see articles/[slug].astro, day-trips/[slug].astro, etc.).
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import ContactSection from '../components/page/ContactSection.tsx';
+---
+
+<BaseLayout
+  title="Contact Us"
+  description="Get in touch with European Living — your resource for US military families and American expats living in Germany. Email, WhatsApp, or send us a message."
+  canonicalPath="/contact"
+>
+  <Breadcrumbs items={[{ name: 'Contact', url: '/contact' }]} />
+
+  <section class="contact-nap">
+    <h1>Contact European Living</h1>
+    <div class="contact-nap__row">
+      <div class="contact-nap__item">
+        <span aria-hidden="true">📍</span>
+        <span>Untere Burggasse 4, 71063 Sindelfingen, Germany</span>
+      </div>
+      <div class="contact-nap__item">
+        <span aria-hidden="true">📞</span>
+        <a href="tel:+4915120583765">+49 (0)151 20583765</a>
+      </div>
+      <div class="contact-nap__item">
+        <span aria-hidden="true">✉️</span>
+        <a href="mailto:info@european-living.live">info@european-living.live</a>
+      </div>
+    </div>
+  </section>
+
+  <ContactSection client:load />
+</BaseLayout>
+
+<style>
+  .contact-nap {
+    background: var(--brand-bg-alt, var(--brand-ice));
+    padding: 3rem 1.5rem 1rem;
+    text-align: center;
+  }
+  .contact-nap h1 {
+    max-width: 48rem;
+    margin: 0 auto 1.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--brand-primary-dark, var(--brand-dark));
+  }
+  .contact-nap__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.875rem;
+    color: var(--brand-text-muted);
+  }
+  .contact-nap__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .contact-nap__item a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .contact-nap__item a:hover {
+    color: var(--brand-primary, var(--brand-blue));
+  }
+</style>
