@@ -4,6 +4,7 @@ import Header from '../components/page/Header.tsx';
 import { BaseSelectionModal } from '../components/page/BaseSelectionModal.tsx';
 import CookieConsentModal from '../components/CookieConsentModal.tsx';
 import { organizationSchema, websiteSchema } from '../lib/seo/schema';
+import Footer from '../components/page/Footer.astro';
 import { SITE } from '../lib/seo/siteConfig';
 import '../styles/global.css';
 
@@ -77,18 +78,7 @@ const schemas = [organizationSchema(), websiteSchema(), ...pageSchemas];
       <slot />
     </main>
 
-    <!-- Footer.astro — static, no JS needed -->
-    <footer class="site-footer">
-      <div class="site-footer__inner">
-        <p>&copy; {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
-        <nav aria-label="Footer">
-          <a href="/impressum">Impressum</a>
-          <a href="/privacy-policy">Privacy Policy</a>
-          <a href="/terms-of-service">Terms of Service</a>
-          <a href="/contact">Contact</a>
-        </nav>
-      </div>
-    </footer>
+    <Footer />
   </body>
 </html>
 
