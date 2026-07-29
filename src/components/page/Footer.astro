@@ -3,7 +3,16 @@
 // and the one interactive piece (Cookie Settings) is handled by a
 // small inline <script> below rather than a React island, since it's
 // a single click handler with no state.
+//
+// Stats (businesses/years/bases) now pulled live from Supabase via
+// lib/siteStats.ts instead of hardcoded — this also fixes a real
+// inconsistency that existed on the live site, where the Footer said
+// "150+ Businesses" while the Hero said "200+ Businesses". Both now
+// read from the same source, so they can never disagree again.
 import { SITE } from '../../lib/seo/siteConfig';
+import { getSiteStats } from '../../lib/siteStats';
+
+const stats = await getSiteStats();
 ---
 
 <footer class="site-footer">
@@ -15,9 +24,7 @@ import { SITE } from '../../lib/seo/siteConfig';
         <p class="site-footer__about-text">
           Your guide to living, working, and exploring Germany and Europe as a U.S. military member or expat.
         </p>
-        
-        
-          <a
+        <a
           href={SITE.facebook}
           target="_blank"
           rel="noopener noreferrer"
@@ -28,9 +35,7 @@ import { SITE } from '../../lib/seo/siteConfig';
           </svg>
           Follow on Facebook
         </a>
-        
-        
-          <a
+        <a
           href="https://www.instagram.com/european.living.live/"
           target="_blank"
           rel="noopener noreferrer"
@@ -106,15 +111,15 @@ import { SITE } from '../../lib/seo/siteConfig';
     <!-- Stats strip -->
     <div class="site-footer__stats">
       <div>
-        <div class="site-footer__stat-figure">📍 150+ Businesses</div>
+        <div class="site-footer__stat-figure">📍 {stats.businessesLabel}</div>
         <div class="site-footer__stat-label">Verified English-friendly services</div>
       </div>
       <div>
-        <div class="site-footer__stat-figure">🎖️ 10+ Years</div>
+        <div class="site-footer__stat-figure">🎖️ {stats.yearsLabel}</div>
         <div class="site-footer__stat-label">Serving the military community</div>
       </div>
       <div>
-        <div class="site-footer__stat-figure">🗺️ 6 Bases</div>
+        <div class="site-footer__stat-figure">🗺️ {stats.basesLabel}</div>
         <div class="site-footer__stat-label">Major US installations covered</div>
       </div>
     </div>

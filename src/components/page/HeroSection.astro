@@ -13,8 +13,15 @@
 // Zero client-side JS is a genuine win here, not just a simplification —
 // this is above-the-fold content, so shipping no JS for it helps time-
 // to-interactive on every single page load.
+//
+// Stats (day trips / businesses / phrases) are now pulled live from
+// Supabase via lib/siteStats.ts instead of hardcoded — see that file
+// for the counting/rounding logic and why it's build-time-cached.
+
+import { getSiteStats } from '../../lib/siteStats';
 
 const bgUrl = 'https://pkacbcohrygpyapgtzpq.supabase.co/storage/v1/object/public/images/hero-bg.jpg';
+const stats = await getSiteStats();
 ---
 
 <section
@@ -39,15 +46,15 @@ const bgUrl = 'https://pkacbcohrygpyapgtzpq.supabase.co/storage/v1/object/public
     <div class="hero-section__stats">
       <div class="hero-section__stat">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hero-section__stat-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-        <span>33 Day Trips</span>
+        <span>{stats.dayTripsLabel}</span>
       </div>
       <div class="hero-section__stat">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hero-section__stat-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-1.13a4 4 0 10-4-4 4 4 0 004 4zm6 0a4 4 0 10-4-4" /></svg>
-        <span>200+ Businesses</span>
+        <span>{stats.businessesLabel}</span>
       </div>
       <div class="hero-section__stat">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hero-section__stat-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
-        <span>1,200+ Phrases</span>
+        <span>{stats.phrasesLabel}</span>
       </div>
     </div>
 
