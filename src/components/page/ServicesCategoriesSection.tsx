@@ -34,22 +34,22 @@ function ServicesCategoriesSectionInner() {
   const { selectedBase } = useBase();
   const isBaseSelected = Boolean(selectedBase) && selectedBase !== PENDING_BASE_ID;
 
-  const [categories, setCategories] = useState<string[]>([]);
+  const [businesses, setBusinesses] = useState<{ category: string; bases_served: string[] }[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchCategories() {
       try {
-        const { data, error } = await supabase.from('businesses').select('category');
+        const { data, error } = await supabase.from('businesses').select('category, bases_served');
         if (error) {
           console.error('Error fetching business categories:', error);
-          setCategories([]);
+          setBusinesses([]);
         } else {
-          setCategories((data ?? []).map((row: { category: string }) => row.category));
+          setBusinesses(data ?? []);
         }
       } catch (err) {
         console.error('Error fetching business categories:', err);
-        setCategories([]);
+        setBusinesses([]);
       } finally {
         setIsLoading(false);
       }
@@ -59,11 +59,13 @@ function ServicesCategoriesSectionInner() {
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {};
-    categories.forEach((category) => {
-      if (category) counts[category] = (counts[category] || 0) + 1;
+    businesses.forEach((biz: { category: string; bases_served: string[] }) => {
+      if (!biz.category) return;
+      if (selectedBase !== 'all' && !(biz.bases_served ?? []).includes(selectedBase)) return;
+      counts[biz.category] = (counts[biz.category] || 0) + 1;
     });
     return counts;
-  }, [categories]);
+  }, [businesses, selectedBase]);
 
   if (isLoading) {
     return (
