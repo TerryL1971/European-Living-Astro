@@ -6,6 +6,7 @@ import FeaturesSection from '../components/page/FeaturesSection.tsx';
 import ServicesCategoriesSection from '../components/page/ServicesCategoriesSection.tsx';
 import ContactSection from '../components/page/ContactSection.tsx';
 import TravelPhrasesSection from '../components/page/TravelPhrasesSection.tsx';
+import FamilyAdventuresSection from '../components/page/FamilyAdventuresSection.astro';
 import { getAllDestinationArticles } from '../lib/supabaseArticles';
 
 const destinationArticles = await getAllDestinationArticles();
@@ -88,6 +89,8 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
     <p>Sign up to receive free travel tips and updates directly in your inbox.</p>
   </div>
 
+  <FamilyAdventuresSection />
+
   <!-- We comment these out temporarily to guarantee the site boots safely -->
   <!--
   <FeaturesSection client:visible />
@@ -95,6 +98,7 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
   <ServicesCategoriesSection client:visible />
   <ContactSection client:visible />
   -->
+
 </BaseLayout>
 
 <script>
