@@ -1,20 +1,36 @@
 // src/components/page/ServicesCategoriesSection.tsx
 //
-// Two real changes from the original:
+// FIXED: this component was reading `selectedBase` from the legacy
+// BaseContext (via its own isolated <BaseProvider>) — the same
+// island-isolation bug already found and fixed in BaseSelector.tsx.
+// Each BaseProvider instance is independent, so this component's base
+// selection never actually synced with BaseSelectionModal.tsx or
+// anything else on the site (which all read/write the shared
+// nanostore in stores/baseStore.ts). That's why no base selection
+// ever changed these counts, and why the counting behaved
+// unpredictably rather than reflecting what was actually selected.
+//
+// Also removed the old PENDING_BASE_ID / "Services Awaiting Base
+// Selection" gate. That gate assumed a pending/unselected state
+// distinct from 'all', which made sense under BaseContext's old
+// default — but the shared nanostore's default IS 'all', a real,
+// meaningful choice (matching "Show All Locations" in the selection
+// modal), not a placeholder. Simplest correct behavior: always show
+// categories, with counts reflecting whichever base is currently
+// selected (combined total across every base when selectedBase is
+// 'all').
+//
+// Other changes from the original, unrelated to this bug:
 //   1. useBusinesses() (a react-query hook, not installed/ported here)
 //      is replaced with a direct client-side fetch against the same
-//      supabaseClient.ts every other island already uses — same data,
-//      no react-query dependency needed for one count-by-category query.
-//   2. This island wraps itself in <BaseProvider> since it calls
-//      useBase() — same pattern as BaseSelector.tsx and
-//      BaseSelectionModal.tsx (see BaseContext.tsx's note on why each
-//      island needs its own provider under Astro).
-//   3. <Link>/useNavigate (react-router) replaced with plain <a> tags.
+//      supabaseClient.ts every other island already uses.
+//   2. <Link>/useNavigate (react-router) replaced with plain <a> tags.
 
 import { Stethoscope, Scale, Wrench, GraduationCap, Briefcase, Car, Utensils, ShoppingBag, Home, ArrowRight } from 'lucide-react';
 import { useState, useEffect, useMemo } from 'react';
+import { useStore } from '@nanostores/react';
 import { supabase } from '../../services/supabaseClient';
-import { BaseProvider, useBase } from '../../contexts/BaseContext';
+import { $selectedBase } from '../../stores/baseStore';
 
 const serviceCategories = [
   { id: 'automotive', title: 'Automotive Services', icon: Car, description: 'Car dealers, mechanics, and auto services that work with Americans' },
@@ -28,11 +44,8 @@ const serviceCategories = [
   { id: 'business', title: 'Business Services', icon: Briefcase, description: 'Tax advisors and accountants familiar with US/German requirements' },
 ];
 
-const PENDING_BASE_ID = 'default-app-id';
-
-function ServicesCategoriesSectionInner() {
-  const { selectedBase } = useBase();
-  const isBaseSelected = Boolean(selectedBase) && selectedBase !== PENDING_BASE_ID;
+export default function ServicesCategoriesSection() {
+  const selectedBase = useStore($selectedBase);
 
   const [businesses, setBusinesses] = useState<{ category: string; bases_served: string[] }[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -59,7 +72,7 @@ function ServicesCategoriesSectionInner() {
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {};
-    businesses.forEach((biz: { category: string; bases_served: string[] }) => {
+    businesses.forEach((biz) => {
       if (!biz.category) return;
       if (selectedBase !== 'all' && !(biz.bases_served ?? []).includes(selectedBase)) return;
       counts[biz.category] = (counts[biz.category] || 0) + 1;
@@ -73,30 +86,6 @@ function ServicesCategoriesSectionInner() {
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--brand-gold)] mx-auto mb-4" />
           <p className="text-[var(--brand-text)]">Loading trusted services and business counts...</p>
-        </div>
-      </section>
-    );
-  }
-
-  if (!isBaseSelected) {
-    return (
-      <section id="english-services" className="relative bg-[var(--brand-bg-card)] py-20">
-        <div className="absolute inset-0 bg-[url('https://pkacbcohrygpyapgtzpq.supabase.co/storage/v1/object/public/images/services.jpg')] bg-cover bg-center" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16 rounded-xl bg-black/40 shadow-2xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Services Awaiting Base Selection</h2>
-          <p className="text-lg text-white/90 font-medium max-w-3xl mx-auto mb-8">
-            Please select your primary military base to view locally verified, English-speaking businesses tailored
-            to your area.
-          </p>
-          <button
-            onClick={() => window.dispatchEvent(new CustomEvent('openBaseSelectionModal'))}
-            className="inline-block bg-[var(--brand-secondary)] text-[var(--brand-text)] px-8 py-3 rounded-lg hover:bg-[var(--brand-secondary-light)] transition font-semibold text-lg"
-          >
-            Select Your Base
-          </button>
         </div>
       </section>
     );
@@ -210,13 +199,5 @@ function ServicesCategoriesSectionInner() {
         </div>
       </div>
     </section>
-  );
-}
-
-export default function ServicesCategoriesSection() {
-  return (
-    <BaseProvider>
-      <ServicesCategoriesSectionInner />
-    </BaseProvider>
   );
 }
