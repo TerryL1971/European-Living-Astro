@@ -6,6 +6,10 @@
 // source — worth eventually pointing those two at this file as well,
 // though that's a small optional cleanup, not required for the listing
 // pages to work.
+//
+// Renamed 'legal' -> 'legal-business' and 'business' -> 'hbb'
+// (2026-07-31) to match data/subcategories.ts and types/business.ts —
+// every file describing these 9 category ids now agrees.
 
 export interface ServiceCategoryDef {
   id: string;
@@ -20,7 +24,7 @@ export const serviceCategories: ServiceCategoryDef[] = [
   { id: 'shopping', title: 'Shopping / Personal Services', description: 'Stores, malls, and beauty salons with English-speaking staff' },
   { id: 'home-services', title: 'Home Services', description: 'Plumbers, electricians, and handymen who work with American families' },
   { id: 'real-estate', title: 'Real Estate', description: 'Housing agents familiar with American military housing needs' },
-  { id: 'legal', title: 'Legal Services', description: 'Lawyers who understand SOFA status and military regulations' },
+  { id: 'legal-business', title: 'Legal Services', description: 'Lawyers who understand SOFA status and military regulations' },
   { id: 'education', title: 'Education', description: 'International schools and tutors for military families' },
-  { id: 'business', title: 'Business Services', description: 'Tax advisors and accountants familiar with US/German requirements' },
+  { id: 'hbb', title: 'Business Services', description: 'Tax advisors and accountants familiar with US/German requirements' },
 ];
