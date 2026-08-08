@@ -1,0 +1,264 @@
+---
+// Per-(category, subcategory) listing — the page a "Jump to" link or a
+// subcategory-specific URL lands on. Statically generated only for
+// combinations that actually have at least one active business, so this
+// never produces an empty page for a subcategory nobody's listed yet
+// (unlike services/[category].astro, which intentionally generates all
+// 9 categories regardless of count, matching the "Coming Soon" treatment
+// on the homepage).
+//
+// Ported from the subcategory-grouping logic in the old
+// ServiceCategoryPage.tsx (businesses/ServiceCategoryPage.tsx), but
+// split into its own static route per subcategory rather than one
+// giant client-rendered page with in-page anchor jumps — better for
+// SEO (a real URL and real static HTML per subcategory, e.g.
+// /services/automotive/car-dealerships) and avoids shipping the whole
+// category's businesses to the browser just to view one subcategory.
+
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/seo/Breadcrumbs.astro';
+import BusinessListCard from '../../../components/BusinessListCard.astro';
+import { fetchBusinessesByCategory } from '../../../services/businessServices';
+import { serviceCategories } from '../../../data/serviceCategories';
+import { getCategoryStructure, getSubcategory } from '../../../data/subcategories';
+import { BASES } from '../../../lib/seo/siteConfig';
+import type { ServiceCategory } from '../../../types/business';
+
+export async function getStaticPaths() {
+  const paths: { params: { category: string; subcategory: string }; props: { categoryId: string; subcategoryId: string } }[] = [];
+
+  for (const cat of serviceCategories) {
+    const businesses = await fetchBusinessesByCategory(cat.id as ServiceCategory);
+    const subcatIds = new Set(businesses.map((b) => b.subcategory || 'other'));
+
+    for (const subcatId of subcatIds) {
+      paths.push({
+        params: { category: cat.id, subcategory: subcatId },
+        props: { categoryId: cat.id, subcategoryId: subcatId },
+      });
+    }
+  }
+
+  return paths;
+}
+
+interface Props {
+  categoryId: string;
+  subcategoryId: string;
+}
+const { categoryId, subcategoryId } = Astro.props as Props;
+
+const categoryDef = serviceCategories.find((c) => c.id === categoryId);
+const categoryStructure = getCategoryStructure(categoryId);
+const subcategoryDef = getSubcategory(categoryId, subcategoryId);
+
+// Prefer the canonical display name from subcategories.ts (e.g. "SOFA
+// Status Lawyers"); fall back to a simple auto-formatted version of the
+// raw id for anything not in the canonical list (legacy/unexpected
+// subcategory values — see subcategories.ts's note on duplicate strings
+// pending a data cleanup).
+function formatSubcategoryName(id: string): string {
+  return id
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+const subcategoryTitle = subcategoryDef?.name ?? formatSubcategoryName(subcategoryId);
+
+const allCategoryBusinesses = await fetchBusinessesByCategory(categoryId as ServiceCategory);
+const businesses = allCategoryBusinesses.filter((b) => (b.subcategory || 'other') === subcategoryId);
+const sortedBusinesses = [...businesses].sort((a, b) => {
+  if (a.featured !== b.featured) return a.featured ? -1 : 1;
+  return a.name.localeCompare(b.name);
+});
+
+// Sibling subcategories within the same category that actually have
+// businesses — used for the "Jump to" nav, same UX as the category page.
+const siblingSubcatIds = [...new Set(allCategoryBusinesses.map((b) => b.subcategory || 'other'))];
+const canonicalOrder = categoryStructure?.subcategories.map((s) => s.id) ?? [];
+const orderedSiblings = canonicalOrder.length > 0
+  ? [...canonicalOrder, ...siblingSubcatIds.filter((id) => !canonicalOrder.includes(id)).sort()].filter((id) =>
+      siblingSubcatIds.includes(id)
+    )
+  : siblingSubcatIds.sort();
+
+const pageTitle = `${subcategoryTitle} — ${categoryDef?.title ?? categoryId}`;
+const pageDescription =
+  subcategoryDef?.description ??
+  `English-speaking ${subcategoryTitle.toLowerCase()} serving U.S. military families near bases in Germany.`;
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalPath={`/services/${categoryId}/${subcategoryId}`}
+>
+  <div class="subcat-listing">
+    <Breadcrumbs
+      items={[
+        { name: 'Services Directory', url: '/services-directory' },
+        { name: categoryDef?.title ?? categoryId, url: `/services/${categoryId}` },
+        { name: subcategoryTitle, url: `/services/${categoryId}/${subcategoryId}` },
+      ]}
+    />
+
+    <h1>{subcategoryTitle}</h1>
+    <p class="subcat-listing__lede">{pageDescription}</p>
+    <p class="subcat-listing__count">{sortedBusinesses.length} business{sortedBusinesses.length === 1 ? '' : 'es'}</p>
+
+    {orderedSiblings.length > 1 && (
+      <div class="subcat-listing__jumpnav">
+        <span>Jump to:</span>
+        {orderedSiblings.map((id) => (
+          <a
+            href={`/services/${categoryId}/${id}`}
+            class={`subcat-listing__jumplink ${id === subcategoryId ? 'is-current' : ''}`}
+          >
+            {getSubcategory(categoryId, id)?.name ?? formatSubcategoryName(id)}
+          </a>
+        ))}
+      </div>
+    )}
+
+    {sortedBusinesses.length > 0 && (
+      <div class="subcat-listing__filters">
+        <select id="subcat-base-filter" class="subcat-listing__select">
+          <option value="">All Bases</option>
+          {BASES.map((base) => <option value={base.toLowerCase()}>{base}</option>)}
+        </select>
+      </div>
+    )}
+
+    <div class="subcat-listing__grid" id="subcat-grid">
+      {sortedBusinesses.map((business) => <BusinessListCard business={business} />)}
+    </div>
+
+    {sortedBusinesses.length === 0 && (
+      <div class="subcat-listing__empty">
+        <p>No businesses in this subcategory yet.</p>
+        <a href="/submit-business">List your business</a>
+      </div>
+    )}
+
+    <p class="subcat-listing__back">
+      <a href={`/services/${categoryId}`}>← Back to all {categoryDef?.title ?? categoryId}</a>
+    </p>
+  </div>
+</BaseLayout>
+
+<script>
+  const baseSelect = document.getElementById('subcat-base-filter') as HTMLSelectElement | null;
+  const grid = document.getElementById('subcat-grid');
+
+  function applyBaseFilter() {
+    const base = baseSelect?.value ?? '';
+    const cards = grid?.querySelectorAll<HTMLElement>('.business-card') ?? [];
+    cards.forEach((card) => {
+      const matches = !base || (card.dataset.bases ?? '').split(',').includes(base);
+      card.hidden = !matches;
+    });
+  }
+
+  baseSelect?.addEventListener('change', applyBaseFilter);
+
+  const params = new URLSearchParams(window.location.search);
+  const initialBase = params.get('base');
+  if (initialBase && baseSelect) {
+    baseSelect.value = initialBase;
+    applyBaseFilter();
+  }
+</script>
+
+<style>
+  .subcat-listing {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 4rem;
+  }
+  .subcat-listing h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .subcat-listing__lede {
+    color: var(--brand-text-muted);
+    max-width: 42rem;
+  }
+  .subcat-listing__count {
+    font-size: 0.875rem;
+    color: var(--brand-text-muted);
+    margin: 0.5rem 0 1.5rem;
+  }
+  .subcat-listing__jumpnav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--brand-bg-alt);
+    border-radius: 0.75rem;
+  }
+  .subcat-listing__jumpnav span {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--brand-text-muted);
+    margin-right: 0.25rem;
+  }
+  .subcat-listing__jumplink {
+    display: inline-block;
+    padding: 0.375rem 0.875rem;
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    background: white;
+    color: var(--brand-primary, var(--brand-blue));
+    text-decoration: none;
+    border: 1px solid var(--brand-border);
+  }
+  .subcat-listing__jumplink:hover {
+    background: var(--brand-primary, var(--brand-blue));
+    color: white;
+  }
+  .subcat-listing__jumplink.is-current {
+    background: var(--brand-primary, var(--brand-blue));
+    color: white;
+    border-color: transparent;
+  }
+  .subcat-listing__filters {
+    margin-bottom: 1.5rem;
+  }
+  .subcat-listing__select {
+    border: 1px solid var(--brand-border);
+    border-radius: 0.5rem;
+    padding: 0.625rem 1rem;
+    background: white;
+  }
+  .subcat-listing__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 1.25rem;
+  }
+  .subcat-listing__empty {
+    text-align: center;
+    padding: 3rem 0;
+    color: var(--brand-text-muted);
+  }
+  .subcat-listing__empty a {
+    display: inline-block;
+    margin-top: 0.75rem;
+    color: var(--brand-blue);
+    font-weight: 600;
+  }
+  .subcat-listing__back {
+    margin-top: 2rem;
+  }
+  .subcat-listing__back a {
+    color: var(--brand-primary, var(--brand-blue));
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .subcat-listing__back a:hover {
+    text-decoration: underline;
+  }
+</style>
