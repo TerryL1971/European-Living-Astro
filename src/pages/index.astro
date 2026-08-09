@@ -10,7 +10,6 @@ import FamilyAdventuresSection from '../components/page/FamilyAdventuresSection.
 import { getAllDestinationArticles } from '../lib/supabaseArticles';
 
 const destinationArticles = await getAllDestinationArticles();
-console.log('DESTINATIONS FETCHED:', destinationArticles.length, destinationArticles.map(d => d.slug));
 
 const FIXED_ORDER = ['stuttgart', 'london', 'berlin'];
 const fixedDestinations = FIXED_ORDER

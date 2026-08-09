@@ -1,255 +1,95 @@
 ---
-// Homepage teaser section for Family Adventures — ported from
-// FamilyAdventuresSection.tsx. Fully static; every category "button"
-// was just a navigate('/family-adventures') in the original, so each
-// one is a plain <a> here instead — no JS needed.
-//
-// NOT yet added to index.astro — the other homepage sections
-// (FeaturesSection, ServicesCategoriesSection, ContactSection,
-// TravelPhrasesSection) are still commented out there pending their
-// own migration work, so this is delivered as a standalone component
-// for now; wire it into index.astro whenever those come back online.
+// src/components/page/FamilyAdventuresSection.astro
+// Homepage teaser for /family-adventures. Ported from
+// FamilyAdventuresSection.tsx — the original only used React state for
+// onClick-navigate(), so this needs no client JS at all; every card and
+// the CTA are just links.
 
 const CATEGORIES = [
   {
     emoji: '🎢',
     title: 'Theme Parks & Attractions',
     description: 'LEGOLAND, Europa-Park, Phantasialand and more — perfect for all ages.',
-    className: 'fa-teaser-card--orange',
+    color: 'bg-orange-50 border-orange-200 hover:border-orange-400',
+    textColor: 'text-orange-700',
   },
   {
     emoji: '🏰',
     title: 'Castles & History',
     description: 'Bring history to life at fairy-tale castles kids will never forget.',
-    className: 'fa-teaser-card--purple',
+    color: 'bg-purple-50 border-purple-200 hover:border-purple-400',
+    textColor: 'text-purple-700',
   },
   {
     emoji: '🌿',
     title: 'Parks & Playgrounds',
     description: 'Beautiful parks, nature trails, and playgrounds near every base.',
-    className: 'fa-teaser-card--green',
+    color: 'bg-green-50 border-green-200 hover:border-green-400',
+    textColor: 'text-green-700',
   },
   {
     emoji: '🎓',
     title: 'Schools & Education',
     description: 'International schools, homeschool resources, and tutoring near base.',
-    className: 'fa-teaser-card--blue',
+    color: 'bg-blue-50 border-blue-200 hover:border-blue-400',
+    textColor: 'text-blue-700',
   },
   {
     emoji: '⚽',
     title: 'Sports & Activities',
     description: 'Soccer, swimming, gymnastics, martial arts and more for every age.',
-    className: 'fa-teaser-card--yellow',
+    color: 'bg-yellow-50 border-yellow-200 hover:border-yellow-400',
+    textColor: 'text-yellow-700',
   },
   {
     emoji: '🍕',
     title: 'Family-Friendly Dining',
     description: 'Kid-friendly restaurants that welcome families with English menus.',
-    className: 'fa-teaser-card--red',
+    color: 'bg-red-50 border-red-200 hover:border-red-400',
+    textColor: 'text-red-700',
   },
 ];
 ---
+<section class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
 
-<section class="fa-teaser">
-  <div class="fa-teaser__inner">
-    <div class="fa-teaser__header">
-      <span class="fa-teaser__badge">🧒 For Families</span>
-      <h2>Family Adventures in Europe</h2>
-      <p>
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 bg-orange-100 text-orange-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+        🧒 For Families
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold text-[var(--brand-dark)] mb-4">
+        Family Adventures in Europe
+      </h2>
+      <p class="text-lg text-[var(--muted-foreground)] max-w-2xl mx-auto">
         Europe is an incredible playground for kids. Find family-friendly destinations,
         activities, schools, and services — all tailored for military families near US bases.
       </p>
     </div>
 
-    <div class="fa-teaser__grid">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
       {CATEGORIES.map((cat) => (
-        <a href="/family-adventures" class={`fa-teaser-card ${cat.className}`}>
-          <div class="fa-teaser-card__emoji">{cat.emoji}</div>
-          <h3>{cat.title}</h3>
-          <p>{cat.description}</p>
+        <a
+          href="/family-adventures"
+          class={`block text-left p-6 rounded-xl border-2 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 ${cat.color}`}
+        >
+          <div class="text-3xl mb-3">{cat.emoji}</div>
+          <h3 class={`font-bold text-base mb-1 ${cat.textColor}`}>{cat.title}</h3>
+          <p class="text-sm text-gray-600 leading-relaxed">{cat.description}</p>
         </a>
       ))}
     </div>
 
-    <div class="fa-teaser__cta">
-      <a href="/family-adventures" class="fa-teaser__cta-button">
+    <div class="text-center">
+      <a
+        href="/family-adventures"
+        class="inline-flex items-center gap-2 px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl text-lg transition-all shadow-lg hover:shadow-xl hover:scale-105"
+      >
         🧭 Explore All Family Resources
       </a>
-      <p>Base-specific guides for Germany · Travel highlights for UK, Italy &amp; Spain</p>
+      <p class="mt-3 text-sm text-[var(--muted-foreground)]">
+        Base-specific guides for Germany · Travel highlights for UK, Italy &amp; Spain
+      </p>
     </div>
+
   </div>
 </section>
-
-<style>
-  .fa-teaser {
-    padding: 4rem 0;
-    background: white;
-  }
-  .fa-teaser__inner {
-    max-width: 72rem;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
-  .fa-teaser__header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-  .fa-teaser__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: #ffedd5;
-    color: #c2410c;
-    padding: 0.5rem 1rem;
-    border-radius: 9999px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-  }
-  .fa-teaser__header h2 {
-    font-size: 1.875rem;
-    font-weight: 700;
-    color: var(--brand-dark);
-    margin-bottom: 1rem;
-  }
-  @media (min-width: 768px) {
-    .fa-teaser__header h2 {
-      font-size: 2.25rem;
-    }
-  }
-  .fa-teaser__header p {
-    font-size: 1.125rem;
-    color: var(--brand-text-muted);
-    max-width: 42rem;
-    margin: 0 auto;
-  }
-  .fa-teaser__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-    margin-bottom: 2.5rem;
-  }
-  @media (min-width: 640px) {
-    .fa-teaser__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media (min-width: 1024px) {
-    .fa-teaser__grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-  .fa-teaser-card {
-    display: block;
-    text-align: left;
-    padding: 1.5rem;
-    border-radius: 0.75rem;
-    border: 2px solid;
-    text-decoration: none;
-    transition: all 0.2s ease;
-  }
-  .fa-teaser-card:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
-  }
-  .fa-teaser-card__emoji {
-    font-size: 1.875rem;
-    margin-bottom: 0.75rem;
-  }
-  .fa-teaser-card h3 {
-    font-weight: 700;
-    font-size: 1rem;
-    margin-bottom: 0.25rem;
-  }
-  .fa-teaser-card p {
-    font-size: 0.875rem;
-    color: #4b5563;
-    line-height: 1.6;
-  }
-  .fa-teaser-card--orange {
-    background: #fff7ed;
-    border-color: #fed7aa;
-  }
-  .fa-teaser-card--orange:hover {
-    border-color: #fb923c;
-  }
-  .fa-teaser-card--orange h3 {
-    color: #c2410c;
-  }
-  .fa-teaser-card--purple {
-    background: #faf5ff;
-    border-color: #e9d5ff;
-  }
-  .fa-teaser-card--purple:hover {
-    border-color: #c084fc;
-  }
-  .fa-teaser-card--purple h3 {
-    color: #7e22ce;
-  }
-  .fa-teaser-card--green {
-    background: #f0fdf4;
-    border-color: #bbf7d0;
-  }
-  .fa-teaser-card--green:hover {
-    border-color: #4ade80;
-  }
-  .fa-teaser-card--green h3 {
-    color: #15803d;
-  }
-  .fa-teaser-card--blue {
-    background: #eff6ff;
-    border-color: #bfdbfe;
-  }
-  .fa-teaser-card--blue:hover {
-    border-color: #60a5fa;
-  }
-  .fa-teaser-card--blue h3 {
-    color: #1d4ed8;
-  }
-  .fa-teaser-card--yellow {
-    background: #fefce8;
-    border-color: #fef08a;
-  }
-  .fa-teaser-card--yellow:hover {
-    border-color: #facc15;
-  }
-  .fa-teaser-card--yellow h3 {
-    color: #a16207;
-  }
-  .fa-teaser-card--red {
-    background: #fef2f2;
-    border-color: #fecaca;
-  }
-  .fa-teaser-card--red:hover {
-    border-color: #f87171;
-  }
-  .fa-teaser-card--red h3 {
-    color: #b91c1c;
-  }
-  .fa-teaser__cta {
-    text-align: center;
-  }
-  .fa-teaser__cta-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 2rem;
-    background: #f97316;
-    color: white;
-    font-weight: 700;
-    font-size: 1.125rem;
-    border-radius: 0.75rem;
-    text-decoration: none;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    transition: all 0.2s ease;
-  }
-  .fa-teaser__cta-button:hover {
-    background: #ea580c;
-    transform: scale(1.05);
-  }
-  .fa-teaser__cta p {
-    margin-top: 0.75rem;
-    font-size: 0.875rem;
-    color: var(--brand-text-muted);
-  }
-</style>
