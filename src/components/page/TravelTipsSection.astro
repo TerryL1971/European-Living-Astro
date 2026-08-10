@@ -1,0 +1,323 @@
+---
+// src/components/page/TravelTipsSection.astro
+//
+// Ported from TravelTipsCarousel.tsx, with one deliberate change: the
+// original fetched `category != 'City Guides'`, which pulled in PCS
+// Guides alongside real Travel Tips articles. Terry confirmed that
+// merge was never wanted — this filters to `category === 'Travel Tips'`
+// only, matching the live site's actual "Travel Tips & Essentials"
+// carousel.
+//
+// Built as a static, build-time-fetched carousel (same pattern as the
+// homepage's "Explore Destinations" section in index.astro) rather than
+// a client-fetching React island: server-rendered HTML, no loading
+// spinner, no client JS shipped except the small wraparound-pagination
+// script below. react-router's navigate() calls (card click, "Suggest
+// a Topic" button) are replaced with real <a href> links.
+
+import { getAllArticles } from '../../lib/supabaseArticles';
+
+const allArticles = await getAllArticles();
+const travelTips = allArticles
+  .filter((a) => a.category === 'Travel Tips')
+  .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+---
+
+<section id="travel-tips" class="travel-tips">
+  <div class="travel-tips__intro">
+    <h2>Travel Tips &amp; Essentials</h2>
+    <p>Expert guidance for living and traveling in Europe</p>
+  </div>
+
+  {travelTips.length === 0 ? (
+    <div class="travel-tips__empty">
+      <p>No articles available yet. Check back soon!</p>
+    </div>
+  ) : (
+    <div class="travel-tips__carousel">
+      <button
+        type="button"
+        class="travel-tips__arrow travel-tips__arrow--prev"
+        id="travel-tips-prev"
+        aria-label="Previous articles"
+      >
+        ‹
+      </button>
+
+      <div class="travel-tips__track" id="travel-tips-track">
+        {travelTips.map((article) => (
+          <a href={`/articles/${article.slug}`} class="travel-tip-card">
+            <div class="travel-tip-card__image-wrap">
+              {(article.featured_image_url) ? (
+                <img
+                  src={article.featured_image_url}
+                  alt={article.title}
+                  class="travel-tip-card__image"
+                  loading="lazy"
+                />
+              ) : (
+                <div class="travel-tip-card__image-fallback">
+                  <span>{article.title}</span>
+                </div>
+              )}
+            </div>
+            <div class="travel-tip-card__body">
+              <h3>{article.title}</h3>
+              {article.excerpt && <p class="travel-tip-card__excerpt">{article.excerpt}</p>}
+              <div class="travel-tip-card__cta">
+                <span>Read More</span>
+                <span aria-hidden="true">›</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <button
+        type="button"
+        class="travel-tips__arrow travel-tips__arrow--next"
+        id="travel-tips-next"
+        aria-label="Next articles"
+      >
+        ›
+      </button>
+    </div>
+  )}
+
+  {travelTips.length > 3 && <div class="travel-tips__dots" id="travel-tips-dots"></div>}
+
+  <div class="travel-tips__cta">
+    <p>Have a topic you'd like us to cover?</p>
+    <a href="/about">Suggest a Topic</a>
+  </div>
+</section>
+
+<script>
+  const track = document.getElementById('travel-tips-track');
+  const cards = track ? Array.from(track.querySelectorAll<HTMLElement>('.travel-tip-card')) : [];
+  const dotsContainer = document.getElementById('travel-tips-dots');
+  const prevBtn = document.getElementById('travel-tips-prev');
+  const nextBtn = document.getElementById('travel-tips-next');
+  const pageSize = 3;
+  const total = cards.length;
+  let startIndex = 0;
+
+  function renderPage() {
+    cards.forEach((card, i) => {
+      const offset = (i - startIndex + total) % total;
+      const isVisible = offset < pageSize;
+      card.hidden = !isVisible;
+      card.style.order = isVisible ? String(offset) : '';
+    });
+
+    if (dotsContainer) {
+      const dots = Array.from(dotsContainer.querySelectorAll('button'));
+      const activeDot = Math.floor(startIndex / pageSize) % dots.length;
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('is-active', idx === activeDot);
+      });
+    }
+  }
+
+  function buildDots() {
+    if (!dotsContainer || total <= pageSize) return;
+    const dotCount = Math.ceil(total / pageSize);
+    for (let i = 0; i < dotCount; i++) {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `Go to page ${i + 1}`);
+      dot.addEventListener('click', () => {
+        startIndex = (i * pageSize) % total;
+        renderPage();
+      });
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  if (total > pageSize) {
+    prevBtn?.addEventListener('click', () => {
+      startIndex = (startIndex - pageSize + total) % total;
+      renderPage();
+    });
+    nextBtn?.addEventListener('click', () => {
+      startIndex = (startIndex + pageSize) % total;
+      renderPage();
+    });
+  } else {
+    prevBtn?.setAttribute('hidden', '');
+    nextBtn?.setAttribute('hidden', '');
+  }
+
+  buildDots();
+  renderPage();
+</script>
+
+<style>
+  .travel-tips {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+  .travel-tips__intro {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .travel-tips__intro h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .travel-tips__intro p {
+    color: var(--brand-text-muted);
+    font-size: 1.125rem;
+  }
+  .travel-tips__empty {
+    text-align: center;
+    padding: 3rem;
+    background: var(--brand-bg-alt);
+    border-radius: 1rem;
+    color: var(--brand-text-muted);
+  }
+  .travel-tips__carousel {
+    position: relative;
+  }
+  .travel-tips__track {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .travel-tips__track .travel-tip-card[hidden] {
+    display: none;
+  }
+  .travel-tip-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--brand-bg-card);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--brand-border);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .travel-tip-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+  .travel-tip-card__image-wrap {
+    height: 14rem;
+  }
+  .travel-tip-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .travel-tip-card__image-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-light, var(--brand-primary)));
+    color: white;
+    font-weight: 600;
+  }
+  .travel-tip-card__body {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .travel-tip-card__body h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .travel-tip-card__excerpt {
+    color: var(--brand-text-muted);
+    font-size: 0.9rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+  .travel-tip-card__cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid var(--brand-border);
+    font-weight: 600;
+    color: var(--brand-blue, var(--brand-primary));
+    margin-top: auto;
+  }
+  .travel-tips__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    background: white;
+    border: 1px solid var(--brand-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 5;
+  }
+  .travel-tips__arrow--prev {
+    left: -1.5rem;
+  }
+  .travel-tips__arrow--next {
+    right: -1.5rem;
+  }
+  .travel-tips__dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .travel-tips__dots :global(button) {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    border: none;
+    background: var(--brand-border);
+    cursor: pointer;
+    padding: 0;
+  }
+  .travel-tips__dots :global(button.is-active) {
+    width: 2rem;
+    background: var(--brand-blue, var(--brand-primary));
+  }
+  .travel-tips__cta {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background: var(--brand-primary);
+    border-radius: 1rem;
+    text-align: center;
+  }
+  .travel-tips__cta p {
+    color: white;
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+  }
+  .travel-tips__cta a {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: white;
+    color: var(--brand-primary);
+    font-weight: 600;
+    border-radius: 9999px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+  .travel-tips__cta a:hover {
+    background: var(--brand-bg-alt);
+  }
+</style>

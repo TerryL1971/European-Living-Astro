@@ -1,8 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroSection from '../components/page/HeroSection.astro';
-// Keep files imported, but we will bypass rendering them to see if it fixes the crash
-import FeaturesSection from '../components/page/FeaturesSection.tsx';
+import TravelTipsSection from '../components/page/TravelTipsSection.astro';
 import ServicesCategoriesSection from '../components/page/ServicesCategoriesSection.tsx';
 import ContactSection from '../components/page/ContactSection.tsx';
 import TravelPhrasesSection from '../components/page/TravelPhrasesSection.tsx';
@@ -90,7 +89,7 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
 
   <FamilyAdventuresSection />
 
-  <FeaturesSection client:visible />
+  <TravelTipsSection />
 
   <TravelPhrasesSection client:visible />
 
