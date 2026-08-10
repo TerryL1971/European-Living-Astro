@@ -90,13 +90,13 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
 
   <FamilyAdventuresSection />
 
-  <!-- We comment these out temporarily to guarantee the site boots safely -->
-  <!--
   <FeaturesSection client:visible />
+
   <TravelPhrasesSection client:visible />
+
   <ServicesCategoriesSection client:visible />
+
   <ContactSection client:visible />
-  -->
 
 </BaseLayout>
 
@@ -134,15 +134,9 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
 
   function renderPage() {
     cards.forEach((card, i) => {
-      // How far is this card from the current window's start,
-      // wrapping around the end of the list?
       const offset = (i - startIndex + total) % total;
       const isVisible = offset < pageSize;
       card.hidden = !isVisible;
-      // CSS `order` controls visual left-to-right position within the
-      // grid independent of DOM order, so a wrapped window (e.g. cards
-      // 18, 0, 1) still displays in the correct 1-2-3 left-to-right
-      // sequence rather than following original document order.
       card.style.order = isVisible ? String(offset) : '';
     });
 
