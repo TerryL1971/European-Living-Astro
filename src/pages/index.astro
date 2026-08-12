@@ -6,6 +6,7 @@ import ServicesCategoriesSection from '../components/page/ServicesCategoriesSect
 import ContactSection from '../components/page/ContactSection.tsx';
 import TravelPhrasesSection from '../components/page/TravelPhrasesSection.tsx';
 import FamilyAdventuresSection from '../components/page/FamilyAdventuresSection.astro';
+import FeaturedContentSection from '../components/page/FeaturedContentSection.tsx';
 import { getAllDestinationArticles } from '../lib/supabaseArticles';
 
 const destinationArticles = await getAllDestinationArticles();
@@ -86,6 +87,8 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
     <a href="/submit-destination">Request a Destination</a>
   </div>
 
+  <FeaturedContentSection client:visible />
+
   <!-- Temporary fallback placeholder for the newsletter form to stop the server crash -->
   <div id="email-signup" class="placeholder-section">
     <h2>Join the Newsletter</h2>
@@ -94,21 +97,12 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
 
   <FamilyAdventuresSection />
 
-<<<<<<< HEAD
-  <TravelTipsSection />
-
-  <TravelPhrasesSection client:visible />
-
-  <ServicesCategoriesSection client:visible />
-
-=======
   <ServicesCategoriesSection client:visible />
 
   <TravelTipsSection />
 
   <TravelPhrasesSection client:visible />
 
->>>>>>> e092995 (Added new pages)
   <ContactSection client:visible />
 
 </BaseLayout>
