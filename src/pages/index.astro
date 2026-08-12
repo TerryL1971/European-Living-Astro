@@ -81,6 +81,11 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
     <div class="destinations__dots" id="destinations-dots"></div>
   </section>
 
+  <div class="request-destination">
+    <p>Don't see your favorite destination? Let us know!</p>
+    <a href="/submit-destination">Request a Destination</a>
+  </div>
+
   <!-- Temporary fallback placeholder for the newsletter form to stop the server crash -->
   <div id="email-signup" class="placeholder-section">
     <h2>Join the Newsletter</h2>
@@ -89,12 +94,21 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
 
   <FamilyAdventuresSection />
 
+<<<<<<< HEAD
   <TravelTipsSection />
 
   <TravelPhrasesSection client:visible />
 
   <ServicesCategoriesSection client:visible />
 
+=======
+  <ServicesCategoriesSection client:visible />
+
+  <TravelTipsSection />
+
+  <TravelPhrasesSection client:visible />
+
+>>>>>>> e092995 (Added new pages)
   <ContactSection client:visible />
 
 </BaseLayout>
@@ -293,6 +307,32 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
   .destinations__dots :global(button.is-active) {
     width: 2rem;
     background: var(--brand-blue);
+  }
+  .request-destination {
+    max-width: 72rem;
+    margin: 0 auto 3rem;
+    padding: 2.5rem 1.5rem;
+    background: var(--brand-primary-dark, var(--brand-primary));
+    border-radius: 1rem;
+    text-align: center;
+  }
+  .request-destination p {
+    color: white;
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .request-destination a {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    background: white;
+    color: var(--brand-primary-dark, var(--brand-primary));
+    font-weight: 700;
+    border-radius: 9999px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+  .request-destination a:hover {
+    background: var(--brand-bg-alt);
   }
   .placeholder-section {
     max-width: 48rem;

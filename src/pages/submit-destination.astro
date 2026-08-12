@@ -1,0 +1,15 @@
+---
+// Mirrors submit-business.astro: the form needs to be interactive
+// immediately on load — client:load, not client:visible — since it's
+// the entire point of the page and sits above the fold.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DestinationSubmissionForm from '../components/DestinationSubmissionForm.tsx';
+---
+
+<BaseLayout
+  title="Suggest a Destination"
+  description="Tell European Living about a destination we're missing — share your write-up and photos for a chance to be featured as a full guide."
+  canonicalPath="/submit-destination"
+>
+  <DestinationSubmissionForm client:load />
+</BaseLayout>
