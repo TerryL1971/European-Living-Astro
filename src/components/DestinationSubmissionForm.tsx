@@ -113,7 +113,13 @@ export default function DestinationSubmissionForm() {
         updated_at: new Date().toISOString(),
       };
 
-      const { error: insertError } = await supabase.from('destination_submissions').insert(insertPayload).select();
+      // No trailing .select() here on purpose: unlike `businesses`, this
+      // table has no public SELECT policy (submissions should stay
+      // private until reviewed), and asking Supabase to read back the
+      // inserted row would fail under RLS even though the insert itself
+      // succeeds — that mismatch was the actual cause of the "Permission
+      // denied" error during testing, not a missing INSERT policy.
+      const { error: insertError } = await supabase.from('destination_submissions').insert(insertPayload);
 
       if (insertError) {
         if (insertError.code === '42501') {
