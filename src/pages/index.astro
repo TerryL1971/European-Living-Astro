@@ -7,6 +7,7 @@ import ContactSection from '../components/page/ContactSection.tsx';
 import TravelPhrasesSection from '../components/page/TravelPhrasesSection.tsx';
 import FamilyAdventuresSection from '../components/page/FamilyAdventuresSection.astro';
 import FeaturedContentSection from '../components/page/FeaturedContentSection.tsx';
+import EmailSignup from '../components/EmailSignup.tsx';
 import { getAllDestinationArticles } from '../lib/supabaseArticles';
 
 const destinationArticles = await getAllDestinationArticles();
@@ -89,10 +90,8 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
 
   <FeaturedContentSection client:visible />
 
-  <!-- Temporary fallback placeholder for the newsletter form to stop the server crash -->
-  <div id="email-signup" class="placeholder-section">
-    <h2>Join the Newsletter</h2>
-    <p>Sign up to receive free travel tips and updates directly in your inbox.</p>
+  <div class="email-signup-wrap">
+    <EmailSignup variant="homepage" client:visible />
   </div>
 
   <FamilyAdventuresSection />
@@ -341,5 +340,10 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
   }
   .placeholder-section p {
     color: var(--brand-text-muted, #475569);
+  }
+  .email-signup-wrap {
+    max-width: 56rem;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
   }
 </style>

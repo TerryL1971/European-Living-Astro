@@ -1,39 +1,33 @@
-// src/components/EmailSignup.tsx
+// src/components/EmailSignup.tsx - NO PRESSURE VERSION
 //
-// Ported unchanged apart from one fix: the original had
-// `if (success) { setTimeout(...) }` directly in the render body, which
-// re-runs on every re-render while success stays true — creating a new
-// stacked setTimeout each time (all harmlessly calling the same
-// setSuccess(false), but still wasteful). Moved into a useEffect keyed
-// on `success` so it only fires once per success transition, with
-// proper cleanup.
+// Direct port — no react-router-dom, no BaseContext, no Supabase
+// dependency here, so nothing about the Astro migration required
+// structural changes. Posts straight to Formspree exactly as before.
 
-import { useState, useEffect } from 'react';
-import { Mail, Check, Loader } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react'
+import { Mail, Check, Loader } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface EmailSignupProps {
-  variant?: 'homepage' | 'article' | 'footer';
-  title?: string;
-  description?: string;
+  variant?: 'homepage' | 'article' | 'footer'
+  title?: string
+  description?: string
 }
 
-export default function EmailSignup({ variant = 'homepage', title, description }: EmailSignupProps) {
-  const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    if (!success) return;
-    const timer = setTimeout(() => setSuccess(false), 5000);
-    return () => clearTimeout(timer);
-  }, [success]);
+export default function EmailSignup({
+  variant = 'homepage',
+  title,
+  description
+}: EmailSignupProps) {
+  const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
+    e.preventDefault()
+    setLoading(true)
+    setError('')
 
     try {
       const response = await fetch('https://formspree.io/f/xeeloovy', {
@@ -45,23 +39,27 @@ export default function EmailSignup({ variant = 'homepage', title, description }
           email,
           _subject: 'New European Living - Stay Updated Signup',
           signup_source: variant,
-          message: `New signup from ${variant} section - Stay Updated list`,
-        }),
-      });
+          message: `New signup from ${variant} section - Stay Updated list`
+        })
+      })
 
       if (response.ok) {
-        setSuccess(true);
-        setEmail('');
+        setSuccess(true)
+        setEmail('')
       } else {
-        throw new Error('Failed to subscribe');
+        throw new Error('Failed to subscribe')
       }
     } catch (err) {
-      console.error('Signup error:', err);
-      setError('Something went wrong. Please try again.');
+      console.error('Signup error:', err)
+      setError('Something went wrong. Please try again.')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
+
+  if (success) {
+    setTimeout(() => setSuccess(false), 5000)
+  }
 
   const getStyles = () => {
     switch (variant) {
@@ -69,24 +67,24 @@ export default function EmailSignup({ variant = 'homepage', title, description }
         return {
           container: 'bg-gradient-to-r from-[var(--brand-primary)] to-[var(--brand-dark)] text-[#f7f7ec] rounded-2xl p-8 shadow-xl',
           input: 'bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/20 focus:border-white/40',
-          button: 'bg-[var(--brand-gold)] text-[#131312] hover:bg-[var(--brand-button)] font-bold',
-        };
+          button: 'bg-[var(--brand-gold)] text-[#131312] hover:bg-[var(--brand-button)] font-bold'
+        }
       case 'article':
         return {
           container: 'bg-[#f4f5f0] border border-[#9da586]/30 rounded-xl p-6',
           input: 'bg-white border-[#9da586]/40 focus:border-[var(--brand-primary)] text-[#131312]',
-          button: 'bg-[var(--brand-primary)] text-white hover:bg-[var(--brand-dark)] font-medium',
-        };
+          button: 'bg-[var(--brand-primary)] text-white hover:bg-[var(--brand-dark)] font-medium'
+        }
       case 'footer':
         return {
           container: 'bg-[#131312] text-[#f4f5f0] rounded-lg p-6',
           input: 'bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:border-white/40',
-          button: 'bg-[var(--brand-button)] text-[#f7f7ec] hover:bg-[#9da586] font-medium',
-        };
+          button: 'bg-[var(--brand-button)] text-[#f7f7ec] hover:bg-[#9da586] font-medium'
+        }
     }
-  };
+  }
 
-  const styles = getStyles();
+  const styles = getStyles()
 
   return (
     <div className={styles.container}>
@@ -101,26 +99,33 @@ export default function EmailSignup({ variant = 'homepage', title, description }
             <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
               <Check className="w-8 h-8 text-green-500" />
             </div>
-            <h3 className="text-2xl font-bold mb-2">🎉 You're In!</h3>
+            <h3 className="text-2xl font-bold mb-2">
+              🎉 You're In!
+            </h3>
             <p className="opacity-90">
               We'll keep you posted when we add new destinations and guides. Thanks for joining us!
             </p>
           </motion.div>
         ) : (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
             <div className="flex items-start gap-4 mb-6">
-              <div
-                className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
-                  variant === 'homepage' ? 'bg-white/10' : variant === 'article' ? 'bg-[var(--brand-primary)]/10' : 'bg-white/10'
-                }`}
-              >
+              <div className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
+                variant === 'homepage' ? 'bg-white/10' :
+                variant === 'article' ? 'bg-[var(--brand-primary)]/10' :
+                'bg-white/10'
+              }`}>
                 <Mail className="w-6 h-6" />
               </div>
               <div className="flex-1">
-                <h3 className="text-2xl font-bold mb-2">{title || '🗺️ Stay in the Loop'}</h3>
+                <h3 className="text-2xl font-bold mb-2">
+                  {title || '🗺️ Stay in the Loop'}
+                </h3>
                 <p className="text-lg opacity-90">
-                  {description ||
-                    'Get updates when we add new destinations, travel guides, and tips. No spam - just the good stuff when we have something worth sharing.'}
+                  {description || 'Get updates when we add new destinations, travel guides, and tips. No spam - just the good stuff when we have something worth sharing.'}
                 </p>
               </div>
             </div>
@@ -155,19 +160,27 @@ export default function EmailSignup({ variant = 'homepage', title, description }
                 </button>
               </div>
 
-              {error && <p className="text-red-400 text-sm">{error}</p>}
+              {error && (
+                <p className="text-red-400 text-sm">{error}</p>
+              )}
 
               <div className="text-xs flex flex-wrap items-center gap-x-4 gap-y-1 opacity-70">
-                <span className="flex items-center gap-1">✓ No spam, ever</span>
-                <span className="flex items-center gap-1">✓ Unsubscribe anytime</span>
-                <span className="flex items-center gap-1">✓ Updates only when we have something new</span>
+                <span className="flex items-center gap-1">
+                  ✓ No spam, ever
+                </span>
+                <span className="flex items-center gap-1">
+                  ✓ Unsubscribe anytime
+                </span>
+                <span className="flex items-center gap-1">
+                  ✓ Updates only when we have something new
+                </span>
               </div>
             </form>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
-  );
+  )
 }
 
 export function EmailSignupHomepage() {
@@ -177,7 +190,7 @@ export function EmailSignupHomepage() {
         <EmailSignup variant="homepage" />
       </div>
     </section>
-  );
+  )
 }
 
 export function EmailSignupArticle() {
@@ -189,7 +202,7 @@ export function EmailSignupArticle() {
         description="Get updates when we publish new travel guides and destination tips. No weekly emails - just updates when we have something worth sharing."
       />
     </div>
-  );
+  )
 }
 
 export function EmailSignupFooter() {
@@ -199,5 +212,5 @@ export function EmailSignupFooter() {
       title="Stay Connected"
       description="Occasional updates on new destinations and travel tips for military families in Europe."
     />
-  );
+  )
 }
