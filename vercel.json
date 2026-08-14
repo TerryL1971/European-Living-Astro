@@ -1,0 +1,24 @@
+{
+  "redirects": [
+    {
+      "source": "/articles/buying-a-car-in-germany-american-guide",
+      "destination": "/articles/buying-car-germany-military",
+      "statusCode": 301
+    },
+    {
+      "source": "/day-trips/3b76a29f-eaf6-4f4e-9aa5-a8f8801a6c74",
+      "destination": "/day-trips/stuttgart-rothenburg-ob-der-tauber",
+      "statusCode": 301
+    },
+    {
+      "source": "/day-trips/49d83600-07ab-4d0b-b776-987b8135ba7e",
+      "destination": "/day-trips/ramstein-luxembourg-city",
+      "statusCode": 301
+    },
+    {
+      "source": "/day-trips/06c55fcd-bc6a-4eb7-9fd1-527160b8717b",
+      "destination": "/day-trips/grafenwoehr-prague-czech-republic",
+      "statusCode": 301
+    }
+  ]
+}
