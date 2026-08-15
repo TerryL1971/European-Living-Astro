@@ -1,0 +1,13 @@
+---
+// src/pages/admin/featured-content.astro
+// Static wrapper page — no server-side auth check needed since
+// AdminAuthWrapper gates entirely client-side via the Supabase Auth
+// session. FeaturedContentAdmin.tsx already wraps itself in
+// AdminAuthWrapper, so this page just hydrates the one island.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FeaturedContentAdmin from '../../components/admin/FeaturedContentAdmin';
+---
+
+<BaseLayout title="Featured Content Manager | Admin">
+  <FeaturedContentAdmin client:load />
+</BaseLayout>

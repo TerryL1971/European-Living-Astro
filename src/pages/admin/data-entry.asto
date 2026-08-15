@@ -1,0 +1,16 @@
+---
+// src/pages/admin/data-entry.astro
+// Static wrapper page — no server-side auth check needed since
+// AdminAuthWrapper gates entirely client-side via the Supabase Auth
+// session. BusinessDataEntry.tsx doesn't wrap itself in AdminAuthWrapper
+// (unlike FeaturedContentAdmin.tsx), so it's nested here instead.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdminAuthWrapper from '../../components/AdminAuthWrapper';
+import BusinessDataEntry from '../../components/admin/BusinessDataEntry';
+---
+
+<BaseLayout title="Business Data Entry | Admin">
+  <AdminAuthWrapper client:load>
+    <BusinessDataEntry client:load />
+  </AdminAuthWrapper>
+</BaseLayout>
