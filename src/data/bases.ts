@@ -1,77 +1,22 @@
 // src/data/bases.ts
 //
-// CONSOLIDATION NOTE: the original codebase had two separate definitions
-// of this same list — BaseSelectionModal.tsx defined its own inline
-// BASES array (id/name/location/region/icon/description), while
-// BaseSelector.tsx imported a differently-shaped BASES from this path
-// (id/name/location/nearbyTowns). Rather than preserve two
-// out-of-sync copies of "the list of bases," this file is the one
-// shared source both components import from. `nearbyTowns` values
-// below are a reasonable best guess — worth reviewing/adjusting.
+// Shared base id -> display name lookup. Same six bases used inline in
+// BusinessDataEntry.tsx's BASES constant — pulled out here so day-trip
+// code (and anything else needing to resolve a bases_served id array
+// to display names) has one canonical source instead of redeclaring
+// the list. BusinessDataEntry.tsx's inline copy is a candidate to
+// switch over to this later; not touched as part of this migration to
+// keep the diff scoped.
 
-export interface Base {
-  id: string;
-  name: string;
-  location: string;
-  region: string;
-  icon: string;
-  description: string;
-  nearbyTowns: string[];
+export const BASES = [
+  { id: 'ramstein', name: 'Ramstein AB' },
+  { id: 'stuttgart', name: 'USAG Stuttgart' },
+  { id: 'kaiserslautern', name: 'KMC Area' },
+  { id: 'wiesbaden', name: 'USAG Wiesbaden' },
+  { id: 'grafenwoehr', name: 'USAG Bavaria' },
+  { id: 'spangdahlem', name: 'Spangdahlem AB' },
+] as const;
+
+export function getBaseName(id: string): string {
+  return BASES.find((b) => b.id === id)?.name ?? id;
 }
-
-export const BASES: Base[] = [
-  {
-    id: 'ramstein',
-    name: 'Ramstein Air Base',
-    location: 'Ramstein-Miesenbach',
-    region: 'Rhineland-Palatinate',
-    icon: '✈️',
-    description: 'Largest USAF base in Europe',
-    nearbyTowns: ['Kaiserslautern', 'Landstuhl', 'Weilerbach'],
-  },
-  {
-    id: 'stuttgart',
-    name: 'USAG Stuttgart',
-    location: 'Stuttgart',
-    region: 'Baden-Württemberg',
-    icon: '🏛️',
-    description: 'Home to EUCOM and AFRICOM headquarters',
-    nearbyTowns: ['Böblingen', 'Sindelfingen', 'Vaihingen'],
-  },
-  {
-    id: 'kaiserslautern',
-    name: 'Kaiserslautern Area',
-    location: 'Kaiserslautern',
-    region: 'Rhineland-Palatinate',
-    icon: '🏰',
-    description: 'Heart of the KMC – Kaiserslautern Military Community',
-    nearbyTowns: ['Landstuhl', 'Ramstein-Miesenbach', 'Weilerbach'],
-  },
-  {
-    id: 'wiesbaden',
-    name: 'USAG Wiesbaden',
-    location: 'Wiesbaden',
-    region: 'Hesse',
-    icon: '🏢',
-    description: 'Near Frankfurt, Army base and community',
-    nearbyTowns: ['Mainz', 'Frankfurt', 'Hofheim'],
-  },
-  {
-    id: 'grafenwoehr',
-    name: 'USAG Bavaria',
-    location: 'Grafenwöhr',
-    region: 'Bavaria',
-    icon: '⚔️',
-    description: 'Training area and large Army garrison',
-    nearbyTowns: ['Vilseck', 'Weiden', 'Eschenbach'],
-  },
-  {
-    id: 'spangdahlem',
-    name: 'Spangdahlem Air Base',
-    location: 'Spangdahlem',
-    region: 'Rhineland-Palatinate',
-    icon: '🛩️',
-    description: 'USAF base near Bitburg',
-    nearbyTowns: ['Bitburg', 'Trier', 'Wittlich'],
-  },
-];

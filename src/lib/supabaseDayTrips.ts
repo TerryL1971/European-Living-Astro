@@ -1,6 +1,13 @@
 // Build-time data access for static day-trip pages.
 // Matches the real public.day_trips schema exactly (see CREATE TABLE
 // provided 2026-07-10) — do not add fields that aren't real columns.
+//
+// PHASE 1 of the bases_served migration (see migration doc): base_id
+// and base_name are still present and still the source of truth for
+// single-base filtering — bases_served is additive for now, backfilled
+// per-name so duplicate rows for the same destination all carry the
+// same full base list. Phase 2 will delete the duplicate rows, drop
+// base_id/base_name, and make bases_served the only source of truth.
 
 import { createClient } from '@supabase/supabase-js';
 
@@ -14,6 +21,7 @@ export interface DayTripRow {
   id: string;
   base_id: string;
   base_name: string;
+  bases_served: string[];
   name: string;
   slug: string | null;
   distance: string;
@@ -73,6 +81,7 @@ const SAMPLE_DAY_TRIPS: DayTripRow[] = [
     id: '00000000-0000-0000-0000-000000000001',
     base_id: 'stuttgart',
     base_name: 'Stuttgart',
+    bases_served: ['stuttgart'],
     name: 'Strasbourg',
     slug: 'strasbourg-canals',
     distance: '85 mi',

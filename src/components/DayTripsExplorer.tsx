@@ -15,26 +15,27 @@
 // NOTE: the real day_trips schema (see DayTripRow in
 // lib/supabaseDayTrips.ts) has no `tags` column — category info comes
 // only from `best_for: string[]`. Don't reintroduce a `.tags` read.
+//
+// PHASE 1 of the bases_served migration (see migration doc): rows are
+// still duplicated one-per-base for destinations near multiple bases,
+// so we still dedupe by name for the "All Locations" view — but the
+// merged card's base list now reads the real `bases_served` column
+// (backfilled identically across all duplicate rows for the same
+// name) instead of accumulating names as duplicates are encountered.
+// Single-base filtering still matches on `base_id`, NOT
+// `bases_served.includes(...)` — every duplicate row for a given name
+// now carries the FULL bases_served array, so filtering by
+// bases_served here would show all 2-3 duplicate cards instead of
+// just the one for the selected base. That switches over once Phase 2
+// deletes the duplicate rows and bases_served is the only base data
+// per row.
 
 import { useState, useMemo } from 'react';
 import { useStore } from '@nanostores/react';
 import { $selectedBase } from '../stores/baseStore';
 import { MapPin, Car, Train, X, Star, Bookmark } from 'lucide-react';
 import type { DayTripRow } from '../lib/supabaseDayTrips';
-
-// DISPLAY-ONLY DEDUPE (see backlog note in the migration doc for the
-// real fix): destinations near more than one base — Trier from
-// Ramstein/Kaiserslautern/Wiesbaden, for example — are entered as
-// separate rows, one per base, because day_trips.base_id is a single
-// column rather than an array like businesses.bases_served. That's
-// correct for single-base filtering but produces 2-3 duplicate cards
-// for the same place under "All Locations". Merge by name here so the
-// grid never shows the same destination twice; the underlying rows
-// stay untouched. Trip cards use best_for.
-
-interface DisplayTrip extends DayTripRow {
-  mergedBaseNames?: string[];
-}
+import { getBaseName } from '../data/bases';
 
 interface Props {
   trips: DayTripRow[];
@@ -47,26 +48,24 @@ export default function DayTripsExplorer({ trips }: Props) {
   const [selectedCost, setSelectedCost] = useState('all');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const baseTrips = useMemo((): DisplayTrip[] => {
+  const baseTrips = useMemo((): DayTripRow[] => {
     if (selectedBase !== 'all') {
       const baseIdFormatted = selectedBase.toLowerCase().replace(/[^a-z0-9]/g, '');
       return trips.filter((trip) => trip.base_id === baseIdFormatted);
     }
 
     // "All Locations": merge rows that share the same destination name
-    // (case-insensitive, trimmed) into a single card, collecting every
-    // base it appears under. First row encountered wins for the
-    // displayed description/photo/rating — the rows aren't otherwise
-    // guaranteed identical, which is exactly what the real fix (a
-    // bases_served array) would resolve properly.
-    const byName = new Map<string, DisplayTrip>();
+    // (case-insensitive, trimmed) into a single card. First row
+    // encountered wins for the displayed description/photo/rating —
+    // the rows aren't otherwise guaranteed identical, which is exactly
+    // what Phase 2 (deleting the duplicate rows) resolves properly.
+    // bases_served is already correct on every row in the group
+    // (backfilled per name), so no accumulation needed here.
+    const byName = new Map<string, DayTripRow>();
     for (const trip of trips) {
       const key = trip.name.trim().toLowerCase();
-      const existing = byName.get(key);
-      if (existing) {
-        existing.mergedBaseNames = [...(existing.mergedBaseNames ?? [existing.base_name]), trip.base_name];
-      } else {
-        byName.set(key, { ...trip });
+      if (!byName.has(key)) {
+        byName.set(key, trip);
       }
     }
     return Array.from(byName.values());
@@ -220,7 +219,7 @@ export default function DayTripsExplorer({ trips }: Props) {
                 </h3>
                 {selectedBase === 'all' && (
                   <p className="text-sm text-[var(--muted-foreground)] mb-3">
-                    From {(trip.mergedBaseNames ?? [trip.base_name]).join(', ')}
+                    From {(trip.bases_served?.length ? trip.bases_served.map(getBaseName) : [trip.base_name]).join(', ')}
                   </p>
                 )}
                 <p className="text-[var(--muted-foreground)] text-sm mb-4 line-clamp-3">{displayDescription}</p>
