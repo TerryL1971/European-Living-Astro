@@ -1,71 +1,18 @@
 // src/components/page/FeaturedContentSection.tsx
 //
-// Ported from FeaturedContentSection.tsx + featuredContentService.ts.
-// Reads the selected base from the shared nanostore ($selectedBase in
-// stores/baseStore.ts) instead of the dead contexts/BaseContext.tsx —
-// same pattern as every other re-enabled homepage section.
-//
-// The first pass at this file only replicated the base-matching logic
-// and missed two filtering steps the real getFeaturedContent() does:
-// excluding items outside their start_date/end_date window, and capping
-// the result to 4 items. That caused every active row (8, in
-// production) to render instead of the intended 4 — fixed below by
-// porting the service's full three-stage filter (base match → date
-// window → slice(0, 4)) verbatim rather than trying to express it as a
-// single Supabase query.
+// Ported from FeaturedContentSection.tsx. Reads the selected base from the
+// shared nanostore ($selectedBase in stores/baseStore.ts) instead of the
+// dead contexts/BaseContext.tsx — same pattern as every other re-enabled
+// homepage section. Now imports getFeaturedContent from
+// services/featuredContentService.ts (added alongside the admin pages)
+// instead of duplicating the base/date filter logic inline here.
 
 import { useState, useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 import { $selectedBase } from '../../stores/baseStore';
-import { supabase } from '../../services/supabaseClient';
+import { getFeaturedContent } from '../../services/featuredContentService';
 import type { FeaturedContent } from '../../types/featuredContent';
 import { ExternalLink, Calendar } from 'lucide-react';
-
-async function getFeaturedContent(baseId: string): Promise<FeaturedContent[]> {
-  const { data, error } = await supabase
-    .from('featured_content')
-    .select('*')
-    .eq('active', true)
-    .order('display_order', { ascending: true });
-
-  if (error) {
-    console.error('Error fetching featured content:', error);
-    return [];
-  }
-  if (!data) return [];
-
-  // Base match: 'all' in bases_served always matches; otherwise match the
-  // selected base, or show everything if the selected base is itself 'all'.
-  const baseFiltered = data.filter((item: FeaturedContent) => {
-    let basesArray: string[] = [];
-    if (Array.isArray(item.bases_served)) {
-      basesArray = item.bases_served;
-    } else if (typeof item.bases_served === 'string') {
-      try {
-        basesArray = JSON.parse(item.bases_served);
-      } catch {
-        basesArray = [item.bases_served];
-      }
-    }
-
-    if (basesArray.includes('all')) return true;
-    if (baseId !== 'all' && basesArray.includes(baseId)) return true;
-    if (baseId === 'all') return true;
-    return false;
-  });
-
-  // Date window: exclude anything not yet started or already ended.
-  const now = new Date();
-  const currentItems = baseFiltered.filter((item: FeaturedContent) => {
-    const startDate = item.start_date ? new Date(item.start_date) : null;
-    const endDate = item.end_date ? new Date(item.end_date) : null;
-    if (startDate && startDate > now) return false;
-    if (endDate && endDate < now) return false;
-    return true;
-  });
-
-  return currentItems.slice(0, 4);
-}
 
 export default function FeaturedContentSection() {
   const selectedBase = useStore($selectedBase);
