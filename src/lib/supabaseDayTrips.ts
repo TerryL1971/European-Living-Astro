@@ -72,7 +72,7 @@ export async function getAllDayTrips(): Promise<DayTripRow[]> {
     return SAMPLE_DAY_TRIPS;
   }
 
-  return data ?? [];
+  return (data as DayTripRow[]) ?? [];
 }
 
 // Dev/fallback sample only — replace by populating Supabase, don't ship this.
