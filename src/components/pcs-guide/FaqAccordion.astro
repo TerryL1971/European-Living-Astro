@@ -1,0 +1,65 @@
+---
+// src/components/pcs-guide/FaqAccordion.astro
+//
+// Renders FAQ_ITEMS from data/pcsGuideFaq.ts as accordion items.
+// Native <details>/<summary> — same zero-JS approach as PhaseTimeline.astro.
+import { FAQ_ITEMS } from '../../data/pcsGuideFaq';
+---
+
+<div class="faq">
+  {FAQ_ITEMS.map((item) => (
+    <details class="faq__item">
+      <summary class="faq__question">
+        <span>{item.question}</span>
+        <span class="faq__chevron" aria-hidden="true">↓</span>
+      </summary>
+      <div class="faq__answer">{item.answer}</div>
+    </details>
+  ))}
+</div>
+
+<style>
+  .faq {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .faq__item {
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .faq__question {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 18px 0;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--brand-primary-dark, #0c4a6e);
+    line-height: 1.4;
+    list-style: none;
+  }
+  .faq__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__chevron {
+    flex-shrink: 0;
+    font-size: 18px;
+    color: var(--brand-secondary, #f59e0b);
+    margin-top: 2px;
+    transition: transform 0.2s ease;
+  }
+  .faq__item[open] .faq__chevron {
+    transform: rotate(180deg);
+  }
+
+  .faq__answer {
+    padding-bottom: 18px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #374151;
+  }
+</style>

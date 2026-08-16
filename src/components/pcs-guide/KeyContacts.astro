@@ -1,0 +1,52 @@
+---
+// src/components/pcs-guide/KeyContacts.astro
+//
+// Renders KEY_CONTACTS from data/pcsGuideContacts.ts as a static grid.
+import { KEY_CONTACTS } from '../../data/pcsGuideContacts';
+---
+
+<div class="contacts">
+  {KEY_CONTACTS.map((c) => (
+    <div class="contacts__card">
+      <div class="contacts__label">{c.label}</div>
+      <div class="contacts__number">{c.number}</div>
+      <div class="contacts__note">{c.note}</div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .contacts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+  }
+
+  .contacts__card {
+    padding: 16px;
+    background: #fff;
+    border: 1.5px solid var(--brand-border, #94a3b8);
+    border-radius: 10px;
+  }
+
+  .contacts__label {
+    font-size: 12px;
+    color: var(--brand-secondary, #f59e0b);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+
+  .contacts__number {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--brand-primary-dark, #0c4a6e);
+    margin-bottom: 3px;
+  }
+
+  .contacts__note {
+    font-size: 12px;
+    color: #9ca3af;
+  }
+</style>
