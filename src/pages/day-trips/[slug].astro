@@ -1,217 +1,259 @@
----
-// STATIC, HIGH PRIORITY SEO/AEO page — real public.day_trips schema.
+// src/components/DayTripsExplorer.tsx
 //
-// PHASE 2 of the bases_served migration: trip.base_name no longer
-// exists (column dropped). Base names are resolved from
-// bases_served via getBaseName and joined for destinations served by
-// more than one base.
+// Client island for the /day-trips filter/search grid. Receives all
+// trips pre-fetched at build time from day-trips/index.astro (via
+// getAllDayTrips() in lib/supabaseDayTrips) as a prop, and filters
+// them client-side.
+//
+// Reads the selected base from the shared nanostore ($selectedBase in
+// stores/baseStore.ts) — same store BaseSelector.tsx,
+// BaseSelectionModal.tsx, and ServicesCategoriesSection.tsx use. Do
+// NOT import from contexts/BaseContext.tsx — that file is dead legacy
+// code (old React Context, requires a <BaseProvider> wrapper nothing
+// in this repo provides).
+//
+// NOTE: the real day_trips schema (see DayTripRow in
+// lib/supabaseDayTrips.ts) has no `tags` column — category info comes
+// only from `best_for: string[]`. Don't reintroduce a `.tags` read.
+//
+// PHASE 2 of the bases_served migration (see migration doc): duplicate
+// per-base rows are now merged into one row per destination, and
+// base_id/base_name columns are gone — bases_served is the only
+// source of base data, for both filtering and display. The old
+// name-based dedupe (Phase 1) is removed; it's no longer needed since
+// there's only one row per destination.
 
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import AnswerBox from '../../components/seo/AnswerBox.astro';
-import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
-import MapView from '../../components/MapView.tsx';
-import { placeSchema } from '../../lib/seo/schema';
-import { getAllDayTrips, type DayTripRow } from '../../lib/supabaseDayTrips';
-import { getBaseName } from '../../data/bases';
-
-export async function getStaticPaths() {
-  const trips = await getAllDayTrips();
-  return trips
-    .filter((t) => t.slug) // slug is nullable in the schema; skip rows without one
-    .map((trip) => ({
-      params: { slug: trip.slug as string },
-      props: { trip },
-    }));
-}
+import { useState, useMemo } from 'react';
+import { useStore } from '@nanostores/react';
+import { $selectedBase } from '../stores/baseStore';
+import { MapPin, Car, Train, X, Star, Bookmark } from 'lucide-react';
+import type { DayTripRow } from '../lib/supabaseDayTrips';
+import { getBaseName } from '../data/bases';
 
 interface Props {
-  trip: DayTripRow;
+  trips: DayTripRow[];
 }
-const { trip } = Astro.props as Props;
 
-const baseNames = (trip.bases_served ?? []).map(getBaseName);
-const baseLabel = baseNames.length > 0 ? baseNames.join(' & ') : 'US Bases in Germany';
+export default function DayTripsExplorer({ trips }: Props) {
+  const selectedBase = useStore($selectedBase);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedDifficulty, setSelectedDifficulty] = useState('all');
+  const [selectedCost, setSelectedCost] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
-const heroImage = trip.hero_image_url ?? trip.image_url ?? undefined;
-const description =
-  trip.short_description ??
-  trip.description ??
-  `${trip.name} day trip from ${baseLabel} — distance, travel time, and what to see.`;
+  const baseIdFormatted = useMemo(
+    () => selectedBase.toLowerCase().replace(/[^a-z0-9]/g, ''),
+    [selectedBase]
+  );
 
-const schema = placeSchema({
-  name: trip.name,
-  description,
-  slug: trip.slug as string,
-  path: '/day-trips',
-  image: heroImage,
-  latitude: trip.latitude ?? undefined,
-  longitude: trip.longitude ?? undefined,
-});
+  const baseTrips = useMemo((): DayTripRow[] => {
+    if (selectedBase === 'all') return trips;
+    return trips.filter((trip) => trip.bases_served?.includes(baseIdFormatted));
+  }, [selectedBase, baseIdFormatted, trips]);
 
-const answerText =
-  trip.short_description ??
-  `${trip.name} is ${trip.distance} from ${baseLabel} (about ${trip.drive_time} by car${
-    trip.train_time ? `, ${trip.train_time} by train` : ''
-  }). Difficulty: ${trip.difficulty}. Cost level: ${trip.cost}.`;
----
+  const allCategories = useMemo(() => {
+    const categories = new Set<string>();
+    trips.forEach((trip) => {
+      (trip.best_for ?? []).forEach((cat) => categories.add(cat));
+    });
+    return Array.from(categories).sort();
+  }, [trips]);
 
-<BaseLayout
-  title={`${trip.name} Day Trip from ${baseLabel}`}
-  description={description}
-  canonicalPath={`/day-trips/${trip.slug}`}
-  ogImage={heroImage}
-  pageSchemas={[schema]}
->
-  <article class="trip">
-    <Breadcrumbs
-      items={[
-        { name: 'Day Trips', url: '/day-trips' },
-        { name: trip.name, url: `/day-trips/${trip.slug}` },
-      ]}
-    />
+  const filteredTrips = useMemo(() => {
+    return baseTrips.filter((trip) => {
+      const matchesSearch =
+        searchTerm === '' ||
+        trip.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        trip.description.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesDifficulty = selectedDifficulty === 'all' || trip.difficulty === selectedDifficulty;
+      const matchesCost = selectedCost === 'all' || trip.cost === selectedCost;
+      const matchesCategory =
+        selectedCategory === 'all' || (trip.best_for ?? []).includes(selectedCategory);
+      return matchesSearch && matchesDifficulty && matchesCost && matchesCategory;
+    });
+  }, [baseTrips, searchTerm, selectedDifficulty, selectedCost, selectedCategory]);
 
-    {heroImage && <img src={heroImage} alt={trip.name} class="trip__hero" loading="lazy" />}
+  const clearFilters = () => {
+    setSearchTerm('');
+    setSelectedDifficulty('all');
+    setSelectedCost('all');
+    setSelectedCategory('all');
+  };
 
-    <h1>{trip.name} Day Trip from {baseLabel}</h1>
+  const hasActiveFilters =
+    searchTerm !== '' || selectedDifficulty !== 'all' || selectedCost !== 'all' || selectedCategory !== 'all';
 
-    <AnswerBox answer={answerText} />
+  return (
+    <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="bg-white rounded-lg shadow-md p-6 mb-8 border border-[var(--border)]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="lg:col-span-2">
+            <label className="block text-sm font-semibold text-[var(--brand-dark)] mb-2">Search Destinations</label>
+            <input
+              type="text"
+              placeholder="Search by name or description..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full px-4 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-[var(--brand-primary)] focus:border-transparent"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-[var(--brand-dark)] mb-2">Category</label>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="w-full px-4 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-[var(--brand-primary)]"
+            >
+              <option value="all">All Categories</option>
+              {allCategories.map((cat) => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-[var(--brand-dark)] mb-2">Difficulty</label>
+            <select
+              value={selectedDifficulty}
+              onChange={(e) => setSelectedDifficulty(e.target.value)}
+              className="w-full px-4 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-[var(--brand-primary)]"
+            >
+              <option value="all">All Levels</option>
+              <option value="Easy">Easy</option>
+              <option value="Moderate">Moderate</option>
+              <option value="Challenging">Challenging</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-[var(--brand-dark)] mb-2">Budget</label>
+            <select
+              value={selectedCost}
+              onChange={(e) => setSelectedCost(e.target.value)}
+              className="w-full px-4 py-2 border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-[var(--brand-primary)]"
+            >
+              <option value="all">All Budgets</option>
+              <option value="$">$ Budget-Friendly</option>
+              <option value="$$">$$ Moderate</option>
+              <option value="$$$">$$$ Premium</option>
+            </select>
+          </div>
+        </div>
+        {hasActiveFilters && (
+          <button
+            onClick={clearFilters}
+            className="mt-4 flex items-center gap-2 text-sm text-[var(--muted-foreground)] hover:text-[var(--brand-dark)] transition"
+          >
+            <X size={16} /> Clear all filters
+          </button>
+        )}
+      </div>
 
-    <dl class="trip__facts">
-      <div><dt>Distance</dt><dd>{trip.distance}</dd></div>
-      <div><dt>Drive time</dt><dd>{trip.drive_time}</dd></div>
-      {trip.train_time && <div><dt>Train time</dt><dd>{trip.train_time}</dd></div>}
-      <div><dt>Difficulty</dt><dd>{trip.difficulty}</dd></div>
-      <div><dt>Cost</dt><dd>{trip.cost}</dd></div>
-      {trip.recommended_duration && <div><dt>Recommended time</dt><dd>{trip.recommended_duration}</dd></div>}
-      {trip.rating && <div><dt>Rating</dt><dd>{trip.rating} / 5</dd></div>}
-    </dl>
-
-    {trip.best_for && trip.best_for.length > 0 && (
-      <p class="trip__best-for">
-        <strong>Best for:</strong> {trip.best_for.join(', ')}
+      <p className="mb-6 text-[var(--muted-foreground)]">
+        Found <strong className="text-[var(--brand-dark)]">{filteredTrips.length}</strong> day trip
+        {filteredTrips.length !== 1 ? 's' : ''}
+        {selectedBase !== 'all' && baseTrips.length > 0 && ` from ${getBaseName(baseIdFormatted)}`}
       </p>
-    )}
 
-    <div class="prose trip__body">
-      {trip.full_description ? (
-        <div set:html={trip.full_description} />
-      ) : (
-        <p>{trip.description}</p>
-      )}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredTrips.map((trip) => {
+          const displayImage = trip.hero_image_url || trip.image_url;
+          const displayDescription = trip.short_description || trip.description;
 
-      {trip.what_to_see && (
-        <>
-          <h2>What to See</h2>
-          <p>{trip.what_to_see}</p>
-        </>
-      )}
+          return (
+            <a
+              key={trip.id}
+              href={`/day-trips/${trip.slug ?? trip.id}`}
+              className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all overflow-hidden border border-[var(--border)] group block"
+            >
+              <div className="relative">
+                {displayImage ? (
+                  <img
+                    src={displayImage}
+                    alt={`Image of ${trip.name}`}
+                    loading="lazy"
+                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                ) : (
+                  <div className="h-48 bg-gradient-to-br from-[var(--brand-primary)] to-[var(--brand-primary-dark)] flex items-center justify-center">
+                    <MapPin className="w-16 h-16 text-[var(--brand-white)] opacity-50" />
+                  </div>
+                )}
+                {trip.featured && (
+                  <div className="absolute top-3 left-3 bg-[var(--brand-gold)] text-[var(--brand-dark)] px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                    <Star size={12} fill="currentColor" /> Featured
+                  </div>
+                )}
+                {trip.is_must_see && !trip.featured && (
+                  <div className="absolute top-3 left-3 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                    <Bookmark size={12} fill="currentColor" /> Must-See
+                  </div>
+                )}
+                {trip.rating && (
+                  <div className="absolute top-3 right-3 bg-black bg-opacity-70 text-white px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                    <Star size={12} fill="#FFD700" color="#FFD700" /> {trip.rating}
+                  </div>
+                )}
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-[var(--brand-dark)] mb-1 group-hover:text-[var(--brand-primary)] transition">
+                  {trip.name}
+                </h3>
+                {selectedBase === 'all' && (
+                  <p className="text-sm text-[var(--muted-foreground)] mb-3">
+                    From {(trip.bases_served ?? []).map(getBaseName).join(', ')}
+                  </p>
+                )}
+                <p className="text-[var(--muted-foreground)] text-sm mb-4 line-clamp-3">{displayDescription}</p>
+                <div className="space-y-2 mb-4">
+                  <div className="flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
+                    <Car size={16} className="text-[var(--brand-primary)]" />
+                    <span>{trip.drive_time} drive ({trip.distance})</span>
+                  </div>
+                  {trip.train_time && (
+                    <div className="flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
+                      <Train size={16} className="text-[var(--brand-amber)]" />
+                      <span>{trip.train_time} by train</span>
+                    </div>
+                  )}
+                </div>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="text-xs px-2 py-1 rounded-full bg-[var(--brand-gold)] bg-opacity-20 text-[var(--brand-dark)]">
+                    {trip.difficulty}
+                  </span>
+                  <span className="text-xs px-2 py-1 rounded-full bg-[var(--secondary)] text-[var(--secondary-foreground)]">
+                    {trip.cost}
+                  </span>
+                </div>
+                {(trip.best_for ?? []).length > 0 && (
+                  <div className="flex flex-wrap gap-1">
+                    {trip.best_for.slice(0, 3).map((tag, i) => (
+                      <span key={`${tag}-${i}`} className="text-xs px-2 py-1 bg-[var(--muted)] text-[var(--muted-foreground)] rounded">
+                        {tag}
+                      </span>
+                    ))}
+                    {trip.best_for.length > 3 && (
+                      <span className="text-xs px-2 py-1 text-[var(--muted-foreground)]">+{trip.best_for.length - 3}</span>
+                    )}
+                  </div>
+                )}
+              </div>
+            </a>
+          );
+        })}
+      </div>
 
-      {trip.food_info && (
-        <>
-          <h2>Food</h2>
-          <p>{trip.food_info}</p>
-        </>
-      )}
-
-      {trip.ticket_info && (
-        <>
-          <h2>Tickets</h2>
-          <p>{trip.ticket_info}</p>
-        </>
-      )}
-
-      {trip.best_time_to_visit && (
-        <>
-          <h2>Best Time to Visit</h2>
-          <p>{trip.best_time_to_visit}</p>
-        </>
-      )}
-
-      {trip.local_tips && (
-        <div class="featured-tip">
-          <strong>Local tip:</strong> {trip.local_tips}
+      {filteredTrips.length === 0 && (
+        <div className="text-center py-12">
+          <MapPin className="w-16 h-16 text-[var(--muted)] mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-[var(--brand-dark)] mb-2">No day trips found</h3>
+          <p className="text-[var(--muted-foreground)] mb-4">Try adjusting your filters or search terms</p>
+          <button
+            onClick={clearFilters}
+            className="text-[var(--brand-primary)] hover:text-[var(--brand-dark)] font-semibold transition"
+          >
+            Clear all filters
+          </button>
         </div>
       )}
     </div>
-
-    {trip.official_website && (
-      <a href={trip.official_website} target="_blank" rel="noopener noreferrer" class="btn-primary trip__official-link">
-        Official Website
-      </a>
-    )}
-
-    <!--
-      client:only="react" — NOT client:visible. Leaflet touches `window`
-      synchronously at module-load time, which breaks Astro's normal
-      server-render pass entirely (even client:visible still does an
-      initial SSR pass to produce pre-hydration HTML). client:only skips
-      SSR for this component and renders exclusively in the browser.
-      This is fine for SEO: the actual coordinates are already exposed
-      via the page's TouristAttraction schema above, so the map itself
-      isn't carrying SEO weight — it's a pure UX enhancement.
-    -->
-    {trip.latitude && trip.longitude && (
-      <div class="trip__map">
-        <MapView
-          client:only="react"
-          center={[trip.latitude, trip.longitude]}
-          zoom={13}
-          height="h-72"
-          markers={[{ position: [trip.latitude, trip.longitude], title: trip.name }]}
-        />
-      </div>
-    )}
-  </article>
-</BaseLayout>
-
-<style>
-  .trip {
-    max-width: 42rem;
-    margin: 0 auto;
-    padding: 2rem 1.5rem 4rem;
-  }
-  .trip__hero {
-    width: 100%;
-    height: 16rem;
-    object-fit: cover;
-    border-radius: 0.75rem;
-    margin-bottom: 1.5rem;
-  }
-  .trip h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-  .trip__facts {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
-    gap: 1rem;
-    background: var(--color-surface-subtle);
-    border-radius: 0.75rem;
-    padding: 1.25rem;
-    margin: 1.5rem 0;
-  }
-  .trip__facts dt {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    color: var(--color-text-muted);
-  }
-  .trip__facts dd {
-    margin: 0.125rem 0 0;
-    font-weight: 600;
-  }
-  .trip__best-for {
-    margin-bottom: 1.5rem;
-  }
-  .trip__official-link {
-    display: inline-block;
-    margin-top: 1.5rem;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-  }
-  .trip__map {
-    margin-top: 2rem;
-  }
-</style>
+  );
+}
