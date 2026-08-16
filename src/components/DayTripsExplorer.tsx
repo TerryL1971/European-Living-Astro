@@ -16,19 +16,12 @@
 // lib/supabaseDayTrips.ts) has no `tags` column — category info comes
 // only from `best_for: string[]`. Don't reintroduce a `.tags` read.
 //
-// PHASE 1 of the bases_served migration (see migration doc): rows are
-// still duplicated one-per-base for destinations near multiple bases,
-// so we still dedupe by name for the "All Locations" view — but the
-// merged card's base list now reads the real `bases_served` column
-// (backfilled identically across all duplicate rows for the same
-// name) instead of accumulating names as duplicates are encountered.
-// Single-base filtering still matches on `base_id`, NOT
-// `bases_served.includes(...)` — every duplicate row for a given name
-// now carries the FULL bases_served array, so filtering by
-// bases_served here would show all 2-3 duplicate cards instead of
-// just the one for the selected base. That switches over once Phase 2
-// deletes the duplicate rows and bases_served is the only base data
-// per row.
+// PHASE 2 of the bases_served migration (see migration doc): duplicate
+// per-base rows are now merged into one row per destination, and
+// base_id/base_name columns are gone — bases_served is the only
+// source of base data, for both filtering and display. The old
+// name-based dedupe (Phase 1) is removed; it's no longer needed since
+// there's only one row per destination.
 
 import { useState, useMemo } from 'react';
 import { useStore } from '@nanostores/react';
@@ -48,28 +41,15 @@ export default function DayTripsExplorer({ trips }: Props) {
   const [selectedCost, setSelectedCost] = useState('all');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const baseTrips = useMemo((): DayTripRow[] => {
-    if (selectedBase !== 'all') {
-      const baseIdFormatted = selectedBase.toLowerCase().replace(/[^a-z0-9]/g, '');
-      return trips.filter((trip) => trip.base_id === baseIdFormatted);
-    }
+  const baseIdFormatted = useMemo(
+    () => selectedBase.toLowerCase().replace(/[^a-z0-9]/g, ''),
+    [selectedBase]
+  );
 
-    // "All Locations": merge rows that share the same destination name
-    // (case-insensitive, trimmed) into a single card. First row
-    // encountered wins for the displayed description/photo/rating —
-    // the rows aren't otherwise guaranteed identical, which is exactly
-    // what Phase 2 (deleting the duplicate rows) resolves properly.
-    // bases_served is already correct on every row in the group
-    // (backfilled per name), so no accumulation needed here.
-    const byName = new Map<string, DayTripRow>();
-    for (const trip of trips) {
-      const key = trip.name.trim().toLowerCase();
-      if (!byName.has(key)) {
-        byName.set(key, trip);
-      }
-    }
-    return Array.from(byName.values());
-  }, [selectedBase, trips]);
+  const baseTrips = useMemo((): DayTripRow[] => {
+    if (selectedBase === 'all') return trips;
+    return trips.filter((trip) => trip.bases_served?.includes(baseIdFormatted));
+  }, [selectedBase, baseIdFormatted, trips]);
 
   const allCategories = useMemo(() => {
     const categories = new Set<string>();
@@ -170,7 +150,7 @@ export default function DayTripsExplorer({ trips }: Props) {
       <p className="mb-6 text-[var(--muted-foreground)]">
         Found <strong className="text-[var(--brand-dark)]">{filteredTrips.length}</strong> day trip
         {filteredTrips.length !== 1 ? 's' : ''}
-        {selectedBase !== 'all' && baseTrips.length > 0 && ` from ${selectedBase}`}
+        {selectedBase !== 'all' && baseTrips.length > 0 && ` from ${getBaseName(baseIdFormatted)}`}
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -219,7 +199,7 @@ export default function DayTripsExplorer({ trips }: Props) {
                 </h3>
                 {selectedBase === 'all' && (
                   <p className="text-sm text-[var(--muted-foreground)] mb-3">
-                    From {(trip.bases_served?.length ? trip.bases_served.map(getBaseName) : [trip.base_name]).join(', ')}
+                    From {(trip.bases_served ?? []).map(getBaseName).join(', ')}
                   </p>
                 )}
                 <p className="text-[var(--muted-foreground)] text-sm mb-4 line-clamp-3">{displayDescription}</p>

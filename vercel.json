@@ -19,6 +19,56 @@
       "source": "/day-trips/06c55fcd-bc6a-4eb7-9fd1-527160b8717b",
       "destination": "/day-trips/grafenwoehr-prague-czech-republic",
       "statusCode": 301
+    },
+    {
+      "source": "/day-trips/stuttgart-black-forest",
+      "destination": "/day-trips/ramstein-black-forest",
+      "statusCode": 301
+    },
+    {
+      "source": "/day-trips/kaiserslautern-heidelberg",
+      "destination": "/day-trips/ramstein-heidelberg",
+      "statusCode": 301
+    },
+    {
+      "source": "/day-trips/stuttgart-heidelberg",
+      "destination": "/day-trips/ramstein-heidelberg",
+      "statusCode": 301
+    },
+    {
+      "source": "/day-trips/wiesbaden-heidelberg",
+      "destination": "/day-trips/ramstein-heidelberg",
+      "statusCode": 301
+    },
+    {
+      "source": "/day-trips/spangdahlem-luxembourg-city",
+      "destination": "/day-trips/ramstein-luxembourg-city",
+      "statusCode": 301
+    },
+    {
+      "source": "/day-trips/wiesbaden-rothenburg-ob-der-tauber",
+      "destination": "/day-trips/stuttgart-rothenburg-ob-der-tauber",
+      "statusCode": 301
+    },
+    {
+      "source": "/day-trips/grafenwoehr-rothenburg-ob-der-tauber",
+      "destination": "/day-trips/stuttgart-rothenburg-ob-der-tauber",
+      "statusCode": 301
+    },
+    {
+      "source": "/day-trips/stuttgart-strasbourg-france",
+      "destination": "/day-trips/ramstein-strasbourg-france",
+      "statusCode": 301
+    },
+    {
+      "source": "/day-trips/spangdahlem-trier",
+      "destination": "/day-trips/ramstein-trier",
+      "statusCode": 301
+    },
+    {
+      "source": "/day-trips/kaiserslautern-trier",
+      "destination": "/day-trips/ramstein-trier",
+      "statusCode": 301
     }
   ]
 }

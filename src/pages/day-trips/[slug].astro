@@ -1,5 +1,10 @@
 ---
 // STATIC, HIGH PRIORITY SEO/AEO page — real public.day_trips schema.
+//
+// PHASE 2 of the bases_served migration: trip.base_name no longer
+// exists (column dropped). Base names are resolved from
+// bases_served via getBaseName and joined for destinations served by
+// more than one base.
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AnswerBox from '../../components/seo/AnswerBox.astro';
@@ -7,6 +12,7 @@ import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
 import MapView from '../../components/MapView.tsx';
 import { placeSchema } from '../../lib/seo/schema';
 import { getAllDayTrips, type DayTripRow } from '../../lib/supabaseDayTrips';
+import { getBaseName } from '../../data/bases';
 
 export async function getStaticPaths() {
   const trips = await getAllDayTrips();
@@ -23,11 +29,14 @@ interface Props {
 }
 const { trip } = Astro.props as Props;
 
+const baseNames = (trip.bases_served ?? []).map(getBaseName);
+const baseLabel = baseNames.length > 0 ? baseNames.join(' & ') : 'US Bases in Germany';
+
 const heroImage = trip.hero_image_url ?? trip.image_url ?? undefined;
 const description =
   trip.short_description ??
   trip.description ??
-  `${trip.name} day trip from ${trip.base_name} — distance, travel time, and what to see.`;
+  `${trip.name} day trip from ${baseLabel} — distance, travel time, and what to see.`;
 
 const schema = placeSchema({
   name: trip.name,
@@ -41,13 +50,13 @@ const schema = placeSchema({
 
 const answerText =
   trip.short_description ??
-  `${trip.name} is ${trip.distance} from ${trip.base_name} (about ${trip.drive_time} by car${
+  `${trip.name} is ${trip.distance} from ${baseLabel} (about ${trip.drive_time} by car${
     trip.train_time ? `, ${trip.train_time} by train` : ''
   }). Difficulty: ${trip.difficulty}. Cost level: ${trip.cost}.`;
 ---
 
 <BaseLayout
-  title={`${trip.name} Day Trip from ${trip.base_name}`}
+  title={`${trip.name} Day Trip from ${baseLabel}`}
   description={description}
   canonicalPath={`/day-trips/${trip.slug}`}
   ogImage={heroImage}
@@ -63,7 +72,7 @@ const answerText =
 
     {heroImage && <img src={heroImage} alt={trip.name} class="trip__hero" loading="lazy" />}
 
-    <h1>{trip.name} Day Trip from {trip.base_name}</h1>
+    <h1>{trip.name} Day Trip from {baseLabel}</h1>
 
     <AnswerBox answer={answerText} />
 
