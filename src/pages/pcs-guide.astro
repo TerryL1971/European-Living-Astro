@@ -1,39 +1,167 @@
 ---
+// src/pages/pcs-guide.astro
+//
+// Full rebuild of the PCS Guide page — was previously a two-paragraph
+// stub with a stray /day-trips link. Now orchestrates the components
+// under src/components/pcs-guide/, backed by src/data/pcsGuidePhases.ts,
+// pcsGuideFaq.ts, and pcsGuideContacts.ts, plus a live Supabase query
+// for the Deep Dives article grid. See /areas/european-living-pcs-guide.md
+// for the full rebuild rationale.
+//
+// TODO: the original React version passed FAQ items to a schema helper
+// for FAQPage structured data. Haven't seen src/lib/seo/schema.ts's
+// exports yet — if it has a faqSchema()-style helper matching the
+// placeSchema() pattern used in day-trips/[slug].astro, wire it in here.
+
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
-import AnswerBox from '../components/seo/AnswerBox.astro';
+import PhaseTimeline from '../components/pcs-guide/PhaseTimeline.astro';
+import KeyContacts from '../components/pcs-guide/KeyContacts.astro';
+import FaqAccordion from '../components/pcs-guide/FaqAccordion.astro';
+import DeepDivesGrid from '../components/pcs-guide/DeepDivesGrid.astro';
+import QuickJumpNav from '../components/pcs-guide/QuickJumpNav.astro';
+
+const STATS = [
+  { num: '5', label: 'PCS Phases Covered' },
+  { num: '40+', label: 'Action Steps' },
+  { num: '20+', label: 'Official Resources' },
+  { num: '6', label: 'FAQs Answered' },
+  { num: 'All', label: 'Major Bases in Germany' },
+];
+
+const WHO_FOR = [
+  { icon: '🎖', title: 'Active Duty', desc: 'Service members and families on PCS orders to any installation in Germany.' },
+  { icon: '🏛', title: 'GS Civilians', desc: 'DoD federal employees on orders. Allowance and benefit rules are noted where they differ from military.' },
+  { icon: '🔧', title: 'Contractors', desc: 'DoD contractors with SOFA status. Where your access differs from active duty, it\'s called out.' },
+  { icon: '👨‍👩‍👧', title: 'Dependents', desc: 'Command-sponsored family members. Your status and privileges can differ from the sponsoring member\'s.' },
+];
 ---
 
 <BaseLayout
-  title="PCS Guide to Germany"
-  description="A starting-point guide for U.S. service members and families PCSing to Germany — housing, vehicles, schools, and the first steps to take."
+  title="PCS to Germany Guide — Everything You Need Before You Land"
+  description="The complete guide for US military families PCSing to Germany. Phase-by-phase action steps, verified resources, and honest advice from orders to settled in."
   canonicalPath="/pcs-guide"
 >
   <div class="pcs-guide">
     <Breadcrumbs items={[{ name: 'PCS Guide', url: '/pcs-guide' }]} />
 
-    <h1>PCS Guide to Germany</h1>
+    <!-- Hero -->
+    <div class="pcs-guide__hero">
+      <div class="pcs-guide__hero-overlay" aria-hidden="true"></div>
+      <div class="pcs-guide__hero-vignette" aria-hidden="true"></div>
+      <div class="pcs-guide__hero-content">
+        <div class="pcs-guide__hero-badge">Germany Edition · All Bases Covered</div>
+        <h1 class="pcs-guide__hero-title">
+          Your PCS to Germany.<br />
+          <span class="pcs-guide__hero-title-accent">Step by step.</span>
+        </h1>
+        <p class="pcs-guide__hero-subtitle">
+          From the day your orders drop to the day you feel at home in Germany.
+          Verified steps, official resources, and honest advice — whether your
+          sponsor is excellent or completely MIA.
+        </p>
+        <div class="pcs-guide__hero-actions">
+          <a href="#phases" class="pcs-guide__btn pcs-guide__btn--primary">Start the Guide ↓</a>
+          <a href="/services-directory" class="pcs-guide__btn pcs-guide__btn--ghost">Find Services Near Your Base</a>
+        </div>
+      </div>
+    </div>
 
-    <AnswerBox answer="Moving to Germany on PCS orders means sorting out housing (on- or off-base), a German driver's license or USAREUR license, vehicle registration, and school enrollment for dependents — usually in that order, within your first few weeks." />
+    <!-- Stats strip -->
+    <div class="pcs-guide__stats">
+      <div class="pcs-guide__stats-inner">
+        {STATS.map((s) => (
+          <div>
+            <div class="pcs-guide__stat-num">{s.num}</div>
+            <div class="pcs-guide__stat-label">{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
 
-    <div class="prose pcs-guide__body">
-      <h2>Before you arrive</h2>
-      <p>
-        Confirm your sponsor, review your Overseas Housing Allowance (OHA) rate for your specific installation, and
-        start researching on-base vs. off-base housing options — availability and wait times vary a lot by base.
+    <QuickJumpNav />
+
+    <!-- Who this is for -->
+    <div class="pcs-guide__section">
+      <div class="pcs-guide__eyebrow">Who this guide is for</div>
+      <h2 class="pcs-guide__heading">Every American family headed to Germany</h2>
+      <div class="pcs-guide__who-grid">
+        {WHO_FOR.map((p) => (
+          <div class="pcs-guide__who-card">
+            <div class="pcs-guide__who-icon">{p.icon}</div>
+            <div class="pcs-guide__who-title">{p.title}</div>
+            <div class="pcs-guide__who-desc">{p.desc}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Phase guide -->
+    <div id="phases" class="pcs-guide__section pcs-guide__section--muted">
+      <div class="pcs-guide__eyebrow">Phase-by-phase guide</div>
+      <h2 class="pcs-guide__heading">Select your phase</h2>
+      <p class="pcs-guide__section-intro">
+        Open the phase that matches where you are right now. Each phase has verified
+        action steps, official resource links, and downloadable guides.
       </p>
+      <PhaseTimeline />
+    </div>
 
-      <h2>Your first few weeks</h2>
-      <p>
-        Priorities typically include: in-processing at your gaining unit, temporary lodging, a German driver's
-        license (or converting your U.S. license), USAREUR vehicle registration and insurance, and — if you have
-        kids — DoDEA school enrollment.
+    <!-- Key contacts -->
+    <div id="contacts" class="pcs-guide__section">
+      <div class="pcs-guide__eyebrow">Keep these saved</div>
+      <h2 class="pcs-guide__heading">Key contacts for Germany</h2>
+      <KeyContacts />
+    </div>
+
+    <!-- FAQ -->
+    <div id="faq" class="pcs-guide__section pcs-guide__section--muted">
+      <div class="pcs-guide__eyebrow">Common questions</div>
+      <h2 class="pcs-guide__heading">Things families ask before they land</h2>
+      <p class="pcs-guide__section-intro">
+        Sourced from real questions in military Facebook groups, ACS offices, and FRG
+        meetings — with verified answers.
       </p>
+      <FaqAccordion />
+    </div>
 
-      <h2>Explore related guides</h2>
+    <!-- Deep dives -->
+    <div id="guides">
+      <DeepDivesGrid />
+    </div>
+
+    <!-- Services CTA -->
+    <div class="pcs-guide__cta">
+      <div class="pcs-guide__cta-inner">
+        <div class="pcs-guide__cta-emoji">🇩🇪</div>
+        <h2 class="pcs-guide__cta-heading">Ready to find your community?</h2>
+        <p class="pcs-guide__cta-text">
+          Once you're on the ground, European Living's services directory connects
+          you with English-speaking doctors, mechanics, lawyers, housing agents,
+          and more — verified near your base.
+        </p>
+        <div class="pcs-guide__cta-actions">
+          <a href="/services-directory" class="pcs-guide__btn pcs-guide__btn--gold">Browse the Services Directory</a>
+          <a
+            href="https://www.facebook.com/EuropeanLivingOfficial"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="pcs-guide__btn pcs-guide__btn--ghost"
+          >
+            Follow on Facebook
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="pcs-guide__disclaimer">
       <p>
-        See the <a href="/day-trips">day trips section</a> for weekend ideas once you're settled, and check the
-        articles library for specifics on housing allowances, banking, and SOFA status.
+        European Living is an independent resource and is not affiliated with
+        the U.S. Department of Defense, the U.S. Army, USAREUR-AF, or any military
+        branch. Information is provided for general guidance only. Regulations change —
+        always verify requirements with your unit, S1, and official sources before
+        making decisions.
       </p>
     </div>
   </div>
@@ -41,13 +169,243 @@ import AnswerBox from '../components/seo/AnswerBox.astro';
 
 <style>
   .pcs-guide {
-    max-width: 42rem;
-    margin: 0 auto;
-    padding: 2rem 1.5rem 4rem;
+    font-family: var(--font-sans, 'Inter', -apple-system, BlinkMacSystemFont, sans-serif);
   }
-  .pcs-guide h1 {
-    font-size: 2.25rem;
+
+  /* Hero */
+  .pcs-guide__hero {
+    position: relative;
+    overflow: hidden;
+    background-image: url('https://pkacbcohrygpyapgtzpq.supabase.co/storage/v1/object/public/images/pcs-guide-background.png');
+    background-size: cover;
+    background-position: center 55%;
+    padding: clamp(48px, 8vw, 96px) 24px;
+    text-align: center;
+    color: #fff;
+  }
+  .pcs-guide__hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.1) 100%);
+    pointer-events: none;
+  }
+  .pcs-guide__hero-vignette {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.4) 100%);
+    pointer-events: none;
+  }
+  .pcs-guide__hero-content {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .pcs-guide__hero-badge {
+    display: inline-block;
+    background: rgba(157, 165, 134, 0.25);
+    border: 1px solid rgba(157, 165, 134, 0.4);
+    color: #d4dbc8;
+    font-size: 11px;
     font-weight: 700;
-    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(4px);
+  }
+  .pcs-guide__hero-title {
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0 0 16px;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
+  }
+  .pcs-guide__hero-title-accent {
+    color: #f5c04a;
+  }
+  .pcs-guide__hero-subtitle {
+    font-size: clamp(15px, 2vw, 18px);
+    line-height: 1.6;
+    opacity: 0.95;
+    margin: 0 0 32px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 1px 3px rgba(0, 0, 0, 0.6);
+  }
+  .pcs-guide__hero-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .pcs-guide__btn {
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .pcs-guide__btn--primary {
+    background: var(--brand-primary, #0284c7);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  }
+  .pcs-guide__btn--ghost {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(4px);
+  }
+  .pcs-guide__btn--gold {
+    background: var(--brand-secondary, #f59e0b);
+    color: #fff;
+  }
+
+  /* Stats strip */
+  .pcs-guide__stats {
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 20px 24px;
+  }
+  .pcs-guide__stats-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+    text-align: center;
+  }
+  .pcs-guide__stat-num {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--brand-primary-dark, #0c4a6e);
+  }
+  .pcs-guide__stat-label {
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 500;
+  }
+
+  /* Generic section */
+  .pcs-guide__section {
+    padding: clamp(40px, 6vw, 72px) 24px;
+    max-width: 900px;
+    margin: 0 auto;
+    scroll-margin-top: 116px;
+  }
+  .pcs-guide__section--muted {
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    max-width: none;
+  }
+  .pcs-guide__section--muted > * {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .pcs-guide__eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--brand-secondary, #f59e0b);
+    margin-bottom: 8px;
+  }
+  .pcs-guide__heading {
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 700;
+    color: var(--brand-primary-dark, #0c4a6e);
+    margin: 0 0 8px;
+  }
+  .pcs-guide__section-intro {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0 0 32px;
+    line-height: 1.6;
+  }
+
+  /* Who this is for */
+  .pcs-guide__who-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .pcs-guide__who-card {
+    padding: 20px;
+    background: #fff;
+    border: 1.5px solid var(--brand-border, #94a3b8);
+    border-radius: 12px;
+  }
+  .pcs-guide__who-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  .pcs-guide__who-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--brand-primary-dark, #0c4a6e);
+    margin-bottom: 6px;
+  }
+  .pcs-guide__who-desc {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.5;
+  }
+
+  /* CTA */
+  .pcs-guide__cta {
+    background: linear-gradient(135deg, var(--brand-primary-dark, #0c4a6e) 0%, var(--brand-primary, #0284c7) 100%);
+    padding: clamp(48px, 8vw, 80px) 24px;
+    text-align: center;
+    color: #fff;
+  }
+  .pcs-guide__cta-inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .pcs-guide__cta-emoji {
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+  .pcs-guide__cta-heading {
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 700;
+    margin: 0 0 14px;
+    line-height: 1.2;
+  }
+  .pcs-guide__cta-text {
+    font-size: 15px;
+    opacity: 0.85;
+    line-height: 1.6;
+    margin: 0 0 28px;
+  }
+  .pcs-guide__cta-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Disclaimer */
+  .pcs-guide__disclaimer {
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    padding: 20px 24px;
+    text-align: center;
+  }
+  .pcs-guide__disclaimer p {
+    font-size: 12px;
+    color: #9ca3af;
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.6;
   }
 </style>
