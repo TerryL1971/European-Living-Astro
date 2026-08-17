@@ -4,6 +4,19 @@
 // /destinations/[slug].astro — confirmed via Search Console indexed
 // pages 2026-07-11: destinations are indexed at /destinations/<slug>,
 // separate from genuine articles at /articles/<slug>).
+//
+// PRINT/PDF SUPPORT ADDED: the live site's article template has a
+// "Print / Save Checklist" button and honors a ?print=true query param
+// (used by /pcs-guide's "European Living: PCS Germany Checklist"
+// resource link) to jump straight to the browser print dialog. Neither
+// existed on this Astro template before — this was rendering as a
+// plain page with no print affordance at all. Both are added below.
+//
+// The @media print rules hide site chrome by targeting every direct
+// child of <body> except #main-content, based on BaseLayout.astro's
+// actual structure (skip-link, Header, BaseSelectionModal,
+// CookieConsentModal, #main-content, Footer) — reliable regardless of
+// what tags Header.tsx/Footer.astro use internally.
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AnswerBox from '../../components/seo/AnswerBox.astro';
@@ -44,6 +57,12 @@ const lastUpdatedHuman = new Date(article.updated_at).toLocaleDateString('en-US'
   month: 'long',
   year: 'numeric',
 });
+
+// Matches the live site's ?print=true pattern (see /pcs-guide's
+// resource link to /articles/pcs-germany-checklist?print=true) — jump
+// straight to the browser's print dialog instead of landing on the
+// plain page first.
+const shouldAutoPrint = Astro.url.searchParams.get('print') === 'true';
 ---
 
 <BaseLayout
@@ -64,6 +83,10 @@ const lastUpdatedHuman = new Date(article.updated_at).toLocaleDateString('en-US'
     <h1>{article.title}</h1>
     {article.subtitle && <p class="article__subtitle">{article.subtitle}</p>}
 
+    <button type="button" class="article__print-btn" data-print-trigger>
+      🖨 Print / Save as PDF
+    </button>
+
     {article.excerpt && <AnswerBox answer={article.excerpt} lastUpdated={lastUpdatedHuman} />}
 
     <div class="prose article__body" set:html={contentHtml} />
@@ -76,6 +99,23 @@ const lastUpdatedHuman = new Date(article.updated_at).toLocaleDateString('en-US'
     -->
   </article>
 </BaseLayout>
+
+<script>
+  // Wires up every [data-print-trigger] button on the page — currently
+  // just the one, but works if a second button is ever added (the live
+  // site has one near the top and one at the bottom).
+  document.querySelectorAll<HTMLButtonElement>('[data-print-trigger]').forEach((btn) => {
+    btn.addEventListener('click', () => window.print());
+  });
+</script>
+
+{shouldAutoPrint && (
+  <script>
+    // ?print=true — jump straight to the print dialog once the page has
+    // rendered, matching the live site's link-with-query-param pattern.
+    window.addEventListener('load', () => window.print());
+  </script>
+)}
 
 <style>
   .article {
@@ -93,5 +133,76 @@ const lastUpdatedHuman = new Date(article.updated_at).toLocaleDateString('en-US'
     font-size: 1.125rem;
     color: var(--color-text-muted);
     margin-bottom: 1rem;
+  }
+
+  .article__print-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.1rem;
+    margin: 0.5rem 0 1.5rem;
+    background: var(--brand-primary, #0284c7);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .article__print-btn:hover {
+    background: var(--brand-primary-dark, #0c4a6e);
+  }
+
+  /* ── Print stylesheet ──────────────────────────────────────────── */
+  @media print {
+    /* BaseLayout.astro's <body> is: skip-link, <Header client:load />,
+       <BaseSelectionModal client:load />, <CookieConsentModal client:idle />,
+       #main-content (the actual page content), <Footer />. Hiding every
+       direct child of body except #main-content reliably hides all of
+       that chrome regardless of what tags Header.tsx/Footer.astro use
+       internally — more robust than guessing at their markup, which
+       hasn't been shared in this session. */
+    body > *:not(#main-content) {
+      display: none !important;
+    }
+
+    .article__print-btn {
+      display: none !important;
+    }
+
+    .article {
+      max-width: 100%;
+      padding: 0;
+    }
+
+    .article h1 {
+      font-size: 22pt;
+    }
+
+    .prose h2 {
+      font-size: 15pt;
+      margin-top: 1.5em;
+      page-break-after: avoid;
+    }
+    .prose h3 {
+      font-size: 12pt;
+      page-break-after: avoid;
+    }
+    .prose ul,
+    .prose ol {
+      page-break-inside: avoid;
+    }
+    .prose table {
+      page-break-inside: avoid;
+    }
+
+    /* Print the actual destination URL after external links, since a
+       clickable link is useless on paper — matches how most print
+       stylesheets handle this. */
+    .prose a[href^="http"]::after {
+      content: ' (' attr(href) ')';
+      font-size: 0.8em;
+      color: #555;
+    }
   }
 </style>

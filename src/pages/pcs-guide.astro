@@ -7,11 +7,6 @@
 // pcsGuideFaq.ts, and pcsGuideContacts.ts, plus a live Supabase query
 // for the Deep Dives article grid. See /areas/european-living-pcs-guide.md
 // for the full rebuild rationale.
-//
-// TODO: the original React version passed FAQ items to a schema helper
-// for FAQPage structured data. Haven't seen src/lib/seo/schema.ts's
-// exports yet — if it has a faqSchema()-style helper matching the
-// placeSchema() pattern used in day-trips/[slug].astro, wire it in here.
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
@@ -20,6 +15,10 @@ import KeyContacts from '../components/pcs-guide/KeyContacts.astro';
 import FaqAccordion from '../components/pcs-guide/FaqAccordion.astro';
 import DeepDivesGrid from '../components/pcs-guide/DeepDivesGrid.astro';
 import QuickJumpNav from '../components/pcs-guide/QuickJumpNav.astro';
+import { FAQ_ITEMS } from '../data/pcsGuideFaq';
+import { faqSchema } from '../lib/seo/schema';
+
+const schema = faqSchema(FAQ_ITEMS);
 
 const STATS = [
   { num: '5', label: 'PCS Phases Covered' },
@@ -41,6 +40,7 @@ const WHO_FOR = [
   title="PCS to Germany Guide — Everything You Need Before You Land"
   description="The complete guide for US military families PCSing to Germany. Phase-by-phase action steps, verified resources, and honest advice from orders to settled in."
   canonicalPath="/pcs-guide"
+  pageSchemas={[schema]}
 >
   <div class="pcs-guide">
     <Breadcrumbs items={[{ name: 'PCS Guide', url: '/pcs-guide' }]} />
