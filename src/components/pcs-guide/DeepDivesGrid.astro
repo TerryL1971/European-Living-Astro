@@ -1,0 +1,124 @@
+---
+// src/components/pcs-guide/DeepDivesGrid.astro
+//
+// Renders the "Deep Dives for Germany Families" article grid — pulls
+// published category='PCS Guides' articles at BUILD TIME via
+// getAllPcsGuideArticles(). Any new PCS Guide article added in Supabase
+// appears here automatically on the next build — no code changes
+// needed, same as the original React version's intent, just resolved
+// at build time instead of client-side on every page load.
+import { getAllPcsGuideArticles } from '../../lib/supabaseArticles';
+
+const articles = await getAllPcsGuideArticles();
+
+function truncate(text: string | null, max: number): string {
+  if (!text) return '';
+  return text.length > max ? text.slice(0, max) + '…' : text;
+}
+---
+
+{articles.length > 0 && (
+  <div class="deep-dives">
+    <div class="deep-dives__eyebrow">In-depth guides</div>
+    <h2 class="deep-dives__heading">Deep Dives for Germany Families</h2>
+    <p class="deep-dives__intro">
+      Detailed guides on housing, healthcare, schools, vehicles, and more —
+      written specifically for US military families living in Germany.
+    </p>
+
+    <div class="deep-dives__grid">
+      {articles.map((article) => (
+        <a href={`/articles/${article.slug}`} class="deep-dives__card">
+          <div class="deep-dives__card-eyebrow">PCS Guide</div>
+          <div class="deep-dives__card-title">{article.title}</div>
+          {article.subtitle && (
+            <div class="deep-dives__card-subtitle">{truncate(article.subtitle, 90)}</div>
+          )}
+          <div class="deep-dives__card-cta">Read guide →</div>
+        </a>
+      ))}
+    </div>
+  </div>
+)}
+
+<style>
+  .deep-dives {
+    padding: clamp(40px, 6vw, 72px) 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .deep-dives__eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--brand-secondary, #f59e0b);
+    margin-bottom: 8px;
+  }
+
+  .deep-dives__heading {
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 700;
+    color: var(--brand-primary-dark, #0c4a6e);
+    margin: 0 0 8px;
+  }
+
+  .deep-dives__intro {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0 0 32px;
+    line-height: 1.6;
+  }
+
+  .deep-dives__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .deep-dives__card {
+    display: block;
+    padding: 20px;
+    background: #fff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .deep-dives__card:hover {
+    box-shadow: 0 4px 16px rgba(12, 74, 110, 0.12);
+    border-color: var(--brand-primary, #0284c7);
+  }
+
+  .deep-dives__card-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--brand-secondary, #f59e0b);
+    margin-bottom: 8px;
+  }
+
+  .deep-dives__card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--brand-primary-dark, #0c4a6e);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  .deep-dives__card-subtitle {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+
+  .deep-dives__card-cta {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--brand-primary, #0284c7);
+  }
+</style>

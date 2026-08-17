@@ -95,6 +95,28 @@ export async function getAllDestinationArticles(): Promise<ArticleRow[]> {
 }
 
 /**
+ * Published articles where category = 'PCS Guides' — used by the PCS
+ * Guide page's "Deep Dives" grid (DeepDivesGrid.astro). Mirrors
+ * getAllDestinationArticles() above: same "filtered subset for one
+ * section" role, not a separate page route.
+ */
+export async function getAllPcsGuideArticles(): Promise<ArticleRow[]> {
+  if (!supabase) return SAMPLE_ARTICLES.filter((a) => a.category === 'PCS Guides');
+
+  const { data, error } = await supabase
+    .from('articles')
+    .select(ARTICLE_COLUMNS)
+    .eq('published', true)
+    .eq('category', 'PCS Guides');
+
+  if (error) {
+    console.error('Supabase PCS Guides fetch failed, falling back to sample data:', error.message);
+    return SAMPLE_ARTICLES.filter((a) => a.category === 'PCS Guides');
+  }
+  return data ?? [];
+}
+
+/**
  * Renders Markdown content to sanitized HTML at build time.
  * Mirrors the old client-side stack (remark-gfm tables/strikethrough,
  * rehype-raw for embedded HTML, rehype-sanitize to strip anything unsafe)
