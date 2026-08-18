@@ -5,24 +5,27 @@
 // pages 2026-07-11: destinations are indexed at /destinations/<slug>,
 // separate from genuine articles at /articles/<slug>).
 //
-// PRINT/PDF SUPPORT ADDED: the live site's article template has a
-// "Print / Save Checklist" button and honors a ?print=true query param
-// (used by /pcs-guide's "European Living: PCS Germany Checklist"
-// resource link) to jump straight to the browser print dialog. Neither
-// existed on this Astro template before — this was rendering as a
-// plain page with no print affordance at all. Both are added below.
+// PRINT/PDF SUPPORT: "Print / Save as PDF" button + ?print=true
+// auto-trigger (matches /pcs-guide's "PCS Germany Checklist" resource
+// link, which uses that query param). Chrome-hiding for print lives in
+// BaseLayout.astro's global stylesheet, not here — Astro scopes
+// component <style> blocks to their own template, so a rule here can't
+// reach <body>/<Header>/<Footer>, which are rendered by BaseLayout, not
+// this page.
 //
-// The @media print rules hide site chrome by targeting every direct
-// child of <body> except #main-content, based on BaseLayout.astro's
-// actual structure (skip-link, Header, BaseSelectionModal,
-// CookieConsentModal, #main-content, Footer) — reliable regardless of
-// what tags Header.tsx/Footer.astro use internally.
+// TABLE OF CONTENTS: auto-generated from the article's ##/### headings
+// via extractHeadings() — sticky sidebar on desktop, collapsible
+// dropdown on mobile (both in TableOfContents.astro, zero JS). Only
+// rendered when there are at least 3 headings, so short articles
+// (Germany 101's few sections, the car-buying guide) don't show a
+// near-empty box.
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AnswerBox from '../../components/seo/AnswerBox.astro';
 import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import TableOfContents from '../../components/articles/TableOfContents.astro';
 import { articleSchema } from '../../lib/seo/schema';
-import { getAllArticles, renderArticleContent, type ArticleRow } from '../../lib/supabaseArticles';
+import { getAllArticles, renderArticleContent, extractHeadings, type ArticleRow } from '../../lib/supabaseArticles';
 
 export async function getStaticPaths() {
   const articles = await getAllArticles();
@@ -52,6 +55,8 @@ const schema = articleSchema({
 });
 
 const contentHtml = renderArticleContent(article.content);
+const headings = extractHeadings(article.content);
+const showToc = headings.length >= 3;
 
 const lastUpdatedHuman = new Date(article.updated_at).toLocaleDateString('en-US', {
   month: 'long',
@@ -72,24 +77,35 @@ const shouldAutoPrint = Astro.url.searchParams.get('print') === 'true';
   ogImage={article.featured_image_url ?? undefined}
   pageSchemas={[schema]}
 >
-  <article class="article">
-    <Breadcrumbs
-      items={[
-        { name: 'Articles', url: '/articles' },
-        { name: article.title, url: `/articles/${article.slug}` },
-      ]}
-    />
+  <article class="article-page">
+    <div class="article-page__header">
+      <Breadcrumbs
+        items={[
+          { name: 'Articles', url: '/articles' },
+          { name: article.title, url: `/articles/${article.slug}` },
+        ]}
+      />
 
-    <h1>{article.title}</h1>
-    {article.subtitle && <p class="article__subtitle">{article.subtitle}</p>}
+      <h1>{article.title}</h1>
+      {article.subtitle && <p class="article__subtitle">{article.subtitle}</p>}
 
-    <button type="button" class="article__print-btn" data-print-trigger>
-      🖨 Print / Save as PDF
-    </button>
+      <button type="button" class="article__print-btn" data-print-trigger>
+        🖨 Print / Save as PDF
+      </button>
+    </div>
 
-    {article.excerpt && <AnswerBox answer={article.excerpt} lastUpdated={lastUpdatedHuman} />}
+    <div class="article-layout">
+      <div class="article-main">
+        {article.excerpt && <AnswerBox answer={article.excerpt} lastUpdated={lastUpdatedHuman} />}
+        <div class="prose article__body" set:html={contentHtml} />
+      </div>
 
-    <div class="prose article__body" set:html={contentHtml} />
+      {showToc && (
+        <div class="article-toc-slot">
+          <TableOfContents headings={headings} />
+        </div>
+      )}
+    </div>
 
     <!--
       No FAQ schema here: the real `articles` table has no dedicated FAQ
@@ -118,12 +134,16 @@ const shouldAutoPrint = Astro.url.searchParams.get('print') === 'true';
 )}
 
 <style>
-  .article {
-    max-width: 42rem;
+  .article-page {
+    max-width: 72rem;
     margin: 0 auto;
     padding: 2rem 1.5rem 4rem;
   }
-  .article h1 {
+
+  .article-page__header {
+    max-width: 42rem;
+  }
+  .article-page__header h1 {
     font-size: 2rem;
     font-weight: 700;
     line-height: 1.25;
@@ -153,29 +173,48 @@ const shouldAutoPrint = Astro.url.searchParams.get('print') === 'true';
     background: var(--brand-primary-dark, #0c4a6e);
   }
 
-  /* ── Print stylesheet ──────────────────────────────────────────── */
-  @media print {
-    /* BaseLayout.astro's <body> is: skip-link, <Header client:load />,
-       <BaseSelectionModal client:load />, <CookieConsentModal client:idle />,
-       #main-content (the actual page content), <Footer />. Hiding every
-       direct child of body except #main-content reliably hides all of
-       that chrome regardless of what tags Header.tsx/Footer.astro use
-       internally — more robust than guessing at their markup, which
-       hasn't been shared in this session. */
-    body > *:not(#main-content) {
-      display: none !important;
+  /* Layout: single column (ToC dropdown above content) on mobile,
+     content + sticky sidebar on desktop. */
+  .article-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .article-main {
+    min-width: 0; /* prevents grid blowout from long unbroken strings/URLs */
+  }
+  .article-toc-slot {
+    order: -1; /* mobile: dropdown above the article body */
+  }
+  @media (min-width: 900px) {
+    .article-layout {
+      grid-template-columns: minmax(0, 42rem) 260px;
+      gap: 2rem;
+      align-items: start;
     }
+    .article-toc-slot {
+      order: 0; /* desktop: natural order, sidebar sits to the right */
+    }
+  }
 
+  /* ── Print stylesheet ──────────────────────────────────────────── */
+  /* Chrome-hiding (header/nav/footer) lives in BaseLayout.astro's
+     global stylesheet, not here — see the comment there for why a
+     scoped rule in this file can't reach <body>/<Header>/<Footer>. */
+  @media print {
     .article__print-btn {
       display: none !important;
     }
 
-    .article {
+    .article-page {
       max-width: 100%;
       padding: 0;
     }
+    .article-layout {
+      display: block;
+    }
 
-    .article h1 {
+    .article-page__header h1 {
       font-size: 22pt;
     }
 

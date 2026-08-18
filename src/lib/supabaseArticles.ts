@@ -117,13 +117,78 @@ export async function getAllPcsGuideArticles(): Promise<ArticleRow[]> {
 }
 
 /**
+ * Slugifies heading text into an anchor id. Shared by renderArticleContent()
+ * (which assigns these as actual heading ids in the HTML) and
+ * extractHeadings() (which needs the SAME slugs to link to them) — these
+ * two must never drift apart or ToC links break.
+ */
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-');
+}
+
+export interface Heading {
+  level: 2 | 3;
+  text: string;
+  slug: string;
+}
+
+/**
+ * Extracts h2/h3 headings from article Markdown for the Table of
+ * Contents (TableOfContents.astro). Runs on the raw Markdown, not the
+ * rendered HTML, so it works independently of renderArticleContent() —
+ * but uses the same slugify() so the ids line up. Deduplicates repeated
+ * heading text (e.g. two "Resources" headings) by appending -2, -3, etc.,
+ * matching GitHub's convention.
+ */
+export function extractHeadings(markdown: string): Heading[] {
+  const headings: Heading[] = [];
+  const seen = new Map<string, number>();
+  const lines = markdown.split('\n');
+
+  for (const line of lines) {
+    const match = line.match(/^(#{2,3})\s+(.+)$/);
+    if (!match) continue;
+
+    const level = match[1].length as 2 | 3;
+    const text = match[2].trim();
+    const baseSlug = slugify(text);
+    const count = seen.get(baseSlug) ?? 0;
+    seen.set(baseSlug, count + 1);
+    const slug = count === 0 ? baseSlug : `${baseSlug}-${count}`;
+
+    headings.push({ level, text, slug });
+  }
+
+  return headings;
+}
+
+/**
  * Renders Markdown content to sanitized HTML at build time.
  * Mirrors the old client-side stack (remark-gfm tables/strikethrough,
  * rehype-raw for embedded HTML, rehype-sanitize to strip anything unsafe)
  * but runs once during `astro build` instead of on every page load.
+ *
+ * Headings get id attributes via a custom renderer, using the same
+ * slugify() as extractHeadings() above, so ToC links (#some-heading)
+ * actually land on the right element.
  */
 export function renderArticleContent(markdown: string): string {
-  const rawHtml = marked.parse(markdown, { gfm: true, breaks: false }) as string;
+  const seen = new Map<string, number>();
+  const renderer = new marked.Renderer();
+  renderer.heading = ({ tokens, depth }) => {
+    const text = tokens.map((t) => ('raw' in t ? t.raw : '')).join('');
+    const baseSlug = slugify(text);
+    const count = seen.get(baseSlug) ?? 0;
+    seen.set(baseSlug, count + 1);
+    const slug = count === 0 ? baseSlug : `${baseSlug}-${count}`;
+    return `<h${depth} id="${slug}">${text}</h${depth}>`;
+  };
+
+  const rawHtml = marked.parse(markdown, { gfm: true, breaks: false, renderer }) as string;
   return sanitizeHtml(rawHtml, {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'h1', 'h2', 'span']),
     allowedAttributes: {

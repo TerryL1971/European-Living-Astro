@@ -128,6 +128,22 @@ const schemas = [organizationSchema(), websiteSchema(), ...pageSchemas];
   .site-footer__inner a {
     color: inherit;
   }
+
+  /*
+    Print support — hides everything except #main-content when printing.
+    Lives HERE, not in individual page <style> blocks, because Astro
+    scopes component <style> blocks to their own template — a page like
+    articles/[slug].astro can't reach <body>, <Header>, or <Footer> with
+    a scoped selector, since those are rendered by this layout, not by
+    the page itself. This is the one file that can see the whole <body>
+    structure. (Previously tried putting this rule in [slug].astro
+    directly — it silently never applied, for exactly this reason.)
+  */
+  @media print {
+    body > *:not(#main-content) {
+      display: none !important;
+    }
+  }
 </style>
 
 <script>
