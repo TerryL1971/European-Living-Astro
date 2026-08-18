@@ -58,8 +58,12 @@ const schemas = [organizationSchema(), websiteSchema(), ...pageSchemas];
       requires PUBLIC_GA4_ID to be set, so this won't fire from a
       preview URL or local dev by accident.
 
-      Sentry still pending — need the original init code (DSN handling,
-      requestIdleCallback deferral) before porting; not guessing at it.
+      Sentry: initSentryDeferred() (src/utils/sentry.ts, called in the
+      script block below) is a confirmed complete port of the live
+      site's main.tsx Sentry setup — same DSN (via PUBLIC_SENTRY_DSN),
+      same integrations/sample-rates/ignoreErrors, same requestIdleCallback
+      deferral, @sentry/browser instead of @sentry/react since those
+      integrations are browser-level, not React-specific.
     -->
   </head>
   <body>
