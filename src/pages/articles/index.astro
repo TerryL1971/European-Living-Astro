@@ -1,0 +1,217 @@
+---
+// src/pages/articles/index.astro
+//
+// The real "Articles" index — didn't exist before. Every article page's
+// breadcrumb used to link "Articles" to this exact URL and 404, on all
+// 63 pages, until that crumb got dropped as a stopgap (see the removal
+// commit and the articles-index-page memory note). This is the deferred
+// follow-up: build the actual page, then restore the crumb.
+//
+// Same pattern as services-directory.astro: static-rendered at build
+// time from real content (good for SEO — a real crawlable page, not a
+// client-fetched list), with a lightweight plain-JS category/search
+// filter layered on top of the pre-rendered cards.
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import { getAllArticles } from '../../lib/supabaseArticles';
+
+const articles = await getAllArticles();
+
+// Newest first — matches the destinations carousel's default framing of
+// "what's here" rather than an arbitrary DB order.
+const sortedArticles = [...articles].sort(
+  (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+);
+
+const CATEGORIES = ['City Guides', 'PCS Guides', 'Travel Tips'] as const;
+---
+
+<BaseLayout
+  title="Articles"
+  description="Guides for U.S. military families and expats in Germany — city guides, PCS guidance, and travel tips, all in one place."
+  canonicalPath="/articles"
+>
+  <div class="articles-index">
+    <Breadcrumbs items={[{ name: 'Articles', url: '/articles' }]} />
+
+    <h1>Articles</h1>
+    <p class="articles-index__lede">
+      {sortedArticles.length} guides covering city guides, PCS guidance, and travel tips for military families and expats in Germany.
+    </p>
+
+    <div class="articles-index__filters">
+      <input type="text" id="articles-search" placeholder="Search articles..." class="articles-index__search" />
+
+      <select id="articles-category" class="articles-index__select">
+        <option value="">All Categories</option>
+        {CATEGORIES.map((cat) => <option value={cat}>{cat}</option>)}
+      </select>
+    </div>
+
+    <div class="articles-index__grid" id="articles-grid">
+      {sortedArticles.map((article) => (
+        <a
+          href={`/articles/${article.slug}`}
+          class="article-card"
+          data-search={`${article.title} ${article.excerpt ?? ''} ${article.destination_name ?? ''}`.toLowerCase()}
+          data-category={article.category ?? ''}
+        >
+          {article.featured_image_url && (
+            <div class="article-card__image-wrap">
+              <img src={article.featured_image_url} alt={article.title} class="article-card__image" loading="lazy" />
+            </div>
+          )}
+          <div class="article-card__body">
+            {article.category && <span class="article-card__category">{article.category}</span>}
+            <h2>{article.title}</h2>
+            {article.excerpt && <p class="article-card__excerpt">{article.excerpt}</p>}
+            {article.reading_time_minutes && (
+              <p class="article-card__meta">{article.reading_time_minutes} min read</p>
+            )}
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <p id="articles-empty" class="articles-index__empty" hidden>No articles match your filters.</p>
+  </div>
+</BaseLayout>
+
+<script>
+  const searchInput = document.getElementById('articles-search') as HTMLInputElement | null;
+  const categorySelect = document.getElementById('articles-category') as HTMLSelectElement | null;
+  const grid = document.getElementById('articles-grid');
+  const emptyMessage = document.getElementById('articles-empty');
+
+  function applyFilters() {
+    const query = (searchInput?.value ?? '').trim().toLowerCase();
+    const category = categorySelect?.value ?? '';
+
+    const cards = grid?.querySelectorAll<HTMLElement>('.article-card') ?? [];
+    let visibleCount = 0;
+
+    cards.forEach((card) => {
+      const matchesQuery = !query || (card.dataset.search ?? '').includes(query);
+      const matchesCategory = !category || card.dataset.category === category;
+      const matches = matchesQuery && matchesCategory;
+
+      card.hidden = !matches;
+      if (matches) visibleCount += 1;
+    });
+
+    if (emptyMessage) emptyMessage.hidden = visibleCount > 0;
+  }
+
+  searchInput?.addEventListener('input', applyFilters);
+  categorySelect?.addEventListener('change', applyFilters);
+
+  // Support ?category=City%20Guides style deep links.
+  const params = new URLSearchParams(window.location.search);
+  const initialCategory = params.get('category');
+  if (initialCategory && categorySelect) categorySelect.value = initialCategory;
+  applyFilters();
+</script>
+
+<style>
+  .articles-index {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 4rem;
+  }
+  .articles-index h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .articles-index__lede {
+    color: var(--brand-text-muted);
+    margin-bottom: 1.5rem;
+  }
+  .articles-index__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  .articles-index__search {
+    flex: 1 1 16rem;
+    border: 1px solid var(--brand-border);
+    border-radius: 0.5rem;
+    padding: 0.625rem 1rem;
+  }
+  .articles-index__select {
+    border: 1px solid var(--brand-border);
+    border-radius: 0.5rem;
+    padding: 0.625rem 1rem;
+    background: white;
+  }
+  .articles-index__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 1.5rem;
+  }
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--brand-bg-card);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .article-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+  .article-card__image-wrap {
+    height: 12rem;
+  }
+  .article-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .article-card__body {
+    padding: 1.25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .article-card__category {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--brand-primary, var(--brand-blue));
+    margin-bottom: 0.5rem;
+  }
+  .article-card__body h2 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .article-card__excerpt {
+    font-size: 0.875rem;
+    color: var(--brand-text-muted);
+    margin-bottom: 0.75rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .article-card__meta {
+    font-size: 0.75rem;
+    color: var(--brand-text-muted);
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+  .articles-index__empty {
+    text-align: center;
+    color: var(--brand-text-muted);
+    padding: 3rem 0;
+  }
+</style>

@@ -81,14 +81,10 @@ const shouldAutoPrint = Astro.url.searchParams.get('print') === 'true';
     <div class="article-page__header">
       <Breadcrumbs
         items={[
+          { name: 'Articles', url: '/articles' },
           { name: article.title, url: `/articles/${article.slug}` },
         ]}
       />
-      <!-- No "Articles" crumb — there's no /articles index page (yet) to
-           link it to, and that was 404ing on every one of the 63 article
-           pages. See [[articles-index-page]] memory: build a real index
-           page here after a successful launch, then restore this crumb
-           pointing at it. -->
 
       <h1>{article.title}</h1>
       {article.subtitle && <p class="article__subtitle">{article.subtitle}</p>}
