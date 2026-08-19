@@ -153,7 +153,15 @@ export default function BusinessSubmissionForm() {
         updated_at: new Date().toISOString(),
       };
 
-      const { error: insertError } = await supabase.from('businesses').insert(insertPayload).select();
+      // No trailing .select() — same fix already applied in
+      // DestinationSubmissionForm.tsx (see its comment). Reading the row
+      // back right after insert requires it to pass the anon SELECT
+      // policy too (`is_visible = true AND consent_status = 'confirmed'`),
+      // which a freshly-submitted pending/unverified business never does.
+      // The insert itself succeeds — confirmed directly against
+      // production — but asking for .select() on it makes Supabase
+      // report the whole call as a permission-denied failure anyway.
+      const { error: insertError } = await supabase.from('businesses').insert(insertPayload);
 
       if (insertError) {
         if (insertError.code === '42501') {
