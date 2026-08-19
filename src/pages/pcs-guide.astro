@@ -9,7 +9,6 @@
 // for the full rebuild rationale.
 
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
 import PhaseTimeline from '../components/pcs-guide/PhaseTimeline.astro';
 import KeyContacts from '../components/pcs-guide/KeyContacts.astro';
 import FaqAccordion from '../components/pcs-guide/FaqAccordion.astro';
@@ -43,15 +42,8 @@ const WHO_FOR = [
   pageSchemas={[schema]}
 >
   <div class="pcs-guide">
-    <!-- Every other page (About, Contact, Impressum, Services...) wraps
-         Breadcrumbs in a padded, max-width container. This page's hero is
-         intentionally full-bleed edge-to-edge, so it can't reuse that same
-         wrapper — but that left Breadcrumbs with zero horizontal padding,
-         sitting flush against the raw browser edge instead of aligned
-         with the rest of the page like everywhere else. -->
-    <div class="pcs-guide__breadcrumb-wrap">
-      <Breadcrumbs items={[{ name: 'PCS Guide', url: '/pcs-guide' }]} />
-    </div>
+    <!-- No breadcrumb on this page, by request — same "no Home / X
+         clutter" call already made for contact.astro. -->
 
     <!-- Hero -->
     <div class="pcs-guide__hero">
@@ -178,10 +170,6 @@ const WHO_FOR = [
 <style>
   .pcs-guide {
     font-family: var(--font-sans, 'Inter', -apple-system, BlinkMacSystemFont, sans-serif);
-  }
-
-  .pcs-guide__breadcrumb-wrap {
-    padding: 12px 24px 0;
   }
 
   /* Hero */
