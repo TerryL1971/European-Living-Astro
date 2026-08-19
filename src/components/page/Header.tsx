@@ -41,23 +41,28 @@ export default function Header() {
     setMobileMenuOpen(false);
   };
 
-  // Handles both same-page smooth scroll (on the homepage) and
-  // cross-page navigation to /#sectionId (from any other page).
+  // Handles both same-page scroll (on the homepage) and cross-page
+  // navigation to /#sectionId (from any other page).
+  //
+  // Previously this called e.preventDefault() and did a one-time
+  // `getBoundingClientRect()` scroll calculation — which had two bugs:
+  // it never updated the URL hash (so the address bar stayed stuck on
+  // whatever hash a real page load had last set, even after clicking a
+  // different section), and its computed offset went stale the instant
+  // anything above the target changed height afterward (TravelPhrasesSection
+  // and friends fetch their data client-side after mount, so the page
+  // kept growing mid-scroll — that's what required 2-4 clicks to actually
+  // land on Contact). Now we don't preventDefault at all: the browser's
+  // own #hash navigation updates the URL and jumps to the element,
+  // offset correctly via scroll-margin-top (global.css) instead of JS
+  // math. The manual scrollIntoView below is just a courtesy for the
+  // case where the hash isn't changing (e.g. clicking the same section
+  // twice), which wouldn't otherwise re-trigger a scroll.
   const handleSectionClick = useCallback(
-    (sectionId: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+    (sectionId: string) => () => {
       if (window.location.pathname === '/') {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          e.preventDefault();
-          const headerHeight = 64;
-          const offset = element.getBoundingClientRect().top + window.scrollY - headerHeight;
-          window.scrollTo({ top: offset, behavior: 'smooth' });
-        }
-        // If the section isn't on the page yet (e.g. not built out yet),
-        // let the default #hash jump happen rather than doing nothing.
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-      // On any other page, let the browser navigate to `/#sectionId`
-      // normally — index.astro's inline script picks up the hash on load.
       setMobileMenuOpen(false);
     },
     []
@@ -146,10 +151,14 @@ export default function Header() {
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-3">
-              
+
+              {/* Plain link to the dedicated /contact page — same
+                  destination as the footer's Contact Us link. This used
+                  to point to /#contact (the homepage's embedded contact
+                  section), which meant the nav and footer Contact Us
+                  buttons landed on two different URLs/pages. */}
               <a
-                href="/#contact"
-                onClick={handleSectionClick('contact')}
+                href="/contact"
                 className="px-6 py-2.5 bg-[var(--brand-primary)] text-white text-sm font-semibold rounded-full hover:scale-105 transition whitespace-nowrap"
               >
                 Contact Us
@@ -251,10 +260,10 @@ export default function Header() {
               </a>
 
               <div className="pt-4 border-t border-[var(--brand-border)] mt-4">
-                
+
                 <a
-                  href="/#contact"
-                  onClick={handleSectionClick('contact')}
+                  href="/contact"
+                  onClick={() => setMobileMenuOpen(false)}
                   className="block text-center w-full px-4 py-3 bg-[var(--brand-primary)] text-white text-base font-semibold rounded-lg hover:bg-[var(--brand-dark)] transition"
                 >
                   Contact Us

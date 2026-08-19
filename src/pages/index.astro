@@ -113,11 +113,26 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
     const element = document.getElementById(hash);
     if (!element) return;
 
-    const headerHeight = 64;
-    const offset = element.getBoundingClientRect().top + window.scrollY - headerHeight;
-    requestAnimationFrame(() => {
-      window.scrollTo({ top: offset, behavior: 'smooth' });
-    });
+    // scroll-margin-top (global.css) handles the fixed-header offset, so
+    // this just needs to ask the browser to scroll the element into view.
+    //
+    // The tricky part is timing: several sections below the fold
+    // (TravelPhrasesSection, ServicesCategoriesSection, ContactSection,
+    // FeaturedContentSection...) are client:visible islands that fetch
+    // their own data after mount, and the destination cards' images load
+    // in too — all of which change the page's height after this first
+    // scroll runs. On a fresh load (e.g. opening /#travel-tips in a new
+    // tab), that shift can land you in a completely different section
+    // than the one you asked for, and how far off depends on network
+    // timing — which is exactly why it looked "random." Re-run the
+    // scroll whenever the page's height changes, for a few seconds after
+    // load, so it keeps correcting until the layout actually settles.
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    const resettle = () => element.scrollIntoView({ behavior: 'instant', block: 'start' });
+    const observer = new ResizeObserver(resettle);
+    observer.observe(document.body);
+    setTimeout(() => observer.disconnect(), 3000);
   }
 
   scrollToHashSection();

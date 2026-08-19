@@ -15,6 +15,23 @@ html {
   overflow-x: hidden;
 }
 
+/*
+  Homepage section anchors targeted by the header nav (Header.tsx) and by
+  a shared URL/#hash (e.g. /#travel-tips). scroll-margin-top keeps the
+  fixed 64px header from covering the top of the section when the browser
+  jumps to it natively — same pattern as .quick-jump-target in
+  pcs-guide.astro. This replaces a manual `getBoundingClientRect() -
+  headerHeight` calculation that used to run once per click and go stale
+  the moment anything above the target changed height afterward.
+*/
+#destinations,
+#travel-tips,
+#german-phrases,
+#english-services,
+#contact {
+  scroll-margin-top: 80px;
+}
+
 body, #root {
   margin: 0;
   overflow-x: hidden;
