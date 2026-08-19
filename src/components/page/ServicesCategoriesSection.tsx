@@ -39,9 +39,19 @@ const serviceCategories = [
   { id: 'shopping', title: 'Shopping / Personal Services', icon: ShoppingBag, description: 'Stores, malls, and beauty salons with English-speaking staff' },
   { id: 'home-services', title: 'Home Services', icon: Wrench, description: 'Plumbers, electricians, and handymen who work with American families' },
   { id: 'real-estate', title: 'Real Estate', icon: Home, description: 'Housing agents familiar with American military housing needs' },
-  { id: 'legal', title: 'Legal Services', icon: Scale, description: 'Lawyers who understand SOFA status and military regulations' },
+  // ids match serviceCategories.ts / the businesses table's actual
+  // `category` values — 'legal' -> 'legal-business' and 'business' ->
+  // 'hbb' were renamed everywhere else on 2026-07-31 (see
+  // data/serviceCategories.ts's comment) but this file's copy of the
+  // list was missed. Confirmed against live data: 3 real rows in
+  // Supabase have category='hbb', but the stale 'business' id here
+  // meant categoryCounts['business'] was always 0, so the homepage
+  // permanently showed "Coming Soon" for Business Services regardless
+  // of real inventory (and would've done the same for Legal Services
+  // the moment a legal-business row existed).
+  { id: 'legal-business', title: 'Legal Services', icon: Scale, description: 'Lawyers who understand SOFA status and military regulations' },
   { id: 'education', title: 'Education', icon: GraduationCap, description: 'International schools and tutors for military families' },
-  { id: 'business', title: 'Business Services', icon: Briefcase, description: 'Tax advisors and accountants familiar with US/German requirements' },
+  { id: 'hbb', title: 'Business Services', icon: Briefcase, description: 'Tax advisors and accountants familiar with US/German requirements' },
 ];
 
 export default function ServicesCategoriesSection() {
@@ -81,8 +91,17 @@ export default function ServicesCategoriesSection() {
   }, [businesses, selectedBase]);
 
   if (isLoading) {
+    // id="english-services" has to be here too, not just on the loaded
+    // render below — this is a client:visible island that only hydrates
+    // once scrolled near the viewport, and this loading state is what
+    // Astro actually serves as the initial static HTML. Without the id
+    // here, a nav click (or a direct /#english-services link) targeting
+    // this section finds nothing, because the id doesn't exist yet until
+    // the section has both scrolled into view AND finished its Supabase
+    // fetch. Same bug TravelPhrasesSection.tsx already had fixed for
+    // id="german-phrases" — this component just never got the same fix.
     return (
-      <section className="relative bg-[var(--brand-bg-card)] py-20">
+      <section id="english-services" className="relative bg-[var(--brand-bg-card)] py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--brand-gold)] mx-auto mb-4" />
           <p className="text-[var(--brand-text)]">Loading trusted services and business counts...</p>

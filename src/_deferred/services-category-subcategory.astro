@@ -1,4 +1,32 @@
 ---
+// PARKED — not a live route. Moved out of src/pages/ on 2026-08-19
+// because it broke `astro build` (the first real production build this
+// project had ever gotten) two ways at once:
+//
+//   1. Wrong location: every URL/canonical path this file builds is
+//      two-segment (`/services/${categoryId}/${subcategoryId}`, e.g.
+//      /services/automotive/car-dealerships), and getStaticPaths()
+//      returns both a `category` and `subcategory` param — but the file
+//      lived at src/pages/services/[subcategory].astro, a ONE-segment
+//      route. It needs to be at
+//      src/pages/services/[category]/[subcategory].astro instead (that
+//      also fixes the `../../../` relative imports below, which were
+//      already written correctly for that nested depth).
+//   2. Missing data: imports getCategoryStructure/getSubcategory from
+//      ../../../data/subcategories.ts, which doesn't exist anywhere in
+//      the repo (only ever referenced, never committed) — needs real
+//      subcategory taxonomy (names like "SOFA Status Lawyers",
+//      descriptions, category grouping) before this can render.
+//
+// Nothing in the live site links to this page today — [category].astro
+// has no "Jump to subcategory" nav — so parking it is safe; it isn't
+// removing a reachable feature, just an unfinished one that was
+// silently breaking every build.
+//
+// To resume: build data/subcategories.ts, move this file to
+// src/pages/services/[category]/[subcategory].astro, and add "Jump to"
+// links from services/[category].astro.
+
 // Per-(category, subcategory) listing — the page a "Jump to" link or a
 // subcategory-specific URL lands on. Statically generated only for
 // combinations that actually have at least one active business, so this
