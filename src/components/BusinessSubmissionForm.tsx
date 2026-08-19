@@ -9,9 +9,21 @@
 // "Submission Received" state's noIndex=true is also unnecessary here:
 // that state only ever shows after a client-side form submission, so it
 // never gets crawled as a distinct URL in the first place.
+//
+// UPDATED 2026-08-19: was inserting straight into `businesses` — that
+// bypassed the email double opt-in consent flow entirely (see
+// BusinessDataEntry.tsx's Visibility & Consent section and the
+// businesses table's is_visible/consent_status columns). Confirmed
+// directly against the deployed request-business-consent Edge Function
+// that it accepts this exact same field set (plus submitted_by_name/
+// submitted_by_email) and handles the insert, token, and confirmation
+// email itself — so this now calls that instead of inserting directly.
+// Added a "Your Information" section (Name + Email) mirroring
+// DestinationSubmissionForm.tsx's pattern, since request-business-
+// consent requires knowing who to send the confirmation link to.
 
 import React, { useState } from 'react';
-import { Building2, MapPin, Phone, Languages, Award, Clock, CheckCircle, Loader, AlertCircle } from 'lucide-react';
+import { Building2, MapPin, Phone, Languages, Award, Clock, CheckCircle, Loader, AlertCircle, User } from 'lucide-react';
 import { supabase } from '../services/supabaseClient';
 
 interface FormData {
@@ -36,6 +48,8 @@ interface FormData {
   deliveryToBase: boolean;
   hours: string;
   additionalNotes: string;
+  submitterName: string;
+  submitterEmail: string;
 }
 
 const EMPTY_FORM: FormData = {
@@ -60,6 +74,8 @@ const EMPTY_FORM: FormData = {
   deliveryToBase: false,
   hours: '',
   additionalNotes: '',
+  submitterName: '',
+  submitterEmail: '',
 };
 
 export default function BusinessSubmissionForm() {
@@ -103,7 +119,8 @@ export default function BusinessSubmissionForm() {
     setSubmitting(true);
 
     if (!formData.businessName || !formData.category || !formData.city ||
-        !formData.phone || !formData.email || !formData.englishFluency) {
+        !formData.phone || !formData.email || !formData.englishFluency ||
+        !formData.submitterName || !formData.submitterEmail) {
       setError('Please fill in all required fields (marked with *)');
       setSubmitting(false);
       return;
@@ -133,7 +150,7 @@ export default function BusinessSubmissionForm() {
       if (formData.additionalNotes) notesArray.push(formData.additionalNotes);
       const notes = notesArray.join(' | ');
 
-      const insertPayload = {
+      const consentPayload = {
         name: formData.businessName,
         category: formData.category,
         subcategory: formData.subcategory || null,
@@ -144,33 +161,44 @@ export default function BusinessSubmissionForm() {
         email: formData.email,
         website: formData.website || null,
         english_fluency: formData.englishFluency,
-        verified: false,
-        featured: false,
-        status: 'pending',
         bases_served: formData.nearbyBases,
         notes: notes || null,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
+        submitted_by_name: formData.submitterName,
+        submitted_by_email: formData.submitterEmail,
       };
 
-      // No trailing .select() — same fix already applied in
-      // DestinationSubmissionForm.tsx (see its comment). Reading the row
-      // back right after insert requires it to pass the anon SELECT
-      // policy too (`is_visible = true AND consent_status = 'confirmed'`),
-      // which a freshly-submitted pending/unverified business never does.
-      // The insert itself succeeds — confirmed directly against
-      // production — but asking for .select() on it makes Supabase
-      // report the whole call as a permission-denied failure anyway.
-      const { error: insertError } = await supabase.from('businesses').insert(insertPayload);
+      // Calls the request-business-consent Edge Function instead of
+      // inserting into `businesses` directly — confirmed directly
+      // against the deployed function that it accepts this exact field
+      // set, handles the insert itself (status: 'pending', is_visible:
+      // false, consent_status: 'pending' — all set server-side, don't
+      // pass them here), generates the consent token, and emails
+      // submitted_by_email a confirmation link. The listing only
+      // becomes visible after that link is clicked AND an admin
+      // approves it — this form submission is just the first step now.
+      const { data: fnData, error: fnError } = await supabase.functions.invoke(
+        'request-business-consent',
+        { body: consentPayload }
+      );
 
-      if (insertError) {
-        if (insertError.code === '42501') {
-          throw new Error('Permission denied. Please contact support.');
-        } else if (insertError.code === '23505') {
-          throw new Error('A business with this information already exists.');
-        } else {
-          throw new Error(`Database error: ${insertError.message}`);
+      if (fnError) {
+        // supabase-js reports a non-2xx response as `error` without
+        // surfacing the function's own {error: "..."} JSON body — that
+        // has to be read off the raw response manually.
+        let message = fnError.message;
+        if (fnError.context && typeof fnError.context.json === 'function') {
+          try {
+            const body = await fnError.context.json();
+            if (body?.error) message = body.error;
+          } catch {
+            // fall back to fnError.message
+          }
         }
+        throw new Error(message);
+      }
+
+      if (fnData?.error) {
+        throw new Error(fnData.error);
       }
 
       setSubmitted(true);
@@ -205,9 +233,10 @@ export default function BusinessSubmissionForm() {
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="w-10 h-10 text-green-600" />
             </div>
-            <h2 className="text-3xl font-bold text-[var(--brand-dark)] mb-2">Thank You!</h2>
+            <h2 className="text-3xl font-bold text-[var(--brand-dark)] mb-2">Check Your Email</h2>
             <p className="text-lg text-[var(--muted-foreground)] mb-6">
-              Your business submission has been received. We'll review it and get back to you within 2-3 business days.
+              We've sent a confirmation link to the email you provided. Click it to confirm this
+              listing, then we'll review it and get back to you within 2-3 business days.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
@@ -581,6 +610,44 @@ export default function BusinessSubmissionForm() {
             </div>
           </div>
 
+          <div className="bg-[var(--brand-bg-card)] rounded-lg shadow-md p-6 border border-[var(--border)]">
+            <div className="flex items-center gap-2 mb-6">
+              <User className="w-6 h-6 text-[var(--brand-primary)]" />
+              <h2 className="text-2xl font-bold text-[var(--brand-dark)]">Your Information</h2>
+            </div>
+            <p className="text-sm text-[var(--muted-foreground)] mb-4">
+              We'll email you a confirmation link before this listing goes live — this keeps
+              random submissions from publishing a business without anyone at that business
+              actually agreeing to be listed.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-[var(--brand-dark)] mb-2">Your Name *</label>
+                <input
+                  type="text"
+                  required
+                  value={formData.submitterName}
+                  onChange={(e) => handleChange('submitterName', e.target.value)}
+                  className="w-full px-4 py-2 border border-[var(--border)] rounded-lg bg-[var(--brand-bg-card)] text-[var(--brand-dark)] focus:ring-2 focus:ring-[var(--brand-primary)] focus:outline-none transition-all duration-200"
+                  placeholder="Your name"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-[var(--brand-dark)] mb-2">Your Email *</label>
+                <input
+                  type="email"
+                  required
+                  value={formData.submitterEmail}
+                  onChange={(e) => handleChange('submitterEmail', e.target.value)}
+                  className="w-full px-4 py-2 border border-[var(--border)] rounded-lg bg-[var(--brand-bg-card)] text-[var(--brand-dark)] focus:ring-2 focus:ring-[var(--brand-primary)] focus:outline-none transition-all duration-200"
+                  placeholder="you@example.com"
+                />
+              </div>
+            </div>
+          </div>
+
           <div className="flex justify-end gap-4">
             <button
               type="button"
@@ -609,6 +676,10 @@ export default function BusinessSubmissionForm() {
         <div className="mt-8 bg-[var(--brand-bg-alt)] border-2 border-[var(--secondary)] rounded-lg p-6">
           <h3 className="font-bold text-[var(--brand-dark)] mb-3 text-lg">What happens next?</h3>
           <ul className="space-y-2 text-sm text-[var(--muted-foreground)]">
+            <li className="flex items-start gap-2">
+              <span className="text-green-600 font-bold">✓</span>
+              <span>You'll get an email with a confirmation link — click it to confirm the listing</span>
+            </li>
             <li className="flex items-start gap-2">
               <span className="text-green-600 font-bold">✓</span>
               <span>We'll review your submission within 2-3 business days</span>
