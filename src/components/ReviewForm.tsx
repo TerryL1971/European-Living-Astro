@@ -59,6 +59,17 @@ export default function ReviewForm({ businessId, onSuccess }: ReviewFormProps) {
 
       if (onSuccess) {
         onSuccess();
+      } else {
+        // No onSuccess handler wired up (businesses/[slug].astro doesn't
+        // pass one — it can't: Astro serializes island props, so a JS
+        // closure from the .astro file can't cross that boundary). The
+        // review list above this form is static, server-rendered HTML,
+        // so without a reload the just-submitted review would silently
+        // not appear until the user manually refreshes, despite the
+        // success message telling them it worked. Reload after a beat so
+        // they see the confirmation first.
+        setTimeout(() => window.location.reload(), 1500);
+        return;
       }
 
       setTimeout(() => setSuccess(false), 5000);
@@ -145,7 +156,7 @@ export default function ReviewForm({ businessId, onSuccess }: ReviewFormProps) {
             onChange={(e) => setComment(e.target.value)}
             rows={6}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-            placeholder="Share your experience with this dealership..."
+            placeholder="Share your experience with this business..."
             required
           />
           <p className="mt-1 text-sm text-gray-500">{comment.length} characters (minimum 10)</p>

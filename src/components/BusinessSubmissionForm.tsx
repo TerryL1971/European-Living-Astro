@@ -68,6 +68,14 @@ export default function BusinessSubmissionForm() {
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormData>(EMPTY_FORM);
 
+  // ids must match serviceCategories.ts / the businesses table's actual
+  // `category` values. This is a write path — picking the wrong id here
+  // doesn't just mis-render something, it inserts a row that then can't
+  // match any category page's query (fetchBusinessesByCategory filters
+  // by exact id), so the listing would be silently invisible everywhere
+  // even after being approved. Same 'legal' -> 'legal-business' and
+  // 'business' -> 'hbb' rename already fixed in
+  // ServicesCategoriesSection.tsx — this was the last copy still stale.
   const categories = [
     { id: 'automotive', name: 'Automotive Services' },
     { id: 'healthcare', name: 'Healthcare' },
@@ -75,9 +83,9 @@ export default function BusinessSubmissionForm() {
     { id: 'shopping', name: 'Shopping' },
     { id: 'home-services', name: 'Home Services' },
     { id: 'real-estate', name: 'Real Estate' },
-    { id: 'legal', name: 'Legal Services' },
+    { id: 'legal-business', name: 'Legal Services' },
     { id: 'education', name: 'Education' },
-    { id: 'business', name: 'Business Services' },
+    { id: 'hbb', name: 'Business Services' },
   ];
 
   const bases = [

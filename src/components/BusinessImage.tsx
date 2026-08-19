@@ -45,7 +45,12 @@ const categoryConfig: Record<string, { icon: LucideIcon, gradient: string }> = {
     icon: Building2,
     gradient: 'from-blue-500 to-cyan-600'
   },
-  'legal': {
+  // 'legal-business'/'hbb' match the real category ids (see
+  // ServicesCategoriesSection.tsx and BusinessSubmissionForm.tsx for the
+  // same rename) — without this, a legal or home-based-business listing
+  // with no photo fell through to the generic gray default icon instead
+  // of its intended Scale/Briefcase icon and color.
+  'legal-business': {
     icon: Scale,
     gradient: 'from-slate-600 to-slate-800'
   },
@@ -53,7 +58,7 @@ const categoryConfig: Record<string, { icon: LucideIcon, gradient: string }> = {
     icon: GraduationCap,
     gradient: 'from-yellow-400 to-orange-500'
   },
-  'business': {
+  'hbb': {
     icon: Briefcase,
     gradient: 'from-indigo-500 to-purple-600'
   },

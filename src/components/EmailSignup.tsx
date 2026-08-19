@@ -4,7 +4,7 @@
 // dependency here, so nothing about the Astro migration required
 // structural changes. Posts straight to Formspree exactly as before.
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Mail, Check, Loader } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -57,9 +57,19 @@ export default function EmailSignup({
     }
   }
 
-  if (success) {
-    setTimeout(() => setSuccess(false), 5000)
-  }
+  // Was a bare `if (success) setTimeout(...)` running directly in the
+  // render body — a side effect during render, not inside useEffect.
+  // Harmless-looking today (setSuccess(false) is idempotent), but every
+  // re-render while success is true scheduled another stacked timer,
+  // and it's the kind of thing that breaks under React StrictMode's
+  // double-render-in-dev or future concurrent rendering. useEffect
+  // schedules exactly one timer per success:true transition and cleans
+  // it up correctly.
+  useEffect(() => {
+    if (!success) return;
+    const timer = setTimeout(() => setSuccess(false), 5000)
+    return () => clearTimeout(timer)
+  }, [success])
 
   const getStyles = () => {
     switch (variant) {
