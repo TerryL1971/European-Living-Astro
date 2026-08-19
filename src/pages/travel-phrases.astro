@@ -8,7 +8,7 @@
 // the page's primary content, not something below the fold — same
 // reasoning as submit-business.astro.
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import BackLink from '../components/BackLink.astro';
 import TravelPhrasesSection from '../components/page/TravelPhrasesSection.tsx';
 ---
 
@@ -17,16 +17,6 @@ import TravelPhrasesSection from '../components/page/TravelPhrasesSection.tsx';
   description="Essential travel phrases in German, French, Italian, and more — with pronunciation, for U.S. military families and expats traveling in Europe."
   canonicalPath="/travel-phrases"
 >
-  <div class="travel-phrases-page">
-    <Breadcrumbs items={[{ name: 'Travel Phrases', url: '/travel-phrases' }]} />
-  </div>
+  <BackLink />
   <TravelPhrasesSection client:load />
 </BaseLayout>
-
-<style>
-  .travel-phrases-page {
-    max-width: 72rem;
-    margin: 0 auto;
-    padding: 1.5rem 1.5rem 0;
-  }
-</style>

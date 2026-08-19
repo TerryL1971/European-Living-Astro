@@ -7,7 +7,7 @@
 // gives the nav link a real URL. client:load since this component IS
 // the page's primary content — same reasoning as submit-business.astro.
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import BackLink from '../components/BackLink.astro';
 import ServicesCategoriesSection from '../components/page/ServicesCategoriesSection.tsx';
 ---
 
@@ -16,16 +16,6 @@ import ServicesCategoriesSection from '../components/page/ServicesCategoriesSect
   description="Trusted, English-speaking businesses across Europe serving U.S. military, civilians, and contractors — automotive, healthcare, restaurants, legal, and more."
   canonicalPath="/english-services"
 >
-  <div class="english-services-page">
-    <Breadcrumbs items={[{ name: 'English Services', url: '/english-services' }]} />
-  </div>
+  <BackLink />
   <ServicesCategoriesSection client:load />
 </BaseLayout>
-
-<style>
-  .english-services-page {
-    max-width: 72rem;
-    margin: 0 auto;
-    padding: 1.5rem 1.5rem 0;
-  }
-</style>

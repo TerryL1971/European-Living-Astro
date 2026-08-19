@@ -2,23 +2,18 @@
 // src/pages/destinations/index.astro
 //
 // Dedicated page for the "Destinations" nav item — was /#destinations
-// (a homepage section, no real URL). Unlike Travel Tips/Phrases/
-// English Services, "Destinations" on the homepage is a hand-rolled
-// carousel built directly into index.astro (not its own component), so
-// there's nothing to just wrap here. Rather than extract that carousel
-// (pagination, prev/next, dots — all homepage-specific), this builds a
-// full browsable grid instead, same pattern as articles/index.astro and
-// services-directory.astro: static-rendered from getAllDestinationArticles(),
-// with a plain-JS search filter over the pre-rendered cards. A real
-// page benefits from showing everything at once rather than 3-at-a-time
-// carousel pagination.
+// (a homepage section, no real URL). Built as a carousel matching
+// TravelTipsSection.astro's exact pattern (Terry's call) rather than
+// the full-grid layout this started as — same 3-at-a-time
+// prev/next/dots carousel, same wraparound pagination script, just
+// destination-flavored cards and copy.
 //
 // Note: src/pages/destinations/[slug].astro already exists as a 301
 // redirect to /articles/<slug> (legacy URL from the old app) — this
 // index.astro is a separate route, no conflict.
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import BackLink from '../../components/BackLink.astro';
 import { getAllDestinationArticles } from '../../lib/supabaseArticles';
 
 const destinations = await getAllDestinationArticles();
@@ -32,103 +27,170 @@ const sortedDestinations = [...destinations].sort(
   description="Explore Europe within driving distance from your base — city guides for U.S. military families and expats in Germany."
   canonicalPath="/destinations"
 >
-  <div class="destinations-page">
-    <Breadcrumbs items={[{ name: 'Destinations', url: '/destinations' }]} />
+  <BackLink />
 
-    <h1>Destinations</h1>
-    <p class="destinations-page__lede">
-      {sortedDestinations.length} places to explore within driving distance from your base.
-    </p>
-
-    <input type="text" id="destinations-search" placeholder="Search destinations..." class="destinations-page__search" />
-
-    <div class="destinations-page__grid" id="destinations-page-grid">
-      {sortedDestinations.map((dest) => {
-        const name = dest.destination_name || dest.title;
-        return (
-          <a
-            href={`/articles/${dest.slug}`}
-            class="destination-page-card"
-            data-search={`${name} ${dest.title} ${dest.excerpt ?? ''}`.toLowerCase()}
-          >
-            <div class="destination-page-card__image-wrap">
-              <img
-                src={dest.featured_image_url || 'https://pkacbcohrygpyapgtzpq.supabase.co/storage/v1/object/public/images/hero-bg.jpg'}
-                alt={name}
-                class="destination-page-card__image"
-                loading="lazy"
-              />
-            </div>
-            <div class="destination-page-card__body">
-              <h2>{dest.title}</h2>
-              <div class="destination-page-card__cta">
-                <span>View Details</span>
-                <span aria-hidden="true">›</span>
-              </div>
-            </div>
-          </a>
-        );
-      })}
+  <section id="destinations-page" class="destinations-page">
+    <div class="destinations-page__intro">
+      <h1>Explore Destinations</h1>
+      <p>Discover amazing places within driving distance from your base</p>
     </div>
 
-    <p id="destinations-page-empty" class="destinations-page__empty" hidden>No destinations match your search.</p>
+    {sortedDestinations.length === 0 ? (
+      <div class="destinations-page__empty">
+        <p>No destinations available yet. Check back soon!</p>
+      </div>
+    ) : (
+      <div class="destinations-page__carousel">
+        <button
+          type="button"
+          class="destinations-page__arrow destinations-page__arrow--prev"
+          id="destinations-page-prev"
+          aria-label="Previous destinations"
+        >
+          ‹
+        </button>
+
+        <div class="destinations-page__track" id="destinations-page-track">
+          {sortedDestinations.map((dest) => {
+            const name = dest.destination_name || dest.title;
+            return (
+              <a href={`/articles/${dest.slug}`} class="destination-page-card">
+                <div class="destination-page-card__image-wrap">
+                  <img
+                    src={dest.featured_image_url || 'https://pkacbcohrygpyapgtzpq.supabase.co/storage/v1/object/public/images/hero-bg.jpg'}
+                    alt={name}
+                    class="destination-page-card__image"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="destination-page-card__body">
+                  <h2>{dest.title}</h2>
+                  <div class="destination-page-card__cta">
+                    <span>View Details</span>
+                    <span aria-hidden="true">›</span>
+                  </div>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+
+        <button
+          type="button"
+          class="destinations-page__arrow destinations-page__arrow--next"
+          id="destinations-page-next"
+          aria-label="Next destinations"
+        >
+          ›
+        </button>
+      </div>
+    )}
+
+    {sortedDestinations.length > 3 && <div class="destinations-page__dots" id="destinations-page-dots"></div>}
 
     <div class="destinations-page__request">
       <p>Don't see your favorite destination? Let us know!</p>
       <a href="/submit-destination">Request a Destination</a>
     </div>
-  </div>
+  </section>
 </BaseLayout>
 
 <script>
-  const searchInput = document.getElementById('destinations-search') as HTMLInputElement | null;
-  const grid = document.getElementById('destinations-page-grid');
-  const emptyMessage = document.getElementById('destinations-page-empty');
+  const track = document.getElementById('destinations-page-track');
+  const cards = track ? Array.from(track.querySelectorAll<HTMLElement>('.destination-page-card')) : [];
+  const dotsContainer = document.getElementById('destinations-page-dots');
+  const prevBtn = document.getElementById('destinations-page-prev');
+  const nextBtn = document.getElementById('destinations-page-next');
+  const pageSize = 3;
+  const total = cards.length;
+  let startIndex = 0;
 
-  function applyFilter() {
-    const query = (searchInput?.value ?? '').trim().toLowerCase();
-    const cards = grid?.querySelectorAll<HTMLElement>('.destination-page-card') ?? [];
-    let visibleCount = 0;
-
-    cards.forEach((card) => {
-      const matches = !query || (card.dataset.search ?? '').includes(query);
-      card.hidden = !matches;
-      if (matches) visibleCount += 1;
+  function renderPage() {
+    cards.forEach((card, i) => {
+      const offset = (i - startIndex + total) % total;
+      const isVisible = offset < pageSize;
+      card.hidden = !isVisible;
+      card.style.order = isVisible ? String(offset) : '';
     });
 
-    if (emptyMessage) emptyMessage.hidden = visibleCount > 0;
+    if (dotsContainer) {
+      const dots = Array.from(dotsContainer.querySelectorAll('button'));
+      const activeDot = Math.floor(startIndex / pageSize) % dots.length;
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('is-active', idx === activeDot);
+      });
+    }
   }
 
-  searchInput?.addEventListener('input', applyFilter);
+  function buildDots() {
+    if (!dotsContainer || total <= pageSize) return;
+    const dotCount = Math.ceil(total / pageSize);
+    for (let i = 0; i < dotCount; i++) {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `Go to page ${i + 1}`);
+      dot.addEventListener('click', () => {
+        startIndex = (i * pageSize) % total;
+        renderPage();
+      });
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  if (total > pageSize) {
+    prevBtn?.addEventListener('click', () => {
+      startIndex = (startIndex - pageSize + total) % total;
+      renderPage();
+    });
+    nextBtn?.addEventListener('click', () => {
+      startIndex = (startIndex + pageSize) % total;
+      renderPage();
+    });
+  } else {
+    prevBtn?.setAttribute('hidden', '');
+    nextBtn?.setAttribute('hidden', '');
+  }
+
+  buildDots();
+  renderPage();
 </script>
 
 <style>
   .destinations-page {
     max-width: 72rem;
     margin: 0 auto;
-    padding: 1.5rem 1.5rem 4rem;
+    padding: 1.5rem 1.5rem 3rem;
   }
-  .destinations-page h1 {
+  .destinations-page__intro {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .destinations-page__intro h1 {
     font-size: 2.25rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
   }
-  .destinations-page__lede {
+  .destinations-page__intro p {
     color: var(--brand-text-muted);
-    margin-bottom: 1.5rem;
+    font-size: 1.125rem;
   }
-  .destinations-page__search {
-    width: 100%;
-    max-width: 24rem;
-    border: 1px solid var(--brand-border);
-    border-radius: 0.5rem;
-    padding: 0.625rem 1rem;
-    margin-bottom: 2rem;
+  .destinations-page__empty {
+    text-align: center;
+    padding: 3rem;
+    background: var(--brand-bg-alt);
+    border-radius: 1rem;
+    color: var(--brand-text-muted);
   }
-  .destinations-page__grid {
+  .destinations-page__carousel {
+    position: relative;
+  }
+  .destinations-page__track {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
+  }
+  .destinations-page__track .destination-page-card[hidden] {
+    display: none;
   }
   .destination-page-card {
     display: flex;
@@ -174,14 +236,48 @@ const sortedDestinations = [...destinations].sort(
     color: var(--brand-blue);
     margin-top: auto;
   }
-  .destinations-page__empty {
-    text-align: center;
-    color: var(--brand-text-muted);
-    padding: 3rem 0;
+  .destinations-page__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    background: white;
+    border: 1px solid var(--brand-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 5;
+  }
+  .destinations-page__arrow--prev {
+    left: -1.5rem;
+  }
+  .destinations-page__arrow--next {
+    right: -1.5rem;
+  }
+  .destinations-page__dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .destinations-page__dots :global(button) {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    border: none;
+    background: var(--brand-border);
+    cursor: pointer;
+    padding: 0;
+  }
+  .destinations-page__dots :global(button.is-active) {
+    width: 2rem;
+    background: var(--brand-blue);
   }
   .destinations-page__request {
-    max-width: 72rem;
-    margin: 3rem auto 0;
+    margin-top: 3rem;
     padding: 2.5rem 1.5rem;
     background: var(--brand-primary-dark, var(--brand-primary));
     border-radius: 1rem;

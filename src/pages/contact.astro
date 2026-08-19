@@ -22,6 +22,7 @@
 // day-trips/[slug].astro, etc.).
 
 import BaseLayout from '../layouts/BaseLayout.astro';
+import BackLink from '../components/BackLink.astro';
 import ContactSection from '../components/page/ContactSection.tsx';
 ---
 
@@ -30,5 +31,8 @@ import ContactSection from '../components/page/ContactSection.tsx';
   description="Get in touch with European Living — your resource for US military families and American expats living in Germany. Email, WhatsApp, or send us a message."
   canonicalPath="/contact"
 >
+  <!-- No breadcrumb, by request. BackLink instead, per Terry's "arrow
+       that takes someone back, but no breadcrumbs" call. -->
+  <BackLink />
   <ContactSection client:load />
 </BaseLayout>

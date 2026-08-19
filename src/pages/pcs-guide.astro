@@ -9,6 +9,7 @@
 // for the full rebuild rationale.
 
 import BaseLayout from '../layouts/BaseLayout.astro';
+import BackLink from '../components/BackLink.astro';
 import PhaseTimeline from '../components/pcs-guide/PhaseTimeline.astro';
 import KeyContacts from '../components/pcs-guide/KeyContacts.astro';
 import FaqAccordion from '../components/pcs-guide/FaqAccordion.astro';
@@ -43,7 +44,10 @@ const WHO_FOR = [
 >
   <div class="pcs-guide">
     <!-- No breadcrumb on this page, by request — same "no Home / X
-         clutter" call already made for contact.astro. -->
+         clutter" call already made for contact.astro. BackLink instead,
+         per Terry's "arrow that takes someone back, but no breadcrumbs"
+         call. -->
+    <BackLink />
 
     <!-- Hero -->
     <div class="pcs-guide__hero">

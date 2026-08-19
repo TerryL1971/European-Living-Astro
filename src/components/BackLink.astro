@@ -1,0 +1,54 @@
+---
+// src/components/BackLink.astro
+//
+// Replaces breadcrumbs on pages Terry doesn't want them on (PCS Guide,
+// Contact, and now Destinations/Travel Tips/Travel Phrases/English
+// Services) — "an arrow that takes someone back to where they were."
+// Uses real browser history (history.back()), not a hardcoded href, so
+// it actually returns to wherever the visitor came from — the
+// homepage if they clicked a nav link, search results if they arrived
+// that way, etc. — rather than always assuming "/".
+//
+// Falls back to a plain link to fallbackHref for the no-JS case (and
+// for the always-JS-off crawler pass) — browsers don't execute the
+// script's preventDefault() then, so it just navigates there normally
+// instead of silently doing nothing.
+
+interface Props {
+  fallbackHref?: string;
+}
+const { fallbackHref = '/' } = Astro.props;
+---
+
+<a href={fallbackHref} class="back-link" data-back-link>
+  <span aria-hidden="true">←</span> Back
+</a>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('[data-back-link]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      if (window.history.length > 1) {
+        e.preventDefault();
+        window.history.back();
+      }
+      // else: only one entry in history (e.g. opened in a new tab) —
+      // let the default navigation to fallbackHref happen instead.
+    });
+  });
+</script>
+
+<style>
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--brand-text-muted);
+    text-decoration: none;
+    padding: 1rem 1.5rem 0;
+  }
+  .back-link:hover {
+    color: var(--brand-primary, var(--brand-blue));
+  }
+</style>
