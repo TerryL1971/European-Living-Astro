@@ -1,0 +1,31 @@
+---
+// src/pages/english-services.astro
+//
+// Dedicated page for the "English Services" nav item — was
+// /#english-services (a homepage section, no real URL). Same pattern
+// as contact.astro: the section stays on the homepage too, this just
+// gives the nav link a real URL. client:load since this component IS
+// the page's primary content — same reasoning as submit-business.astro.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import ServicesCategoriesSection from '../components/page/ServicesCategoriesSection.tsx';
+---
+
+<BaseLayout
+  title="English-Speaking Services"
+  description="Trusted, English-speaking businesses across Europe serving U.S. military, civilians, and contractors — automotive, healthcare, restaurants, legal, and more."
+  canonicalPath="/english-services"
+>
+  <div class="english-services-page">
+    <Breadcrumbs items={[{ name: 'English Services', url: '/english-services' }]} />
+  </div>
+  <ServicesCategoriesSection client:load />
+</BaseLayout>
+
+<style>
+  .english-services-page {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 0;
+  }
+</style>

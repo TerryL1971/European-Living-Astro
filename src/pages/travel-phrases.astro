@@ -1,0 +1,32 @@
+---
+// src/pages/travel-phrases.astro
+//
+// Dedicated page for the "Travel Phrases" nav item — was /#german-phrases
+// (a homepage section, no real URL). Same pattern as contact.astro: the
+// section stays on the homepage too, this just gives the nav link a
+// real URL. client:load (not client:visible) since this component IS
+// the page's primary content, not something below the fold — same
+// reasoning as submit-business.astro.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import TravelPhrasesSection from '../components/page/TravelPhrasesSection.tsx';
+---
+
+<BaseLayout
+  title="Travel Phrases"
+  description="Essential travel phrases in German, French, Italian, and more — with pronunciation, for U.S. military families and expats traveling in Europe."
+  canonicalPath="/travel-phrases"
+>
+  <div class="travel-phrases-page">
+    <Breadcrumbs items={[{ name: 'Travel Phrases', url: '/travel-phrases' }]} />
+  </div>
+  <TravelPhrasesSection client:load />
+</BaseLayout>
+
+<style>
+  .travel-phrases-page {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 0;
+  }
+</style>

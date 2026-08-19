@@ -1,0 +1,33 @@
+---
+// src/pages/travel-tips.astro
+//
+// Dedicated page for the "Travel Tips" nav item — was /#travel-tips
+// (a homepage section, no real URL). Same pattern as contact.astro:
+// the section stays on the homepage for people scrolling through
+// naturally, this just gives the nav link (and anyone sharing/
+// bookmarking it) a real, clean URL. TravelTipsSection.astro is
+// already a fully self-contained, build-time-fetched component with
+// its own id="travel-tips" — no props needed.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import TravelTipsSection from '../components/page/TravelTipsSection.astro';
+---
+
+<BaseLayout
+  title="Travel Tips & Essentials"
+  description="Expert guidance for living and traveling in Europe — practical tips for U.S. military families and expats in Germany."
+  canonicalPath="/travel-tips"
+>
+  <div class="travel-tips-page">
+    <Breadcrumbs items={[{ name: 'Travel Tips', url: '/travel-tips' }]} />
+  </div>
+  <TravelTipsSection />
+</BaseLayout>
+
+<style>
+  .travel-tips-page {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 0;
+  }
+</style>

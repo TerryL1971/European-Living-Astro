@@ -7,26 +7,30 @@
 //     is now pre-rendered static HTML, not a client-side route change)
 //   - useNavigate/useLocation are replaced with window.location, since
 //     there's no router context to read from
-//   - scrollToSection's old behavior (navigate('/', { state: { scrollTo }}))
-//     relied on React Router's location state, which doesn't exist
-//     outside an SPA. Replaced with a URL hash (`/#destinations`) plus a
-//     small plain-JS scroll handler on the homepage itself (see the
-//     inline script in index.astro) that runs once the page loads.
 //
 // resetBaseSelection now also clears the nanostore and dispatches
 // 'baseChanged', so any page listening for that event (e.g. the
 // day-trips filter script) updates immediately on Reset, not just
 // once a new base is picked in the reopened modal.
+//
+// UPDATED 2026-08-19: Destinations/Travel Tips/Travel Phrases/English
+// Services each got their own real page (/destinations, /travel-tips,
+// /travel-phrases, /english-services) — Terry's call, at his request.
+// These used to be /#section links into homepage-only sections; now
+// they're plain page links like Day Trips/About, same treatment
+// Contact Us already got earlier. The sections themselves stay on the
+// homepage too for people scrolling through naturally — this only
+// changes what the nav points to.
 
 import { useState, useCallback } from 'react';
 import { Menu, X } from 'lucide-react';
 import { updateBase } from '../../stores/baseStore';
 
-const NAV_SECTIONS = [
-  { id: 'destinations', label: 'Destinations' },
-  { id: 'travel-tips', label: 'Travel Tips' },
-  { id: 'german-phrases', label: 'Travel Phrases' },
-  { id: 'english-services', label: 'English Services' },
+const NAV_LINKS = [
+  { path: '/destinations', label: 'Destinations' },
+  { path: '/travel-tips', label: 'Travel Tips' },
+  { path: '/travel-phrases', label: 'Travel Phrases' },
+  { path: '/english-services', label: 'English Services' },
 ] as const;
 
 export default function Header() {
@@ -40,33 +44,6 @@ export default function Header() {
     window.dispatchEvent(new CustomEvent('openBaseSelectionModal'));
     setMobileMenuOpen(false);
   };
-
-  // Handles both same-page scroll (on the homepage) and cross-page
-  // navigation to /#sectionId (from any other page).
-  //
-  // Previously this called e.preventDefault() and did a one-time
-  // `getBoundingClientRect()` scroll calculation — which had two bugs:
-  // it never updated the URL hash (so the address bar stayed stuck on
-  // whatever hash a real page load had last set, even after clicking a
-  // different section), and its computed offset went stale the instant
-  // anything above the target changed height afterward (TravelPhrasesSection
-  // and friends fetch their data client-side after mount, so the page
-  // kept growing mid-scroll — that's what required 2-4 clicks to actually
-  // land on Contact). Now we don't preventDefault at all: the browser's
-  // own #hash navigation updates the URL and jumps to the element,
-  // offset correctly via scroll-margin-top (global.css) instead of JS
-  // math. The manual scrollIntoView below is just a courtesy for the
-  // case where the hash isn't changing (e.g. clicking the same section
-  // twice), which wouldn't otherwise re-trigger a scroll.
-  const handleSectionClick = useCallback(
-    (sectionId: string) => () => {
-      if (window.location.pathname === '/') {
-        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-      setMobileMenuOpen(false);
-    },
-    []
-  );
 
   const handleLogoClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     if (window.location.pathname === '/') {
@@ -108,12 +85,10 @@ export default function Header() {
                 Home
               </a>
 
-              {NAV_SECTIONS.slice(0, 1).map((section) => (
-                
+              {NAV_LINKS.slice(0, 1).map((section) => (
                 <a
-                  key={section.id}
-                  href={`/#${section.id}`}
-                  onClick={handleSectionClick(section.id)}
+                  key={section.path}
+                  href={section.path}
                   className="px-4 py-2 text-sm font-medium text-[var(--brand-text)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-bg-alt)] rounded-lg"
                 >
                   {section.label}
@@ -132,12 +107,10 @@ export default function Header() {
                 PCS Guide
               </a>
 
-              {NAV_SECTIONS.slice(1).map((section) => (
-                
+              {NAV_LINKS.slice(1).map((section) => (
                 <a
-                  key={section.id}
-                  href={`/#${section.id}`}
-                  onClick={handleSectionClick(section.id)}
+                  key={section.path}
+                  href={section.path}
                   className="px-4 py-2 text-sm rounded-lg hover:bg-[var(--brand-bg-alt)]"
                 >
                   {section.label}
@@ -205,19 +178,18 @@ export default function Header() {
                 Home
               </a>
 
-              {NAV_SECTIONS.slice(0, 1).map((section) => (
-                
+              {NAV_LINKS.slice(0, 1).map((section) => (
                 <a
-                  key={section.id}
-                  href={`/#${section.id}`}
-                  onClick={handleSectionClick(section.id)}
+                  key={section.path}
+                  href={section.path}
+                  onClick={() => setMobileMenuOpen(false)}
                   className="block w-full text-left px-4 py-3 text-base font-medium text-[var(--brand-text)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-bg-alt)] rounded-lg transition"
                 >
                   {section.label}
                 </a>
               ))}
 
-              <a  
+              <a
                 href="/day-trips"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block px-4 py-3 text-base font-medium text-[var(--brand-text)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-bg-alt)] rounded-lg transition"
@@ -239,12 +211,11 @@ export default function Header() {
                 <p className="text-xs text-gray-500 mt-0.5 pl-0">Moving to Germany? Start here.</p>
               </a>
 
-              {NAV_SECTIONS.slice(1).map((section) => (
-
+              {NAV_LINKS.slice(1).map((section) => (
                 <a
-                  key={section.id}
-                  href={`/#${section.id}`}
-                  onClick={handleSectionClick(section.id)}
+                  key={section.path}
+                  href={section.path}
+                  onClick={() => setMobileMenuOpen(false)}
                   className="block w-full text-left px-4 py-3 text-base font-medium text-[var(--brand-text)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-bg-alt)] rounded-lg transition"
                 >
                   {section.label}

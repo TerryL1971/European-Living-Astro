@@ -1,0 +1,208 @@
+---
+// src/pages/destinations/index.astro
+//
+// Dedicated page for the "Destinations" nav item — was /#destinations
+// (a homepage section, no real URL). Unlike Travel Tips/Phrases/
+// English Services, "Destinations" on the homepage is a hand-rolled
+// carousel built directly into index.astro (not its own component), so
+// there's nothing to just wrap here. Rather than extract that carousel
+// (pagination, prev/next, dots — all homepage-specific), this builds a
+// full browsable grid instead, same pattern as articles/index.astro and
+// services-directory.astro: static-rendered from getAllDestinationArticles(),
+// with a plain-JS search filter over the pre-rendered cards. A real
+// page benefits from showing everything at once rather than 3-at-a-time
+// carousel pagination.
+//
+// Note: src/pages/destinations/[slug].astro already exists as a 301
+// redirect to /articles/<slug> (legacy URL from the old app) — this
+// index.astro is a separate route, no conflict.
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import { getAllDestinationArticles } from '../../lib/supabaseArticles';
+
+const destinations = await getAllDestinationArticles();
+const sortedDestinations = [...destinations].sort(
+  (a, b) => (b.view_count ?? 0) - (a.view_count ?? 0)
+);
+---
+
+<BaseLayout
+  title="Destinations"
+  description="Explore Europe within driving distance from your base — city guides for U.S. military families and expats in Germany."
+  canonicalPath="/destinations"
+>
+  <div class="destinations-page">
+    <Breadcrumbs items={[{ name: 'Destinations', url: '/destinations' }]} />
+
+    <h1>Destinations</h1>
+    <p class="destinations-page__lede">
+      {sortedDestinations.length} places to explore within driving distance from your base.
+    </p>
+
+    <input type="text" id="destinations-search" placeholder="Search destinations..." class="destinations-page__search" />
+
+    <div class="destinations-page__grid" id="destinations-page-grid">
+      {sortedDestinations.map((dest) => {
+        const name = dest.destination_name || dest.title;
+        return (
+          <a
+            href={`/articles/${dest.slug}`}
+            class="destination-page-card"
+            data-search={`${name} ${dest.title} ${dest.excerpt ?? ''}`.toLowerCase()}
+          >
+            <div class="destination-page-card__image-wrap">
+              <img
+                src={dest.featured_image_url || 'https://pkacbcohrygpyapgtzpq.supabase.co/storage/v1/object/public/images/hero-bg.jpg'}
+                alt={name}
+                class="destination-page-card__image"
+                loading="lazy"
+              />
+            </div>
+            <div class="destination-page-card__body">
+              <h2>{dest.title}</h2>
+              <div class="destination-page-card__cta">
+                <span>View Details</span>
+                <span aria-hidden="true">›</span>
+              </div>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+
+    <p id="destinations-page-empty" class="destinations-page__empty" hidden>No destinations match your search.</p>
+
+    <div class="destinations-page__request">
+      <p>Don't see your favorite destination? Let us know!</p>
+      <a href="/submit-destination">Request a Destination</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  const searchInput = document.getElementById('destinations-search') as HTMLInputElement | null;
+  const grid = document.getElementById('destinations-page-grid');
+  const emptyMessage = document.getElementById('destinations-page-empty');
+
+  function applyFilter() {
+    const query = (searchInput?.value ?? '').trim().toLowerCase();
+    const cards = grid?.querySelectorAll<HTMLElement>('.destination-page-card') ?? [];
+    let visibleCount = 0;
+
+    cards.forEach((card) => {
+      const matches = !query || (card.dataset.search ?? '').includes(query);
+      card.hidden = !matches;
+      if (matches) visibleCount += 1;
+    });
+
+    if (emptyMessage) emptyMessage.hidden = visibleCount > 0;
+  }
+
+  searchInput?.addEventListener('input', applyFilter);
+</script>
+
+<style>
+  .destinations-page {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 4rem;
+  }
+  .destinations-page h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .destinations-page__lede {
+    color: var(--brand-text-muted);
+    margin-bottom: 1.5rem;
+  }
+  .destinations-page__search {
+    width: 100%;
+    max-width: 24rem;
+    border: 1px solid var(--brand-border);
+    border-radius: 0.5rem;
+    padding: 0.625rem 1rem;
+    margin-bottom: 2rem;
+  }
+  .destinations-page__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 1.5rem;
+  }
+  .destination-page-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--brand-bg-card);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .destination-page-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+  .destination-page-card__image-wrap {
+    height: 14rem;
+  }
+  .destination-page-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .destination-page-card__body {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .destination-page-card__body h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .destination-page-card__cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid var(--brand-border);
+    font-weight: 600;
+    color: var(--brand-blue);
+    margin-top: auto;
+  }
+  .destinations-page__empty {
+    text-align: center;
+    color: var(--brand-text-muted);
+    padding: 3rem 0;
+  }
+  .destinations-page__request {
+    max-width: 72rem;
+    margin: 3rem auto 0;
+    padding: 2.5rem 1.5rem;
+    background: var(--brand-primary-dark, var(--brand-primary));
+    border-radius: 1rem;
+    text-align: center;
+  }
+  .destinations-page__request p {
+    color: white;
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .destinations-page__request a {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    background: white;
+    color: var(--brand-primary-dark, var(--brand-primary));
+    font-weight: 700;
+    border-radius: 9999px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+  .destinations-page__request a:hover {
+    background: var(--brand-bg-alt);
+  }
+</style>
