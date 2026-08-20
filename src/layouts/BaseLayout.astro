@@ -40,10 +40,31 @@ const schemas = [organizationSchema(), websiteSchema(), ...pageSchemas];
       href="https://fonts.googleapis.com"
     />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!--
+      Loaded non-blocking — measured via Lighthouse that this stylesheet
+      (a third-party request) was directly render-blocking, costing
+      ~875ms of FCP. The media="print" + onload swap is the standard
+      technique (same one web.dev/Filament Group's loadCSS recommend):
+      the browser still fetches it immediately, but doesn't block
+      first paint on a stylesheet that only applies to print media
+      until onload flips it to apply to all media. &display=swap in the
+      URL already means body text renders in a fallback font
+      immediately either way and swaps to Inter once it's ready — this
+      just stops the CSS *request itself* from blocking render too.
+      <noscript> fallback covers the (rare) no-JS case.
+    -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      />
+    </noscript>
     <SeoHead
       title={title}
       description={description}

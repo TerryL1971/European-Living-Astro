@@ -24,12 +24,25 @@ const bgUrl = 'https://pkacbcohrygpyapgtzpq.supabase.co/storage/v1/object/public
 const stats = await getSiteStats();
 ---
 
-<section
-  id="home"
-  aria-label="Hero"
-  class="hero-section"
-  style={`background-image: url("${bgUrl}");`}
->
+<section id="home" aria-label="Hero" class="hero-section">
+  <!--
+    A real <img>, not a CSS background-image — measured directly via
+    Lighthouse against production: this is the LCP element, and a CSS
+    background-image isn't discoverable by the browser's preload
+    scanner until AFTER the CSS has loaded (the CSSOM has to be built
+    first to even know the background exists), unlike an <img src>
+    which gets found immediately while parsing the raw HTML. That
+    "resource load delay" was the single largest chunk of LCP time
+    (~1.3s of it), bigger than the image's own download time.
+    fetchpriority="high" (and no loading="lazy") tells the browser to
+    fetch it as early and eagerly as possible, on top of that.
+  -->
+  <img
+    src={bgUrl}
+    alt=""
+    class="hero-section__bg-image"
+    fetchpriority="high"
+  />
   <div class="hero-section__overlay-gradient" aria-hidden="true"></div>
   <div class="hero-section__overlay-vignette" aria-hidden="true"></div>
 
@@ -113,10 +126,16 @@ const stats = await getSiteStats();
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background-color: #000;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center 55%;
+    background-color: #000; /* fallback while the image above loads */
+  }
+  .hero-section__bg-image {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 55%;
   }
   .hero-section__overlay-gradient {
     position: absolute;
