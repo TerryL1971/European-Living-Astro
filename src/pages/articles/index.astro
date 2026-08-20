@@ -57,11 +57,15 @@ const CATEGORIES = ['City Guides', 'PCS Guides', 'Travel Tips'] as const;
           data-search={`${article.title} ${article.excerpt ?? ''} ${article.destination_name ?? ''}`.toLowerCase()}
           data-category={article.category ?? ''}
         >
-          {article.featured_image_url && (
-            <div class="article-card__image-wrap">
+          <div class="article-card__image-wrap">
+            {article.featured_image_url ? (
               <img src={article.featured_image_url} alt={article.title} class="article-card__image" loading="lazy" />
-            </div>
-          )}
+            ) : (
+              <div class="article-card__image-fallback">
+                <span>{article.title}</span>
+              </div>
+            )}
+          </div>
           <div class="article-card__body">
             {article.category && <span class="article-card__category">{article.category}</span>}
             <h2>{article.title}</h2>
@@ -179,6 +183,18 @@ const CATEGORIES = ['City Guides', 'PCS Guides', 'Travel Tips'] as const;
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  .article-card__image-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-light, var(--brand-primary)));
+    color: white;
+    font-weight: 600;
   }
   .article-card__body {
     padding: 1.25rem;
