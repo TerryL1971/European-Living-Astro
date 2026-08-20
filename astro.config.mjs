@@ -32,4 +32,12 @@ export default defineConfig({
   // Static by default; only admin routes opt into on-demand rendering
   // via `export const prerender = false` in the page itself.
   output: 'static',
+
+  // Prefetches a page's HTML the moment a visitor hovers/focuses its
+  // link (default strategy), so by the time they actually click, the
+  // <ClientRouter /> transition (see BaseLayout.astro) has little or
+  // nothing left to fetch. Pairs with View Transitions to address a
+  // measured ~1.2s full-page-reload cost per navigation, down from
+  // the old React SPA's ~50ms client-side route swap.
+  prefetch: true,
 });

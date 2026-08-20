@@ -286,8 +286,14 @@ const stats = await getSiteStats();
 </style>
 
 <script>
-  document.getElementById('footer-cookie-settings')?.addEventListener('click', () => {
-    localStorage.removeItem('cookieConsent');
-    window.dispatchEvent(new Event('openCookieSettings'));
+  // Wrapped in astro:page-load — see BaseLayout.astro's <ClientRouter />
+  // comment. The footer (like the rest of <body>) gets swapped out on
+  // every transition, taking this button's listener with it, unless
+  // re-attached on every page-load.
+  document.addEventListener('astro:page-load', () => {
+    document.getElementById('footer-cookie-settings')?.addEventListener('click', () => {
+      localStorage.removeItem('cookieConsent');
+      window.dispatchEvent(new Event('openCookieSettings'));
+    });
   });
 </script>

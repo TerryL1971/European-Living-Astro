@@ -117,11 +117,17 @@ const shouldAutoPrint = Astro.url.searchParams.get('print') === 'true';
 </BaseLayout>
 
 <script>
-  // Wires up every [data-print-trigger] button on the page — currently
-  // just the one, but works if a second button is ever added (the live
-  // site has one near the top and one at the bottom).
-  document.querySelectorAll<HTMLButtonElement>('[data-print-trigger]').forEach((btn) => {
-    btn.addEventListener('click', () => window.print());
+  // Wrapped in astro:page-load — see BaseLayout.astro's <ClientRouter />
+  // comment: this is a dynamic route, but revisiting the SAME article a
+  // second time in one session still needs this, since the button
+  // elements it queries get replaced on every visit. Wires up every
+  // [data-print-trigger] button on the page — currently just the one,
+  // but works if a second button is ever added (the live site has one
+  // near the top and one at the bottom).
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll<HTMLButtonElement>('[data-print-trigger]').forEach((btn) => {
+      btn.addEventListener('click', () => window.print());
+    });
   });
 </script>
 
@@ -129,7 +135,12 @@ const shouldAutoPrint = Astro.url.searchParams.get('print') === 'true';
   <script>
     // ?print=true — jump straight to the print dialog once the page has
     // rendered, matching the live site's link-with-query-param pattern.
-    window.addEventListener('load', () => window.print());
+    // astro:page-load instead of window's 'load' event: 'load' only
+    // fires on a true hard navigation, not a <ClientRouter /> transition
+    // — someone clicking a ...?print=true link while already browsing
+    // the site (e.g. the PCS Guide's checklist link) would otherwise
+    // never trigger the print dialog at all.
+    document.addEventListener('astro:page-load', () => window.print());
   </script>
 )}
 

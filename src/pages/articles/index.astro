@@ -79,38 +79,44 @@ const CATEGORIES = ['City Guides', 'PCS Guides', 'Travel Tips'] as const;
 </BaseLayout>
 
 <script>
-  const searchInput = document.getElementById('articles-search') as HTMLInputElement | null;
-  const categorySelect = document.getElementById('articles-category') as HTMLSelectElement | null;
-  const grid = document.getElementById('articles-grid');
-  const emptyMessage = document.getElementById('articles-empty');
+  // Wrapped in astro:page-load — see BaseLayout.astro's <ClientRouter />
+  // comment.
+  document.addEventListener('astro:page-load', () => {
+    const searchInput = document.getElementById('articles-search') as HTMLInputElement | null;
+    const categorySelect = document.getElementById('articles-category') as HTMLSelectElement | null;
+    const grid = document.getElementById('articles-grid');
+    const emptyMessage = document.getElementById('articles-empty');
 
-  function applyFilters() {
-    const query = (searchInput?.value ?? '').trim().toLowerCase();
-    const category = categorySelect?.value ?? '';
+    if (!grid) return;
 
-    const cards = grid?.querySelectorAll<HTMLElement>('.article-card') ?? [];
-    let visibleCount = 0;
+    function applyFilters() {
+      const query = (searchInput?.value ?? '').trim().toLowerCase();
+      const category = categorySelect?.value ?? '';
 
-    cards.forEach((card) => {
-      const matchesQuery = !query || (card.dataset.search ?? '').includes(query);
-      const matchesCategory = !category || card.dataset.category === category;
-      const matches = matchesQuery && matchesCategory;
+      const cards = grid?.querySelectorAll<HTMLElement>('.article-card') ?? [];
+      let visibleCount = 0;
 
-      card.hidden = !matches;
-      if (matches) visibleCount += 1;
-    });
+      cards.forEach((card) => {
+        const matchesQuery = !query || (card.dataset.search ?? '').includes(query);
+        const matchesCategory = !category || card.dataset.category === category;
+        const matches = matchesQuery && matchesCategory;
 
-    if (emptyMessage) emptyMessage.hidden = visibleCount > 0;
-  }
+        card.hidden = !matches;
+        if (matches) visibleCount += 1;
+      });
 
-  searchInput?.addEventListener('input', applyFilters);
-  categorySelect?.addEventListener('change', applyFilters);
+      if (emptyMessage) emptyMessage.hidden = visibleCount > 0;
+    }
 
-  // Support ?category=City%20Guides style deep links.
-  const params = new URLSearchParams(window.location.search);
-  const initialCategory = params.get('category');
-  if (initialCategory && categorySelect) categorySelect.value = initialCategory;
-  applyFilters();
+    searchInput?.addEventListener('input', applyFilters);
+    categorySelect?.addEventListener('change', applyFilters);
+
+    // Support ?category=City%20Guides style deep links.
+    const params = new URLSearchParams(window.location.search);
+    const initialCategory = params.get('category');
+    if (initialCategory && categorySelect) categorySelect.value = initialCategory;
+    applyFilters();
+  });
 </script>
 
 <style>

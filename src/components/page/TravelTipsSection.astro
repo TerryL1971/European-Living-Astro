@@ -93,63 +93,81 @@ const travelTips = allArticles
 </section>
 
 <script>
-  const track = document.getElementById('travel-tips-track');
-  const cards = track ? Array.from(track.querySelectorAll<HTMLElement>('.travel-tip-card')) : [];
-  const dotsContainer = document.getElementById('travel-tips-dots');
-  const prevBtn = document.getElementById('travel-tips-prev');
-  const nextBtn = document.getElementById('travel-tips-next');
-  const pageSize = 3;
-  const total = cards.length;
-  let startIndex = 0;
+  // Wrapped in astro:page-load (fires on the initial load AND every
+  // subsequent <ClientRouter /> transition) instead of running at the
+  // script's top level — this section appears on both the homepage and
+  // /travel-tips, and under view transitions a plain top-level script
+  // only runs once per browser session, not once per visit to a page
+  // (the JS module is already evaluated; the router swaps DOM into the
+  // same document rather than a hard reload). Without this, the
+  // carousel would work the first time you land on a page containing
+  // it, then silently stop responding to clicks if you navigated away
+  // and back. dotsContainer is cleared first so re-running this on a
+  // repeat visit doesn't append a second set of dots onto the first.
+  document.addEventListener('astro:page-load', () => {
+    const track = document.getElementById('travel-tips-track');
+    const cards = track ? Array.from(track.querySelectorAll<HTMLElement>('.travel-tip-card')) : [];
+    const dotsContainer = document.getElementById('travel-tips-dots');
+    const prevBtn = document.getElementById('travel-tips-prev');
+    const nextBtn = document.getElementById('travel-tips-next');
+    const pageSize = 3;
+    const total = cards.length;
+    let startIndex = 0;
 
-  function renderPage() {
-    cards.forEach((card, i) => {
-      const offset = (i - startIndex + total) % total;
-      const isVisible = offset < pageSize;
-      card.hidden = !isVisible;
-      card.style.order = isVisible ? String(offset) : '';
-    });
+    if (!track || total === 0) return;
+    if (dotsContainer) dotsContainer.innerHTML = '';
 
-    if (dotsContainer) {
-      const dots = Array.from(dotsContainer.querySelectorAll('button'));
-      const activeDot = Math.floor(startIndex / pageSize) % dots.length;
-      dots.forEach((dot, idx) => {
-        dot.classList.toggle('is-active', idx === activeDot);
+    function renderPage() {
+      cards.forEach((card, i) => {
+        const offset = (i - startIndex + total) % total;
+        const isVisible = offset < pageSize;
+        card.hidden = !isVisible;
+        card.style.order = isVisible ? String(offset) : '';
       });
-    }
-  }
 
-  function buildDots() {
-    if (!dotsContainer || total <= pageSize) return;
-    const dotCount = Math.ceil(total / pageSize);
-    for (let i = 0; i < dotCount; i++) {
-      const dot = document.createElement('button');
-      dot.type = 'button';
-      dot.setAttribute('aria-label', `Go to page ${i + 1}`);
-      dot.addEventListener('click', () => {
-        startIndex = (i * pageSize) % total;
+      if (dotsContainer) {
+        const dots = Array.from(dotsContainer.querySelectorAll('button'));
+        const activeDot = Math.floor(startIndex / pageSize) % dots.length;
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle('is-active', idx === activeDot);
+        });
+      }
+    }
+
+    function buildDots() {
+      if (!dotsContainer || total <= pageSize) return;
+      const dotCount = Math.ceil(total / pageSize);
+      for (let i = 0; i < dotCount; i++) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `Go to page ${i + 1}`);
+        dot.addEventListener('click', () => {
+          startIndex = (i * pageSize) % total;
+          renderPage();
+        });
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    if (total > pageSize) {
+      prevBtn?.removeAttribute('hidden');
+      nextBtn?.removeAttribute('hidden');
+      prevBtn?.addEventListener('click', () => {
+        startIndex = (startIndex - pageSize + total) % total;
         renderPage();
       });
-      dotsContainer.appendChild(dot);
+      nextBtn?.addEventListener('click', () => {
+        startIndex = (startIndex + pageSize) % total;
+        renderPage();
+      });
+    } else {
+      prevBtn?.setAttribute('hidden', '');
+      nextBtn?.setAttribute('hidden', '');
     }
-  }
 
-  if (total > pageSize) {
-    prevBtn?.addEventListener('click', () => {
-      startIndex = (startIndex - pageSize + total) % total;
-      renderPage();
-    });
-    nextBtn?.addEventListener('click', () => {
-      startIndex = (startIndex + pageSize) % total;
-      renderPage();
-    });
-  } else {
-    prevBtn?.setAttribute('hidden', '');
-    nextBtn?.setAttribute('hidden', '');
-  }
-
-  buildDots();
-  renderPage();
+    buildDots();
+    renderPage();
+  });
 </script>
 
 <style>

@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import SeoHead from '../components/seo/SeoHead.astro';
 import Header from '../components/page/Header.tsx';
 import { BaseSelectionModal } from '../components/page/BaseSelectionModal.tsx';
@@ -51,6 +52,28 @@ const schemas = [organizationSchema(), websiteSchema(), ...pageSchemas];
       noindex={noindex}
       schemas={schemas}
     />
+
+    <!--
+      Enables client-side page transitions: clicking a same-origin link
+      fetches the next page's HTML and swaps it into the current
+      document, instead of a full hard reload — this is the actual fix
+      for the ~1.2s-per-click navigation cost measured against the old
+      React SPA's ~50ms client-side route swap. Real URLs, real static
+      HTML per page, real SEO — this only changes how navigation
+      *feels*, not the underlying architecture.
+
+      IMPORTANT for anyone adding a new page-level <script> after this:
+      top-level script code only runs once per browser session under
+      this router (the DOM swap reuses the same document, so a JS
+      module already evaluated won't re-run just because you navigate
+      back to that page) — wrap any logic that needs to (re-)run
+      per-page-visit, including the first, in:
+        document.addEventListener('astro:page-load', () => { ... })
+      See TravelTipsSection.astro or services-directory.astro for the
+      established pattern.
+    -->
+    <ClientRouter />
+
     <!--
       GA4 is wired via CookieConsentModal below — it calls initGA()
       (src/utils/analytics.ts) only after the user consents, and

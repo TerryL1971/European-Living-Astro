@@ -69,26 +69,35 @@ const sortedBusinesses = [...businesses].sort((a, b) => {
 </BaseLayout>
 
 <script>
-  const baseSelect = document.getElementById('category-base-filter') as HTMLSelectElement | null;
-  const grid = document.getElementById('category-grid');
+  // Wrapped in astro:page-load — see BaseLayout.astro's <ClientRouter />
+  // comment. This is a dynamic route (one script per category), so
+  // each category page's script is a distinct module — but revisiting
+  // the SAME category a second time in one session still needs this,
+  // since the DOM elements it queries get replaced on every visit.
+  document.addEventListener('astro:page-load', () => {
+    const baseSelect = document.getElementById('category-base-filter') as HTMLSelectElement | null;
+    const grid = document.getElementById('category-grid');
 
-  function applyBaseFilter() {
-    const base = baseSelect?.value ?? '';
-    const cards = grid?.querySelectorAll<HTMLElement>('.business-card') ?? [];
-    cards.forEach((card) => {
-      const matches = !base || (card.dataset.bases ?? '').split(',').includes(base);
-      card.hidden = !matches;
-    });
-  }
+    if (!grid) return;
 
-  baseSelect?.addEventListener('change', applyBaseFilter);
+    function applyBaseFilter() {
+      const base = baseSelect?.value ?? '';
+      const cards = grid?.querySelectorAll<HTMLElement>('.business-card') ?? [];
+      cards.forEach((card) => {
+        const matches = !base || (card.dataset.bases ?? '').split(',').includes(base);
+        card.hidden = !matches;
+      });
+    }
 
-  const params = new URLSearchParams(window.location.search);
-  const initialBase = params.get('base');
-  if (initialBase && baseSelect) {
-    baseSelect.value = initialBase;
-    applyBaseFilter();
-  }
+    baseSelect?.addEventListener('change', applyBaseFilter);
+
+    const params = new URLSearchParams(window.location.search);
+    const initialBase = params.get('base');
+    if (initialBase && baseSelect) {
+      baseSelect.value = initialBase;
+      applyBaseFilter();
+    }
+  });
 </script>
 
 <style>

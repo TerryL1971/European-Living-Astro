@@ -96,63 +96,73 @@ const sortedDestinations = [...destinations].sort(
 </BaseLayout>
 
 <script>
-  const track = document.getElementById('destinations-page-track');
-  const cards = track ? Array.from(track.querySelectorAll<HTMLElement>('.destination-page-card')) : [];
-  const dotsContainer = document.getElementById('destinations-page-dots');
-  const prevBtn = document.getElementById('destinations-page-prev');
-  const nextBtn = document.getElementById('destinations-page-next');
-  const pageSize = 3;
-  const total = cards.length;
-  let startIndex = 0;
+  // Wrapped in astro:page-load — see BaseLayout.astro's comment on
+  // <ClientRouter /> for why: a plain top-level script only runs once
+  // per browser session under view transitions, not once per visit.
+  document.addEventListener('astro:page-load', () => {
+    const track = document.getElementById('destinations-page-track');
+    const cards = track ? Array.from(track.querySelectorAll<HTMLElement>('.destination-page-card')) : [];
+    const dotsContainer = document.getElementById('destinations-page-dots');
+    const prevBtn = document.getElementById('destinations-page-prev');
+    const nextBtn = document.getElementById('destinations-page-next');
+    const pageSize = 3;
+    const total = cards.length;
+    let startIndex = 0;
 
-  function renderPage() {
-    cards.forEach((card, i) => {
-      const offset = (i - startIndex + total) % total;
-      const isVisible = offset < pageSize;
-      card.hidden = !isVisible;
-      card.style.order = isVisible ? String(offset) : '';
-    });
+    if (!track || total === 0) return;
+    if (dotsContainer) dotsContainer.innerHTML = '';
 
-    if (dotsContainer) {
-      const dots = Array.from(dotsContainer.querySelectorAll('button'));
-      const activeDot = Math.floor(startIndex / pageSize) % dots.length;
-      dots.forEach((dot, idx) => {
-        dot.classList.toggle('is-active', idx === activeDot);
+    function renderPage() {
+      cards.forEach((card, i) => {
+        const offset = (i - startIndex + total) % total;
+        const isVisible = offset < pageSize;
+        card.hidden = !isVisible;
+        card.style.order = isVisible ? String(offset) : '';
       });
-    }
-  }
 
-  function buildDots() {
-    if (!dotsContainer || total <= pageSize) return;
-    const dotCount = Math.ceil(total / pageSize);
-    for (let i = 0; i < dotCount; i++) {
-      const dot = document.createElement('button');
-      dot.type = 'button';
-      dot.setAttribute('aria-label', `Go to page ${i + 1}`);
-      dot.addEventListener('click', () => {
-        startIndex = (i * pageSize) % total;
+      if (dotsContainer) {
+        const dots = Array.from(dotsContainer.querySelectorAll('button'));
+        const activeDot = Math.floor(startIndex / pageSize) % dots.length;
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle('is-active', idx === activeDot);
+        });
+      }
+    }
+
+    function buildDots() {
+      if (!dotsContainer || total <= pageSize) return;
+      const dotCount = Math.ceil(total / pageSize);
+      for (let i = 0; i < dotCount; i++) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `Go to page ${i + 1}`);
+        dot.addEventListener('click', () => {
+          startIndex = (i * pageSize) % total;
+          renderPage();
+        });
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    if (total > pageSize) {
+      prevBtn?.removeAttribute('hidden');
+      nextBtn?.removeAttribute('hidden');
+      prevBtn?.addEventListener('click', () => {
+        startIndex = (startIndex - pageSize + total) % total;
         renderPage();
       });
-      dotsContainer.appendChild(dot);
+      nextBtn?.addEventListener('click', () => {
+        startIndex = (startIndex + pageSize) % total;
+        renderPage();
+      });
+    } else {
+      prevBtn?.setAttribute('hidden', '');
+      nextBtn?.setAttribute('hidden', '');
     }
-  }
 
-  if (total > pageSize) {
-    prevBtn?.addEventListener('click', () => {
-      startIndex = (startIndex - pageSize + total) % total;
-      renderPage();
-    });
-    nextBtn?.addEventListener('click', () => {
-      startIndex = (startIndex + pageSize) % total;
-      renderPage();
-    });
-  } else {
-    prevBtn?.setAttribute('hidden', '');
-    nextBtn?.setAttribute('hidden', '');
-  }
-
-  buildDots();
-  renderPage();
+    buildDots();
+    renderPage();
+  });
 </script>
 
 <style>

@@ -25,14 +25,22 @@ const { fallbackHref = '/' } = Astro.props;
 </a>
 
 <script>
-  document.querySelectorAll<HTMLAnchorElement>('[data-back-link]').forEach((link) => {
-    link.addEventListener('click', (e) => {
-      if (window.history.length > 1) {
-        e.preventDefault();
-        window.history.back();
-      }
-      // else: only one entry in history (e.g. opened in a new tab) —
-      // let the default navigation to fallbackHref happen instead.
+  // Wrapped in astro:page-load — see BaseLayout.astro's <ClientRouter />
+  // comment. This component is used on several different pages; its
+  // script content is identical everywhere, so it compiles to the same
+  // JS module and — without this — would only ever wire up the very
+  // first BackLink element it ever saw, doing nothing on every other
+  // page's (freshly rendered) BackLink for the rest of the session.
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll<HTMLAnchorElement>('[data-back-link]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        if (window.history.length > 1) {
+          e.preventDefault();
+          window.history.back();
+        }
+        // else: only one entry in history (e.g. opened in a new tab) —
+        // let the default navigation to fallbackHref happen instead.
+      });
     });
   });
 </script>

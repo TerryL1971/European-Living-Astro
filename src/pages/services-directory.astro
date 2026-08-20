@@ -55,45 +55,54 @@ const sortedBusinesses = [...businesses].sort((a, b) => {
 </BaseLayout>
 
 <script>
-  const searchInput = document.getElementById('directory-search') as HTMLInputElement | null;
-  const categorySelect = document.getElementById('directory-category') as HTMLSelectElement | null;
-  const baseSelect = document.getElementById('directory-base') as HTMLSelectElement | null;
-  const grid = document.getElementById('directory-grid');
-  const emptyMessage = document.getElementById('directory-empty');
+  // Wrapped in astro:page-load — see BaseLayout.astro's <ClientRouter />
+  // comment. This whole script is page-DOM-dependent (the inputs/grid
+  // get replaced on every visit under view transitions) and also needs
+  // to re-read window.location.search fresh each time, since a repeat
+  // visit via client-side navigation wouldn't otherwise re-run this.
+  document.addEventListener('astro:page-load', () => {
+    const searchInput = document.getElementById('directory-search') as HTMLInputElement | null;
+    const categorySelect = document.getElementById('directory-category') as HTMLSelectElement | null;
+    const baseSelect = document.getElementById('directory-base') as HTMLSelectElement | null;
+    const grid = document.getElementById('directory-grid');
+    const emptyMessage = document.getElementById('directory-empty');
 
-  function applyFilters() {
-    const query = (searchInput?.value ?? '').trim().toLowerCase();
-    const category = categorySelect?.value ?? '';
-    const base = baseSelect?.value ?? '';
+    if (!grid) return;
 
-    const cards = grid?.querySelectorAll<HTMLElement>('.business-card') ?? [];
-    let visibleCount = 0;
+    function applyFilters() {
+      const query = (searchInput?.value ?? '').trim().toLowerCase();
+      const category = categorySelect?.value ?? '';
+      const base = baseSelect?.value ?? '';
 
-    cards.forEach((card) => {
-      const matchesQuery = !query || (card.dataset.search ?? '').includes(query);
-      const matchesCategory = !category || card.dataset.category === category;
-      const matchesBase = !base || (card.dataset.bases ?? '').split(',').includes(base);
-      const matches = matchesQuery && matchesCategory && matchesBase;
+      const cards = grid?.querySelectorAll<HTMLElement>('.business-card') ?? [];
+      let visibleCount = 0;
 
-      card.hidden = !matches;
-      if (matches) visibleCount += 1;
-    });
+      cards.forEach((card) => {
+        const matchesQuery = !query || (card.dataset.search ?? '').includes(query);
+        const matchesCategory = !category || card.dataset.category === category;
+        const matchesBase = !base || (card.dataset.bases ?? '').split(',').includes(base);
+        const matches = matchesQuery && matchesCategory && matchesBase;
 
-    if (emptyMessage) emptyMessage.hidden = visibleCount > 0;
-  }
+        card.hidden = !matches;
+        if (matches) visibleCount += 1;
+      });
 
-  searchInput?.addEventListener('input', applyFilters);
-  categorySelect?.addEventListener('change', applyFilters);
-  baseSelect?.addEventListener('change', applyFilters);
+      if (emptyMessage) emptyMessage.hidden = visibleCount > 0;
+    }
 
-  // Support ?category=automotive style deep links (e.g. from
-  // ServicesCategoriesSection's category cards on the homepage).
-  const params = new URLSearchParams(window.location.search);
-  const initialCategory = params.get('category');
-  const initialBase = params.get('base');
-  if (initialCategory && categorySelect) categorySelect.value = initialCategory;
-  if (initialBase && baseSelect) baseSelect.value = initialBase;
-  applyFilters();
+    searchInput?.addEventListener('input', applyFilters);
+    categorySelect?.addEventListener('change', applyFilters);
+    baseSelect?.addEventListener('change', applyFilters);
+
+    // Support ?category=automotive style deep links (e.g. from
+    // ServicesCategoriesSection's category cards on the homepage).
+    const params = new URLSearchParams(window.location.search);
+    const initialCategory = params.get('category');
+    const initialBase = params.get('base');
+    if (initialCategory && categorySelect) categorySelect.value = initialCategory;
+    if (initialBase && baseSelect) baseSelect.value = initialBase;
+    applyFilters();
+  });
 </script>
 
 <style>
