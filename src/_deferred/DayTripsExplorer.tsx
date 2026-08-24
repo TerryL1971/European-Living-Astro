@@ -1,4 +1,16 @@
-// src/components/DayTripsExplorer.tsx
+// src/_deferred/DayTripsExplorer.tsx
+//
+// PARKED 2026-08-24: day-trips/index.astro was rebuilt as a carousel
+// (matching Destinations/Travel Tips, Terry's call) and no longer
+// imports this component — nothing in src/pages references it anymore.
+// Kept here rather than deleted since it has real, working
+// search/category/difficulty/cost filtering plus base-store filtering
+// that the carousel version dropped. If filtering ever needs to come
+// back (e.g. as a toggle alongside the carousel, or its own view), this
+// is a complete, working starting point — just re-import it and wire
+// `trips={dayTrips}` back in from day-trips/index.astro.
+//
+// Original header follows:
 //
 // Client island for the /day-trips filter/search grid. Receives all
 // trips pre-fetched at build time from day-trips/index.astro (via
