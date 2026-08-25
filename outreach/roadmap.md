@@ -35,15 +35,16 @@ Already had before outreach started: automotive, restaurants, hbb, healthcare
 
 | Category | Status |
 |---|---|
-| real-estate | ✅ 1 contacted (myLodge, 2026-08-21) |
-| legal-business | ✅ 1 contacted (Schlun & Elseven, 2026-08-21) |
-| education | ✅ 1 contacted (ISS, 2026-08-21) |
-| shopping | ✅ 1 contacted (Modefriseur Mühlbauer, 2026-08-21) |
-| home-services | ⏳ 1 attempted, no verified email (Stuttgart Expats Handyman) — needs 1-2 more leads |
+| real-estate | ✅ 1 contacted (myLodge, 2026-08-21). 2 more researched, no email yet (Downtown Apartments Stuttgart, Moehringen Apartments — both near Kelley/Patch, contact-form only) |
+| legal-business | ✅ 2 contacted (Schlun & Elseven 2026-08-21; vpmk Legal Services 2026-08-25) |
+| education | ✅ 2 contacted (ISS 2026-08-21; German-American Center/DAZ 2026-08-25) |
+| shopping | ✅ 1 contacted (Modefriseur Mühlbauer, 2026-08-21). 1 more researched, no email yet (americanfoodclub.de) |
+| home-services | ✅ 1 contacted (Stuttgart Sparkle Services, 2026-08-25). 1 attempted no email (Stuttgart Expats Handyman); 1 more researched, no email yet (Move Clean Pros) |
 
-**Next for Stuttgart:** more home-services leads, then round out the other
-gap categories with a second lead each (one contact per category isn't
-enough coverage) before moving to KMC.
+**Next for Stuttgart:** find published contact emails for the researched-but-
+unemailed real-estate/shopping/home-services leads above (try contact forms
+or a follow-up search), then push each category toward 2-3 real contacts
+before moving to KMC.
 
 ### Kaiserslautern Military Community — not started
 ### Wiesbaden — not started
