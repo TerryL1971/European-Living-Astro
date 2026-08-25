@@ -52,8 +52,9 @@ before moving to KMC.
 
 ## Known issues (as of 2026-08-25)
 
-Every scheduled run from 2026-08-21 through 2026-08-25 sent **zero**
-emails — not a pacing problem, an infrastructure one. Two blockers:
+Runs from 2026-08-21 through 2026-08-25 sent **zero** emails — not a
+pacing problem, an infrastructure one. Status as of the 2026-08-25
+afternoon run:
 
 1. **Network egress blocked — WORKED AROUND, not fixed.** The cloud
    sandbox's default egress policy only allows a small fixed set of
@@ -68,17 +69,20 @@ emails — not a pacing problem, an infrastructure one. Two blockers:
    listed on-site. It won't be perfectly live, but it's close enough
    for duplicate-avoidance — freshness within a week or two beats
    blocking entirely.
-2. **No GitHub write access — should be fixed 2026-08-25, unverified.**
-   Cloning the repo works, but `git push` was failing with a 403
-   ("Claude doesn't have GitHub access to
-   TerryL1971/European-Living-Astro for your organization"). The site
-   owner installed the Claude GitHub App on 2026-08-25, which should
-   resolve this — but no run has confirmed a successful push since. If
-   push still fails with that same 403, it's genuinely still broken;
-   report it plainly rather than assuming it's your mistake.
+2. **GitHub write access — CONFIRMED WORKING as of the 2026-08-25
+   afternoon run.** `git push -u origin main` succeeded (commit
+   `dcf743b`), resolving the prior 403 ("Claude doesn't have GitHub
+   access to TerryL1971/European-Living-Astro for your organization")
+   after the site owner installed the Claude GitHub App. One wrinkle
+   seen that run: the repo checked out in **detached HEAD** at
+   `origin/main`'s tip rather than on a local `main` branch — commit
+   directly and `git push` will fail confusingly (no upstream). Fix
+   with `git checkout -B main origin/main` before committing. If a
+   future run hits a 403 again, treat it as a real regression and
+   report it plainly rather than assuming user error.
 
-If item 1 above still says "worked around, not fixed" and item 2 still
-says "unverified," treat both as real constraints, not resolved
+If item 1 above still says "worked around, not fixed," treat it as a
+real constraint, not resolved
 history — don't skip the workarounds below on the assumption someone
 already fixed everything.
 
