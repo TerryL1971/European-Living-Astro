@@ -52,44 +52,46 @@ enough coverage) before moving to KMC.
 ## Known issues (as of 2026-08-25)
 
 Every scheduled run from 2026-08-21 through 2026-08-25 sent **zero**
-emails — not a pacing problem, an infrastructure one. Two blockers,
-both need the site owner to fix from outside this session:
+emails — not a pacing problem, an infrastructure one. Two blockers:
 
-1. **Network egress blocked.** The cloud sandbox's default egress
-   policy only allows a small fixed set of domains (npm, PyPI,
-   Anthropic's own APIs). `pkacbcohrygpyapgtzpq.supabase.co` and
-   `european-living.live` are not on it, so the mandatory
-   "check what's already live" step (procedure step 2 below) fails
-   with `EGRESS_BLOCKED` before any research happens. Fix: add both
-   domains to the Default environment's outbound allowlist in
-   claude.ai's environment settings.
-2. **No GitHub write access.** Cloning the repo works, but `git push`
-   fails with a 403 ("Claude doesn't have GitHub access to
-   TerryL1971/European-Living-Astro for your organization"). Fix:
-   install the Claude GitHub App with write access
-   (https://github.com/apps/claude/installations/select_target) or
-   reconnect GitHub via claude.ai connectors
-   (https://claude.ai/customize/connectors?auth_start=github&auth_start_force=1).
+1. **Network egress blocked — WORKED AROUND, not fixed.** The cloud
+   sandbox's default egress policy only allows a small fixed set of
+   domains (npm, PyPI, Anthropic's own APIs) and there is no
+   self-service way to add domains to it (checked — no such setting
+   exists in claude.ai's UI as of 2026-08-25). So: **do not attempt to
+   curl or WebFetch `pkacbcohrygpyapgtzpq.supabase.co` or
+   `european-living.live` — it will fail every time, don't waste turns
+   rediscovering this.** Instead, use the committed snapshot at
+   `outreach/businesses-snapshot.json` (refreshed periodically from
+   outside this sandbox) as the source of truth for what's already
+   listed on-site. It won't be perfectly live, but it's close enough
+   for duplicate-avoidance — freshness within a week or two beats
+   blocking entirely.
+2. **No GitHub write access — should be fixed 2026-08-25, unverified.**
+   Cloning the repo works, but `git push` was failing with a 403
+   ("Claude doesn't have GitHub access to
+   TerryL1971/European-Living-Astro for your organization"). The site
+   owner installed the Claude GitHub App on 2026-08-25, which should
+   resolve this — but no run has confirmed a successful push since. If
+   push still fails with that same 403, it's genuinely still broken;
+   report it plainly rather than assuming it's your mistake.
 
-If this section is still here and a run is reading it: **do not
-attempt to send anything until you've confirmed both the Supabase REST
-endpoint and european-living.live are actually reachable** (a plain
-`curl` to the Supabase URL below succeeding is enough to confirm). If
-either is still blocked, stop immediately, log nothing as sent, and
-report the same blocker rather than retrying — this has already been
-diagnosed, no need to rediscover it each run.
+If item 1 above still says "worked around, not fixed" and item 2 still
+says "unverified," treat both as real constraints, not resolved
+history — don't skip the workarounds below on the assumption someone
+already fixed everything.
 
 ## Daily run procedure (Mon-Fri only — the routine's cron does not fire on weekends)
 
 1. Read `outreach/log.csv` — never re-contact a business already listed there.
-2. Query the live `businesses` table (Supabase REST, anon key below) for the
-   current base area to see what's already listed on-site — don't duplicate
-   an existing confirmed listing either.
-   ```
-   URL: https://pkacbcohrygpyapgtzpq.supabase.co
-   anon key: (see PUBLIC_SUPABASE_ANON_KEY in project .env — safe public key, RLS-protected)
-   GET /rest/v1/businesses?select=name,category,bases_served
-   ```
+2. Read `outreach/businesses-snapshot.json` (committed snapshot of the
+   live `businesses` table — see Known Issues #1 for why this is used
+   instead of a live Supabase call) for the current base area to see
+   what's already listed on-site — don't duplicate an existing
+   confirmed listing either. Note the snapshot's age isn't stamped in
+   the file itself; check `git log -1 --format=%ad -- outreach/businesses-snapshot.json`
+   if you want to know how stale it is, but proceed either way — it's
+   the best available data, not optional to skip.
 3. The goal is full coverage, not one token lead per category: for the
    current base area, research and build out a real list of every
    findable English-speaking / American-military-friendly business in
@@ -137,6 +139,9 @@ diagnosed, no need to rediscover it each run.
 - Never re-contact a business already in the log or already listed on-site.
 - If Gmail send starts failing / bouncing repeatedly, stop and flag it to
   the user rather than continuing to send into a broken pipe.
-- If Supabase or the live site is unreachable (see Known Issues above),
-  stop before researching or sending anything — don't guess at what's
-  already listed.
+- Do not attempt to curl or WebFetch Supabase or european-living.live
+  directly — it's blocked (see Known Issues #1), don't burn turns
+  rediscovering that. Use `outreach/businesses-snapshot.json` instead.
+- If GitHub push fails with the same 403 as before, stop and report it
+  plainly rather than assuming you did something wrong (see Known
+  Issues #2) — don't keep retrying a policy/auth denial.

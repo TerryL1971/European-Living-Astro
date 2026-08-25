@@ -1,0 +1,162 @@
+[
+    {
+        "name": "City Drive Fahrschule",
+        "category": "automotive",
+        "bases_served": [
+            "stuttgart"
+        ],
+        "is_visible": true,
+        "consent_status": "confirmed"
+    },
+    {
+        "name": "Cookies with Dolly ",
+        "category": "hbb",
+        "bases_served": [
+            "stuttgart"
+        ],
+        "is_visible": true,
+        "consent_status": "confirmed"
+    },
+    {
+        "name": "The Used Car Guys - Grafenw\u00f6hr",
+        "category": "automotive",
+        "bases_served": [
+            "grafenwoehr"
+        ],
+        "is_visible": true,
+        "consent_status": "confirmed"
+    },
+    {
+        "name": "The Auld Rogue",
+        "category": "restaurants",
+        "bases_served": [
+            "stuttgart"
+        ],
+        "is_visible": true,
+        "consent_status": "confirmed"
+    },
+    {
+        "name": "Hair and There ",
+        "category": "hbb",
+        "bases_served": [
+            "stuttgart"
+        ],
+        "is_visible": true,
+        "consent_status": "confirmed"
+    },
+    {
+        "name": "Wine Kult",
+        "category": "restaurants",
+        "bases_served": [
+            "stuttgart"
+        ],
+        "is_visible": true,
+        "consent_status": "confirmed"
+    },
+    {
+        "name": "The Used Car Guys - Ramstein",
+        "category": "automotive",
+        "bases_served": [
+            "ramstein",
+            "wiesbaden"
+        ],
+        "is_visible": true,
+        "consent_status": "confirmed"
+    },
+    {
+        "name": "Coached With Flavor ",
+        "category": "hbb",
+        "bases_served": [
+            "stuttgart"
+        ],
+        "is_visible": true,
+        "consent_status": "confirmed"
+    },
+    {
+        "name": "American Business Center",
+        "category": "automotive",
+        "bases_served": [
+            "spangdahlem",
+            "ramstein",
+            "kaiserslautern",
+            "grafenwoehr",
+            "wiesbaden",
+            "stuttgart"
+        ],
+        "is_visible": true,
+        "consent_status": "confirmed"
+    },
+    {
+        "name": "The Used Car Guys - Spangdahlem",
+        "category": "automotive",
+        "bases_served": [
+            "spangdahlem"
+        ],
+        "is_visible": true,
+        "consent_status": "confirmed"
+    },
+    {
+        "name": "The Used Car Guys - Stuttgart",
+        "category": "automotive",
+        "bases_served": [
+            "stuttgart"
+        ],
+        "is_visible": true,
+        "consent_status": "confirmed"
+    },
+    {
+        "name": "The Used Car Guys - Kaiserslautern",
+        "category": "automotive",
+        "bases_served": [
+            "kaiserslautern",
+            "wiesbaden"
+        ],
+        "is_visible": true,
+        "consent_status": "confirmed"
+    },
+    {
+        "name": "Casa Doni Sch\u00f6naich",
+        "category": "restaurants",
+        "bases_served": [
+            "stuttgart"
+        ],
+        "is_visible": true,
+        "consent_status": "confirmed"
+    },
+    {
+        "name": "MD Foiientechnik",
+        "category": "automotive",
+        "bases_served": [
+            "stuttgart"
+        ],
+        "is_visible": true,
+        "consent_status": "confirmed"
+    },
+    {
+        "name": "Used Car Guys",
+        "category": "automotive",
+        "bases_served": [
+            "spangdahlem"
+        ],
+        "is_visible": true,
+        "consent_status": "confirmed"
+    },
+    {
+        "name": "Kleintierpraxis Sindelfingen",
+        "category": "healthcare",
+        "bases_served": [
+            "stuttgart"
+        ],
+        "is_visible": true,
+        "consent_status": "confirmed"
+    },
+    {
+        "name": "Mobile Tierarzpraxis Mobipet  (Mobile Vet) ",
+        "category": "healthcare",
+        "bases_served": [
+            "stuttgart"
+        ],
+        "is_visible": true,
+        "consent_status": "confirmed"
+    }
+]
