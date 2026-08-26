@@ -66,6 +66,16 @@
       "statusCode": 301
     },
     {
+      "source": "/day-trips/0a46bc32-5be7-4395-aa6a-373d967d0c46",
+      "destination": "/day-trips/spangdahlem-cochem",
+      "permanent": true
+    },
+    {
+      "source": "/day-trips/db53d603-885c-49ee-a0f2-071bd910d317",
+      "destination": "/day-trips/stuttgart-lake-constance-bodensee-",
+      "permanent": true
+    },
+    {
       "source": "/day-trips/kaiserslautern-trier",
       "destination": "/day-trips/ramstein-trier",
       "statusCode": 301
