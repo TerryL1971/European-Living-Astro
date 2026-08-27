@@ -38,16 +38,19 @@ Already had before outreach started: automotive, restaurants, hbb, healthcare
 | real-estate | ✅ 4 contacted (myLodge 2026-08-21; Stuttgart Furnished Apartments/stuttgart-apts.com, Executive Suites Stuttgart, Stephan Immobilien — all 2026-08-26). 2 still no email (Downtown Apartments Stuttgart, Moehringen Apartments — both near Kelley/Patch, contact-form only, searched again 2026-08-26, still nothing published) |
 | legal-business | ✅ 2 contacted (Schlun & Elseven 2026-08-21; vpmk Legal Services 2026-08-25) |
 | education | ✅ 2 contacted (ISS 2026-08-21; German-American Center/DAZ 2026-08-25) |
-| shopping | ✅ 1 contacted (Modefriseur Mühlbauer, 2026-08-21). americanfoodclub.de researched but likely a poor fit — it's Nacho Kings/AWAFS, based in Offenbach (~150km from Stuttgart, no confirmed delivery there); better suited to a future Frankfurt/Wiesbaden run than Stuttgart. Still need a genuine Stuttgart-local shopping lead. |
+| shopping | ✅ 4 contacted (Modefriseur Mühlbauer 2026-08-21; Piccadilly English Shop, American Store Stuttgart, World of Candy Stuttgart/Milaneo — all 2026-08-27). americanfoodclub.de confirmed Frankfurt-based (Offenbach), not a Stuttgart fit — leave for a future Frankfurt/Wiesbaden run. 3 more found with no published email (English Books Handwerkstr. 50, US-Shop Vaihinger Markt 14, Patch Thrift Shop — base-access-only nonprofit, poor directory fit regardless) |
 | home-services | ✅ 2 contacted (Stuttgart Sparkle Services 2026-08-25; SPIC AND SPAN 2026-08-26). 2 still no email (Stuttgart Expats Handyman, Move Clean Pros — searched again 2026-08-26, still nothing published) |
 
-**Next for Stuttgart:** real-estate now has strong depth (4). Remaining gaps:
-find a genuine local shopping lead (americanfoodclub.de isn't a good fit —
-see above), and keep trying contact forms/follow-up searches for the
-still-no-email home-services/real-estate leads. Once shopping has 2-3 real
-contacts, Stuttgart coverage is solid enough to move to KMC.
+**Next for Stuttgart:** shopping now has 4 real contacts — every category has
+genuine depth (automotive/healthcare/restaurants/hbb already solid pre-outreach;
+real-estate 4; legal-business 2; education 2; shopping 4; home-services 2).
+Stuttgart coverage is solid enough to move on. **Starting next run, shift
+focus to Kaiserslautern Military Community (KMC)** — Stuttgart's two
+still-no-email leads (Stuttgart Expats Handyman, Move Clean Pros in
+home-services) can get one more follow-up search opportunistically but
+shouldn't block moving on.
 
-### Kaiserslautern Military Community — not started
+### Kaiserslautern Military Community — next up (starting 2026-08-28 run)
 ### Wiesbaden — not started
 ### Bavaria bases — not started
 
