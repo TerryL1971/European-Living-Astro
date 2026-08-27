@@ -1,7 +1,8 @@
 // src/lib/siteStats.ts
 //
-// Build-time site-wide stat counters (day trips, businesses, phrases,
-// bases, years) shown in HeroSection.astro and Footer.astro.
+// Build-time site-wide stat counters (day trips, destinations,
+// businesses, phrases, bases, years) shown in HeroSection.astro and
+// Footer.astro.
 //
 // Uses Supabase's `count: 'exact', head: true` query mode, which
 // returns only a row count without fetching the actual row data —
@@ -14,9 +15,10 @@
 // otherwise each trigger their own redundant queries for the exact
 // same numbers.
 //
-// Day trips and bases are shown as exact counts (no rounding), matching
-// the site's existing convention ("33 Day Trips", "6 Bases" — small,
-// precise numbers the site already touts exactly). Businesses and
+// Day trips, destinations and bases are shown as exact counts (no
+// rounding), matching the site's existing convention ("33 Day Trips",
+// "6 Bases" — small, precise numbers the site already touts exactly).
+// Businesses and
 // phrases are rounded DOWN to a milestone threshold with a "+", per
 // the same convention as the current "200+ Businesses" / "1,200+
 // Phrases" — this reads as a stable, confident milestone rather than
@@ -34,6 +36,7 @@ const supabase =
 
 export interface SiteStats {
   dayTripsLabel: string;
+  destinationsLabel: string;
   businessesLabel: string;
   phrasesLabel: string;
   basesLabel: string;
@@ -58,13 +61,12 @@ function roundDownWithPlus(count: number): string {
 
 async function countRows(
   table: string,
-  filterColumn?: string,
-  filterValue?: string
+  filters: Record<string, string | boolean> = {}
 ): Promise<number> {
   if (!supabase) return 0;
   let query = supabase.from(table).select('*', { count: 'exact', head: true });
-  if (filterColumn && filterValue) {
-    query = query.eq(filterColumn, filterValue);
+  for (const [column, value] of Object.entries(filters)) {
+    query = query.eq(column, value);
   }
   const { count, error } = await query;
   if (error) {
@@ -79,11 +81,17 @@ let cachedStats: Promise<SiteStats> | null = null;
 export function getSiteStats(): Promise<SiteStats> {
   if (!cachedStats) {
     cachedStats = (async () => {
-      const [dayTripsCount, businessesCount, phrasesCount] = await Promise.all([
-        countRows('day_trips'),
-        countRows('businesses', 'status', 'active'),
-        countRows('phrases'),
-      ]);
+      const [dayTripsCount, destinationsCount, businessesCount, phrasesCount] =
+        await Promise.all([
+          countRows('day_trips'),
+          // Destinations = published articles in the "City Guides"
+          // category — same definition as getAllDestinationArticles()
+          // in lib/supabaseArticles.ts, which feeds the homepage
+          // destinations carousel and the /destinations page.
+          countRows('articles', { published: true, category: 'City Guides' }),
+          countRows('businesses', { status: 'active' }),
+          countRows('phrases'),
+        ]);
 
       // Confirmed 2026-07-28: "years serving" counts from 2016, when
       // Terry moved to Germany — not a separate "site founding" date.
@@ -92,6 +100,7 @@ export function getSiteStats(): Promise<SiteStats> {
 
       return {
         dayTripsLabel: `${dayTripsCount} Day Trip${dayTripsCount === 1 ? '' : 's'}`,
+        destinationsLabel: `${destinationsCount} Destination${destinationsCount === 1 ? '' : 's'}`,
         businessesLabel: `${roundDownWithPlus(businessesCount)} Businesses`,
         phrasesLabel: `${roundDownWithPlus(phrasesCount)} Phrases`,
         basesLabel: `${BASES.length} Base${BASES.length === 1 ? '' : 's'}`,
