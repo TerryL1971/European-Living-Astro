@@ -2,7 +2,11 @@
 
 Ongoing outreach to English-speaking businesses near U.S. bases in Germany,
 inviting them to a free listing on European Living's Services Directory.
-Started 2026-08-21. Paced deliberately (3-5 emails/run, weekdays only) to
+Started 2026-08-21. Since 2026-08-28 each run also does a lightweight
+**still-in-business verification** pass — every new lead is web-checked
+before it gets an email, and a few existing directory listings are
+re-checked per run — so the directory doesn't accumulate dead listings.
+Paced deliberately (3-5 emails/run, weekdays only) to
 avoid spam flags on a brand-new sending account, while still working
 toward full coverage: every real English-speaking business findable for
 each base, in each of the 9 categories — not just one token lead per
@@ -90,6 +94,50 @@ real constraint, not resolved
 history — don't skip the workarounds below on the assumption someone
 already fixed everything.
 
+## Still-in-business verification
+
+Goal: keep the live directory free of businesses that have permanently
+closed, moved away from the base area, or lost their English-speaking
+service. This runs as part of every outreach run — it is not a separate
+routine.
+
+**Two checks per run:**
+
+1. **New leads (blocking) — always.** Before emailing any new lead,
+   confirm via web search that it's a real, currently-operating
+   business: its own website resolves and isn't parked/expired, and its
+   Google Maps / Google Business listing is **not** marked "Permanently
+   closed" or "Temporarily closed". If it looks closed, do **not**
+   email — log it in `outreach/log.csv` as `skipped_closed` with a note,
+   and move to the next lead.
+
+2. **Existing listings (sampling) — 3-5 per run.** Pick 3-5 businesses
+   from `outreach/businesses-snapshot.json` (prefer `is_visible: true`,
+   `consent_status: confirmed`) that are **not** already in
+   `outreach/verification-log.csv` with a check in the last ~90 days.
+   Rotate through base areas / categories so coverage stays even. For
+   each, do the same web check as above, plus a quick sanity look at
+   recent reviews (any from the last 6-12 months = clearly still open).
+
+**Recording results** — append every existing-listing check to
+`outreach/verification-log.csv` (columns:
+`date,business_name,category,base_area,result,evidence`), where `result`
+is one of:
+
+- `open` — website live and/or recent reviews, no closure flag
+- `likely_closed` — Maps says permanently closed, or website dead **and**
+  no activity found anywhere
+- `unclear` — couldn't confirm either way (no website, no Maps listing,
+  no recent reviews); note what was checked
+- `moved` — still operating but no longer serves the base area / no
+  longer offers English service
+
+**On a `likely_closed` or `moved` result:** flag it to the user in the
+run's summary (business name, base, category, and the evidence). Do
+**not** attempt to edit the live site or Supabase — site egress is
+blocked from the sandbox (see Known Issues #1), and removing a listing
+is the owner's call anyway. The user decides what to remove.
+
 ## Daily run procedure (Mon-Fri only — the routine's cron does not fire on weekends)
 
 1. Read `outreach/log.csv` — never re-contact a business already listed there.
@@ -118,22 +166,32 @@ already fixed everything.
    Never fabricate or guess an email address; if none is publicly listed,
    log it as `skipped_no_email` with a note on the alternative contact
    method (contact form, phone) and move to the next lead instead.
+5a. **Verify each lead is still open** before emailing (see
+   "Still-in-business verification" → check 1). If it looks permanently
+   or long-term closed, log `skipped_closed` and move on — don't email it.
+5b. **Verify 3-5 existing listings** (see "Still-in-business verification"
+   → check 2). Append each to `outreach/verification-log.csv`. If any
+   come back `likely_closed` or `moved`, note them for the step 10
+   summary.
 6. Send one personalized email per lead from european.living.live@gmail.com
    using the template in `outreach/email-template.md` — swap in the
    business name, category, and a one-line personalization specific to
    that business (never send the raw template unchanged).
 7. Append each attempt to `outreach/log.csv` (sent, researched,
-   skipped_no_email, or skipped_duplicate) and update the Status by
-   base table above.
-8. Commit and push the log/roadmap changes (small, routine commit —
-   e.g. "Outreach: contact myLodge + 2 more, Stuttgart home-services").
+   skipped_no_email, skipped_duplicate, or skipped_closed) and update
+   the Status by base table above.
+8. Commit and push the log/roadmap/verification-log changes (small,
+   routine commit — e.g. "Outreach: contact myLodge + 2 more, Stuttgart
+   home-services; verify 4 listings").
 9. When every category in the current base area has full, real
    coverage (not just 2 token contacts), mark that base done and move
    to the next one in priority order.
 10. Send one short summary back to the user (who was contacted today,
-    running total, current base/category) — don't wait for a reply
-    before continuing on the next weekday, this runs autonomously per
-    prior agreement with the user.
+    running total, current base/category, plus which existing listings
+    were verified and **any `likely_closed` / `moved` results with their
+    evidence** so the user can decide whether to remove them) — don't
+    wait for a reply before continuing on the next weekday, this runs
+    autonomously per prior agreement with the user.
 
 ## Guardrails
 
@@ -146,6 +204,14 @@ already fixed everything.
 - Always personalize — never send an identical template twice in a row.
 - Never invent a contact email. Skip and log instead.
 - Never re-contact a business already in the log or already listed on-site.
+- **Verification is read-only** — web search only. Never email a business
+  just to ask if it's still open, and never try to edit the live site or
+  Supabase to remove a listing. Flag closures to the user; they decide.
+- Don't mark a listing `likely_closed` on weak evidence. A missing
+  website alone is `unclear`, not closed — you need a Maps "permanently
+  closed" flag, or a dead site plus no trace of recent activity anywhere.
+- Verification is capped at ~5 existing listings per run — it's a slow
+  rolling sweep, not a bulk audit. Don't batch to "catch up."
 - If Gmail send starts failing / bouncing repeatedly, stop and flag it to
   the user rather than continuing to send into a broken pipe.
 - Do not attempt to curl or WebFetch Supabase or european-living.live
