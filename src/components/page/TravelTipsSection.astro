@@ -84,7 +84,7 @@ const travelTips = allArticles
     </div>
   )}
 
-  {travelTips.length > 3 && <div class="travel-tips__dots" id="travel-tips-dots"></div>}
+  {travelTips.length > 1 && <div class="travel-tips__dots" id="travel-tips-dots"></div>}
 
   <div class="travel-tips__cta">
     <p>Have a topic you'd like us to cover?</p>
@@ -110,12 +110,20 @@ const travelTips = allArticles
     const dotsContainer = document.getElementById('travel-tips-dots');
     const prevBtn = document.getElementById('travel-tips-prev');
     const nextBtn = document.getElementById('travel-tips-next');
-    const pageSize = 3;
     const total = cards.length;
     let startIndex = 0;
 
     if (!track || total === 0) return;
-    if (dotsContainer) dotsContainer.innerHTML = '';
+
+    // Page size tracks the CSS grid: 1 card on phones, 2 on tablets,
+    // 3 on desktop. Without this the carousel paged by 3 even when only
+    // 1 card fit the viewport, so "next" looked like it did nothing.
+    function getPageSize() {
+      if (window.matchMedia('(max-width: 639px)').matches) return 1;
+      if (window.matchMedia('(max-width: 1023px)').matches) return 2;
+      return 3;
+    }
+    let pageSize = getPageSize();
 
     function renderPage() {
       cards.forEach((card, i) => {
@@ -127,7 +135,7 @@ const travelTips = allArticles
 
       if (dotsContainer) {
         const dots = Array.from(dotsContainer.querySelectorAll('button'));
-        const activeDot = Math.floor(startIndex / pageSize) % dots.length;
+        const activeDot = dots.length ? Math.floor(startIndex / pageSize) % dots.length : 0;
         dots.forEach((dot, idx) => {
           dot.classList.toggle('is-active', idx === activeDot);
         });
@@ -135,7 +143,9 @@ const travelTips = allArticles
     }
 
     function buildDots() {
-      if (!dotsContainer || total <= pageSize) return;
+      if (!dotsContainer) return;
+      dotsContainer.innerHTML = '';
+      if (total <= pageSize) return;
       const dotCount = Math.ceil(total / pageSize);
       for (let i = 0; i < dotCount; i++) {
         const dot = document.createElement('button');
@@ -149,23 +159,37 @@ const travelTips = allArticles
       }
     }
 
-    if (total > pageSize) {
-      prevBtn?.removeAttribute('hidden');
-      nextBtn?.removeAttribute('hidden');
-      prevBtn?.addEventListener('click', () => {
-        startIndex = (startIndex - pageSize + total) % total;
-        renderPage();
-      });
-      nextBtn?.addEventListener('click', () => {
-        startIndex = (startIndex + pageSize) % total;
-        renderPage();
-      });
-    } else {
-      prevBtn?.setAttribute('hidden', '');
-      nextBtn?.setAttribute('hidden', '');
+    function syncNav() {
+      const method = total > pageSize ? 'removeAttribute' : 'setAttribute';
+      prevBtn?.[method]('hidden', '');
+      nextBtn?.[method]('hidden', '');
     }
 
+    prevBtn?.addEventListener('click', () => {
+      startIndex = (startIndex - pageSize + total) % total;
+      renderPage();
+    });
+    nextBtn?.addEventListener('click', () => {
+      startIndex = (startIndex + pageSize) % total;
+      renderPage();
+    });
+
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const next = getPageSize();
+        if (next === pageSize) return;
+        pageSize = next;
+        startIndex = 0;
+        buildDots();
+        syncNav();
+        renderPage();
+      }, 150);
+    });
+
     buildDots();
+    syncNav();
     renderPage();
   });
 </script>
@@ -337,5 +361,31 @@ const travelTips = allArticles
   }
   .travel-tips__cta a:hover {
     background: var(--brand-bg-alt);
+  }
+
+  @media (max-width: 1023px) {
+    .travel-tips__track {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 639px) {
+    .travel-tips__track {
+      grid-template-columns: 1fr;
+    }
+    /* Pull the arrows in over the card edges — at -1.5rem they sat
+       off the viewport on a phone and forced horizontal scroll. */
+    .travel-tips__arrow {
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 1.25rem;
+      background: rgba(255, 255, 255, 0.92);
+    }
+    .travel-tips__arrow--prev {
+      left: 0.25rem;
+    }
+    .travel-tips__arrow--next {
+      right: 0.25rem;
+    }
   }
 </style>

@@ -106,7 +106,7 @@ const sortedDestinations = [...destinations].sort((a, b) => {
       </div>
     )}
 
-    {sortedDestinations.length > 3 && <div class="destinations-page__dots" id="destinations-page-dots"></div>}
+    {sortedDestinations.length > 1 && <div class="destinations-page__dots" id="destinations-page-dots"></div>}
 
     <div class="destinations-page__request">
       <p>Don't see your favorite destination? Let us know!</p>
@@ -125,12 +125,20 @@ const sortedDestinations = [...destinations].sort((a, b) => {
     const dotsContainer = document.getElementById('destinations-page-dots');
     const prevBtn = document.getElementById('destinations-page-prev');
     const nextBtn = document.getElementById('destinations-page-next');
-    const pageSize = 3;
     const total = cards.length;
     let startIndex = 0;
 
     if (!track || total === 0) return;
-    if (dotsContainer) dotsContainer.innerHTML = '';
+
+    // Page size tracks the CSS grid: 1 card on phones, 2 on tablets,
+    // 3 on desktop. Without this the carousel paged by 3 even when only
+    // 1 card fit the viewport, so "next" looked like it did nothing.
+    function getPageSize() {
+      if (window.matchMedia('(max-width: 639px)').matches) return 1;
+      if (window.matchMedia('(max-width: 1023px)').matches) return 2;
+      return 3;
+    }
+    let pageSize = getPageSize();
 
     function renderPage() {
       cards.forEach((card, i) => {
@@ -142,7 +150,7 @@ const sortedDestinations = [...destinations].sort((a, b) => {
 
       if (dotsContainer) {
         const dots = Array.from(dotsContainer.querySelectorAll('button'));
-        const activeDot = Math.floor(startIndex / pageSize) % dots.length;
+        const activeDot = dots.length ? Math.floor(startIndex / pageSize) % dots.length : 0;
         dots.forEach((dot, idx) => {
           dot.classList.toggle('is-active', idx === activeDot);
         });
@@ -150,7 +158,9 @@ const sortedDestinations = [...destinations].sort((a, b) => {
     }
 
     function buildDots() {
-      if (!dotsContainer || total <= pageSize) return;
+      if (!dotsContainer) return;
+      dotsContainer.innerHTML = '';
+      if (total <= pageSize) return;
       const dotCount = Math.ceil(total / pageSize);
       for (let i = 0; i < dotCount; i++) {
         const dot = document.createElement('button');
@@ -164,23 +174,37 @@ const sortedDestinations = [...destinations].sort((a, b) => {
       }
     }
 
-    if (total > pageSize) {
-      prevBtn?.removeAttribute('hidden');
-      nextBtn?.removeAttribute('hidden');
-      prevBtn?.addEventListener('click', () => {
-        startIndex = (startIndex - pageSize + total) % total;
-        renderPage();
-      });
-      nextBtn?.addEventListener('click', () => {
-        startIndex = (startIndex + pageSize) % total;
-        renderPage();
-      });
-    } else {
-      prevBtn?.setAttribute('hidden', '');
-      nextBtn?.setAttribute('hidden', '');
+    function syncNav() {
+      const method = total > pageSize ? 'removeAttribute' : 'setAttribute';
+      prevBtn?.[method]('hidden', '');
+      nextBtn?.[method]('hidden', '');
     }
 
+    prevBtn?.addEventListener('click', () => {
+      startIndex = (startIndex - pageSize + total) % total;
+      renderPage();
+    });
+    nextBtn?.addEventListener('click', () => {
+      startIndex = (startIndex + pageSize) % total;
+      renderPage();
+    });
+
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const next = getPageSize();
+        if (next === pageSize) return;
+        pageSize = next;
+        startIndex = 0;
+        buildDots();
+        syncNav();
+        renderPage();
+      }, 150);
+    });
+
     buildDots();
+    syncNav();
     renderPage();
   });
 </script>
@@ -330,5 +354,34 @@ const sortedDestinations = [...destinations].sort((a, b) => {
   }
   .destinations-page__request a:hover {
     background: var(--brand-bg-alt);
+  }
+
+  @media (max-width: 1023px) {
+    .destinations-page__track {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 639px) {
+    .destinations-page__track {
+      grid-template-columns: 1fr;
+    }
+    .destinations-page__intro h1 {
+      font-size: 1.875rem;
+    }
+    /* Pull the arrows in over the card edges — at -1.5rem they sat
+       off the viewport on a phone and forced horizontal scroll. */
+    .destinations-page__arrow {
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 1.25rem;
+      background: rgba(255, 255, 255, 0.92);
+    }
+    .destinations-page__arrow--prev {
+      left: 0.25rem;
+    }
+    .destinations-page__arrow--next {
+      right: 0.25rem;
+    }
   }
 </style>
