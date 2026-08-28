@@ -1,5 +1,4 @@
 {
-  "//": "IMPORTANT: because this file exists with a `redirects` key, Vercel treats vercel.json as the authority for redirects/headers/rewrites and IGNORES the @astrojs/vercel adapter's generated Build Output config for those categories. That silently dropped the adapter's `/_astro/* -> immutable` cache rule, so every hashed JS/CSS chunk (incl. the ~83KB Tailwind bundle) was served `max-age=0, must-revalidate` and re-fetched/revalidated on every single page navigation — brutal on mobile. The `headers` block below restores it. If you add more redirects/headers, keep them here, not only in astro config.",
   "headers": [
     {
       "source": "/_astro/(.*)",
