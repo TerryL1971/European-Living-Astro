@@ -54,7 +54,29 @@ still-no-email leads (Stuttgart Expats Handyman, Move Clean Pros in
 home-services) can get one more follow-up search opportunistically but
 shouldn't block moving on.
 
-### Kaiserslautern Military Community — next up (starting 2026-08-28 run)
+### Kaiserslautern Military Community — in progress (started 2026-08-28 run)
+Already had before outreach started: automotive only (The Used Car Guys - Kaiserslautern,
+The Used Car Guys - Ramstein, American Business Center — all pre-existing listings,
+see snapshot). All other 8 categories start from zero.
+
+| Category | Status |
+|---|---|
+| real-estate | ✅ 4 contacted 2026-08-28 (ImmoHauf, Premium Realestate/David Baker, Prime TLA, Stay Eden). 3 more researched with verified emails, queued for a future run (Roth TLA, TLA Office, TLA Ramstein/DODSC) |
+| automotive | Pre-existing (3 listings) — solid, no action needed yet |
+| healthcare | Not started |
+| restaurants | Not started |
+| shopping | Not started |
+| home-services | Not started |
+| legal-business | Not started |
+| education | Not started |
+| hbb | Not started |
+
+**Next for KMC:** real-estate has a strong start (4 sent + 3 queued). Next run
+should either finish real-estate's queued 3, or open a second category
+(healthcare or home-services are good next picks — both are common PCS-week
+needs) — full coverage is still a long way off, this base needs many more
+runs.
+
 ### Wiesbaden — not started
 ### Bavaria bases — not started
 
