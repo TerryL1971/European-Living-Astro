@@ -78,7 +78,7 @@ const sortedDestinations = [...destinations].sort((a, b) => {
               <a href={`/articles/${dest.slug}`} class="destination-page-card">
                 <div class="destination-page-card__image-wrap">
                   <img
-                    src={dest.featured_image_url || 'https://pkacbcohrygpyapgtzpq.supabase.co/storage/v1/object/public/images/hero-bg.jpg'}
+                    src={dest.featured_image_url || '/hero-bg.webp'}
                     alt={name}
                     class="destination-page-card__image"
                     loading="lazy"
@@ -377,16 +377,28 @@ const sortedDestinations = [...destinations].sort((a, b) => {
     margin-top: 1.5rem;
   }
   .destinations-page__dots :global(button) {
+    /* 24px hit area (WCAG 2.5.8) with a small visible dot inside */
+    width: 1.5rem;
+    height: 1.5rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .destinations-page__dots :global(button)::before {
+    content: "";
+    display: block;
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 9999px;
-    border: none;
     background: var(--brand-border);
-    cursor: pointer;
-    padding: 0;
+    transition: width 0.2s ease, background 0.2s ease;
   }
-  .destinations-page__dots :global(button.is-active) {
-    width: 2rem;
+  .destinations-page__dots :global(button.is-active)::before {
+    width: 1.25rem;
     background: var(--brand-blue);
   }
   .destinations-page__dots :global(.carousel-counter) {

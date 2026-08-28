@@ -128,7 +128,10 @@ export function BaseSelectionModal() {
                       <div className="flex items-start gap-4">
                         <span className="text-3xl mt-0.5">{base.icon}</span>
                         <div>
-                          <h4 className="font-extrabold text-gray-800">{base.name}</h4>
+                          {/* Not a heading — it's the label of a selectable
+                              card button; an <h4> here skipped <h3> and broke
+                              the page's heading order (PSI a11y). */}
+                          <span className="block font-extrabold text-gray-800">{base.name}</span>
                           <p className="text-sm text-gray-600">
                             {base.location}, {base.region}
                           </p>

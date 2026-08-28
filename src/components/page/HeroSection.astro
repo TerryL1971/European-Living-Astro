@@ -20,7 +20,12 @@
 
 import { getSiteStats } from '../../lib/siteStats';
 
-const bgUrl = 'https://pkacbcohrygpyapgtzpq.supabase.co/storage/v1/object/public/images/hero-bg.jpg';
+// Self-hosted + optimised (was a 544 KB / 2535px JPEG on Supabase with a
+// 1-hour cache — measured as the LCP element at ~6.3s on mobile). Now a
+// 1800px WebP (~90 KB) served same-origin with a long cache header (see
+// vercel.json). Keep the .jpg sibling as the <picture> fallback.
+const heroWebp = '/hero-bg.webp';
+const heroJpg = '/hero-bg.jpg';
 const stats = await getSiteStats();
 ---
 
@@ -37,12 +42,17 @@ const stats = await getSiteStats();
     fetchpriority="high" (and no loading="lazy") tells the browser to
     fetch it as early and eagerly as possible, on top of that.
   -->
-  <img
-    src={bgUrl}
-    alt=""
-    class="hero-section__bg-image"
-    fetchpriority="high"
-  />
+  <picture>
+    <source srcset={heroWebp} type="image/webp" />
+    <img
+      src={heroJpg}
+      alt=""
+      class="hero-section__bg-image"
+      fetchpriority="high"
+      width="1800"
+      height="512"
+    />
+  </picture>
   <div class="hero-section__overlay-gradient" aria-hidden="true"></div>
   <div class="hero-section__overlay-vignette" aria-hidden="true"></div>
 
@@ -131,6 +141,9 @@ const stats = await getSiteStats();
     justify-content: center;
     overflow: hidden;
     background-color: #000; /* fallback while the image above loads */
+  }
+  .hero-section > picture {
+    display: contents;
   }
   .hero-section__bg-image {
     position: absolute;
