@@ -46,7 +46,18 @@ export function initSentry() {
 
     enabled: import.meta.env.PROD,
 
-    ignoreErrors: ['ResizeObserver loop limit exceeded', 'Non-Error promise rejection captured', 'Network request failed'],
+    ignoreErrors: [
+      'ResizeObserver loop limit exceeded',
+      'Non-Error promise rejection captured',
+      'Network request failed',
+      // Astro <ClientRouter /> aborts an in-flight View Transition when a
+      // newer navigation supersedes it (fast taps / prefetch races). The
+      // navigation still completes; only the animation is skipped. These
+      // rejections are benign noise.
+      'Transition was aborted',
+      'Transition was skipped',
+      'AbortError',
+    ],
   });
 }
 

@@ -37,8 +37,16 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
   description="Discover amazing day trips from US military bases in Germany. Find castles, cities, nature, and cultural experiences within easy reach."
   canonicalPath="/day-trips"
 >
+  <!--
+    Height is set with explicit responsive values, NOT `aspect-[4.3/1]`.
+    aspect-ratio + min-height on this flex container made Chrome derive
+    the WIDTH from `min-height * ratio` (300px * 4.3 = 1290px) on narrow
+    viewports; `overflow-hidden` here + `overflow-x:hidden` on <html>
+    then hid the blow-out, so the <h1> just rendered clipped
+    ("Day Trips & Weeke…") on phones. `w-full` pins the width.
+  -->
   <div
-    class="relative overflow-hidden text-[var(--brand-white)] flex items-end aspect-[4.3/1] min-h-[300px] max-h-[460px]"
+    class="relative w-full overflow-hidden text-[var(--brand-white)] flex items-end min-h-[320px] md:min-h-[380px] lg:min-h-[440px]"
     style="background-image:url('https://pkacbcohrygpyapgtzpq.supabase.co/storage/v1/object/public/images/Day-Trips-&-Weekend-Getaways.jpeg');background-size:cover;background-position:center 35%;"
   >
     <div
@@ -150,7 +158,7 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
     if (!track || total === 0) return;
 
     // Slides the whole flex row with a real translateX transition (see
-    // the CSS) plus a brief 3D swing on each move. Pages are discrete
+    // the CSS) plus a brief scale dip on each move. Pages are discrete
     // groups and clamped at both ends — no wraparound (a wrap would mean
     // a long slide back across every card).
     const GAP = '1.5rem';
@@ -176,8 +184,8 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
     function render(dir: number) {
       clearTimeout(settleTimer);
       if (dir !== 0 && !reduceMotion) {
-        track!.style.transform = `${slide()} rotateY(${dir * 4}deg) scale(0.96)`;
-        settleTimer = setTimeout(() => { track!.style.transform = slide(); }, 180);
+        track!.style.transform = `${slide()} scale(0.965)`;
+        settleTimer = setTimeout(() => { track!.style.transform = slide(); }, 160);
       } else {
         track!.style.transform = slide();
       }
@@ -248,7 +256,7 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
     }, { passive: true });
 
     let resizeTimer: ReturnType<typeof setTimeout>;
-    window.addEventListener('resize', () => {
+    function onResize() {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
         const next = getPageSize();
@@ -260,6 +268,18 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
         syncNav();
         render(0);
       }, 150);
+    }
+    window.addEventListener('resize', onResize);
+
+    // ClientRouter keeps the same document across navigations, so tear
+    // down anything document/window-scoped on the way out — otherwise
+    // every visit to a carousel page stacks another live resize listener
+    // (mobile browsers fire resize on scroll) pointed at a detached track.
+    document.addEventListener('astro:before-swap', function cleanup() {
+      window.removeEventListener('resize', onResize);
+      clearTimeout(resizeTimer);
+      clearTimeout(settleTimer);
+      document.removeEventListener('astro:before-swap', cleanup);
     });
 
     buildDots();
@@ -286,7 +306,6 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
   }
   .day-trips-page__viewport {
     overflow: hidden;
-    perspective: 1500px;
     /* vertical breathing room so the card hover-lift/shadow isn't
        clipped; no horizontal bleed (that would re-introduce the
        page-level horizontal scroll on mobile) */
@@ -296,9 +315,7 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
   .day-trips-page__track {
     display: flex;
     gap: 1.5rem;
-    transform-style: preserve-3d;
-    will-change: transform;
-    transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
   .day-trips-page__track .day-trip-page-card {
     flex: 0 0 calc((100% - 2 * 1.5rem) / 3);

@@ -132,7 +132,7 @@ const sortedDestinations = [...destinations].sort((a, b) => {
     if (!track || total === 0) return;
 
     // Slides the whole flex row with a real translateX transition (see
-    // the CSS) plus a brief 3D swing on each move. Pages are discrete
+    // the CSS) plus a brief scale dip on each move. Pages are discrete
     // groups and clamped at both ends — no wraparound (a wrap would mean
     // a long slide back across every card).
     const GAP = '1.5rem';
@@ -158,8 +158,8 @@ const sortedDestinations = [...destinations].sort((a, b) => {
     function render(dir: number) {
       clearTimeout(settleTimer);
       if (dir !== 0 && !reduceMotion) {
-        track!.style.transform = `${slide()} rotateY(${dir * 4}deg) scale(0.96)`;
-        settleTimer = setTimeout(() => { track!.style.transform = slide(); }, 180);
+        track!.style.transform = `${slide()} scale(0.965)`;
+        settleTimer = setTimeout(() => { track!.style.transform = slide(); }, 160);
       } else {
         track!.style.transform = slide();
       }
@@ -230,7 +230,7 @@ const sortedDestinations = [...destinations].sort((a, b) => {
     }, { passive: true });
 
     let resizeTimer: ReturnType<typeof setTimeout>;
-    window.addEventListener('resize', () => {
+    function onResize() {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
         const next = getPageSize();
@@ -242,6 +242,18 @@ const sortedDestinations = [...destinations].sort((a, b) => {
         syncNav();
         render(0);
       }, 150);
+    }
+    window.addEventListener('resize', onResize);
+
+    // ClientRouter keeps the same document across navigations, so tear
+    // down anything document/window-scoped on the way out — otherwise
+    // every visit to a carousel page stacks another live resize listener
+    // (mobile browsers fire resize on scroll) pointed at a detached track.
+    document.addEventListener('astro:before-swap', function cleanup() {
+      window.removeEventListener('resize', onResize);
+      clearTimeout(resizeTimer);
+      clearTimeout(settleTimer);
+      document.removeEventListener('astro:before-swap', cleanup);
     });
 
     buildDots();
@@ -281,7 +293,6 @@ const sortedDestinations = [...destinations].sort((a, b) => {
   }
   .destinations-page__viewport {
     overflow: hidden;
-    perspective: 1500px;
     /* vertical breathing room so the card hover-lift/shadow isn't
        clipped; no horizontal bleed (that would re-introduce the
        page-level horizontal scroll on mobile) */
@@ -291,9 +302,7 @@ const sortedDestinations = [...destinations].sort((a, b) => {
   .destinations-page__track {
     display: flex;
     gap: 1.5rem;
-    transform-style: preserve-3d;
-    will-change: transform;
-    transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
   .destinations-page__track .destination-page-card {
     flex: 0 0 calc((100% - 2 * 1.5rem) / 3);
