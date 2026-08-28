@@ -165,14 +165,35 @@ const travelTips = allArticles
       nextBtn?.[method]('hidden', '');
     }
 
-    prevBtn?.addEventListener('click', () => {
+    function goPrev() {
       startIndex = (startIndex - pageSize + total) % total;
       renderPage();
-    });
-    nextBtn?.addEventListener('click', () => {
+    }
+    function goNext() {
       startIndex = (startIndex + pageSize) % total;
       renderPage();
-    });
+    }
+
+    prevBtn?.addEventListener('click', goPrev);
+    nextBtn?.addEventListener('click', goNext);
+
+    // Touch swipe (mobile) — a horizontal drag past the threshold pages
+    // the carousel. Ignored for mostly-vertical scrolls and when there's
+    // only one page.
+    let touchStartX = 0;
+    let touchStartY = 0;
+    track.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+    track.addEventListener('touchend', (e) => {
+      if (total <= pageSize) return;
+      const dx = e.changedTouches[0].screenX - touchStartX;
+      const dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
+      if (dx < 0) goNext();
+      else goPrev();
+    }, { passive: true });
 
     let resizeTimer: ReturnType<typeof setTimeout>;
     window.addEventListener('resize', () => {
