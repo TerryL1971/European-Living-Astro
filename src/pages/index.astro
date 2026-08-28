@@ -45,6 +45,7 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
         ‹
       </button>
 
+      <div class="destinations__viewport">
       <div class="destinations__track" id="destinations-track">
         {sortedDestinations.map((dest) => {
           const name = dest.destination_name || dest.title;
@@ -68,6 +69,7 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
             </a>
           );
         })}
+      </div>
       </div>
 
       <button
@@ -154,76 +156,122 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
     // site) — astro:page-load fires in both cases.
     scrollToHashSection();
 
-    // Circular carousel: advancing past the last card wraps back to the
-    // first (e.g. with 19 cards, clicking next from card 18 shows
-    // 19, 1, 2 — not a reset to a short/empty page). Uses modulo
-    // arithmetic against the total card count so this works correctly
-    // regardless of how many destinations exist, even if that count
-    // isn't a multiple of pageSize (3). Re-queried and re-initialized
-    // on every astro:page-load — see BaseLayout.astro's <ClientRouter />
-    // comment for why that's necessary here.
+    // Sliding carousel — matches destinations/index.astro. The row of
+    // cards translateX-slides between discrete, clamped pages (no
+    // wraparound). Page size follows the CSS grid: 1 card on phones, 2
+    // on tablets, 3 on desktop — the old fixed pageSize=3 was why the
+    // homepage jammed 3 cards into a phone screen with the titles
+    // wrapping one word per line.
     const track = document.getElementById('destinations-track');
     const cards = track ? Array.from(track.querySelectorAll<HTMLElement>('.destination-card')) : [];
     const dotsContainer = document.getElementById('destinations-dots');
     const prevBtn = document.getElementById('destinations-prev');
     const nextBtn = document.getElementById('destinations-next');
-    const pageSize = 3;
     const total = cards.length;
-    let startIndex = 0;
 
     if (!track || total === 0) return;
-    if (dotsContainer) dotsContainer.innerHTML = '';
 
-    function renderPage() {
-      cards.forEach((card, i) => {
-        const offset = (i - startIndex + total) % total;
-        const isVisible = offset < pageSize;
-        card.hidden = !isVisible;
-        card.style.order = isVisible ? String(offset) : '';
-      });
+    const GAP = '1.5rem';
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const getPageSize = () =>
+      window.matchMedia('(max-width: 639px)').matches ? 1 :
+      window.matchMedia('(max-width: 1023px)').matches ? 2 : 3;
 
-      if (dotsContainer) {
-        const dots = Array.from(dotsContainer.querySelectorAll('button'));
-        const activeDot = Math.floor(startIndex / pageSize) % dots.length;
-        dots.forEach((dot, idx) => {
-          dot.classList.toggle('is-active', idx === activeDot);
-        });
+    let pageSize = getPageSize();
+    let pageCount = Math.ceil(total / pageSize);
+    let page = 0;
+    let settleTimer: ReturnType<typeof setTimeout>;
+
+    const slide = () => `translateX(calc(${page} * (-100% - ${GAP})))`;
+
+    function render(dir: number) {
+      clearTimeout(settleTimer);
+      if (dir !== 0 && !reduceMotion) {
+        track!.style.transform = `${slide()} scale(0.965)`;
+        settleTimer = setTimeout(() => { track!.style.transform = slide(); }, 160);
+      } else {
+        track!.style.transform = slide();
       }
+      if (dotsContainer) {
+        const counter = dotsContainer.querySelector('.carousel-counter');
+        if (counter) {
+          counter.textContent = `${page + 1} / ${pageCount}`;
+        } else {
+          Array.from(dotsContainer.querySelectorAll('button')).forEach((dot, idx) => {
+            dot.classList.toggle('is-active', idx === page);
+          });
+        }
+      }
+      prevBtn?.toggleAttribute('disabled', page === 0);
+      nextBtn?.toggleAttribute('disabled', page === pageCount - 1);
+    }
+
+    function goTo(next: number, dir: number) {
+      const clamped = Math.max(0, Math.min(next, pageCount - 1));
+      if (clamped === page && dir !== 0) return;
+      page = clamped;
+      render(dir);
     }
 
     function buildDots() {
-      if (!dotsContainer || total <= pageSize) return;
-      const dotCount = Math.ceil(total / pageSize);
-      for (let i = 0; i < dotCount; i++) {
+      if (!dotsContainer) return;
+      dotsContainer.innerHTML = '';
+      if (pageCount <= 1) return;
+      if (pageCount > 12) {
+        const counter = document.createElement('span');
+        counter.className = 'carousel-counter';
+        dotsContainer.appendChild(counter);
+        return;
+      }
+      for (let i = 0; i < pageCount; i++) {
         const dot = document.createElement('button');
         dot.type = 'button';
         dot.setAttribute('aria-label', `Go to page ${i + 1}`);
-        dot.addEventListener('click', () => {
-          startIndex = (i * pageSize) % total;
-          renderPage();
-        });
+        dot.addEventListener('click', () => goTo(i, Math.sign(i - page)));
         dotsContainer.appendChild(dot);
       }
     }
 
-    if (total > pageSize) {
-      prevBtn?.removeAttribute('hidden');
-      nextBtn?.removeAttribute('hidden');
-      prevBtn?.addEventListener('click', () => {
-        startIndex = (startIndex - pageSize + total) % total;
-        renderPage();
-      });
-      nextBtn?.addEventListener('click', () => {
-        startIndex = (startIndex + pageSize) % total;
-        renderPage();
-      });
-    } else {
-      prevBtn?.setAttribute('hidden', '');
-      nextBtn?.setAttribute('hidden', '');
+    function syncNav() {
+      const method = pageCount > 1 ? 'removeAttribute' : 'setAttribute';
+      prevBtn?.[method]('hidden', '');
+      nextBtn?.[method]('hidden', '');
     }
 
+    prevBtn?.addEventListener('click', () => goTo(page - 1, -1));
+    nextBtn?.addEventListener('click', () => goTo(page + 1, 1));
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    track.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+    track.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].screenX - touchStartX;
+      const dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
+      goTo(page + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
+    }, { passive: true });
+
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const next = getPageSize();
+        if (next === pageSize) return;
+        pageSize = next;
+        pageCount = Math.ceil(total / pageSize);
+        page = Math.min(page, pageCount - 1);
+        buildDots();
+        syncNav();
+        render(0);
+      }, 150);
+    });
+
     buildDots();
-    renderPage();
+    syncNav();
+    render(0);
   });
 </script>
 
@@ -249,13 +297,23 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
   .destinations__carousel {
     position: relative;
   }
-  .destinations__track {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+  .destinations__viewport {
+    overflow: hidden;
+    padding: 12px 0;
+    margin: -12px 0;
   }
-  .destinations__track .destination-card[hidden] {
-    display: none;
+  .destinations__track {
+    display: flex;
+    gap: 1.5rem;
+    transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .destinations__track .destination-card {
+    flex: 0 0 calc((100% - 2 * 1.5rem) / 3);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .destinations__track {
+      transition: none;
+    }
   }
   .destination-card {
     display: flex; flex-direction: column;
@@ -314,6 +372,11 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
     line-height: 1;
     cursor: pointer;
     z-index: 5;
+    transition: opacity 0.2s ease;
+  }
+  .destinations__arrow[disabled] {
+    opacity: 0.3;
+    cursor: default;
   }
   .destinations__arrow--prev {
     left: -1.5rem;
@@ -339,6 +402,36 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
   .destinations__dots :global(button.is-active) {
     width: 2rem;
     background: var(--brand-blue);
+  }
+  .destinations__dots :global(.carousel-counter) {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--brand-text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 1023px) {
+    .destinations__track .destination-card {
+      flex-basis: calc((100% - 1.5rem) / 2);
+    }
+  }
+  @media (max-width: 639px) {
+    .destinations__track .destination-card {
+      flex-basis: 100%;
+    }
+    .destinations__arrow {
+      width: 2.5rem;
+      height: 2.5rem;
+      top: 7rem;
+      font-size: 1.25rem;
+      background: rgba(255, 255, 255, 0.92);
+    }
+    .destinations__arrow--prev {
+      left: 0.25rem;
+    }
+    .destinations__arrow--next {
+      right: 0.25rem;
+    }
   }
   .request-destination {
     max-width: 72rem;

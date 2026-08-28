@@ -256,7 +256,7 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
     }, { passive: true });
 
     let resizeTimer: ReturnType<typeof setTimeout>;
-    function onResize() {
+    window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
         const next = getPageSize();
@@ -268,18 +268,6 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
         syncNav();
         render(0);
       }, 150);
-    }
-    window.addEventListener('resize', onResize);
-
-    // ClientRouter keeps the same document across navigations, so tear
-    // down anything document/window-scoped on the way out — otherwise
-    // every visit to a carousel page stacks another live resize listener
-    // (mobile browsers fire resize on scroll) pointed at a detached track.
-    document.addEventListener('astro:before-swap', function cleanup() {
-      window.removeEventListener('resize', onResize);
-      clearTimeout(resizeTimer);
-      clearTimeout(settleTimer);
-      document.removeEventListener('astro:before-swap', cleanup);
     });
 
     buildDots();

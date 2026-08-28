@@ -1,5 +1,4 @@
 ---
-import { ClientRouter } from 'astro:transitions';
 import SeoHead from '../components/seo/SeoHead.astro';
 import Header from '../components/page/Header.tsx';
 import { BaseSelectionModal } from '../components/page/BaseSelectionModal.tsx';
@@ -75,54 +74,34 @@ const schemas = [organizationSchema(), websiteSchema(), ...pageSchemas];
     />
 
     <!--
-      Enables client-side page transitions: clicking a same-origin link
-      fetches the next page's HTML and swaps it into the current
-      document, instead of a full hard reload — this is the actual fix
-      for the ~1.2s-per-click navigation cost measured against the old
-      React SPA's ~50ms client-side route swap. Real URLs, real static
-      HTML per page, real SEO — this only changes how navigation
-      *feels*, not the underlying architecture.
+      <ClientRouter /> (Astro View Transitions) was REMOVED 2026-08-29.
+      It repeatedly shipped broken UX on real devices:
+        - unstyled "giant logo / raw links" pages after tapping a nav
+          item (the DOM swap landing before the new page's CSS applied)
+        - a visible overlap of the old and new page during its default
+          cross-fade ("looks like another page loaded behind it")
+        - InvalidStateError transition noise in Sentry
+      Every page here is pre-rendered static HTML, and /_astro assets are
+      now immutably cached, so a plain full-page navigation only fetches
+      the (small, gzipped) HTML — fast and bulletproof. The measured
+      "~1.2s per click" that originally justified the router was taken
+      while asset caching was also broken; it no longer applies.
 
-      IMPORTANT for anyone adding a new page-level <script> after this:
-      top-level script code only runs once per browser session under
-      this router (the DOM swap reuses the same document, so a JS
-      module already evaluated won't re-run just because you navigate
-      back to that page) — wrap any logic that needs to (re-)run
-      per-page-visit, including the first, in:
-        document.addEventListener('astro:page-load', () => { ... })
-      See TravelTipsSection.astro or services-directory.astro for the
-      established pattern.
-    -->
-    <ClientRouter />
-
-    <!--
-      FOUC guard for client-side navigation. <ClientRouter /> swaps the
-      new page in and is *supposed* to wait for its stylesheets first,
-      but on a flaky mobile connection a slow/failed revalidation of an
-      already-cached stylesheet can let the swap land unstyled — the
-      "giant logo, raw links" state. This probes whether Tailwind is
-      actually applied after each navigation (a `.hidden` element must
-      compute `display:none`); if not, it does one full reload, which
-      loads CSS reliably. sessionStorage guards against a reload loop.
-      is:inline so it always runs, unbundled, before islands hydrate.
+      COMPAT SHIM: many component <script>s wrap their setup in
+      `document.addEventListener('astro:page-load', () => { ... })` (the
+      pattern the router required). Rather than touch all of them, fire
+      that event once per real page load. Runs at DOMContentLoaded, after
+      all deferred module scripts have registered their listeners.
     -->
     <script is:inline>
-      document.addEventListener('astro:page-load', () => {
-        try {
-          const probe = document.createElement('div');
-          probe.className = 'hidden';
-          probe.setAttribute('aria-hidden', 'true');
-          document.body.appendChild(probe);
-          const cssApplied = getComputedStyle(probe).display === 'none';
-          probe.remove();
-          if (cssApplied) {
-            sessionStorage.removeItem('el:fouc-reload');
-          } else if (!sessionStorage.getItem('el:fouc-reload')) {
-            sessionStorage.setItem('el:fouc-reload', '1');
-            location.reload();
-          }
-        } catch (e) { /* storage blocked / SSR-only APIs — ignore */ }
-      });
+      (function () {
+        var fire = function () { document.dispatchEvent(new Event('astro:page-load')); };
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', fire, { once: true });
+        } else {
+          fire();
+        }
+      })();
     </script>
 
     <!--
