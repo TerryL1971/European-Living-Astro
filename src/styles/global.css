@@ -1,4 +1,14 @@
 /* === Base Imports === */
+/*
+  cache-bust marker 2026-08-28: bumping this comment rehashes the shared
+  BaseLayout CSS chunk (Tailwind bundle). Needed once because those
+  /_astro/*.css files spent weeks being served `max-age=0,
+  must-revalidate` (see vercel.json history) — visitors' browsers hold a
+  stale copy with that old caching metadata and keep revalidating it,
+  which fails mid-navigation on flaky mobile and leaves the page
+  unstyled ("big logo"). A new hash forces one clean re-fetch that picks
+  up the now-`immutable` header. Safe to delete this block later.
+*/
 @import "tailwindcss";
 @import "leaflet/dist/leaflet.css";
 

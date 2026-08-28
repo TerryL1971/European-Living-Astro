@@ -96,6 +96,36 @@ const schemas = [organizationSchema(), websiteSchema(), ...pageSchemas];
     <ClientRouter />
 
     <!--
+      FOUC guard for client-side navigation. <ClientRouter /> swaps the
+      new page in and is *supposed* to wait for its stylesheets first,
+      but on a flaky mobile connection a slow/failed revalidation of an
+      already-cached stylesheet can let the swap land unstyled — the
+      "giant logo, raw links" state. This probes whether Tailwind is
+      actually applied after each navigation (a `.hidden` element must
+      compute `display:none`); if not, it does one full reload, which
+      loads CSS reliably. sessionStorage guards against a reload loop.
+      is:inline so it always runs, unbundled, before islands hydrate.
+    -->
+    <script is:inline>
+      document.addEventListener('astro:page-load', () => {
+        try {
+          const probe = document.createElement('div');
+          probe.className = 'hidden';
+          probe.setAttribute('aria-hidden', 'true');
+          document.body.appendChild(probe);
+          const cssApplied = getComputedStyle(probe).display === 'none';
+          probe.remove();
+          if (cssApplied) {
+            sessionStorage.removeItem('el:fouc-reload');
+          } else if (!sessionStorage.getItem('el:fouc-reload')) {
+            sessionStorage.setItem('el:fouc-reload', '1');
+            location.reload();
+          }
+        } catch (e) { /* storage blocked / SSR-only APIs — ignore */ }
+      });
+    </script>
+
+    <!--
       GA4 is wired via CookieConsentModal below — it calls initGA()
       (src/utils/analytics.ts) only after the user consents, and
       initGA() itself is a no-op in dev (import.meta.env.DEV check) and
