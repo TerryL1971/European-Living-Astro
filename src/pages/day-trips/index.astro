@@ -74,6 +74,7 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
           ‹
         </button>
 
+        <div class="day-trips-page__viewport">
         <div class="day-trips-page__track" id="day-trips-page-track">
           {sortedTrips.map((trip) => {
             const displayImage = trip.hero_image_url || trip.image_url;
@@ -117,6 +118,7 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
             );
           })}
         </div>
+        </div>
 
         <button
           type="button"
@@ -144,75 +146,94 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
     const prevBtn = document.getElementById('day-trips-page-prev');
     const nextBtn = document.getElementById('day-trips-page-next');
     const total = cards.length;
-    let startIndex = 0;
 
     if (!track || total === 0) return;
 
-    // Page size tracks the CSS grid: 1 card on phones, 2 on tablets,
-    // 3 on desktop. Without this the carousel paged by 3 even when only
-    // 1 card fit the viewport, so "next" looked like it did nothing.
+    // Slides the whole flex row with a real translateX transition (see
+    // the CSS) plus a brief 3D swing on each move. Pages are discrete
+    // groups and clamped at both ends — no wraparound (a wrap would mean
+    // a long slide back across every card).
+    const GAP = '1.5rem';
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     function getPageSize() {
       if (window.matchMedia('(max-width: 639px)').matches) return 1;
       if (window.matchMedia('(max-width: 1023px)').matches) return 2;
       return 3;
     }
-    let pageSize = getPageSize();
 
-    function renderPage() {
-      cards.forEach((card, i) => {
-        const offset = (i - startIndex + total) % total;
-        const isVisible = offset < pageSize;
-        card.hidden = !isVisible;
-        card.style.order = isVisible ? String(offset) : '';
-      });
+    let pageSize = getPageSize();
+    let pageCount = Math.ceil(total / pageSize);
+    let page = 0;
+    let settleTimer: ReturnType<typeof setTimeout>;
+
+    // One page shift = (pageSize cards + pageSize gaps) which reduces to
+    // 100% + one gap regardless of how many cards are on screen.
+    function slide() {
+      return `translateX(calc(${page} * (-100% - ${GAP})))`;
+    }
+
+    function render(dir: number) {
+      clearTimeout(settleTimer);
+      if (dir !== 0 && !reduceMotion) {
+        track!.style.transform = `${slide()} rotateY(${dir * 4}deg) scale(0.96)`;
+        settleTimer = setTimeout(() => { track!.style.transform = slide(); }, 180);
+      } else {
+        track!.style.transform = slide();
+      }
 
       if (dotsContainer) {
-        const dots = Array.from(dotsContainer.querySelectorAll('button'));
-        const activeDot = dots.length ? Math.floor(startIndex / pageSize) % dots.length : 0;
-        dots.forEach((dot, idx) => {
-          dot.classList.toggle('is-active', idx === activeDot);
-        });
+        const counter = dotsContainer.querySelector('.carousel-counter');
+        if (counter) {
+          counter.textContent = `${page + 1} / ${pageCount}`;
+        } else {
+          const dots = Array.from(dotsContainer.querySelectorAll('button'));
+          dots.forEach((dot, idx) => dot.classList.toggle('is-active', idx === page));
+        }
       }
+      prevBtn?.toggleAttribute('disabled', page === 0);
+      nextBtn?.toggleAttribute('disabled', page === pageCount - 1);
+    }
+
+    function goTo(next: number, dir: number) {
+      const clamped = Math.max(0, Math.min(next, pageCount - 1));
+      if (clamped === page && dir !== 0) return;
+      page = clamped;
+      render(dir);
     }
 
     function buildDots() {
       if (!dotsContainer) return;
       dotsContainer.innerHTML = '';
-      if (total <= pageSize) return;
-      const dotCount = Math.ceil(total / pageSize);
-      for (let i = 0; i < dotCount; i++) {
+      if (pageCount <= 1) return;
+      // A dot per page is fine up to a point; past it (e.g. 1-up on
+      // mobile with lots of cards) switch to an "n / total" counter.
+      if (pageCount > 12) {
+        const counter = document.createElement('span');
+        counter.className = 'carousel-counter';
+        dotsContainer.appendChild(counter);
+        return;
+      }
+      for (let i = 0; i < pageCount; i++) {
         const dot = document.createElement('button');
         dot.type = 'button';
         dot.setAttribute('aria-label', `Go to page ${i + 1}`);
-        dot.addEventListener('click', () => {
-          startIndex = (i * pageSize) % total;
-          renderPage();
-        });
+        dot.addEventListener('click', () => goTo(i, Math.sign(i - page)));
         dotsContainer.appendChild(dot);
       }
     }
 
     function syncNav() {
-      const method = total > pageSize ? 'removeAttribute' : 'setAttribute';
+      const method = pageCount > 1 ? 'removeAttribute' : 'setAttribute';
       prevBtn?.[method]('hidden', '');
       nextBtn?.[method]('hidden', '');
     }
 
-    function goPrev() {
-      startIndex = (startIndex - pageSize + total) % total;
-      renderPage();
-    }
-    function goNext() {
-      startIndex = (startIndex + pageSize) % total;
-      renderPage();
-    }
-
-    prevBtn?.addEventListener('click', goPrev);
-    nextBtn?.addEventListener('click', goNext);
+    prevBtn?.addEventListener('click', () => goTo(page - 1, -1));
+    nextBtn?.addEventListener('click', () => goTo(page + 1, 1));
 
     // Touch swipe (mobile) — a horizontal drag past the threshold pages
-    // the carousel. Ignored for mostly-vertical scrolls and when there's
-    // only one page.
+    // the carousel. Ignored for mostly-vertical scrolls.
     let touchStartX = 0;
     let touchStartY = 0;
     track.addEventListener('touchstart', (e) => {
@@ -220,12 +241,10 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
       touchStartY = e.changedTouches[0].screenY;
     }, { passive: true });
     track.addEventListener('touchend', (e) => {
-      if (total <= pageSize) return;
       const dx = e.changedTouches[0].screenX - touchStartX;
       const dy = e.changedTouches[0].screenY - touchStartY;
       if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
-      if (dx < 0) goNext();
-      else goPrev();
+      goTo(page + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
     }, { passive: true });
 
     let resizeTimer: ReturnType<typeof setTimeout>;
@@ -235,16 +254,17 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
         const next = getPageSize();
         if (next === pageSize) return;
         pageSize = next;
-        startIndex = 0;
+        pageCount = Math.ceil(total / pageSize);
+        page = Math.min(page, pageCount - 1);
         buildDots();
         syncNav();
-        renderPage();
+        render(0);
       }, 150);
     });
 
     buildDots();
     syncNav();
-    renderPage();
+    render(0);
   });
 </script>
 
@@ -264,13 +284,29 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
   .day-trips-page__carousel {
     position: relative;
   }
-  .day-trips-page__track {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+  .day-trips-page__viewport {
+    overflow: hidden;
+    perspective: 1500px;
+    /* vertical breathing room so the card hover-lift/shadow isn't
+       clipped; no horizontal bleed (that would re-introduce the
+       page-level horizontal scroll on mobile) */
+    padding: 12px 0;
+    margin: -12px 0;
   }
-  .day-trips-page__track .day-trip-page-card[hidden] {
-    display: none;
+  .day-trips-page__track {
+    display: flex;
+    gap: 1.5rem;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .day-trips-page__track .day-trip-page-card {
+    flex: 0 0 calc((100% - 2 * 1.5rem) / 3);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .day-trips-page__track {
+      transition: none;
+    }
   }
   .day-trip-page-card {
     display: flex;
@@ -406,6 +442,11 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
     line-height: 1;
     cursor: pointer;
     z-index: 5;
+    transition: opacity 0.2s ease;
+  }
+  .day-trips-page__arrow[disabled] {
+    opacity: 0.3;
+    cursor: default;
   }
   .day-trips-page__arrow--prev {
     left: -1.5rem;
@@ -432,10 +473,16 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
     width: 2rem;
     background: var(--brand-blue);
   }
+  .day-trips-page__dots :global(.carousel-counter) {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--brand-text-muted);
+    font-variant-numeric: tabular-nums;
+  }
 
   @media (max-width: 1023px) {
-    .day-trips-page__track {
-      grid-template-columns: repeat(2, 1fr);
+    .day-trips-page__track .day-trip-page-card {
+      flex-basis: calc((100% - 1.5rem) / 2);
     }
   }
 
@@ -443,17 +490,19 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
     .day-trips-page {
       padding: 2rem 1rem 3rem;
     }
-    .day-trips-page__track {
-      grid-template-columns: 1fr;
+    .day-trips-page__track .day-trip-page-card {
+      flex-basis: 100%;
     }
     .day-trip-page-card__body {
       padding: 1.25rem;
     }
     /* Pull the arrows in over the card edges — at -1.5rem they sat
-       off the viewport on a phone and forced horizontal scroll. */
+       off the viewport on a phone and forced horizontal scroll — and
+       up onto the card image so they don't cover the body text. */
     .day-trips-page__arrow {
       width: 2.5rem;
       height: 2.5rem;
+      top: 6rem;
       font-size: 1.25rem;
       background: rgba(255, 255, 255, 0.92);
     }
