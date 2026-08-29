@@ -22,18 +22,13 @@
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getAllDayTrips, type DayTripRow } from '../../lib/supabaseDayTrips';
-import { getBaseName } from '../../data/bases';
+import { BASES, getBaseName, getBaseCoords } from '../../data/bases';
 
-// Approx. base coordinates — kept in sync with data/bases.ts ids. Also
-// duplicated in the <script> below (it can't import a .astro const).
-const BASE_COORDS: Record<string, [number, number]> = {
-  ramstein: [49.437, 7.6],
-  stuttgart: [48.745, 9.095],
-  kaiserslautern: [49.44, 7.749],
-  wiesbaden: [50.05, 8.325],
-  grafenwoehr: [49.698, 11.941],
-  spangdahlem: [49.973, 6.693],
-};
+// Serialised for the client carousel script (it can't import a .astro
+// module). Single source of truth is data/bases.ts.
+const BASE_META = Object.fromEntries(
+  BASES.map((b) => [b.id, { coords: [b.lat, b.lng] as [number, number], label: b.name }]),
+);
 
 function haversineKm(aLat: number, aLng: number, bLat: number, bLng: number): number {
   const R = 6371;
@@ -47,7 +42,7 @@ function haversineKm(aLat: number, aLng: number, bLat: number, bLng: number): nu
 }
 
 function driveEstimate(baseId: string, lat: number | null, lng: number | null): string | null {
-  const c = BASE_COORDS[baseId];
+  const c = getBaseCoords(baseId);
   if (!c || lat == null || lng == null) return null;
   const roadKm = Math.round(haversineKm(c[0], c[1], lat, lng) * 1.2);
   const hrs = roadKm / 80 + 0.12;
@@ -197,6 +192,8 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
   </section>
 </BaseLayout>
 
+<script type="application/json" id="day-trips-base-meta" set:html={JSON.stringify(BASE_META)}></script>
+
 <script>
   // Wrapped in astro:page-load — see BaseLayout.astro's comment on
   // <ClientRouter /> for why: a plain top-level script only runs once
@@ -214,23 +211,18 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
     if (!track || allCards.length === 0) return;
 
     // ── base awareness ──────────────────────────────────────────────
-    // Same table as the .astro frontmatter; keep in sync with data/bases.ts.
-    const BASE_COORDS: Record<string, [number, number]> = {
-      ramstein: [49.437, 7.6],
-      stuttgart: [48.745, 9.095],
-      kaiserslautern: [49.44, 7.749],
-      wiesbaden: [50.05, 8.325],
-      grafenwoehr: [49.698, 11.941],
-      spangdahlem: [49.973, 6.693],
-    };
-    const BASE_LABEL: Record<string, string> = {
-      ramstein: 'Ramstein AB',
-      stuttgart: 'USAG Stuttgart',
-      kaiserslautern: 'the KMC',
-      wiesbaden: 'USAG Wiesbaden',
-      grafenwoehr: 'USAG Bavaria',
-      spangdahlem: 'Spangdahlem AB',
-    };
+    // Base coords + labels come from data/bases.ts, serialised into the
+    // <script type="application/json"> tag above (this bundled module
+    // can't import the .astro file).
+    type BaseMeta = { coords: [number, number]; label: string };
+    let BASE_META: Record<string, BaseMeta> = {};
+    try {
+      BASE_META = JSON.parse(
+        document.getElementById('day-trips-base-meta')?.textContent || '{}',
+      );
+    } catch (e) {
+      /* malformed — base features just stay off */
+    }
 
     function haversineKm(aLat: number, aLng: number, bLat: number, bLng: number) {
       const R = 6371;
@@ -244,7 +236,7 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
     }
 
     function estimate(baseId: string, lat: number, lng: number): string | null {
-      const c = BASE_COORDS[baseId];
+      const c = BASE_META[baseId]?.coords;
       if (!c || !isFinite(lat) || !isFinite(lng)) return null;
       const roadKm = Math.round(haversineKm(c[0], c[1], lat, lng) * 1.2);
       const hrs = roadKm / 80 + 0.12;
@@ -266,7 +258,7 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
         /* storage blocked */
       }
       const id = raw.toLowerCase().replace(/[^a-z]/g, '');
-      return BASE_COORDS[id] ? id : 'all';
+      return BASE_META[id] ? id : 'all';
     }
 
     // ── carousel ────────────────────────────────────────────────────
@@ -364,7 +356,7 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
 
     // Filter to the visitor's base and rewrite each card's drive line.
     function applyBase(baseId: string) {
-      const known = BASE_COORDS[baseId] ? baseId : 'all';
+      const known = BASE_META[baseId] ? baseId : 'all';
 
       cards = allCards.filter((card) => {
         const served = (card.dataset.bases || '').split(',').filter(Boolean);
@@ -388,7 +380,7 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
             );
             driveEl.textContent = est || driveEl.dataset.default || driveEl.dataset.fallback || '';
           }
-          if (baseEl) baseEl.textContent = `From ${BASE_LABEL[known]}`;
+          if (baseEl) baseEl.textContent = `From ${BASE_META[known]?.label || 'your base'}`;
         }
       });
 
@@ -405,7 +397,7 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
           section.insertBefore(emptyEl, section.firstChild);
         }
         if (emptyEl) {
-          emptyEl.textContent = `No day trips are listed for ${BASE_LABEL[known] || 'this base'} yet — use “Reset Base” in the header to see all ${allCards.length}.`;
+          emptyEl.textContent = `No day trips are listed for ${BASE_META[known]?.label || 'this base'} yet — use “Reset Base” in the header to see all ${allCards.length}.`;
         }
         return;
       }
