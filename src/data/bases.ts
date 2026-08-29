@@ -7,10 +7,12 @@
 //
 // `lat`/`lng` are the base/kaserne locations, used to compute the
 // "≈ drive from your base" estimate on /day-trips (each day_trip row
-// carries its own latitude/longitude in Supabase). Six fixed points
-// that never move — a code constant, not a DB table. If these ever need
-// to be editable without a deploy, add a `bases` table in Supabase and
-// switch getBaseCoords() to read it at build time.
+// carries its own latitude/longitude in Supabase).
+//
+// The Supabase `public.bases` table (see supabase/migrations/) is the
+// source of truth for the coordinates — lib/supabaseBases.ts reads it at
+// build time. The values here are the FALLBACK (fresh checkout / CI with
+// no Supabase env, or a transient fetch failure). Keep them in sync.
 
 export const BASES = [
   {

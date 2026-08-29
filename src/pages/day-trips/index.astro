@@ -22,12 +22,15 @@
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getAllDayTrips, type DayTripRow } from '../../lib/supabaseDayTrips';
-import { BASES, getBaseName, getBaseCoords } from '../../data/bases';
+import { BASES, getBaseName } from '../../data/bases';
+import { getBaseCoordMap } from '../../lib/supabaseBases';
 
-// Serialised for the client carousel script (it can't import a .astro
-// module). Single source of truth is data/bases.ts.
+// Base coordinates come from the Supabase `bases` table at build time
+// (data/bases.ts is the fallback). Serialised into a JSON <script> tag
+// for the client carousel — it can't import a .astro module.
+const baseCoords = await getBaseCoordMap();
 const BASE_META = Object.fromEntries(
-  BASES.map((b) => [b.id, { coords: [b.lat, b.lng] as [number, number], label: b.name }]),
+  BASES.map((b) => [b.id, { coords: baseCoords[b.id] ?? [b.lat, b.lng], label: b.name }]),
 );
 
 function haversineKm(aLat: number, aLng: number, bLat: number, bLng: number): number {
@@ -42,7 +45,7 @@ function haversineKm(aLat: number, aLng: number, bLat: number, bLng: number): nu
 }
 
 function driveEstimate(baseId: string, lat: number | null, lng: number | null): string | null {
-  const c = getBaseCoords(baseId);
+  const c = baseCoords[baseId];
   if (!c || lat == null || lng == null) return null;
   const roadKm = Math.round(haversineKm(c[0], c[1], lat, lng) * 1.2);
   const hrs = roadKm / 80 + 0.12;
