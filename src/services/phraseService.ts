@@ -44,7 +44,21 @@ export const languages: Language[] = [
   { code: "es", name: "Spanish", flag: "🇪🇸" },
   { code: "nl", name: "Dutch", flag: "🇳🇱" },
   { code: "cs", name: "Czech", flag: "🇨🇿" },
+  { code: "da", name: "Danish", flag: "🇩🇰" },
+  { code: "pl", name: "Polish", flag: "🇵🇱" },
 ];
+
+/** BCP-47 tags for the Web Speech API. */
+export const speechLangMap: Record<string, string> = {
+  de: 'de-DE',
+  fr: 'fr-FR',
+  it: 'it-IT',
+  es: 'es-ES',
+  nl: 'nl-NL',
+  cs: 'cs-CZ',
+  da: 'da-DK',
+  pl: 'pl-PL',
+};
 
 class PhraseService {
   async getCategories(): Promise<Category[]> {
@@ -77,15 +91,25 @@ class PhraseService {
   }
 
   async getAllPhrases(): Promise<{ [categoryId: string]: GroupedPhrase[] }> {
-    const { data, error } = await supabase
-      .from('phrases')
-      .select('*')
-      .order('category_id', { ascending: true })
-      .order('sort_order', { ascending: true });
+    // The phrases table (~2k rows: 8 languages) exceeds PostgREST's
+    // 1000-row cap, so page through it — a single select silently
+    // truncated to the first ~6 categories.
+    const PAGE = 1000;
+    let data: PhraseTranslation[] = [];
+    for (let from = 0; ; from += PAGE) {
+      const { data: page, error } = await supabase
+        .from('phrases')
+        .select('*')
+        .order('category_id', { ascending: true })
+        .order('sort_order', { ascending: true })
+        .range(from, from + PAGE - 1);
 
-    if (error) {
-      console.error('Error fetching all phrases:', error);
-      throw error;
+      if (error) {
+        console.error('Error fetching all phrases:', error);
+        throw error;
+      }
+      data = data.concat(page || []);
+      if (!page || page.length < PAGE) break;
     }
 
     const phrasesByCategory: { [categoryId: string]: GroupedPhrase[] } = {};
