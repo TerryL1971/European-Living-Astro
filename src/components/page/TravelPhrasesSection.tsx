@@ -97,6 +97,24 @@ export default function TravelPhrasesSection() {
 
   const unavailableCount = categories.length - availableCategories.length;
 
+  // How many categories each language covers — drives the "6/14" hint
+  // shown right on the language picker.
+  const coverageByLang = useMemo(() => {
+    const map: Record<string, number> = {};
+    for (const lang of languages) {
+      map[lang.code] = categories.filter((c) =>
+        (allByCat[c.id] || []).some((p) => p.translations[lang.code]),
+      ).length;
+    }
+    return map;
+  }, [categories, allByCat]);
+
+  const langLabel = (code: string, name: string) => {
+    const ready = coverageByLang[code] ?? 0;
+    const total = categories.length;
+    return ready > 0 && ready < total ? `${name} · ${ready}/${total}` : name;
+  };
+
   // If the current category has nothing in the new language, snap to one
   // that does (keeps Danish/Polish from landing on an empty list).
   useEffect(() => {
@@ -278,27 +296,44 @@ export default function TravelPhrasesSection() {
           >
             {languages.map((lang) => (
               <option key={lang.code} value={lang.code}>
-                {lang.flag} {lang.name}
+                {lang.flag} {langLabel(lang.code, lang.name)}
               </option>
             ))}
           </select>
         </div>
-        <div className="hidden sm:flex flex-wrap justify-center gap-2 mb-8 px-2">
-          {languages.map((lang) => (
-            <button
-              key={lang.code}
-              onClick={() => setSelectedLanguage(lang.code)}
-              className="px-5 py-2 rounded-full font-medium transition-all hover:opacity-90 text-base border-2"
-              style={{
-                background: selectedLanguage === lang.code ? 'var(--brand-primary)' : 'var(--brand-bg-card)',
-                color: selectedLanguage === lang.code ? 'white' : 'var(--brand-text)',
-                borderColor: selectedLanguage === lang.code ? 'var(--brand-primary)' : 'var(--brand-border)',
-              }}
-            >
-              <span className="mr-2 text-lg">{lang.flag}</span>
-              {lang.name}
-            </button>
-          ))}
+        <div className="hidden sm:flex flex-wrap justify-center items-center gap-2 mb-8 px-2">
+          {languages.map((lang) => {
+            const ready = coverageByLang[lang.code] ?? 0;
+            const partial = ready > 0 && ready < categories.length;
+            const active = selectedLanguage === lang.code;
+            return (
+              <button
+                key={lang.code}
+                onClick={() => setSelectedLanguage(lang.code)}
+                title={partial ? `${ready} of ${categories.length} categories translated so far` : undefined}
+                className="px-5 py-2 rounded-full font-medium transition-all hover:opacity-90 text-base border-2"
+                style={{
+                  background: active ? 'var(--brand-primary)' : 'var(--brand-bg-card)',
+                  color: active ? 'white' : 'var(--brand-text)',
+                  borderColor: active ? 'var(--brand-primary)' : 'var(--brand-border)',
+                }}
+              >
+                <span className="mr-2 text-lg">{lang.flag}</span>
+                {lang.name}
+                {partial && (
+                  <span
+                    className="ml-2 text-xs font-semibold px-1.5 py-0.5 rounded-full align-middle"
+                    style={{
+                      background: active ? 'rgba(255,255,255,0.25)' : 'var(--brand-bg-alt)',
+                      color: active ? 'white' : 'var(--brand-text-muted)',
+                    }}
+                  >
+                    {ready}/{categories.length}
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </div>
 
         {/* ── Search ──────────────────────────────────────────────── */}
@@ -393,8 +428,8 @@ export default function TravelPhrasesSection() {
         {/* ── Language coverage note ──────────────────────────────── */}
         {unavailableCount > 0 && (
           <p className="max-w-4xl mx-auto px-2 mb-4 text-sm text-[var(--brand-text-muted)] text-center sm:text-left">
-            ℹ️ {selectedLang?.name} is still being translated — {availableCategories.length} of{' '}
-            {categories.length} categories are ready so far.
+            ℹ️ {selectedLang?.name} is still a work in progress — {availableCategories.length} of{' '}
+            {categories.length} categories are translated; the rest are hidden from the list above until they're ready.
           </p>
         )}
 
