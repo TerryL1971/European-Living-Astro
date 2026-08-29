@@ -79,6 +79,17 @@ export const BASES = [
     lat: 49.9727,
     lng: 6.6925,
   },
+  {
+    id: 'baumholder',
+    name: 'USAG Baumholder',
+    icon: '🪖',
+    location: 'Baumholder',
+    region: 'Rhineland-Palatinate',
+    description: 'Home to Smith Barracks and the 16th Sustainment Brigade',
+    // Smith Barracks
+    lat: 49.615,
+    lng: 7.298,
+  },
 ] as const;
 
 export function getBaseName(id: string): string {
