@@ -1,0 +1,169 @@
+---
+// Static, server-rendered homepage teaser for the services directory —
+// replaces the client:visible ServicesCategoriesSection.tsx on the
+// homepage, whose "Loading trusted services and business counts…"
+// spinner was baked into the homepage HTML (audit finding H-1). The
+// full interactive version still runs on /english-services.
+//
+// Counts are computed once at build time. The category links drop the
+// old ?base= query param — /services/[category] reads the visitor's
+// base from localStorage on its own.
+
+import { supabase } from '../../services/supabaseClient';
+
+const CATEGORIES = [
+  { id: 'automotive', title: 'Automotive', icon: '🚗' },
+  { id: 'healthcare', title: 'Healthcare', icon: '🩺' },
+  { id: 'restaurants', title: 'Restaurants & Dining', icon: '🍽️' },
+  { id: 'shopping', title: 'Shopping & Personal Care', icon: '🛍️' },
+  { id: 'home-services', title: 'Home Services', icon: '🔧' },
+  { id: 'real-estate', title: 'Real Estate', icon: '🏠' },
+  { id: 'legal-business', title: 'Legal Services', icon: '⚖️' },
+  { id: 'education', title: 'Education', icon: '🎓' },
+  { id: 'hbb', title: 'Tax & Business', icon: '💼' },
+];
+
+const counts: Record<string, number> = {};
+if (supabase) {
+  const { data } = await supabase.from('businesses').select('category').eq('status', 'active');
+  for (const row of data ?? []) {
+    if (row.category) counts[row.category] = (counts[row.category] ?? 0) + 1;
+  }
+}
+const total = Object.values(counts).reduce((a, b) => a + b, 0);
+const live = CATEGORIES.filter((c) => (counts[c.id] ?? 0) > 0);
+---
+
+<section id="english-services" class="svc">
+  <div class="svc__bg" aria-hidden="true"></div>
+  <div class="svc__inner">
+    <div class="svc__head">
+      <h2>English-Speaking Services Near Your Base</h2>
+      <p>
+        {total} personally checked, English-friendly businesses that understand U.S. military and expat
+        families — car dealers, doctors, lawyers, tax advisors, and more.
+      </p>
+    </div>
+
+    <div class="svc__grid">
+      {
+        live.map((c) => (
+          <a href={`/services/${c.id}`} class="svc-card">
+            <span class="svc-card__icon" aria-hidden="true">{c.icon}</span>
+            <span class="svc-card__title">{c.title}</span>
+            <span class="svc-card__count">
+              {counts[c.id]} {counts[c.id] === 1 ? 'business' : 'businesses'}
+            </span>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="svc__actions">
+      <a href="/services-directory" class="svc__btn svc__btn--primary">Browse the full directory</a>
+      <a href="/submit-business" class="svc__btn svc__btn--ghost">List your business</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .svc {
+    position: relative;
+    padding: 4.5rem 0;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .svc__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(105deg, rgba(12, 74, 110, 0.92) 0%, rgba(12, 74, 110, 0.7) 55%, rgba(12, 74, 110, 0.5) 100%),
+      url('https://pkacbcohrygpyapgtzpq.supabase.co/storage/v1/object/public/images/services.jpg') center / cover no-repeat;
+  }
+  .svc__inner {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .svc__head {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 2.5rem;
+  }
+  .svc__head h2 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 700;
+    margin: 0 0 0.85rem;
+    text-wrap: balance;
+  }
+  .svc__head p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 40rem;
+    margin: 0 auto;
+  }
+  .svc__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    gap: 0.9rem;
+    margin-bottom: 2.25rem;
+  }
+  .svc-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 1rem 1.1rem;
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 0.75rem;
+    text-decoration: none;
+    color: var(--brand-text);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .svc-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px -12px rgba(0, 0, 0, 0.4);
+  }
+  .svc-card__icon {
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+  .svc-card__title {
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .svc-card__count {
+    font-size: 0.8rem;
+    color: var(--brand-text-muted);
+  }
+  .svc__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+  .svc__btn {
+    display: inline-block;
+    padding: 0.8rem 1.6rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .svc__btn--primary {
+    background: var(--brand-gold);
+    color: var(--brand-dark);
+  }
+  .svc__btn--primary:hover {
+    background: var(--brand-secondary-light, var(--brand-gold));
+  }
+  .svc__btn--ghost {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+  .svc__btn--ghost:hover {
+    background: rgba(255, 255, 255, 0.22);
+  }
+</style>

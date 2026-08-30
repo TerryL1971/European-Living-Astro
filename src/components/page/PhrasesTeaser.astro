@@ -1,0 +1,156 @@
+---
+// Static homepage teaser for the phrasebook — replaces the full
+// client:load TravelPhrasesSection that used to render here with its
+// "Loading phrases…" spinner (audit finding H-1). The full interactive
+// phrasebook (8 languages, search, favourites, audio) still lives at
+// /travel-phrases.
+//
+// Pulls a few greetings at build time so the section shows real content
+// with zero client JS.
+
+import { phraseService } from '../../services/phraseService';
+
+const LANGS = [
+  { code: 'de', label: 'German' },
+  { code: 'fr', label: 'French' },
+  { code: 'it', label: 'Italian' },
+  { code: 'es', label: 'Spanish' },
+];
+
+let samples: { english: string; rows: { label: string; text: string }[] }[] = [];
+try {
+  const greetings = await phraseService.getPhrasesByCategory('greetings');
+  const pick = ['Hello', 'Thank you', 'Excuse me', 'Do you speak English?'];
+  samples = greetings
+    .filter((p) => pick.includes(p.english))
+    .sort((a, b) => pick.indexOf(a.english) - pick.indexOf(b.english))
+    .map((p) => ({
+      english: p.english,
+      rows: LANGS.map((l) => ({ label: l.label, text: p.translations[l.code]?.text ?? '—' })).filter(
+        (r) => r.text !== '—',
+      ),
+    }));
+} catch {
+  samples = [];
+}
+---
+
+{
+  samples.length > 0 && (
+    <section class="ph">
+      <div class="ph__inner">
+        <div class="ph__head">
+          <h2>Say it in the local language</h2>
+          <p>
+            A pocket phrasebook for every country within a weekend of your base — 8 languages, with
+            pronunciation and audio. Here's a taste.
+          </p>
+        </div>
+
+        <div class="ph__grid">
+          {samples.map((s) => (
+            <div class="ph-card">
+              <p class="ph-card__en">{s.english}</p>
+              <ul class="ph-card__list">
+                {s.rows.map((r) => (
+                  <li>
+                    <span class="ph-card__lang">{r.label}</span>
+                    <span class="ph-card__text">{r.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div class="ph__cta">
+          <a href="/travel-phrases">Open the full phrasebook <span aria-hidden="true">›</span></a>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .ph {
+    background: var(--brand-bg-alt);
+    padding: 4rem 0;
+  }
+  .ph__inner {
+    max-width: 62rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .ph__head {
+    text-align: center;
+    margin-bottom: 2.25rem;
+  }
+  .ph__head h2 {
+    font-size: clamp(1.7rem, 4vw, 2.15rem);
+    font-weight: 700;
+    color: var(--brand-dark);
+    margin: 0 0 0.75rem;
+    text-wrap: balance;
+  }
+  .ph__head p {
+    color: var(--brand-text-muted);
+    max-width: 38rem;
+    margin: 0 auto;
+    font-size: 1.02rem;
+    line-height: 1.6;
+  }
+  .ph__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .ph-card {
+    background: var(--brand-bg-card);
+    border: 1px solid var(--brand-border);
+    border-radius: 0.85rem;
+    padding: 1.1rem 1.2rem;
+  }
+  .ph-card__en {
+    font-weight: 700;
+    color: var(--brand-dark);
+    margin: 0 0 0.6rem;
+    padding-bottom: 0.55rem;
+    border-bottom: 2px solid var(--brand-primary);
+  }
+  .ph-card__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .ph-card__list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+  }
+  .ph-card__lang {
+    color: var(--brand-text-muted);
+    flex-shrink: 0;
+  }
+  .ph-card__text {
+    font-weight: 600;
+    color: var(--brand-primary);
+    text-align: right;
+  }
+  .ph__cta {
+    text-align: center;
+  }
+  .ph__cta a {
+    font-weight: 600;
+    color: var(--brand-primary);
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  .ph__cta a:hover {
+    text-decoration: underline;
+  }
+</style>

@@ -2,12 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroSection from '../components/page/HeroSection.astro';
 import TravelTipsSection from '../components/page/TravelTipsSection.astro';
-import ServicesCategoriesSection from '../components/page/ServicesCategoriesSection.tsx';
+import ServicesTeaser from '../components/page/ServicesTeaser.astro';
 import ContactSection from '../components/page/ContactSection.tsx';
-import TravelPhrasesSection from '../components/page/TravelPhrasesSection.tsx';
+import PhrasesTeaser from '../components/page/PhrasesTeaser.astro';
 import FamilyAdventuresSection from '../components/page/FamilyAdventuresSection.astro';
-import FeaturedContentSection from '../components/page/FeaturedContentSection.tsx';
-import EmailSignup from '../components/EmailSignup.tsx';
+import FeaturedContent from '../components/page/FeaturedContent.astro';
 import { getAllDestinationArticles } from '../lib/supabaseArticles';
 
 const destinationArticles = await getAllDestinationArticles();
@@ -90,19 +89,15 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
     <a href="/submit-destination">Request a Destination</a>
   </div>
 
-  <FeaturedContentSection client:visible />
-
-  <div class="email-signup-wrap">
-    <EmailSignup variant="homepage" client:visible />
-  </div>
+  <FeaturedContent />
 
   <FamilyAdventuresSection />
 
   <TravelTipsSection />
 
-  <TravelPhrasesSection client:visible />
+  <PhrasesTeaser />
 
-  <ServicesCategoriesSection client:visible />
+  <ServicesTeaser />
 
   <ContactSection client:visible />
 
@@ -484,10 +479,5 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
   }
   .placeholder-section p {
     color: var(--brand-text-muted, #475569);
-  }
-  .email-signup-wrap {
-    max-width: 56rem;
-    margin: 3rem auto;
-    padding: 0 1.5rem;
   }
 </style>
