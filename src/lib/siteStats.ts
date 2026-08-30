@@ -54,6 +54,10 @@ export interface SiteStats {
  */
 function roundDownWithPlus(count: number): string {
   if (count <= 0) return '0';
+  // Under 50, state the exact number — a precise small count ("25
+  // Businesses") reads as more credible than an understated milestone
+  // ("20+"), and matches how day trips / destinations are shown.
+  if (count < 50) return String(count);
   let step: number;
   if (count < 100) step = 10;
   else if (count < 1000) step = 50;

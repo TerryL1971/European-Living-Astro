@@ -53,8 +53,8 @@ const stats = await getSiteStats();
       height="512"
     />
   </picture>
-  <div class="hero-section__overlay-gradient" aria-hidden="true"></div>
-  <div class="hero-section__overlay-vignette" aria-hidden="true"></div>
+  <div class="hero-section__scrim" aria-hidden="true"></div>
+  <div class="hero-section__grain" aria-hidden="true"></div>
 
   <div class="hero-section__content">
     <h1 class="hero-section__title">
@@ -80,7 +80,7 @@ const stats = await getSiteStats();
         <span>{stats.businessesLabel}</span>
       </div>
       <div class="hero-section__stat">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hero-section__stat-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hero-section__stat-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg>
         <span>{stats.phrasesLabel}</span>
       </div>
     </div>
@@ -90,9 +90,15 @@ const stats = await getSiteStats();
     </p>
 
     <div class="hero-section__ctas">
-      <a href="#destinations" class="hero-section__cta hero-section__cta--primary">🗺️ Explore Destinations</a>
+      <a href="#destinations" class="hero-section__cta hero-section__cta--primary">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hero-section__cta-icon"><path d="M9 18l-6 3V6l6-3 6 3 6-3v10.5"/><path d="M9 3v15M15 6v6"/><circle cx="18" cy="18" r="3"/><path d="M18 15v-1M22 22l-1.9-1.9"/></svg>
+        Explore Destinations
+      </a>
 
-      <a href="/pcs-guide" class="hero-section__cta hero-section__cta--gold">✈️ PCS to Germany Guide</a>
+      <a href="/pcs-guide" class="hero-section__cta hero-section__cta--gold">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hero-section__cta-icon"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+        PCS to Germany Guide
+      </a>
     </div>
 
     <p class="hero-section__community">
@@ -150,17 +156,33 @@ const stats = await getSiteStats();
     object-fit: cover;
     object-position: center 55%;
   }
-  .hero-section__overlay-gradient {
+  /*
+    Two-part treatment over the hero photo. The scrim is an even wash plus
+    a soft radial pool centred on the headline so text holds contrast over
+    the bright side of the image without the picture going murky. The grain
+    is a fine film-noise layer (SVG fractal noise, blended) — it breaks up
+    the over-smooth rendering of the background art so it reads as a
+    photograph rather than a render. Both are decorative and non-blocking.
+  */
+  .hero-section__scrim {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: linear-gradient(100deg, rgba(6, 30, 46, 0.66) 0%, rgba(6, 30, 46, 0.42) 55%, rgba(6, 30, 46, 0.24) 100%);
+    background:
+      radial-gradient(ellipse 92% 78% at 50% 44%, rgba(3, 20, 32, 0.62) 0%, rgba(3, 20, 32, 0.32) 62%, rgba(3, 20, 32, 0.18) 100%),
+      linear-gradient(180deg, rgba(3, 20, 32, 0.34) 0%, rgba(3, 20, 32, 0.2) 42%, rgba(3, 20, 32, 0.58) 100%);
   }
-  .hero-section__overlay-vignette {
+  .hero-section__grain {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: linear-gradient(180deg, rgba(6, 30, 46, 0) 45%, rgba(6, 30, 46, 0.3) 100%);
+    opacity: 0.45;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-section__grain { opacity: 0.3; }
   }
   .hero-section__content {
     position: relative;
@@ -171,32 +193,35 @@ const stats = await getSiteStats();
     max-width: 64rem;
   }
   .hero-section__title {
-    font-size: 2.5rem;
-    font-weight: 800;
+    font-size: 2.35rem;
+    font-weight: 700;
     line-height: 1.1;
+    letter-spacing: -0.02em;
     margin-bottom: 1.5rem;
-    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
+    text-shadow: 0 2px 18px rgba(3, 20, 32, 0.5);
   }
   .hero-section__title-accent {
-    color: var(--brand-gold, #f5c04a);
+    color: var(--brand-secondary-light, #fbbf24);
+    font-style: italic;
   }
   @media (min-width: 768px) {
     .hero-section__title {
-      font-size: 3.75rem;
+      font-size: 3.5rem;
     }
   }
   @media (min-width: 1024px) {
     .hero-section__title {
-      font-size: 4.5rem;
+      font-size: 4rem;
     }
   }
   .hero-section__subtitle {
-    max-width: 48rem;
+    max-width: 44rem;
     margin: 0 auto 2rem;
     font-size: 1.125rem;
-    font-weight: 500;
+    font-weight: 400;
     line-height: 1.6;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 1px 3px rgba(0, 0, 0, 0.6);
+    color: rgba(255, 255, 255, 0.92);
+    text-shadow: 0 1px 10px rgba(3, 20, 32, 0.55);
   }
   @media (min-width: 768px) {
     .hero-section__subtitle {
@@ -211,7 +236,7 @@ const stats = await getSiteStats();
     gap: 1.5rem;
     margin-bottom: 2.5rem;
     font-size: 0.9375rem;
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+    text-shadow: 0 1px 8px rgba(3, 20, 32, 0.55);
   }
   .hero-section__stat {
     display: flex;
@@ -227,11 +252,12 @@ const stats = await getSiteStats();
   }
   .hero-section__trust {
     max-width: 42rem;
-    margin: 0 auto 2.5rem;
-    font-size: 1rem;
+    margin: 0 auto 2.25rem;
+    font-size: 0.9375rem;
+    letter-spacing: 0.01em;
     line-height: 1.6;
-    opacity: 0.9;
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+    color: rgba(255, 255, 255, 0.82);
+    text-shadow: 0 1px 8px rgba(3, 20, 32, 0.55);
   }
   .hero-section__ctas {
     display: flex;
@@ -292,6 +318,11 @@ const stats = await getSiteStats();
   .hero-section__fb-icon {
     width: 1.25rem;
     height: 1.25rem;
+  }
+  .hero-section__cta-icon {
+    width: 1.15rem;
+    height: 1.15rem;
+    flex-shrink: 0;
   }
   .hero-section__community {
     margin: 1.25rem auto 0;

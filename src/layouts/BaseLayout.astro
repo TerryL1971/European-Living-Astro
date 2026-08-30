@@ -54,14 +54,14 @@ const schemas = [organizationSchema(), websiteSchema(), ...pageSchemas];
     -->
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap"
       media="print"
       onload="this.media='all'"
     />
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap"
       />
     </noscript>
     <SeoHead
@@ -162,29 +162,13 @@ const schemas = [organizationSchema(), websiteSchema(), ...pageSchemas];
   .skip-link:focus {
     left: 0;
   }
-  .site-footer {
-    border-top: 1px solid var(--color-border);
-    margin-top: 4rem;
-    padding: 2rem 1.5rem;
-    background: var(--color-surface-subtle);
-  }
-  .site-footer__inner {
-    max-width: 72rem;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: space-between;
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-  }
-  .site-footer__inner nav {
-    display: flex;
-    gap: 1.25rem;
-  }
-  .site-footer__inner a {
-    color: inherit;
-  }
+
+  /*
+    NOTE: the footer's own styles live in Footer.astro (scoped). Earlier
+    there were stale `.site-footer*` rules here from before that port —
+    they were overriding the scoped footer's text colour to a dark slate
+    on the dark footer background (~2.5:1, failing contrast). Removed.
+  */
 
   /*
     Print support — hides everything except #main-content when printing.

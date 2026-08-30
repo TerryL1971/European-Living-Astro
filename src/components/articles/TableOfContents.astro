@@ -14,6 +14,16 @@ interface Props {
   headings: Heading[];
 }
 const { headings } = Astro.props as Props;
+
+// Article headings in the CMS sometimes carry a decorative leading emoji
+// or a trailing run of ⭐ "rating" glyphs. A table of contents is a
+// navigation aid — strip that noise so it reads cleanly.
+function tidy(text: string): string {
+  return text
+    .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{2190}-\u{21FF}\u{FE0F}\u{200D}]/gu, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
 ---
 
 <!-- Desktop: sticky sidebar -->
@@ -22,7 +32,7 @@ const { headings } = Astro.props as Props;
   <ul class="toc__list">
     {headings.map((h) => (
       <li class={`toc__item toc__item--level-${h.level}`}>
-        <a href={`#${h.slug}`}>{h.text}</a>
+        <a href={`#${h.slug}`}>{tidy(h.text)}</a>
       </li>
     ))}
   </ul>
@@ -31,13 +41,13 @@ const { headings } = Astro.props as Props;
 <!-- Mobile: collapsible dropdown -->
 <details class="toc toc--mobile">
   <summary class="toc__mobile-summary">
-    <span>📋 Table of Contents</span>
+    <span>Table of Contents</span>
     <span class="toc__chevron" aria-hidden="true">↓</span>
   </summary>
   <ul class="toc__list">
     {headings.map((h) => (
       <li class={`toc__item toc__item--level-${h.level}`}>
-        <a href={`#${h.slug}`}>{h.text}</a>
+        <a href={`#${h.slug}`}>{tidy(h.text)}</a>
       </li>
     ))}
   </ul>

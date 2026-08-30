@@ -48,11 +48,31 @@ body, #root {
 }
 
 body {
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  font-family: var(--font-sans);
   background: #F8FAFC;
   color: #1F2937;
   -webkit-font-smoothing: antialiased;
 }
+
+/*
+  Type system. --font-sans carries body + UI (Inter, unchanged). --font-display
+  is an editorial serif (Source Serif 4) used for headlines only — it's what
+  makes the site read as a publication rather than a default template. Applied
+  globally to h1/h2 so every section heading picks it up without touching each
+  scoped component.
+*/
+:root {
+  --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+}
+
+h1, h2,
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.011em;
+}
+h1 { text-wrap: balance; }
+h2 { text-wrap: balance; }
 
 /* === Brand Colors === */
 :root {
@@ -170,10 +190,6 @@ body {
   margin-top: 2rem;
   margin-bottom: 1rem;
   color: var(--brand-ocean);
-  background: linear-gradient(135deg, var(--brand-ocean), var(--brand-blue));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .prose h2 {
@@ -182,8 +198,8 @@ body {
   margin-top: 1.75rem;
   margin-bottom: 1rem;
   color: var(--brand-ocean);
-  border-bottom: 2px solid var(--brand-gold);
   padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--brand-border);
 }
 
 .prose h3 {
@@ -191,7 +207,7 @@ body {
   font-weight: 600;
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
-  color: var(--brand-blue);
+  color: var(--brand-ocean);
 }
 
 .prose h4 {
@@ -199,7 +215,7 @@ body {
   font-weight: 600;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
-  color: var(--brand-blue);
+  color: var(--brand-ocean);
 }
 
 .prose p {
@@ -237,14 +253,15 @@ body {
 }
 
 .prose blockquote {
-  border-left: 4px solid var(--brand-gold);
-  background: var(--brand-sunset);
-  padding: 1rem 1rem 1rem 1.5rem;
+  border-left: 3px solid var(--brand-primary);
+  background: var(--brand-bg-alt);
+  padding: 1rem 1.25rem 1rem 1.5rem;
   border-radius: 0.5rem;
-  color: var(--brand-bronze);
-  font-style: italic;
+  color: var(--brand-text);
   margin: 1.5rem 0;
 }
+.prose blockquote p:first-child { margin-top: 0; }
+.prose blockquote p:last-child { margin-bottom: 0; }
 
 .prose img {
   max-width: 100%;

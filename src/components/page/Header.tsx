@@ -64,44 +64,42 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <a href="/" onClick={handleLogoClick} className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+            <a href="/" onClick={handleLogoClick} className="flex items-center gap-2.5 hover:opacity-80 transition-opacity shrink-0">
               <img src="/EL_Logo.png" alt="European Living" className="h-10 w-10 object-contain" />
               <div className="flex flex-col">
-                <span className="font-bold text-lg text-[var(--brand-primary-dark)] leading-tight">
+                <span
+                  className="font-bold text-lg text-[var(--brand-primary-dark)] leading-tight whitespace-nowrap"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
                   European Living
                 </span>
-                <span className="text-xs text-[var(--brand-text-muted)]">Your Guide to Europe</span>
+                <span className="text-xs text-[var(--brand-text-muted)] whitespace-nowrap">Your Guide to Europe</span>
               </div>
             </a>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1">
-              
-              <a
-                href="/"
-                onClick={handleLogoClick}
-                className="px-4 py-2 text-sm font-medium text-[var(--brand-text)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-bg-alt)] rounded-lg"
-              >
-                Home
-              </a>
+            {/* Desktop Navigation. Shows from xl (1280px+); below that the
+                nav has too many top-level items to fit on one line beside
+                the wordmark + Contact + Change base, so 1024–1279 uses the
+                mobile menu. "Home" is omitted here — the logo does that. */}
+            <nav className="hidden xl:flex items-center gap-0.5">
 
               {NAV_LINKS.slice(0, 1).map((section) => (
                 <a
                   key={section.path}
                   href={section.path}
-                  className="px-4 py-2 text-sm font-medium text-[var(--brand-text)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-bg-alt)] rounded-lg"
+                  className="px-2.5 py-2 text-sm font-medium text-[var(--brand-text)] hover:text-[var(--brand-primary)] hover:bg-[var(--brand-bg-alt)] rounded-lg whitespace-nowrap"
                 >
                   {section.label}
                 </a>
               ))}
 
-              <a href="/day-trips" className="px-4 py-2 text-sm rounded-lg hover:bg-[var(--brand-bg-alt)]">
+              <a href="/day-trips" className="px-2.5 py-2 text-sm rounded-lg hover:bg-[var(--brand-bg-alt)] whitespace-nowrap">
                 Day Trips
               </a>
 
               <a
                 href="/pcs-guide"
-                className="px-4 py-2 text-sm font-semibold rounded-lg flex items-center gap-1.5 text-[#1B3A5C] hover:bg-[#1B3A5C]/10 transition-colors"
+                className="px-2.5 py-2 text-sm font-semibold rounded-lg flex items-center gap-1.5 text-[#1B3A5C] hover:bg-[#1B3A5C]/10 transition-colors whitespace-nowrap"
               >
                 <span className="text-[#9da586] text-xs">✈</span>
                 PCS Guide
@@ -111,19 +109,19 @@ export default function Header() {
                 <a
                   key={section.path}
                   href={section.path}
-                  className="px-4 py-2 text-sm rounded-lg hover:bg-[var(--brand-bg-alt)]"
+                  className="px-2.5 py-2 text-sm rounded-lg hover:bg-[var(--brand-bg-alt)] whitespace-nowrap"
                 >
                   {section.label}
                 </a>
               ))}
 
-              <a href="/about" className="px-4 py-2 text-sm rounded-lg hover:bg-[var(--brand-bg-alt)]">
+              <a href="/about" className="px-2.5 py-2 text-sm rounded-lg hover:bg-[var(--brand-bg-alt)] whitespace-nowrap">
                 About
               </a>
             </nav>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:flex items-center gap-3">
+            <div className="hidden xl:flex items-center gap-2 shrink-0">
 
               {/* Plain link to the dedicated /contact page — same
                   destination as the footer's Contact Us link. This used
@@ -132,22 +130,22 @@ export default function Header() {
                   buttons landed on two different URLs/pages. */}
               <a
                 href="/contact"
-                className="px-6 py-2.5 bg-[var(--brand-primary)] text-white text-sm font-semibold rounded-full hover:scale-105 transition whitespace-nowrap"
+                className="px-5 py-2.5 bg-[var(--brand-primary)] text-white text-sm font-semibold rounded-full hover:bg-[var(--brand-primary-dark)] transition whitespace-nowrap"
               >
                 Contact Us
               </a>
               <button
                 onClick={resetBaseSelection}
-                className="text-sm text-[var(--brand-text-muted)] hover:text-[var(--brand-text)] hover:underline whitespace-nowrap transition-colors"
+                className="px-3 py-2 text-xs font-medium text-[var(--brand-text-muted)] border border-[var(--brand-border)] rounded-full hover:text-[var(--brand-text)] hover:border-[var(--brand-text-muted)] whitespace-nowrap transition-colors"
               >
                 Change base
               </button>
             </div>
 
-            {/* Mobile Toggle */}
+            {/* Mobile / tablet toggle — up to xl */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-[var(--brand-bg-alt)] transition"
+              className="xl:hidden p-2 rounded-lg hover:bg-[var(--brand-bg-alt)] transition"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -158,7 +156,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 lg:hidden">
+        <div className="fixed inset-0 z-40 xl:hidden">
           <div
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             onClick={handleBackdropClick}

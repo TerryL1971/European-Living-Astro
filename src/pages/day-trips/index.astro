@@ -463,6 +463,7 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
   }
   .day-trips-page__carousel {
     position: relative;
+    padding-inline: 3.25rem;
   }
   .day-trips-page__viewport {
     overflow: hidden;
@@ -631,10 +632,10 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
     cursor: default;
   }
   .day-trips-page__arrow--prev {
-    left: -1.5rem;
+    left: 0;
   }
   .day-trips-page__arrow--next {
-    right: -1.5rem;
+    right: 0;
   }
   .day-trips-page__dots {
     display: flex;
@@ -705,6 +706,9 @@ const sortedTrips = [...dayTrips].sort((a, b) => {
     }
     .day-trips-page__arrow--next {
       right: 0.25rem;
+    }
+    .day-trips-page__carousel {
+      padding-inline: 0;
     }
   }
 </style>

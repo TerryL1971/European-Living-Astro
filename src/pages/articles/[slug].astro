@@ -62,7 +62,15 @@ const schema = articleSchema({
 // and the dek shows once.
 const contentHtml = renderArticleContent(article.content)
   .replace(/^\s*<h1\b[^>]*>[\s\S]*?<\/h1>\s*/i, '')
-  .replace(/^\s*<p>\s*<em>[\s\S]*?<\/em>\s*<\/p>\s*/i, '');
+  .replace(/^\s*<p>\s*<em>[\s\S]*?<\/em>\s*<\/p>\s*/i, '')
+  // Some CMS headings carry a decorative leading emoji or a trailing run
+  // of ⭐ "rating" glyphs — strip those from headings only (body text
+  // that genuinely uses them is left alone).
+  .replace(
+    /(<(?:h[2-4]|li|p)\b[^>]*>)\s*(?:[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}]️?\s*)+/gu,
+    '$1',
+  )
+  .replace(/\s*(?:[⭐★☆\u{1F31F}️]\s*)+(<\/h[2-4]>)/gu, '$1');
 const headings = extractHeadings(article.content);
 const showToc = headings.length >= 3;
 
@@ -100,13 +108,17 @@ const shouldAutoPrint = Astro.url.searchParams.get('print') === 'true';
       <Byline updated={article.updated_at} />
 
       <button type="button" class="article__print-btn" data-print-trigger>
-        🖨 Print / Save as PDF
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6M6 14h12v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1z"/></svg>
+        Print / Save as PDF
       </button>
     </div>
 
     <div class="article-layout">
       <div class="article-main">
-        {article.excerpt && <AnswerBox answer={article.excerpt} lastUpdated={lastUpdatedHuman} />}
+        {/* AnswerBox carries no visible date — the Byline already shows
+            "Last reviewed", and JSON-LD dateModified is the machine
+            signal. Two stacked date lines read as an oversight. */}
+        {article.excerpt && <AnswerBox answer={article.excerpt} />}
         <div class="prose article__body" set:html={contentHtml} />
       </div>
 
@@ -192,6 +204,10 @@ const shouldAutoPrint = Astro.url.searchParams.get('print') === 'true';
   }
   .article__print-btn:hover {
     background: var(--brand-primary-dark, #0c4a6e);
+  }
+  .article__print-btn svg {
+    width: 1rem;
+    height: 1rem;
   }
 
   /* Layout: single column (ToC dropdown above content) on mobile,

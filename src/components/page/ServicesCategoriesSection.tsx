@@ -110,21 +110,23 @@ export default function ServicesCategoriesSection() {
     );
   }
 
+  const liveCategories = serviceCategories.filter((c) => (categoryCounts[c.id] || 0) > 0);
+  const totalCount = Object.values(categoryCounts).reduce((a, b) => a + b, 0);
+
   return (
     <section id="english-services" className="relative bg-[var(--brand-bg-card)] py-20">
       <div className="absolute inset-0 bg-[url('https://pkacbcohrygpyapgtzpq.supabase.co/storage/v1/object/public/images/services.jpg')] bg-cover bg-center" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(105deg, rgba(12,74,110,0.94) 0%, rgba(12,74,110,0.82) 55%, rgba(12,74,110,0.7) 100%)' }} />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Trusted English-Speaking Services Helping Americans Feel at Home in Europe
+          <p className="uppercase tracking-[0.14em] text-xs font-bold text-white/80 mb-3">The directory</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 max-w-3xl mx-auto">
+            English-Speaking Services Near Your Base
           </h2>
-          <p className="text-lg text-white/90 font-medium max-w-3xl mx-auto">
-            Find personally verified, English-speaking businesses across Europe that understand U.S. military,
-            civilian, and contractors, and their families — offering trusted local support and peace of mind
-            wherever you're stationed.
+          <p className="text-lg text-white/90 max-w-2xl mx-auto">
+            {totalCount > 0 ? `${totalCount} ` : ''}personally checked, English-friendly businesses that
+            understand U.S. military and expat families — car dealers, doctors, lawyers, tax advisors, and more.
           </p>
 
           <div className="mt-6">
@@ -132,48 +134,40 @@ export default function ServicesCategoriesSection() {
               href="/services-directory"
               className="inline-flex items-center gap-1.5 text-white font-semibold underline underline-offset-4 hover:text-[var(--brand-secondary)] transition-colors"
             >
-              View Full Services Directory
+              Browse the full directory
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {serviceCategories.map((category) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          {liveCategories.map((category) => {
             const Icon = category.icon;
             const count = categoryCounts[category.id] || 0;
 
             return (
               <a
                 key={category.id}
-                href={count > 0 ? `/services/${category.id}?base=${selectedBase}` : '#'}
-                className={`bg-[var(--brand-bg-card)] rounded-xl p-6 border border-[var(--brand-border)] transition-all block ${
-                  count > 0 ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-60 cursor-not-allowed pointer-events-none'
-                }`}
+                href={`/services/${category.id}`}
+                className="bg-[var(--brand-bg-card)] rounded-xl p-6 border border-[var(--brand-border)] transition-all block hover:shadow-xl hover:-translate-y-1 cursor-pointer"
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <div className={`p-3 rounded-lg ${count > 0 ? 'bg-[var(--brand-primary)]' : 'bg-[var(--brand-gray)]/50'}`}>
-                    <Icon className="w-6 h-6 text-white" />
+                  <div className="p-3 rounded-lg bg-[var(--brand-primary)]/10">
+                    <Icon className="w-6 h-6 text-[var(--brand-primary)]" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-[var(--brand-text)]">{category.title}</h3>
+                    <h3 className="text-lg font-bold text-[var(--brand-text)]">{category.title}</h3>
                     <p className="text-sm text-[var(--brand-text-muted)]">
                       {count} {count === 1 ? 'business' : 'businesses'}
                     </p>
                   </div>
                 </div>
 
-                <p className="text-[var(--brand-text-muted)] mb-4">{category.description}</p>
+                <p className="text-[var(--brand-text-muted)] mb-4 text-sm">{category.description}</p>
 
-                {count > 0 ? (
-                  <div className="w-full bg-[var(--brand-primary)] text-white py-2 px-4 rounded-lg hover:bg-[var(--brand-primary-light)] transition font-medium text-center">
-                    View {count} {count === 1 ? 'Business' : 'Businesses'}
-                  </div>
-                ) : (
-                  <div className="w-full bg-[var(--brand-bg-alt)] text-[var(--brand-text-muted)] py-2 px-4 rounded-lg font-medium text-center border border-[var(--brand-border)]">
-                    Coming Soon
-                  </div>
-                )}
+                <div className="w-full bg-[var(--brand-primary)] text-white py-2 px-4 rounded-lg hover:bg-[var(--brand-primary-dark)] transition font-medium text-center">
+                  View {count} {count === 1 ? 'Business' : 'Businesses'}
+                </div>
               </a>
             );
           })}

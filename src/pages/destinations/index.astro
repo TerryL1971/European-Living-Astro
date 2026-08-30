@@ -278,6 +278,7 @@ const sortedDestinations = [...destinations].sort((a, b) => {
   }
   .destinations-page__carousel {
     position: relative;
+    padding-inline: 3.25rem;
   }
   .destinations-page__viewport {
     overflow: hidden;
@@ -365,10 +366,10 @@ const sortedDestinations = [...destinations].sort((a, b) => {
     cursor: default;
   }
   .destinations-page__arrow--prev {
-    left: -1.5rem;
+    left: 0;
   }
   .destinations-page__arrow--next {
-    right: -1.5rem;
+    right: 0;
   }
   .destinations-page__dots {
     display: flex;
@@ -461,6 +462,9 @@ const sortedDestinations = [...destinations].sort((a, b) => {
     }
     .destinations-page__arrow--next {
       right: 0.25rem;
+    }
+    .destinations-page__carousel {
+      padding-inline: 0;
     }
   }
 </style>

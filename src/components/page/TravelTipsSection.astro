@@ -263,6 +263,7 @@ const travelTips = allArticles
   }
   .travel-tips__carousel {
     position: relative;
+    padding-inline: 3.25rem;
   }
   .travel-tips__viewport {
     overflow: hidden;
@@ -302,7 +303,9 @@ const travelTips = allArticles
     transform: translateY(-2px);
   }
   .travel-tip-card__image-wrap {
-    height: 14rem;
+    height: 12rem;
+    flex-shrink: 0;
+    overflow: hidden;
   }
   .travel-tip-card__image {
     width: 100%;
@@ -372,10 +375,10 @@ const travelTips = allArticles
     cursor: default;
   }
   .travel-tips__arrow--prev {
-    left: -1.5rem;
+    left: 0;
   }
   .travel-tips__arrow--next {
-    right: -1.5rem;
+    right: 0;
   }
   .travel-tips__dots {
     display: flex;
@@ -447,6 +450,9 @@ const travelTips = allArticles
   }
 
   @media (max-width: 639px) {
+    .travel-tips__carousel {
+      padding-inline: 0;
+    }
     .travel-tips__track .travel-tip-card {
       flex-basis: 100%;
     }

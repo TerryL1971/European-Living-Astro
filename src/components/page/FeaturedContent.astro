@@ -37,8 +37,9 @@ function fmtDate(d: string | null): string | null {
     <section class="featured">
       <div class="featured__inner">
         <div class="featured__head">
-          <h2>✨ Featured This Week</h2>
-          <p>Timely recommendations and content worth your attention right now.</p>
+          <p class="featured__eyebrow">Featured this week</p>
+          <h2>Worth your attention right now</h2>
+          <p class="featured__lede">Timely recommendations, events, and reads — refreshed as the season changes.</p>
         </div>
 
         <div class:list={['featured__grid', gridClass]}>
@@ -107,17 +108,26 @@ function fmtDate(d: string | null): string | null {
     text-align: center;
     margin-bottom: 2.5rem;
   }
+  .featured__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--brand-primary);
+    margin: 0 0 0.75rem;
+  }
   .featured__head h2 {
-    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
     font-weight: 700;
     color: var(--brand-dark);
     margin: 0 0 0.75rem;
   }
-  .featured__head p {
+  .featured__lede {
     font-size: 1.05rem;
     color: var(--brand-text-muted);
     max-width: 34rem;
     margin: 0 auto;
+    line-height: 1.6;
   }
   .featured__grid {
     display: grid;

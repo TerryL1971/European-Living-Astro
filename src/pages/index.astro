@@ -291,6 +291,9 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
   }
   .destinations__carousel {
     position: relative;
+    /* Room for the prev/next arrows so they sit beside the cards
+       instead of hanging off the viewport edge and clipping. */
+    padding-inline: 3.25rem;
   }
   .destinations__viewport {
     overflow: hidden;
@@ -374,10 +377,10 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
     cursor: default;
   }
   .destinations__arrow--prev {
-    left: -1.5rem;
+    left: 0;
   }
   .destinations__arrow--next {
-    right: -1.5rem;
+    right: 0;
   }
   .destinations__dots {
     display: flex;
@@ -423,6 +426,9 @@ const sortedDestinations = [...fixedDestinations, ...remainingDestinations];
     }
   }
   @media (max-width: 639px) {
+    .destinations__carousel {
+      padding-inline: 0;
+    }
     .destinations__track .destination-card {
       flex-basis: 100%;
     }

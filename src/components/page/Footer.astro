@@ -112,15 +112,24 @@ const stats = await getSiteStats();
     <!-- Stats strip -->
     <div class="site-footer__stats">
       <div>
-        <div class="site-footer__stat-figure">📍 {stats.businessesLabel}</div>
+        <div class="site-footer__stat-figure">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.4-8 12-8 12s-8-7.6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          {stats.businessesLabel}
+        </div>
         <div class="site-footer__stat-label">Verified English-friendly services</div>
       </div>
       <div>
-        <div class="site-footer__stat-figure">🎖️ {stats.yearsLabel}</div>
+        <div class="site-footer__stat-figure">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></svg>
+          {stats.yearsLabel}
+        </div>
         <div class="site-footer__stat-label">Serving the military community</div>
       </div>
       <div>
-        <div class="site-footer__stat-figure">🗺️ {stats.basesLabel}</div>
+        <div class="site-footer__stat-figure">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3 3 5.5v15L9 18l6 3 6-2.5v-15L15 6 9 3Z"/><path d="M9 3v15M15 6v15"/></svg>
+          {stats.basesLabel}
+        </div>
         <div class="site-footer__stat-label">Major US installations covered</div>
       </div>
     </div>
@@ -180,8 +189,9 @@ const stats = await getSiteStats();
   }
   .site-footer__brand {
     color: white;
+    font-family: var(--font-display);
     font-weight: 700;
-    font-size: 1.125rem;
+    font-size: 1.25rem;
     margin-bottom: 1rem;
   }
   .site-footer__about-text {
@@ -261,6 +271,19 @@ const stats = await getSiteStats();
     color: var(--brand-gold);
     font-weight: 700;
     margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  @media (max-width: 767px) {
+    .site-footer__stat-figure {
+      justify-content: center;
+    }
+  }
+  .site-footer__stat-figure svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex-shrink: 0;
   }
   .site-footer__stat-label {
     font-size: 0.875rem;
