@@ -53,7 +53,6 @@ const stats = await getSiteStats();
       height="512"
     />
   </picture>
-  <div class="hero-section__grain" aria-hidden="true"></div>
   <div class="hero-section__scrim" aria-hidden="true"></div>
 
   <div class="hero-section__content">
@@ -157,12 +156,11 @@ const stats = await getSiteStats();
     object-position: center 55%;
   }
   /*
-    Two-part treatment over the hero photo. The scrim is an even wash plus
-    a soft radial pool centred on the headline so text holds contrast over
-    the bright side of the image without the picture going murky. The grain
-    is a fine film-noise layer (SVG fractal noise, blended) — it breaks up
-    the over-smooth rendering of the background art so it reads as a
-    photograph rather than a render. Both are decorative and non-blocking.
+    Scrim over the hero photo: an even wash plus a soft radial pool
+    centred on the headline, so the white copy holds contrast over the
+    sunlit side of the image without the picture going murky. The photo
+    itself is graded and textured at the file level (see public/hero-bg.*),
+    so no CSS grain layer is needed.
   */
   .hero-section__scrim {
     position: absolute;
@@ -171,18 +169,6 @@ const stats = await getSiteStats();
     background:
       radial-gradient(ellipse 82% 72% at 50% 42%, rgba(3, 18, 30, 0.62) 0%, rgba(3, 18, 30, 0.34) 55%, rgba(3, 18, 30, 0.08) 100%),
       linear-gradient(180deg, rgba(3, 18, 30, 0.22) 0%, rgba(3, 18, 30, 0.1) 42%, rgba(3, 18, 30, 0.42) 100%);
-  }
-  .hero-section__grain {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.32;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
-    background-size: 160px 160px;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .hero-section__grain { opacity: 0.22; }
   }
   .hero-section__content {
     position: relative;

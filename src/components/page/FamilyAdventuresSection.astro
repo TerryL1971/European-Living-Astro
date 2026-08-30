@@ -5,39 +5,45 @@
 // onClick-navigate(), so this needs no client JS at all; every card and
 // the CTA are just links.
 //
-// One card surface, one accent (brand primary), one consistent icon set
-// — the previous version used a different pastel fill + border + heading
-// colour per card, which read as unfinished.
+// One card surface, one icon set. Each icon carries a muted accent
+// colour (stroke + a faint chip tint) so the grid has some life without
+// the old "different fill + border + heading colour per card" look.
 
 const CATEGORIES = [
   {
     title: 'Theme Parks & Attractions',
     description: 'LEGOLAND, Europa-Park, Phantasialand and more — perfect for all ages.',
+    tint: '#b8802f',
     icon: '<path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/>',
   },
   {
     title: 'Castles & History',
     description: 'Bring history to life at fairy-tale castles kids will never forget.',
+    tint: '#7c6bb0',
     icon: '<path d="M22 20v-9H2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2Z"/><path d="M18 11V4H6v7"/><path d="M15 22v-4a3 3 0 0 0-6 0v4"/><path d="M22 11V9M2 11V9M6 4V2M18 4V2"/>',
   },
   {
     title: 'Parks & Playgrounds',
     description: 'Beautiful parks, nature trails, and playgrounds near every base.',
+    tint: '#5e9350',
     icon: '<path d="M10 10v.2A3 3 0 0 1 8.9 16H5a3 3 0 0 1-1-5.8V10a3 3 0 0 1 6 0Z"/><path d="M7 16v6M13 19v3M12 19h8.3a1 1 0 0 0 .7-1.7L18 14h.3a1 1 0 0 0 .7-1.7L16 9h.2a1 1 0 0 0 .8-1.7L13 3l-1.4 1.5"/>',
   },
   {
     title: 'Schools & Education',
     description: 'International schools, homeschool resources, and tutoring near base.',
+    tint: '#4f7cb0',
     icon: '<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
   },
   {
     title: 'Sports & Activities',
     description: 'Soccer, swimming, gymnastics, martial arts and more for every age.',
+    tint: '#b05e6d',
     icon: '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
   },
   {
     title: 'Family-Friendly Dining',
     description: 'Kid-friendly restaurants that welcome families with English menus.',
+    tint: '#bd6a4e',
     icon: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>',
   },
 ];
@@ -56,7 +62,7 @@ const CATEGORIES = [
     <div class="fam__grid">
       {CATEGORIES.map((cat) => (
         <a href="/family-adventures" class="fam-card">
-          <span class="fam-card__icon" aria-hidden="true">
+          <span class="fam-card__icon" aria-hidden="true" style={`--tint:${cat.tint}`}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={cat.icon} />
           </span>
           <h3>{cat.title}</h3>
@@ -141,8 +147,8 @@ const CATEGORIES = [
     width: 2.75rem;
     height: 2.75rem;
     border-radius: 0.7rem;
-    background: color-mix(in srgb, var(--brand-primary) 12%, transparent);
-    color: var(--brand-primary);
+    background: color-mix(in srgb, var(--tint, var(--brand-primary)) 13%, transparent);
+    color: var(--tint, var(--brand-primary));
     margin-bottom: 1rem;
   }
   .fam-card__icon svg {

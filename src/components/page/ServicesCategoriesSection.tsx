@@ -33,12 +33,12 @@ import { supabase } from '../../services/supabaseClient';
 import { $selectedBase } from '../../stores/baseStore';
 
 const serviceCategories = [
-  { id: 'automotive', title: 'Automotive Services', icon: Car, description: 'Car dealers, mechanics, and auto services that work with Americans' },
-  { id: 'healthcare', title: 'Healthcare', icon: Stethoscope, description: 'English-speaking doctors, dentists, veterinarians, and specialists near European US Bases' },
-  { id: 'restaurants', title: 'Restaurants & Dining', icon: Utensils, description: 'English-friendly restaurants throughout Europe serving Americans living abroad' },
-  { id: 'shopping', title: 'Shopping / Personal Services', icon: ShoppingBag, description: 'Stores, malls, and beauty salons with English-speaking staff' },
-  { id: 'home-services', title: 'Home Services', icon: Wrench, description: 'Plumbers, electricians, and handymen who work with American families' },
-  { id: 'real-estate', title: 'Real Estate', icon: Home, description: 'Housing agents familiar with American military housing needs' },
+  { id: 'automotive', title: 'Automotive Services', icon: Car, tint: '#bd6a4e', description: 'Car dealers, mechanics, and auto services that work with Americans' },
+  { id: 'healthcare', title: 'Healthcare', icon: Stethoscope, tint: '#b05e6d', description: 'English-speaking doctors, dentists, veterinarians, and specialists near European US Bases' },
+  { id: 'restaurants', title: 'Restaurants & Dining', icon: Utensils, tint: '#b8802f', description: 'English-friendly restaurants throughout Europe serving Americans living abroad' },
+  { id: 'shopping', title: 'Shopping / Personal Services', icon: ShoppingBag, tint: '#7c6bb0', description: 'Stores, malls, and beauty salons with English-speaking staff' },
+  { id: 'home-services', title: 'Home Services', icon: Wrench, tint: '#3d8a85', description: 'Plumbers, electricians, and handymen who work with American families' },
+  { id: 'real-estate', title: 'Real Estate', icon: Home, tint: '#5e9350', description: 'Housing agents familiar with American military housing needs' },
   // ids match serviceCategories.ts / the businesses table's actual
   // `category` values — 'legal' -> 'legal-business' and 'business' ->
   // 'hbb' were renamed everywhere else on 2026-07-31 (see
@@ -49,9 +49,9 @@ const serviceCategories = [
   // permanently showed "Coming Soon" for Business Services regardless
   // of real inventory (and would've done the same for Legal Services
   // the moment a legal-business row existed).
-  { id: 'legal-business', title: 'Legal Services', icon: Scale, description: 'Lawyers who understand SOFA status and military regulations' },
-  { id: 'education', title: 'Education', icon: GraduationCap, description: 'International schools and tutors for military families' },
-  { id: 'hbb', title: 'Business Services', icon: Briefcase, description: 'Tax advisors and accountants familiar with US/German requirements' },
+  { id: 'legal-business', title: 'Legal Services', icon: Scale, tint: '#6a7a94', description: 'Lawyers who understand SOFA status and military regulations' },
+  { id: 'education', title: 'Education', icon: GraduationCap, tint: '#4f7cb0', description: 'International schools and tutors for military families' },
+  { id: 'hbb', title: 'Business Services', icon: Briefcase, tint: '#a3862c', description: 'Tax advisors and accountants familiar with US/German requirements' },
 ];
 
 export default function ServicesCategoriesSection() {
@@ -157,7 +157,14 @@ export default function ServicesCategoriesSection() {
                 }`}
               >
                 <div className="flex items-center gap-4 mb-4">
-                  <div className={`p-3.5 rounded-xl ${hasBiz ? 'bg-[var(--brand-primary)]/10 text-[var(--brand-primary)]' : 'bg-[var(--brand-bg-alt)] text-[var(--brand-text-muted)]'}`}>
+                  <div
+                    className="p-3.5 rounded-xl"
+                    style={
+                      hasBiz
+                        ? { color: category.tint, background: `color-mix(in srgb, ${category.tint} 14%, transparent)` }
+                        : { color: 'var(--brand-text-muted)', background: 'var(--brand-bg-alt)' }
+                    }
+                  >
                     <Icon className="w-6 h-6" />
                   </div>
                   <div>
