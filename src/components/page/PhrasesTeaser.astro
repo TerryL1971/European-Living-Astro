@@ -40,10 +40,12 @@ try {
     <section class="ph">
       <div class="ph__inner">
         <div class="ph__head">
+          <p class="ph__eyebrow">Phrasebook</p>
           <h2>Say it in the local language</h2>
-          <p>
-            A pocket phrasebook for every country within a weekend of your base — 8 languages, with
-            pronunciation and audio. Here's a taste.
+          <p class="ph__lede">
+            Greetings, directions, and ordering dinner in the eight languages you'll actually use on
+            trips from your base — German, French, Italian, Spanish and more, each with pronunciation
+            and audio.
           </p>
         </div>
 
@@ -85,16 +87,24 @@ try {
     text-align: center;
     margin-bottom: 2.25rem;
   }
+  .ph__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--brand-primary);
+    margin: 0 0 0.75rem;
+  }
   .ph__head h2 {
-    font-size: clamp(1.7rem, 4vw, 2.15rem);
+    font-size: clamp(1.8rem, 4vw, 2.3rem);
     font-weight: 700;
     color: var(--brand-dark);
     margin: 0 0 0.75rem;
     text-wrap: balance;
   }
-  .ph__head p {
+  .ph__lede {
     color: var(--brand-text-muted);
-    max-width: 38rem;
+    max-width: 40rem;
     margin: 0 auto;
     font-size: 1.02rem;
     line-height: 1.6;

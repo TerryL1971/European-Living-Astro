@@ -53,8 +53,8 @@ const stats = await getSiteStats();
       height="512"
     />
   </picture>
-  <div class="hero-section__scrim" aria-hidden="true"></div>
   <div class="hero-section__grain" aria-hidden="true"></div>
+  <div class="hero-section__scrim" aria-hidden="true"></div>
 
   <div class="hero-section__content">
     <h1 class="hero-section__title">
@@ -169,20 +169,20 @@ const stats = await getSiteStats();
     inset: 0;
     pointer-events: none;
     background:
-      radial-gradient(ellipse 92% 78% at 50% 44%, rgba(3, 20, 32, 0.62) 0%, rgba(3, 20, 32, 0.32) 62%, rgba(3, 20, 32, 0.18) 100%),
-      linear-gradient(180deg, rgba(3, 20, 32, 0.34) 0%, rgba(3, 20, 32, 0.2) 42%, rgba(3, 20, 32, 0.58) 100%);
+      radial-gradient(ellipse 84% 74% at 50% 42%, rgba(3, 18, 30, 0.82) 0%, rgba(3, 18, 30, 0.5) 52%, rgba(3, 18, 30, 0.16) 100%),
+      linear-gradient(180deg, rgba(3, 18, 30, 0.34) 0%, rgba(3, 18, 30, 0.2) 40%, rgba(3, 18, 30, 0.55) 100%);
   }
   .hero-section__grain {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.45;
+    opacity: 0.32;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
     background-size: 160px 160px;
   }
   @media (prefers-reduced-motion: reduce) {
-    .hero-section__grain { opacity: 0.3; }
+    .hero-section__grain { opacity: 0.22; }
   }
   .hero-section__content {
     position: relative;
@@ -198,7 +198,7 @@ const stats = await getSiteStats();
     line-height: 1.1;
     letter-spacing: -0.02em;
     margin-bottom: 1.5rem;
-    text-shadow: 0 2px 18px rgba(3, 20, 32, 0.5);
+    text-shadow: 0 1px 2px rgba(3, 18, 30, 0.55), 0 2px 22px rgba(3, 18, 30, 0.6);
   }
   .hero-section__title-accent {
     color: var(--brand-secondary-light, #fbbf24);
@@ -220,8 +220,8 @@ const stats = await getSiteStats();
     font-size: 1.125rem;
     font-weight: 400;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.92);
-    text-shadow: 0 1px 10px rgba(3, 20, 32, 0.55);
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(3, 18, 30, 0.7), 0 2px 16px rgba(3, 18, 30, 0.55);
   }
   @media (min-width: 768px) {
     .hero-section__subtitle {
@@ -236,7 +236,7 @@ const stats = await getSiteStats();
     gap: 1.5rem;
     margin-bottom: 2.5rem;
     font-size: 0.9375rem;
-    text-shadow: 0 1px 8px rgba(3, 20, 32, 0.55);
+    text-shadow: 0 1px 3px rgba(3, 18, 30, 0.75), 0 1px 10px rgba(3, 18, 30, 0.5);
   }
   .hero-section__stat {
     display: flex;
@@ -256,8 +256,8 @@ const stats = await getSiteStats();
     font-size: 0.9375rem;
     letter-spacing: 0.01em;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.82);
-    text-shadow: 0 1px 8px rgba(3, 20, 32, 0.55);
+    color: rgba(255, 255, 255, 0.92);
+    text-shadow: 0 1px 3px rgba(3, 18, 30, 0.75), 0 1px 10px rgba(3, 18, 30, 0.5);
   }
   .hero-section__ctas {
     display: flex;

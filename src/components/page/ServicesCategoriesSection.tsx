@@ -110,13 +110,13 @@ export default function ServicesCategoriesSection() {
     );
   }
 
-  const liveCategories = serviceCategories.filter((c) => (categoryCounts[c.id] || 0) > 0);
   const totalCount = Object.values(categoryCounts).reduce((a, b) => a + b, 0);
+  const baseParam = selectedBase && selectedBase !== 'all' ? `?base=${selectedBase}` : '';
 
   return (
     <section id="english-services" className="relative bg-[var(--brand-bg-card)] py-20">
       <div className="absolute inset-0 bg-[url('https://pkacbcohrygpyapgtzpq.supabase.co/storage/v1/object/public/images/services.jpg')] bg-cover bg-center" />
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(105deg, rgba(12,74,110,0.94) 0%, rgba(12,74,110,0.82) 55%, rgba(12,74,110,0.7) 100%)' }} />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(105deg, rgba(12,74,110,0.9) 0%, rgba(9,58,88,0.82) 100%)' }} />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
@@ -140,33 +140,44 @@ export default function ServicesCategoriesSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {liveCategories.map((category) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          {serviceCategories.map((category) => {
             const Icon = category.icon;
             const count = categoryCounts[category.id] || 0;
+            const hasBiz = count > 0;
 
             return (
               <a
                 key={category.id}
-                href={`/services/${category.id}`}
-                className="bg-[var(--brand-bg-card)] rounded-xl p-6 border border-[var(--brand-border)] transition-all block hover:shadow-xl hover:-translate-y-1 cursor-pointer"
+                href={`/services/${category.id}${baseParam}`}
+                className={`rounded-2xl p-7 border transition-all block hover:shadow-xl hover:-translate-y-1 ${
+                  hasBiz
+                    ? 'bg-[var(--brand-bg-card)] border-[var(--brand-border)]'
+                    : 'bg-[var(--brand-bg-card)]/85 border-[var(--brand-border)]'
+                }`}
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-3 rounded-lg bg-[var(--brand-primary)]/10">
-                    <Icon className="w-6 h-6 text-[var(--brand-primary)]" />
+                <div className="flex items-center gap-4 mb-4">
+                  <div className={`p-3.5 rounded-xl ${hasBiz ? 'bg-[var(--brand-primary)]/10 text-[var(--brand-primary)]' : 'bg-[var(--brand-bg-alt)] text-[var(--brand-text-muted)]'}`}>
+                    <Icon className="w-6 h-6" />
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-[var(--brand-text)]">{category.title}</h3>
                     <p className="text-sm text-[var(--brand-text-muted)]">
-                      {count} {count === 1 ? 'business' : 'businesses'}
+                      {hasBiz ? `${count} ${count === 1 ? 'business' : 'businesses'}` : 'Coming soon'}
                     </p>
                   </div>
                 </div>
 
-                <p className="text-[var(--brand-text-muted)] mb-4 text-sm">{category.description}</p>
+                <p className="text-[var(--brand-text-muted)] mb-5 text-sm leading-relaxed">{category.description}</p>
 
-                <div className="w-full bg-[var(--brand-primary)] text-white py-2 px-4 rounded-lg hover:bg-[var(--brand-primary-dark)] transition font-medium text-center">
-                  View {count} {count === 1 ? 'Business' : 'Businesses'}
+                <div
+                  className={`w-full py-2.5 px-4 rounded-lg font-medium text-center transition ${
+                    hasBiz
+                      ? 'bg-[var(--brand-primary)] text-white hover:bg-[var(--brand-primary-dark)]'
+                      : 'bg-[var(--brand-bg-alt)] text-[var(--brand-text-muted)] border border-[var(--brand-border)]'
+                  }`}
+                >
+                  {hasBiz ? `View ${count} ${count === 1 ? 'business' : 'businesses'}` : 'Suggest a business'}
                 </div>
               </a>
             );

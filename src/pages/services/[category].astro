@@ -91,11 +91,22 @@ const sortedBusinesses = [...businesses].sort((a, b) => {
 
     baseSelect?.addEventListener('change', applyBaseFilter);
 
+    // Pre-select the base filter from ?base= if present, otherwise fall
+    // back to the visitor's stored base — so links from the homepage
+    // teaser (which are static and carry no query param) still land
+    // filtered to the base the visitor picked.
     const params = new URLSearchParams(window.location.search);
-    const initialBase = params.get('base');
+    let initialBase = params.get('base');
+    if (!initialBase) {
+      const stored = localStorage.getItem('selectedBase');
+      if (stored && stored !== 'all') initialBase = stored;
+    }
     if (initialBase && baseSelect) {
-      baseSelect.value = initialBase;
-      applyBaseFilter();
+      const match = Array.from(baseSelect.options).some((o) => o.value === initialBase);
+      if (match) {
+        baseSelect.value = initialBase;
+        applyBaseFilter();
+      }
     }
   });
 </script>
