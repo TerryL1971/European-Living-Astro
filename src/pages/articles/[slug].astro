@@ -63,14 +63,18 @@ const schema = articleSchema({
 const contentHtml = renderArticleContent(article.content)
   .replace(/^\s*<h1\b[^>]*>[\s\S]*?<\/h1>\s*/i, '')
   .replace(/^\s*<p>\s*<em>[\s\S]*?<\/em>\s*<\/p>\s*/i, '')
-  // Some CMS headings carry a decorative leading emoji or a trailing run
-  // of ⭐ "rating" glyphs — strip those from headings only (body text
-  // that genuinely uses them is left alone).
+  // CMS bodies sprinkle decorative emoji at the start of headings, list
+  // items and "pro tip" lines, and trailing ⭐ "rating" runs on headings
+  // and bold labels. Strip that presentational noise; prose that uses a
+  // symbol mid-sentence is left alone.
   .replace(
-    /(<(?:h[2-4]|li|p)\b[^>]*>)\s*(?:[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}]️?\s*)+/gu,
+    /(<(?:h[2-4]|li|p)\b[^>]*>(?:\s*<(?:strong|em)>)?)\s*(?:[\p{Extended_Pictographic}\u{2190}-\u{21FF}]️?\s*)+/gu,
     '$1',
   )
-  .replace(/\s*(?:[⭐★☆\u{1F31F}️]\s*)+(<\/h[2-4]>)/gu, '$1');
+  .replace(
+    /\s*(?:[\p{Extended_Pictographic}⭐★☆]️?\s*)+(<\/(?:strong|em|li|p|h[2-4])>)/gu,
+    '$1',
+  );
 const headings = extractHeadings(article.content);
 const showToc = headings.length >= 3;
 
