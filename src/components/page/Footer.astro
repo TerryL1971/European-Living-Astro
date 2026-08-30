@@ -20,7 +20,7 @@ const stats = await getSiteStats();
     <div class="site-footer__grid">
       <!-- About -->
       <div>
-        <h3 class="site-footer__brand">European Living</h3>
+        <p class="site-footer__brand">European Living</p>
         <p class="site-footer__about-text">
           Your guide to living, working, and exploring Germany and Europe as a U.S. military member or expat.
         </p>
@@ -123,6 +123,21 @@ const stats = await getSiteStats();
         <div class="site-footer__stat-figure">🗺️ {stats.basesLabel}</div>
         <div class="site-footer__stat-label">Major US installations covered</div>
       </div>
+    </div>
+
+    <!-- Independence & disclosure -->
+    <div class="site-footer__disclosure">
+      <p>
+        <strong>European Living is an independent website.</strong> It is not affiliated with, endorsed by, or
+        sponsored by the U.S. Department of Defense, any branch of the U.S. Armed Forces, or any military
+        installation, base, garrison, or U.S. government agency. Base names are used only to describe location.
+      </p>
+      <p>
+        European Living is run by <a href="/about">Terry Lombardi</a>, a U.S. Air Force veteran who has lived in
+        Germany since 2016. Terry works for Used Car Guys GmbH, which supports this site; Used Car Guys is also
+        listed in the directory. Businesses are not charged to be listed, and listings reflect our own
+        judgement.
+      </p>
     </div>
 
     <!-- Bottom bar -->
@@ -250,6 +265,30 @@ const stats = await getSiteStats();
   .site-footer__stat-label {
     font-size: 0.875rem;
     color: var(--brand-bg-alt);
+  }
+  .site-footer__disclosure {
+    border-top: 1px solid #1f2937;
+    padding-top: 1.75rem;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .site-footer__disclosure p {
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: #9ca3af;
+    margin: 0;
+    max-width: 62rem;
+  }
+  .site-footer__disclosure strong {
+    color: #d1d5db;
+    font-weight: 600;
+  }
+  .site-footer__disclosure a {
+    color: #d1d5db;
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
   .site-footer__bottom {
     border-top: 1px solid #1f2937;

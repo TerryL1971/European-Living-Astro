@@ -72,9 +72,12 @@ export function articleSchema(opts: {
     image: opts.image ? [opts.image] : [`${SITE.url}${SITE.defaultOgImage}`],
     datePublished: opts.datePublished,
     dateModified: opts.dateModified,
+    // Named human author (matches the on-page byline) — a stronger
+    // E-E-A-T signal than an Organization author for guidance content.
     author: {
-      '@type': 'Organization',
-      name: opts.authorName ?? SITE.publisher.name,
+      '@type': 'Person',
+      name: opts.authorName && opts.authorName !== SITE.publisher.name ? opts.authorName : 'Terry Lombardi',
+      url: `${SITE.url}/about`,
     },
     publisher: {
       '@type': 'Organization',

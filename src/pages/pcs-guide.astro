@@ -10,6 +10,7 @@
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BackLink from '../components/BackLink.astro';
+import Byline from '../components/Byline.astro';
 import PhaseTimeline from '../components/pcs-guide/PhaseTimeline.astro';
 import KeyContacts from '../components/pcs-guide/KeyContacts.astro';
 import FaqAccordion from '../components/pcs-guide/FaqAccordion.astro';
@@ -19,6 +20,8 @@ import { FAQ_ITEMS } from '../data/pcsGuideFaq';
 import { faqSchema } from '../lib/seo/schema';
 
 const schema = faqSchema(FAQ_ITEMS);
+
+const LAST_REVIEWED = '2026-08-29';
 
 const STATS = [
   { num: '5', label: 'PCS Phases Covered' },
@@ -81,6 +84,16 @@ const WHO_FOR = [
           </div>
         ))}
       </div>
+    </div>
+
+    <div class="pcs-guide__section pcs-guide__attribution">
+      <Byline updated={LAST_REVIEWED} compact />
+      <p class="pcs-guide__independence">
+        <strong>European Living is an independent resource.</strong> It is not affiliated with, endorsed by, or
+        sponsored by the U.S. Department of Defense, any branch of the U.S. military, or any installation.
+        Always confirm specifics with your sponsor, your gaining unit, and the official resources linked
+        throughout this guide.
+      </p>
     </div>
 
     <QuickJumpNav />
@@ -302,6 +315,19 @@ const WHO_FOR = [
     max-width: 900px;
     margin: 0 auto;
     scroll-margin-top: 116px;
+  }
+  .pcs-guide__attribution {
+    padding-top: clamp(24px, 4vw, 40px);
+    padding-bottom: 0;
+  }
+  .pcs-guide__independence {
+    margin: 0.75rem 0 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--brand-text-muted, #475569);
+  }
+  .pcs-guide__independence strong {
+    color: var(--brand-text, #1f2937);
   }
   .pcs-guide__section--muted {
     background: #f9fafb;

@@ -39,8 +39,11 @@ export interface SiteStats {
   destinationsLabel: string;
   businessesLabel: string;
   phrasesLabel: string;
+  articlesLabel: string;
   basesLabel: string;
   yearsLabel: string;
+  /** Raw day-trip count, for inline prose ("Explore 44 day trips"). */
+  dayTripsCount: number;
 }
 
 /**
@@ -81,7 +84,7 @@ let cachedStats: Promise<SiteStats> | null = null;
 export function getSiteStats(): Promise<SiteStats> {
   if (!cachedStats) {
     cachedStats = (async () => {
-      const [dayTripsCount, destinationsCount, businessesCount, phrasesCount] =
+      const [dayTripsCount, destinationsCount, businessesCount, phrasesCount, articlesCount] =
         await Promise.all([
           countRows('day_trips'),
           // Destinations = published articles in the "City Guides"
@@ -91,6 +94,7 @@ export function getSiteStats(): Promise<SiteStats> {
           countRows('articles', { published: true, category: 'City Guides' }),
           countRows('businesses', { status: 'active' }),
           countRows('phrases'),
+          countRows('articles', { published: true }),
         ]);
 
       // Confirmed 2026-07-28: "years serving" counts from 2016, when
@@ -103,8 +107,10 @@ export function getSiteStats(): Promise<SiteStats> {
         destinationsLabel: `${destinationsCount} Destination${destinationsCount === 1 ? '' : 's'}`,
         businessesLabel: `${roundDownWithPlus(businessesCount)} Businesses`,
         phrasesLabel: `${roundDownWithPlus(phrasesCount)} Phrases`,
+        articlesLabel: `${roundDownWithPlus(articlesCount)} Articles`,
         basesLabel: `${BASES.length} Base${BASES.length === 1 ? '' : 's'}`,
         yearsLabel: `${years}+ Year${years === 1 ? '' : 's'}`,
+        dayTripsCount,
       };
     })();
   }

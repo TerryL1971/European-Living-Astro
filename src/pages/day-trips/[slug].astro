@@ -9,6 +9,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AnswerBox from '../../components/seo/AnswerBox.astro';
 import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import Byline from '../../components/Byline.astro';
 import MapView from '../../components/MapView.tsx';
 import { placeSchema } from '../../lib/seo/schema';
 import { getAllDayTrips, type DayTripRow } from '../../lib/supabaseDayTrips';
@@ -31,6 +32,14 @@ const { trip } = Astro.props as Props;
 
 const baseNames = (trip.bases_served ?? []).map(getBaseName);
 const baseLabel = baseNames.length > 0 ? baseNames.join(' & ') : 'US Bases in Germany';
+// A human-length version for the visible subtitle — the full &-joined
+// list of 4 bases read as keyword stuffing in the old H1.
+const baseLabelShort =
+  baseNames.length === 0
+    ? 'US military bases in Germany'
+    : baseNames.length <= 2
+      ? baseNames.join(' & ')
+      : `${baseNames.slice(0, 2).join(', ')} & more`;
 
 const heroImage = trip.hero_image_url ?? trip.image_url ?? undefined;
 const description =
@@ -56,7 +65,7 @@ const answerText =
 ---
 
 <BaseLayout
-  title={`${trip.name} Day Trip from ${baseLabel}`}
+  title={`${trip.name} Day Trip: Drive Time & What to See`}
   description={description}
   canonicalPath={`/day-trips/${trip.slug}`}
   ogImage={heroImage}
@@ -72,7 +81,10 @@ const answerText =
 
     {heroImage && <img src={heroImage} alt={trip.name} class="trip__hero" loading="lazy" />}
 
-    <h1>{trip.name} Day Trip from {baseLabel}</h1>
+    <h1>{trip.name}</h1>
+    <p class="trip__from">A day trip from {baseLabelShort}</p>
+
+    <Byline updated={trip.updated_at} compact />
 
     <AnswerBox answer={answerText} />
 
@@ -180,7 +192,12 @@ const answerText =
   .trip h1 {
     font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 0.25rem;
+  }
+  .trip__from {
+    font-size: 1.05rem;
+    color: var(--color-text-muted, var(--brand-text-muted));
+    margin: 0 0 0.75rem;
   }
   .trip__facts {
     display: grid;

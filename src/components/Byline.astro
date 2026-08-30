@@ -1,0 +1,93 @@
+---
+// Author attribution for articles, guides, and day-trip pages.
+//
+// The site is founder-led and independent — that's the positioning, so
+// every piece of guidance carries a real, named, credentialed human
+// (see the audit: "no author attribution anywhere but the About page"
+// was the biggest single 'is this a real operation' gap).
+//
+// `updated` — the row's updated_at / last-reviewed date. Omit to hide
+// the "Last reviewed" line.
+
+interface Props {
+  updated?: string | Date | null;
+  compact?: boolean;
+}
+const { updated, compact = false } = Astro.props;
+
+const PHOTO =
+  'https://pkacbcohrygpyapgtzpq.supabase.co/storage/v1/object/public/images/My-Photo.png';
+
+let reviewed: string | null = null;
+if (updated) {
+  const d = typeof updated === 'string' ? new Date(updated) : updated;
+  if (!Number.isNaN(d.getTime())) {
+    reviewed = d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  }
+}
+---
+
+<div class:list={['byline', { 'byline--compact': compact }]}>
+  <img class="byline__photo" src={PHOTO} alt="Terry Lombardi" width="44" height="44" loading="lazy" />
+  <div class="byline__text">
+    <p class="byline__line">
+      By <a href="/about">Terry Lombardi</a>
+      <span class="byline__cred">· U.S. Air Force veteran · Living in Germany since 2016</span>
+    </p>
+    {reviewed && <p class="byline__reviewed">Last reviewed {reviewed}</p>}
+  </div>
+</div>
+
+<style>
+  .byline {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1.25rem 0 1.75rem;
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--brand-border);
+    border-bottom: 1px solid var(--brand-border);
+  }
+  .byline--compact {
+    border: none;
+    padding: 0;
+    margin: 0.5rem 0 1.25rem;
+  }
+  .byline__photo {
+    width: 44px;
+    height: 44px;
+    border-radius: 9999px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: var(--brand-bg-alt);
+  }
+  .byline__text {
+    min-width: 0;
+  }
+  .byline__line {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--brand-text);
+    line-height: 1.4;
+  }
+  .byline__line a {
+    font-weight: 600;
+    color: var(--brand-text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .byline__cred {
+    color: var(--brand-text-muted);
+  }
+  .byline__reviewed {
+    margin: 0.15rem 0 0;
+    font-size: 0.8rem;
+    color: var(--brand-text-muted);
+  }
+  @media (max-width: 480px) {
+    .byline__cred {
+      display: block;
+      margin-top: 0.1rem;
+    }
+  }
+</style>

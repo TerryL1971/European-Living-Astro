@@ -19,5 +19,8 @@ import TravelTipsSection from '../components/page/TravelTipsSection.astro';
   canonicalPath="/travel-tips"
 >
   <BackLink />
+  <!-- The visible page title is rendered by TravelTipsSection (an <h2>);
+       this is the document <h1> for crawlers and screen readers. -->
+  <h1 class="sr-only">Travel Tips &amp; Essentials for Military Families in Germany</h1>
   <TravelTipsSection />
 </BaseLayout>

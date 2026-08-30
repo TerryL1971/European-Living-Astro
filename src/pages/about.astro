@@ -26,11 +26,16 @@
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BackLink from '../components/BackLink.astro';
+import { getSiteStats } from '../lib/siteStats';
+
+// Same source as the homepage hero + footer, so the "What You'll Find"
+// numbers can never drift from the ones shown elsewhere.
+const stats = await getSiteStats();
 ---
 
 <BaseLayout
   title="About Terry & European Living"
-  description="From a kid dreaming of Germany to helping thousands of military families explore Europe — this is my story and why I built European Living."
+  description="A U.S. Air Force veteran who moved to Germany in 2016 — my story, and why I built European Living for military families and expats."
   canonicalPath="/about"
 >
   <BackLink />
@@ -201,24 +206,41 @@ import BackLink from '../components/BackLink.astro';
         <div class="about-page__grid">
           <div class="about-page__grid-card about-page__grid-card--blue">
             <div class="about-page__grid-icon">🗺️</div>
-            <h3>33 Day Trip Guides</h3>
+            <h3>{stats.dayTripsCount} Day Trip Guides</h3>
             <p>From your base to incredible destinations. With drive times, costs, parking, and what to actually see.</p>
           </div>
           <div class="about-page__grid-card about-page__grid-card--purple">
             <div class="about-page__grid-icon">💬</div>
-            <h3>1,200+ Travel Phrases</h3>
-            <p>Essential phrases in 10+ languages. With pronunciation. Because ordering food shouldn't be scary.</p>
+            <h3>{stats.phrasesLabel.replace(/Phrases$/, 'Travel Phrases')}</h3>
+            <p>Essential phrases in 8 languages. With pronunciation. Because ordering food shouldn't be scary.</p>
           </div>
           <div class="about-page__grid-card about-page__grid-card--green">
             <div class="about-page__grid-icon">🏪</div>
-            <h3>200+ Verified Businesses</h3>
+            <h3>{stats.businessesLabel.replace(/Businesses$/, 'Verified Businesses')}</h3>
             <p>English-friendly restaurants, doctors, services. All confirmed. All trusted by military families.</p>
           </div>
           <div class="about-page__grid-card about-page__grid-card--orange">
             <div class="about-page__grid-icon">✍️</div>
-            <h3>30+ Travel Articles</h3>
+            <h3>{stats.articlesLabel.replace(/Articles$/, 'Travel Articles')}</h3>
             <p>Real advice from someone who's lived it. Not generic travel blog stuff.</p>
           </div>
+        </div>
+      </section>
+
+      <!-- Independence & disclosure -->
+      <section class="about-page__section">
+        <div class="about-page__card">
+          <h3>A note on independence</h3>
+          <p>
+            European Living is my own project. It is <strong>not affiliated with, endorsed by, or sponsored
+            by</strong> the U.S. Department of Defense, the Air Force or Army, or any base, garrison, or
+            government agency. I use base names only to describe where things are.
+          </p>
+          <p>
+            My day job is with <strong>Used Car Guys GmbH</strong>, which sells and services cars for the
+            American community here and supports this site. Used Car Guys is listed in the directory alongside
+            everyone else — no business pays to be included, and what I recommend is my own honest opinion.
+          </p>
         </div>
       </section>
 
@@ -243,7 +265,7 @@ import BackLink from '../components/BackLink.astro';
       <section class="about-page__section">
         <div class="about-page__stats">
           <div class="about-page__stat">
-            <div class="about-page__stat-num">10+</div>
+            <div class="about-page__stat-num">{stats.yearsLabel.replace(/\s*Years?$/, '')}</div>
             <div class="about-page__stat-label">Years Living in Germany</div>
           </div>
           <div class="about-page__stat">
@@ -255,8 +277,8 @@ import BackLink from '../components/BackLink.astro';
             <div class="about-page__stat-label">Countries Explored</div>
           </div>
           <div class="about-page__stat">
-            <div class="about-page__stat-num">100s</div>
-            <div class="about-page__stat-label">Military Families Helped</div>
+            <div class="about-page__stat-num">{stats.basesLabel.replace(/\s*Bases?$/, '')}</div>
+            <div class="about-page__stat-label">US Communities Covered</div>
           </div>
         </div>
       </section>
@@ -277,7 +299,7 @@ import BackLink from '../components/BackLink.astro';
         <h2>Your European Adventure Starts This Weekend</h2>
         <p>I waited 25 years for this. You're already here. Don't waste another weekend on base.</p>
         <div class="about-page__final-cta-buttons">
-          <a href="/day-trips" class="about-page__btn about-page__btn--dark">Explore 33 Day Trips →</a>
+          <a href="/day-trips" class="about-page__btn about-page__btn--dark">Explore {stats.dayTripsCount} Day Trips →</a>
           <a href="/travel-phrases" class="about-page__btn about-page__btn--light">Learn Essential Phrases</a>
         </div>
       </section>

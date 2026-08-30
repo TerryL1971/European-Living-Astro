@@ -138,9 +138,9 @@ export default function Header() {
               </a>
               <button
                 onClick={resetBaseSelection}
-                className="text-sm text-red-500 hover:text-red-700 underline whitespace-nowrap"
+                className="text-sm text-[var(--brand-text-muted)] hover:text-[var(--brand-text)] hover:underline whitespace-nowrap transition-colors"
               >
-                Reset Base
+                Change base
               </button>
             </div>
 
@@ -241,9 +241,9 @@ export default function Header() {
                 </a>
                 <button
                   onClick={resetBaseSelection}
-                  className="w-full text-center px-4 py-3 text-sm text-red-500 hover:text-red-700 underline mt-2"
+                  className="w-full text-center px-4 py-3 text-sm text-[var(--brand-text-muted)] hover:text-[var(--brand-text)] mt-2"
                 >
-                  Reset Base Selection
+                  Change base
                 </button>
               </div>
             </div>

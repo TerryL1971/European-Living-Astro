@@ -23,6 +23,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AnswerBox from '../../components/seo/AnswerBox.astro';
 import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import Byline from '../../components/Byline.astro';
 import TableOfContents from '../../components/articles/TableOfContents.astro';
 import { articleSchema } from '../../lib/seo/schema';
 import { getAllArticles, renderArticleContent, extractHeadings, type ArticleRow } from '../../lib/supabaseArticles';
@@ -54,7 +55,14 @@ const schema = articleSchema({
   authorName: article.author ?? undefined,
 });
 
-const contentHtml = renderArticleContent(article.content);
+// Stored article bodies frequently repeat the title (as a leading
+// Markdown `# Heading`, rendered to <h1>) and the dek (as an italic
+// intro line) that this page's header already renders — strip a leading
+// <h1> and a leading fully-italic paragraph so there's exactly one H1
+// and the dek shows once.
+const contentHtml = renderArticleContent(article.content)
+  .replace(/^\s*<h1\b[^>]*>[\s\S]*?<\/h1>\s*/i, '')
+  .replace(/^\s*<p>\s*<em>[\s\S]*?<\/em>\s*<\/p>\s*/i, '');
 const headings = extractHeadings(article.content);
 const showToc = headings.length >= 3;
 
@@ -88,6 +96,8 @@ const shouldAutoPrint = Astro.url.searchParams.get('print') === 'true';
 
       <h1>{article.title}</h1>
       {article.subtitle && <p class="article__subtitle">{article.subtitle}</p>}
+
+      <Byline updated={article.updated_at} />
 
       <button type="button" class="article__print-btn" data-print-trigger>
         🖨 Print / Save as PDF
