@@ -24,8 +24,11 @@ import { getSiteStats } from '../../lib/siteStats';
 // 1-hour cache — measured as the LCP element at ~6.3s on mobile). Now a
 // 1800px WebP (~90 KB) served same-origin with a long cache header (see
 // vercel.json). Keep the .jpg sibling as the <picture> fallback.
-const heroWebp = '/hero-bg.webp';
-const heroJpg = '/hero-bg.jpg';
+// Filename bumped to -2 on the 2026-08-31 regrade: images carry a
+// 30-day browser cache (vercel.json), so returning visitors would keep
+// seeing the old "milky" file for weeks. A new URL forces a clean fetch.
+const heroWebp = '/hero-bg-2.webp';
+const heroJpg = '/hero-bg-2.jpg';
 const stats = await getSiteStats();
 ---
 
