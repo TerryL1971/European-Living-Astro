@@ -11,7 +11,11 @@ export default function ContactSection() {
   const [showForm, setShowForm] = useState(false);
 
   return (
-    <section id="contact" className="bg-[var(--brand-bg)] py-16 px-6 text-[var(--brand-text)]">
+    <section
+      id="contact"
+      className="py-16 px-6 text-[var(--brand-text)]"
+      style={{ background: 'linear-gradient(180deg, color-mix(in srgb, var(--brand-primary) 6%, #fff) 0%, color-mix(in srgb, var(--brand-primary) 12%, #fff) 100%)' }}
+    >
       <div className="max-w-4xl mx-auto text-center">
         <p className="uppercase tracking-[0.14em] text-xs font-bold text-[var(--brand-primary)] mb-3">Contact</p>
         <h2 className="text-3xl font-bold mb-4">Get in Touch</h2>
@@ -34,7 +38,7 @@ export default function ContactSection() {
             href="https://wa.me/4915165227520"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 border border-[var(--brand-border)] text-[var(--brand-text)] px-6 py-3 rounded-full font-semibold hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] transition"
+            className="flex items-center gap-2 bg-[var(--brand-gold)] text-[var(--brand-dark)] px-6 py-3 rounded-full font-semibold hover:bg-[var(--brand-secondary-light)] transition"
           >
             <MessageCircle size={18} />
             Chat on WhatsApp
