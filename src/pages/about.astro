@@ -205,31 +205,39 @@ const stats = await getSiteStats();
         <h2>What You'll Find Here</h2>
         <div class="about-page__grid">
           <div class="about-page__grid-card">
-            <span class="about-page__grid-icon" aria-hidden="true" style="--tint:#5e9350">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l-6 3V6l6-3 6 3 6-3v15l-6 3-6-3z"/><path d="M9 3v15M15 6v15"/></svg>
-            </span>
-            <h3>{stats.dayTripsCount} Day Trip Guides</h3>
+            <div class="about-page__grid-head">
+              <span class="about-page__grid-icon" aria-hidden="true" style="--tint:#5e9350">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l-6 3V6l6-3 6 3 6-3v15l-6 3-6-3z"/><path d="M9 3v15M15 6v15"/></svg>
+              </span>
+              <h3>{stats.dayTripsCount} Day Trip Guides</h3>
+            </div>
             <p>From your base to incredible destinations. With drive times, costs, parking, and what to actually see.</p>
           </div>
           <div class="about-page__grid-card">
-            <span class="about-page__grid-icon" aria-hidden="true" style="--tint:#7c6bb0">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
-            </span>
-            <h3>{stats.phrasesLabel.replace(/Phrases$/, 'Travel Phrases')}</h3>
+            <div class="about-page__grid-head">
+              <span class="about-page__grid-icon" aria-hidden="true" style="--tint:#7c6bb0">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+              </span>
+              <h3>{stats.phrasesLabel.replace(/Phrases$/, 'Travel Phrases')}</h3>
+            </div>
             <p>Essential phrases in 8 languages. With pronunciation. Because ordering food shouldn't be scary.</p>
           </div>
           <div class="about-page__grid-card">
-            <span class="about-page__grid-icon" aria-hidden="true" style="--tint:#3d8a85">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
-            </span>
-            <h3>{stats.businessesLabel.replace(/Businesses$/, 'Verified Businesses')}</h3>
+            <div class="about-page__grid-head">
+              <span class="about-page__grid-icon" aria-hidden="true" style="--tint:#3d8a85">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
+              </span>
+              <h3>{stats.businessesLabel.replace(/Businesses$/, 'Verified Businesses')}</h3>
+            </div>
             <p>English-friendly restaurants, doctors, services. All confirmed. All trusted by military families.</p>
           </div>
           <div class="about-page__grid-card">
-            <span class="about-page__grid-icon" aria-hidden="true" style="--tint:#b8802f">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-            </span>
-            <h3>{stats.articlesLabel.replace(/Articles$/, 'Travel Articles')}</h3>
+            <div class="about-page__grid-head">
+              <span class="about-page__grid-icon" aria-hidden="true" style="--tint:#b8802f">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+              </span>
+              <h3>{stats.articlesLabel.replace(/Articles$/, 'Travel Articles')}</h3>
+            </div>
             <p>Real advice from someone who's lived it. Not generic travel blog stuff.</p>
           </div>
         </div>
@@ -544,26 +552,33 @@ const stats = await getSiteStats();
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     border: 1px solid var(--brand-border);
   }
+  .about-page__grid-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+  }
   .about-page__grid-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.75rem;
-    height: 2.75rem;
-    border-radius: 0.7rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.65rem;
     background: color-mix(in srgb, var(--tint, var(--brand-primary)) 13%, transparent);
     color: var(--tint, var(--brand-primary));
-    margin-bottom: 0.9rem;
+    flex-shrink: 0;
   }
   .about-page__grid-icon svg {
-    width: 1.4rem;
-    height: 1.4rem;
+    width: 1.3rem;
+    height: 1.3rem;
   }
   .about-page__grid-card h3 {
     font-weight: 700;
     color: var(--brand-dark);
-    margin-bottom: 0.5rem;
-    font-size: 1.125rem;
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.25;
   }
   .about-page__grid-card p {
     color: var(--muted-foreground);

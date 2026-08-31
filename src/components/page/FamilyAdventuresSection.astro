@@ -62,10 +62,12 @@ const CATEGORIES = [
     <div class="fam__grid">
       {CATEGORIES.map((cat) => (
         <a href="/family-adventures" class="fam-card">
-          <span class="fam-card__icon" aria-hidden="true" style={`--tint:${cat.tint}`}>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={cat.icon} />
-          </span>
-          <h3>{cat.title}</h3>
+          <div class="fam-card__head">
+            <span class="fam-card__icon" aria-hidden="true" style={`--tint:${cat.tint}`}>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={cat.icon} />
+            </span>
+            <h3>{cat.title}</h3>
+          </div>
           <p>{cat.description}</p>
         </a>
       ))}
@@ -140,26 +142,33 @@ const CATEGORIES = [
     box-shadow: 0 14px 30px -16px rgba(3, 20, 32, 0.35);
     border-color: var(--brand-primary);
   }
+  .fam-card__head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+  }
   .fam-card__icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.75rem;
-    height: 2.75rem;
-    border-radius: 0.7rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.65rem;
     background: color-mix(in srgb, var(--tint, var(--brand-primary)) 13%, transparent);
     color: var(--tint, var(--brand-primary));
-    margin-bottom: 1rem;
+    flex-shrink: 0;
   }
   .fam-card__icon svg {
-    width: 1.4rem;
-    height: 1.4rem;
+    width: 1.3rem;
+    height: 1.3rem;
   }
   .fam-card h3 {
     font-size: 1.02rem;
     font-weight: 700;
     color: var(--brand-dark);
-    margin: 0 0 0.35rem;
+    margin: 0;
+    line-height: 1.25;
   }
   .fam-card p {
     font-size: 0.9rem;
