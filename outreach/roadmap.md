@@ -63,7 +63,7 @@ see snapshot). All other 8 categories start from zero.
 |---|---|
 | real-estate | ✅ 4 contacted 2026-08-28 (ImmoHauf, Premium Realestate/David Baker, Prime TLA, Stay Eden). 3 more researched with verified emails, queued for a future run (Roth TLA, TLA Office, TLA Ramstein/DODSC) |
 | automotive | Pre-existing (3 listings) — solid, no action needed yet |
-| healthcare | Not started |
+| healthcare | ✅ 4 contacted 2026-08-31 (Flynn Family Medicine, Dillon Orthodontic Care, Lutrina Practice & Clinic, Counseling Germany). 1 more researched w/ verified email queued (Dr. Michelle Ferrell/East to West Counseling). 2 no-email (Elite Group Therapy — Cloudflare-obfuscated address, use contact form/Setmore booking; Knospe-Lerncenter Ramstein — phone/contact-form only) |
 | restaurants | Not started |
 | shopping | Not started |
 | home-services | Not started |
@@ -71,11 +71,13 @@ see snapshot). All other 8 categories start from zero.
 | education | Not started |
 | hbb | Not started |
 
-**Next for KMC:** real-estate has a strong start (4 sent + 3 queued). Next run
-should either finish real-estate's queued 3, or open a second category
-(healthcare or home-services are good next picks — both are common PCS-week
-needs) — full coverage is still a long way off, this base needs many more
-runs.
+**Next for KMC:** real-estate (4 sent + 3 queued) and healthcare (4 sent + 1
+queued) both have a strong start. Next run should either finish one of
+those categories' queued leads (Roth TLA/TLA Office/TLA Ramstein for
+real-estate; Dr. Michelle Ferrell for healthcare) or open a third category
+— home-services, restaurants, or shopping are good next picks (all common
+PCS-week needs) — full coverage is still a long way off, this base needs
+many more runs.
 
 ### Wiesbaden — not started
 ### Bavaria bases — not started
