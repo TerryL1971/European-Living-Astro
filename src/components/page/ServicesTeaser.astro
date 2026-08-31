@@ -1,14 +1,14 @@
 ---
-// Static, server-rendered homepage teaser for the services directory —
-// replaces the client:visible ServicesCategoriesSection.tsx on the
-// homepage, whose "Loading trusted services and business counts…"
-// spinner was baked into the homepage HTML (audit finding H-1). The
-// full interactive version still runs on /english-services.
+// Server-rendered homepage teaser for the services directory — replaces
+// the client:visible ServicesCategoriesSection.tsx, whose loading spinner
+// was baked into the homepage HTML (audit finding H-1).
 //
-// Shows all nine categories in a 3×3 grid (empty ones muted but still
-// linkable — the category page invites a submission). Counts are
-// computed once at build time. /services/[category] reads the visitor's
-// stored base from localStorage, so links don't need a ?base= param.
+// Renders immediately with the all-bases counts (no spinner), then a
+// tiny inline script re-counts against the visitor's selected base
+// (localStorage `selectedBase`, updated on the `baseChanged` event that
+// Header + the base modal dispatch) and updates the numbers in place.
+// All nine categories always show; ones with zero for the current base
+// get the muted "Coming soon" treatment.
 
 import { supabase } from '../../services/supabaseClient';
 
@@ -26,14 +26,22 @@ const CATEGORIES = [
   { id: 'hbb', title: 'Tax & Business', tint: '#a3862c', icon: '<rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>' },
 ];
 
-const counts: Record<string, number> = {};
+let rows: { category: string; bases_served: string[] }[] = [];
 if (supabase) {
-  const { data } = await supabase.from('businesses').select('category').eq('status', 'active');
-  for (const row of data ?? []) {
-    if (row.category) counts[row.category] = (counts[row.category] ?? 0) + 1;
-  }
+  const { data } = await supabase
+    .from('businesses')
+    .select('category, bases_served')
+    .eq('status', 'active');
+  rows = (data ?? []).filter((r) => r.category);
 }
-const total = Object.values(counts).reduce((a, b) => a + b, 0);
+
+const counts: Record<string, number> = {};
+for (const r of rows) counts[r.category] = (counts[r.category] ?? 0) + 1;
+const total = rows.length;
+
+// Compact payload for the client re-count: [categoryIndex, basesBitmask?]
+// — simplest is just category + bases list.
+const payload = rows.map((r) => ({ c: r.category, b: r.bases_served ?? [] }));
 ---
 
 <section id="english-services" class="svc">
@@ -43,23 +51,27 @@ const total = Object.values(counts).reduce((a, b) => a + b, 0);
       <p class="svc__eyebrow">The directory</p>
       <h2>English-Speaking Services Near Your Base</h2>
       <p class="svc__lede">
-        {total} personally checked, English-friendly businesses that understand U.S. military and expat
-        families — car dealers, doctors, lawyers, tax advisors, and more.
+        <span data-svc-total>{total}</span> personally checked, English-friendly businesses that understand
+        U.S. military and expat families — car dealers, doctors, lawyers, tax advisors, and more.
       </p>
     </div>
 
-    <div class="svc__grid">
+    <div class="svc__grid" data-svc-grid>
       {
         CATEGORIES.map((c) => {
           const n = counts[c.id] ?? 0;
           return (
-            <a href={`/services/${c.id}`} class:list={['svc-card', n === 0 && 'svc-card--empty']}>
+            <a
+              href={`/services/${c.id}`}
+              class:list={['svc-card', n === 0 && 'svc-card--empty']}
+              data-cat={c.id}
+            >
               <span class="svc-card__icon" aria-hidden="true" style={`--tint:${c.tint}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={c.icon} />
               </span>
               <span class="svc-card__text">
                 <span class="svc-card__title">{c.title}</span>
-                <span class="svc-card__count">
+                <span class="svc-card__count" data-count>
                   {n > 0 ? `${n} ${n === 1 ? 'business' : 'businesses'}` : 'Coming soon'}
                 </span>
               </span>
@@ -68,6 +80,48 @@ const total = Object.values(counts).reduce((a, b) => a + b, 0);
         })
       }
     </div>
+
+    <script type="application/json" data-svc-data set:html={JSON.stringify(payload)} />
+    <script>
+      (() => {
+        const root = document.querySelector('.svc');
+        if (!root) return;
+        const dataEl = root.querySelector('[data-svc-data]');
+        let rows: { c: string; b: string[] }[] = [];
+        try {
+          rows = JSON.parse(dataEl?.textContent || '[]');
+        } catch {
+          return;
+        }
+        const totalEl = root.querySelector('[data-svc-total]');
+        const cards = Array.from(root.querySelectorAll<HTMLElement>('[data-cat]'));
+
+        function apply() {
+          let base = 'all';
+          try {
+            base = localStorage.getItem('selectedBase') || 'all';
+          } catch {}
+          const counts: Record<string, number> = {};
+          let total = 0;
+          for (const r of rows) {
+            if (base !== 'all' && !r.b.includes(base)) continue;
+            counts[r.c] = (counts[r.c] || 0) + 1;
+            total++;
+          }
+          if (totalEl) totalEl.textContent = String(total);
+          for (const card of cards) {
+            const n = counts[card.dataset.cat || ''] || 0;
+            const countEl = card.querySelector('[data-count]');
+            if (countEl) countEl.textContent = n > 0 ? `${n} ${n === 1 ? 'business' : 'businesses'}` : 'Coming soon';
+            card.classList.toggle('svc-card--empty', n === 0);
+          }
+        }
+
+        apply();
+        window.addEventListener('baseChanged', apply);
+        document.addEventListener('astro:page-load', apply);
+      })();
+    </script>
 
     <div class="svc__actions">
       <a href="/services-directory" class="svc__btn svc__btn--primary">Browse the full directory</a>

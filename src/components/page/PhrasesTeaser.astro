@@ -17,6 +17,27 @@ const LANGS = [
   { code: 'es', label: 'Spanish' },
 ];
 
+// A small Lucide line icon per sample phrase — same stroke set as the
+// category cards, tinted with the muted palette.
+const PHRASE_ICON: Record<string, { tint: string; icon: string }> = {
+  Hello: {
+    tint: '#3d8a85',
+    icon: '<path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>',
+  },
+  'Thank you': {
+    tint: '#b05e6d',
+    icon: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+  },
+  'Excuse me': {
+    tint: '#b8802f',
+    icon: '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/>',
+  },
+  'Do you speak English?': {
+    tint: '#4f7cb0',
+    icon: '<path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/>',
+  },
+};
+
 let samples: { english: string; rows: { label: string; text: string }[] }[] = [];
 try {
   const greetings = await phraseService.getPhrasesByCategory('greetings');
@@ -51,8 +72,15 @@ try {
 
         <div class="ph__grid">
           {samples.map((s) => (
-            <div class="ph-card">
-              <p class="ph-card__en">{s.english}</p>
+            <div class="ph-card" style={PHRASE_ICON[s.english] ? `--tint:${PHRASE_ICON[s.english].tint}` : undefined}>
+              <p class="ph-card__en">
+                {PHRASE_ICON[s.english] && (
+                  <span class="ph-card__icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={PHRASE_ICON[s.english].icon} />
+                  </span>
+                )}
+                <span>{s.english}</span>
+              </p>
               <ul class="ph-card__list">
                 {s.rows.map((r) => (
                   <li>
@@ -122,11 +150,29 @@ try {
     padding: 1.1rem 1.2rem;
   }
   .ph-card__en {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
     font-weight: 700;
     color: var(--brand-dark);
     margin: 0 0 0.6rem;
     padding-bottom: 0.55rem;
-    border-bottom: 2px solid var(--brand-primary);
+    border-bottom: 2px solid var(--tint, var(--brand-primary));
+  }
+  .ph-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 0.5rem;
+    background: color-mix(in srgb, var(--tint, var(--brand-primary)) 14%, transparent);
+    color: var(--tint, var(--brand-primary));
+    flex-shrink: 0;
+  }
+  .ph-card__icon svg {
+    width: 1.05rem;
+    height: 1.05rem;
   }
   .ph-card__list {
     list-style: none;
