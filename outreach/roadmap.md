@@ -61,23 +61,25 @@ see snapshot). All other 8 categories start from zero.
 
 | Category | Status |
 |---|---|
-| real-estate | ✅ 4 contacted 2026-08-28 (ImmoHauf, Premium Realestate/David Baker, Prime TLA, Stay Eden). 3 more researched with verified emails, queued for a future run (Roth TLA, TLA Office, TLA Ramstein/DODSC) |
+| real-estate | ✅ 7 contacted (ImmoHauf, Premium Realestate/David Baker, Prime TLA, Stay Eden — all 2026-08-28; Roth TLA, TLA Office, TLA Ramstein/DODSC — all 2026-09-01, re-verified still active before sending). Strong depth — no action needed for a while |
 | automotive | Pre-existing (3 listings) — solid, no action needed yet |
-| healthcare | ✅ 4 contacted 2026-08-31 (Flynn Family Medicine, Dillon Orthodontic Care, Lutrina Practice & Clinic, Counseling Germany). 1 more researched w/ verified email queued (Dr. Michelle Ferrell/East to West Counseling). 2 no-email (Elite Group Therapy — Cloudflare-obfuscated address, use contact form/Setmore booking; Knospe-Lerncenter Ramstein — phone/contact-form only) |
+| healthcare | ✅ 5 contacted (Flynn Family Medicine, Dillon Orthodontic Care, Lutrina Practice & Clinic, Counseling Germany — all 2026-08-31; Dr. Michelle Ferrell/East to West Counseling 2026-09-01). 2 no-email (Elite Group Therapy — Cloudflare-obfuscated address, use contact form/Setmore booking; Knospe-Lerncenter Ramstein — phone/contact-form only) |
+| home-services | ✅ NEW category opened 2026-09-01: 1 contacted (Mr. Perfect Services — moving/cleaning/lawn care/junk removal, founded 2014 for military PCS moves). 1 more researched w/ verified email queued (Clean Team Ramstein) |
 | restaurants | Not started |
 | shopping | Not started |
-| home-services | Not started |
 | legal-business | Not started |
 | education | Not started |
 | hbb | Not started |
 
-**Next for KMC:** real-estate (4 sent + 3 queued) and healthcare (4 sent + 1
-queued) both have a strong start. Next run should either finish one of
-those categories' queued leads (Roth TLA/TLA Office/TLA Ramstein for
-real-estate; Dr. Michelle Ferrell for healthcare) or open a third category
-— home-services, restaurants, or shopping are good next picks (all common
-PCS-week needs) — full coverage is still a long way off, this base needs
-many more runs.
+**Next for KMC:** real-estate (7 sent) and healthcare (5 sent) now have
+strong depth — no urgent action needed there for a while. home-services
+just opened (1 sent + 1 queued: Clean Team Ramstein,
+cleanteamramstein@gmail.com, verified active). Next run should either send
+the Clean Team Ramstein queued lead or open a new category — restaurants,
+shopping, legal-business, education, and hbb are all still untouched for
+KMC and should be the priority now over adding more depth to real-estate/
+healthcare. Full coverage is still a long way off, this base needs many
+more runs.
 
 ### Wiesbaden — not started
 ### Bavaria bases — not started
