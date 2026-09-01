@@ -11,7 +11,11 @@ import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
 import BusinessListCard from '../../components/BusinessListCard.astro';
 import { fetchBusinessesByCategory } from '../../services/businessServices';
 import { serviceCategories } from '../../data/serviceCategories';
-import { BASES } from '../../lib/seo/siteConfig';
+// Use the real base list (id + name) — the base-filter <option> values
+// MUST equal the ids stored in businesses.bases_served, or the filter
+// silently matches nothing. (siteConfig.BASES is display strings like
+// "Ramstein / KMC" — using those was the bug.)
+import { BASES } from '../../data/bases';
 import type { ServiceCategory } from '../../types/business';
 
 export async function getStaticPaths() {
@@ -44,13 +48,15 @@ const sortedBusinesses = [...businesses].sort((a, b) => {
 
     <h1>{categoryDef?.title ?? categoryId}</h1>
     {categoryDef?.description && <p class="category-listing__lede">{categoryDef.description}</p>}
-    <p class="category-listing__count">{sortedBusinesses.length} business{sortedBusinesses.length === 1 ? '' : 'es'}</p>
+    <p class="category-listing__count">
+      <span data-count>{sortedBusinesses.length}</span>{' '}<span data-count-noun>{sortedBusinesses.length === 1 ? 'business' : 'businesses'}</span>
+    </p>
 
     {sortedBusinesses.length > 0 && (
       <div class="category-listing__filters">
-        <select id="category-base-filter" class="category-listing__select">
-          <option value="">All Bases</option>
-          {BASES.map((base) => <option value={base.toLowerCase()}>{base}</option>)}
+        <select id="category-base-filter" class="category-listing__select" aria-label="Filter by base">
+          <option value="">All bases</option>
+          {BASES.map((base) => <option value={base.id}>{base.name}</option>)}
         </select>
       </div>
     )}
@@ -59,12 +65,10 @@ const sortedBusinesses = [...businesses].sort((a, b) => {
       {sortedBusinesses.map((business) => <BusinessListCard business={business} />)}
     </div>
 
-    {sortedBusinesses.length === 0 && (
-      <div class="category-listing__empty">
-        <p>No businesses in this category yet.</p>
-        <a href="/submit-business">List your business</a>
-      </div>
-    )}
+    <div class="category-listing__empty" id="category-empty" hidden={sortedBusinesses.length > 0}>
+      <p data-empty-msg>No businesses in this category yet.</p>
+      <a href="/submit-business">List your business</a>
+    </div>
   </div>
 </BaseLayout>
 
@@ -77,16 +81,37 @@ const sortedBusinesses = [...businesses].sort((a, b) => {
   document.addEventListener('astro:page-load', () => {
     const baseSelect = document.getElementById('category-base-filter') as HTMLSelectElement | null;
     const grid = document.getElementById('category-grid');
+    const countEl = document.querySelector<HTMLElement>('.category-listing__count [data-count]');
+    const nounEl = document.querySelector<HTMLElement>('.category-listing__count [data-count-noun]');
+    const emptyEl = document.getElementById('category-empty');
+    const emptyMsg = emptyEl?.querySelector<HTMLElement>('[data-empty-msg]');
 
     if (!grid) return;
 
+    const cards = Array.from(grid.querySelectorAll<HTMLElement>('.business-card'));
+    const totalCards = cards.length;
+
     function applyBaseFilter() {
       const base = baseSelect?.value ?? '';
-      const cards = grid?.querySelectorAll<HTMLElement>('.business-card') ?? [];
+      let shown = 0;
       cards.forEach((card) => {
-        const matches = !base || (card.dataset.bases ?? '').split(',').includes(base);
+        // card.dataset.bases is the comma-joined list of base ids the
+        // business serves — must match the <option> values (base.id).
+        const served = (card.dataset.bases ?? '').split(',').filter(Boolean);
+        const matches = !base || served.includes(base);
         card.hidden = !matches;
+        if (matches) shown += 1;
       });
+      if (countEl) countEl.textContent = String(shown);
+      if (nounEl) nounEl.textContent = shown === 1 ? 'business' : 'businesses';
+      if (emptyEl) {
+        emptyEl.hidden = totalCards === 0 ? false : shown > 0;
+        if (emptyMsg && totalCards > 0) {
+          emptyMsg.textContent = base
+            ? 'No businesses here serve that base yet.'
+            : 'No businesses in this category yet.';
+        }
+      }
     }
 
     baseSelect?.addEventListener('change', applyBaseFilter);
@@ -98,16 +123,16 @@ const sortedBusinesses = [...businesses].sort((a, b) => {
     const params = new URLSearchParams(window.location.search);
     let initialBase = params.get('base');
     if (!initialBase) {
-      const stored = localStorage.getItem('selectedBase');
-      if (stored && stored !== 'all') initialBase = stored;
+      try {
+        const stored = localStorage.getItem('selectedBase');
+        if (stored && stored !== 'all') initialBase = stored;
+      } catch {}
     }
     if (initialBase && baseSelect) {
       const match = Array.from(baseSelect.options).some((o) => o.value === initialBase);
-      if (match) {
-        baseSelect.value = initialBase;
-        applyBaseFilter();
-      }
+      if (match) baseSelect.value = initialBase;
     }
+    applyBaseFilter();
   });
 </script>
 
