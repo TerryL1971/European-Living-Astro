@@ -64,22 +64,19 @@ see snapshot). All other 8 categories start from zero.
 | real-estate | ✅ 7 contacted (ImmoHauf, Premium Realestate/David Baker, Prime TLA, Stay Eden — all 2026-08-28; Roth TLA, TLA Office, TLA Ramstein/DODSC — all 2026-09-01, re-verified still active before sending). Strong depth — no action needed for a while |
 | automotive | Pre-existing (3 listings) — solid, no action needed yet |
 | healthcare | ✅ 5 contacted (Flynn Family Medicine, Dillon Orthodontic Care, Lutrina Practice & Clinic, Counseling Germany — all 2026-08-31; Dr. Michelle Ferrell/East to West Counseling 2026-09-01). 2 no-email (Elite Group Therapy — Cloudflare-obfuscated address, use contact form/Setmore booking; Knospe-Lerncenter Ramstein — phone/contact-form only) |
-| home-services | ✅ NEW category opened 2026-09-01: 1 contacted (Mr. Perfect Services — moving/cleaning/lawn care/junk removal, founded 2014 for military PCS moves). 1 more researched w/ verified email queued (Clean Team Ramstein) |
-| restaurants | Not started |
+| home-services | ✅ 2 contacted (Mr. Perfect Services 2026-09-01; Clean Team Ramstein 2026-09-02, previously queued). No urgent action needed for now |
+| restaurants | ✅ NEW category opened 2026-09-02: 4 contacted (The Parlour/Landstuhl, Fiesta Mexicana/Mackenbach, KIKO Sushi & Grill/Kaiserslautern, Termeh Persian Restaurant/Kaiserslautern — all 2026-09-02) |
 | shopping | Not started |
 | legal-business | Not started |
 | education | Not started |
 | hbb | Not started |
 
-**Next for KMC:** real-estate (7 sent) and healthcare (5 sent) now have
-strong depth — no urgent action needed there for a while. home-services
-just opened (1 sent + 1 queued: Clean Team Ramstein,
-cleanteamramstein@gmail.com, verified active). Next run should either send
-the Clean Team Ramstein queued lead or open a new category — restaurants,
-shopping, legal-business, education, and hbb are all still untouched for
-KMC and should be the priority now over adding more depth to real-estate/
-healthcare. Full coverage is still a long way off, this base needs many
-more runs.
+**Next for KMC:** real-estate (7 sent), healthcare (5 sent), home-services
+(2 sent) and restaurants (4 sent, just opened) all now have real depth —
+restaurants could take another pass later but isn't urgent. shopping,
+legal-business, education, and hbb are all still completely untouched for
+KMC and should be the priority for the next run. Full coverage is still a
+long way off, this base needs many more runs.
 
 ### Wiesbaden — not started
 ### Bavaria bases — not started
