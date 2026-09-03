@@ -66,17 +66,16 @@ see snapshot). All other 8 categories start from zero.
 | healthcare | ✅ 5 contacted (Flynn Family Medicine, Dillon Orthodontic Care, Lutrina Practice & Clinic, Counseling Germany — all 2026-08-31; Dr. Michelle Ferrell/East to West Counseling 2026-09-01). 2 no-email (Elite Group Therapy — Cloudflare-obfuscated address, use contact form/Setmore booking; Knospe-Lerncenter Ramstein — phone/contact-form only) |
 | home-services | ✅ 2 contacted (Mr. Perfect Services 2026-09-01; Clean Team Ramstein 2026-09-02, previously queued). No urgent action needed for now |
 | restaurants | ✅ NEW category opened 2026-09-02: 4 contacted (The Parlour/Landstuhl, Fiesta Mexicana/Mackenbach, KIKO Sushi & Grill/Kaiserslautern, Termeh Persian Restaurant/Kaiserslautern — all 2026-09-02) |
-| shopping | Not started |
+| shopping | ✅ NEW category opened 2026-09-03: 5 contacted (United Furniture Landstuhl, Tailor Shop Kaiserslautern, Alpha Buchhandlung Landstuhl, Lachmann's/Mackenbach, Goldschmiede Nikl Ramstein-Miesenbach — all 2026-09-03). 2 base-access-only nonprofit thrift shops found (RESA, KLSA) logged as researched but not recommended — same poor-fit call as Patch Thrift Shop in Stuttgart |
 | legal-business | Not started |
 | education | Not started |
 | hbb | Not started |
 
 **Next for KMC:** real-estate (7 sent), healthcare (5 sent), home-services
-(2 sent) and restaurants (4 sent, just opened) all now have real depth —
-restaurants could take another pass later but isn't urgent. shopping,
-legal-business, education, and hbb are all still completely untouched for
-KMC and should be the priority for the next run. Full coverage is still a
-long way off, this base needs many more runs.
+(2 sent), restaurants (4 sent) and shopping (5 sent, just opened) all now
+have real depth. legal-business, education, and hbb are still completely
+untouched for KMC and should be the priority for the next run. Full
+coverage is still a long way off, this base needs many more runs.
 
 ### Wiesbaden — not started
 ### Bavaria bases — not started
@@ -141,6 +140,16 @@ routine.
    Rotate through base areas / categories so coverage stays even. For
    each, do the same web check as above, plus a quick sanity look at
    recent reviews (any from the last 6-12 months = clearly still open).
+   **Note (2026-09-03):** the 17-business snapshot has now been fully
+   swept — every entry has a check dated within the last ~week except
+   one ambiguous duplicate row ("Used Car Guys", spangdahlem, no
+   location suffix) that appears to be the same physical business as
+   the already-checked "The Used Car Guys - Spangdahlem." Re-checking
+   any of them this soon would violate the 90-day spacing / "don't
+   batch to catch up" guardrail for no real benefit, so the 2026-09-03
+   run did zero new verification-log rows. Resume this sampling once
+   entries start aging past ~90 days, or once new confirmed listings
+   from this outreach start appearing in a refreshed snapshot.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
