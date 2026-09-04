@@ -25,6 +25,7 @@
 import React, { useState } from 'react';
 import { Building2, MapPin, Phone, Languages, Award, Clock, CheckCircle, Loader, AlertCircle, User } from 'lucide-react';
 import { supabase } from '../services/supabaseClient';
+import { BASES } from '../data/bases';
 
 interface FormData {
   businessName: string;
@@ -104,14 +105,10 @@ export default function BusinessSubmissionForm() {
     { id: 'hbb', name: 'Business Services' },
   ];
 
-  const bases = [
-    { id: 'stuttgart', name: 'USAG Stuttgart' },
-    { id: 'ramstein', name: 'Ramstein Air Base' },
-    { id: 'kaiserslautern', name: 'KMC Area' },
-    { id: 'wiesbaden', name: 'USAG Wiesbaden' },
-    { id: 'grafenwoehr', name: 'USAG Bavaria' },
-    { id: 'spangdahlem', name: 'Spangdahlem AB' },
-  ];
+  // From data/bases.ts (single source of truth) — a hardcoded copy here
+  // was missing Baumholder, so a Baumholder business couldn't select its
+  // base and the "at least one base" check blocked the whole submission.
+  const bases = BASES.map((b) => ({ id: b.id, name: b.name }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -234,9 +231,16 @@ export default function BusinessSubmissionForm() {
               <CheckCircle className="w-10 h-10 text-green-600" />
             </div>
             <h2 className="text-3xl font-bold text-[var(--brand-dark)] mb-2">Check Your Email</h2>
-            <p className="text-lg text-[var(--muted-foreground)] mb-6">
+            <p className="text-lg text-[var(--muted-foreground)] mb-2">
               We've sent a confirmation link to the email you provided. Click it to confirm this
               listing, then we'll review it and get back to you within 2-3 business days.
+            </p>
+            <p className="text-sm text-[var(--muted-foreground)] mb-6">
+              Didn't get it within a few minutes? Check your spam folder, or email us at{' '}
+              <a href="mailto:info@european-living.live" className="text-[var(--brand-primary)] underline">
+                info@european-living.live
+              </a>
+              .
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
@@ -265,9 +269,11 @@ export default function BusinessSubmissionForm() {
     <div className="min-h-screen bg-[var(--brand-bg)] py-12 px-4 transition-colors duration-300">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-[var(--brand-dark)] mb-2">Add Your Business</h1>
+          <h1 className="text-4xl font-bold text-[var(--brand-dark)] mb-2">List Your Business</h1>
           <p className="text-lg text-[var(--muted-foreground)]">
-            Help American military families find your English-friendly business
+            Help American military families find your English-friendly business. Only the fields
+            marked <span className="text-[var(--brand-primary)] font-semibold">*</span> are required —
+            it takes about two minutes. Everything else just helps families find you faster.
           </p>
         </div>
 
@@ -649,13 +655,12 @@ export default function BusinessSubmissionForm() {
           </div>
 
           <div className="flex justify-end gap-4">
-            <button
-              type="button"
-              onClick={() => window.history.back()}
+            <a
+              href="/services-directory"
               className="px-6 py-3 border-2 border-[var(--border)] rounded-lg text-[var(--brand-dark)] font-medium hover:bg-[var(--muted)] transition-colors duration-200"
             >
               Cancel
-            </button>
+            </a>
             <button
               type="submit"
               disabled={submitting}
