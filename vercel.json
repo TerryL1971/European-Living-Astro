@@ -103,6 +103,11 @@
       "source": "/day-trips/kaiserslautern-trier",
       "destination": "/day-trips/ramstein-trier",
       "statusCode": 301
+    },
+    {
+      "source": "/day-trips/ed948ddb-a445-4cbd-b3c4-382e58125dd1",
+      "destination": "/day-trips/ramstein-strasbourg-france",
+      "statusCode": 301
     }
   ]
 }
