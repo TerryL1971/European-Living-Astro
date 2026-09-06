@@ -1,14 +1,14 @@
 // src/components/page/ServicesCategoriesSection.tsx
 //
-// FIXED: this component was reading `selectedBase` from the legacy
-// BaseContext (via its own isolated <BaseProvider>) — the same
-// island-isolation bug already found and fixed in BaseSelector.tsx.
-// Each BaseProvider instance is independent, so this component's base
+// FIXED: this component used to read `selectedBase` from the old
+// React BaseContext via its own isolated <BaseProvider>. Each
+// BaseProvider instance is independent, so this component's base
 // selection never actually synced with BaseSelectionModal.tsx or
 // anything else on the site (which all read/write the shared
 // nanostore in stores/baseStore.ts). That's why no base selection
 // ever changed these counts, and why the counting behaved
 // unpredictably rather than reflecting what was actually selected.
+// It now reads the shared nanostore directly, like everything else.
 //
 // Also removed the old PENDING_BASE_ID / "Services Awaiting Base
 // Selection" gate. That gate assumed a pending/unselected state
