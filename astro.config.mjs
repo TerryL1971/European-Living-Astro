@@ -13,10 +13,11 @@ export default defineConfig({
   integrations: [
     react(),
     sitemap({
-      // Static routes are auto-included. Dynamic Supabase-driven routes
-      // (day-trips/:id, destinations/:id, articles/:slug) are appended by
-      // scripts/generate-dynamic-sitemap-entries.ts at build time — see
-      // that file and package.json "postbuild" script.
+      // Every route is prerendered to static HTML at build time — including
+      // the Supabase-driven dynamic routes (articles/[slug], businesses/[slug],
+      // destinations/[slug], day-trips/[slug]), whose paths come from
+      // getStaticPaths(). @astrojs/sitemap walks the built pages, so all of
+      // them land in the sitemap automatically; only /admin/ is excluded here.
       filter: (page) => !page.includes('/admin/'),
       changefreq: 'weekly',
       lastmod: new Date(),
@@ -34,10 +35,10 @@ export default defineConfig({
   output: 'static',
 
   // Prefetches a page's HTML the moment a visitor hovers/focuses its
-  // link (default strategy), so by the time they actually click, the
-  // <ClientRouter /> transition (see BaseLayout.astro) has little or
-  // nothing left to fetch. Pairs with View Transitions to address a
-  // measured ~1.2s full-page-reload cost per navigation, down from
-  // the old React SPA's ~50ms client-side route swap.
+  // link (default strategy), so the click itself has little or nothing
+  // left to fetch. <ClientRouter /> was removed from BaseLayout on
+  // 2026-08-29 (it shipped broken UX on real devices); every route is
+  // static HTML and /_astro assets are immutably cached, so a plain
+  // full-page navigation only fetches the small gzipped HTML.
   prefetch: true,
 });
