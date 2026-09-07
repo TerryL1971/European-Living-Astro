@@ -68,14 +68,18 @@ see snapshot). All other 8 categories start from zero.
 | restaurants | ✅ NEW category opened 2026-09-02: 4 contacted (The Parlour/Landstuhl, Fiesta Mexicana/Mackenbach, KIKO Sushi & Grill/Kaiserslautern, Termeh Persian Restaurant/Kaiserslautern — all 2026-09-02) |
 | shopping | ✅ NEW category opened 2026-09-03: 5 contacted (United Furniture Landstuhl, Tailor Shop Kaiserslautern, Alpha Buchhandlung Landstuhl, Lachmann's/Mackenbach, Goldschmiede Nikl Ramstein-Miesenbach — all 2026-09-03). 2 base-access-only nonprofit thrift shops found (RESA, KLSA) logged as researched but not recommended — same poor-fit call as Patch Thrift Shop in Stuttgart |
 | legal-business | ✅ NEW category opened 2026-09-04: 4 contacted (RFP Tax Advice/RFP Steuerberatung Ramstein-Miesenbach & Kaiserslautern, Kanzlei Albrecht/US military tax disputes Kaiserslautern, Rechtsanwalt Wolfgang Frisch/U.S. Consulate referral list Kaiserslautern, Kanzlei Christin Lehné/family law Landstuhl — all 2026-09-04). 1 no-email (Law Office of Will M. Helixon — Cloudflare-obfuscated contact email, use contact form/phone) |
-| education | Not started |
+| education | ✅ NEW category opened 2026-09-07: 4 contacted (Mathe Coach/DoDEA math tutoring, International School Westpfalz/Landstuhl Cambridge school, Agape International Academy/Ramstein West Gate K-6, Faith Baptist School/Kaiserslautern Pre-K-6 — all 2026-09-07). 2 no-email (St David's School — British international school, contact form/phone only; Children's Learning Academy/Kids Learning Center Mackenbach — Facebook/phone only) |
 | hbb | Not started |
 
 **Next for KMC:** real-estate (7 sent), healthcare (5 sent), home-services
-(2 sent), restaurants (4 sent), shopping (5 sent) and legal-business (4
-sent, just opened) all now have real depth. education and hbb are still
-completely untouched for KMC and should be the priority for the next run.
-Full coverage is still a long way off, this base needs many more runs.
+(2 sent), restaurants (4 sent), shopping (5 sent), legal-business (4 sent)
+and education (4 sent, just opened) all now have real depth. hbb is still
+completely untouched for KMC and should be the priority for the next run —
+look for military-spouse-run home businesses (photography, baking,
+fitness/coaching, Etsy-style crafts) near Ramstein/Kaiserslautern/Landstuhl,
+the same pattern as Stuttgart's Cookies with Dolly / Hair and There /
+Coached With Flavor. Full coverage is still a long way off, this base needs
+many more runs.
 
 ### Wiesbaden — not started
 ### Bavaria bases — not started
@@ -154,6 +158,13 @@ routine.
    one of the 17 snapshot entries is still dated within the last ~week,
    so the 2026-09-04 run also did zero new verification-log rows (same
    reasoning, nothing has aged out yet).
+   **Still true as of 2026-09-07:** re-checked before this run — the
+   oldest verification-log entries (2026-08-21/08-28) are only ~2-3
+   weeks old, nowhere near the ~90-day re-check window, so the
+   2026-09-07 run also did zero new verification-log rows. Resume this
+   sampling once entries start aging past ~90 days (earliest around
+   late November 2026) or once a refreshed snapshot adds new confirmed
+   listings from this outreach.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
