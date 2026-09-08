@@ -69,17 +69,21 @@ see snapshot). All other 8 categories start from zero.
 | shopping | ✅ NEW category opened 2026-09-03: 5 contacted (United Furniture Landstuhl, Tailor Shop Kaiserslautern, Alpha Buchhandlung Landstuhl, Lachmann's/Mackenbach, Goldschmiede Nikl Ramstein-Miesenbach — all 2026-09-03). 2 base-access-only nonprofit thrift shops found (RESA, KLSA) logged as researched but not recommended — same poor-fit call as Patch Thrift Shop in Stuttgart |
 | legal-business | ✅ NEW category opened 2026-09-04: 4 contacted (RFP Tax Advice/RFP Steuerberatung Ramstein-Miesenbach & Kaiserslautern, Kanzlei Albrecht/US military tax disputes Kaiserslautern, Rechtsanwalt Wolfgang Frisch/U.S. Consulate referral list Kaiserslautern, Kanzlei Christin Lehné/family law Landstuhl — all 2026-09-04). 1 no-email (Law Office of Will M. Helixon — Cloudflare-obfuscated contact email, use contact form/phone) |
 | education | ✅ NEW category opened 2026-09-07: 4 contacted (Mathe Coach/DoDEA math tutoring, International School Westpfalz/Landstuhl Cambridge school, Agape International Academy/Ramstein West Gate K-6, Faith Baptist School/Kaiserslautern Pre-K-6 — all 2026-09-07). 2 no-email (St David's School — British international school, contact form/phone only; Children's Learning Academy/Kids Learning Center Mackenbach — Facebook/phone only) |
-| hbb | Not started |
+| hbb | ✅ NEW category opened 2026-09-08: 5 contacted (Sarah Havens Photography/family+motherhood portraits, Lena Jones Doula & Birth Photography, Studio MS Photography/Maud Schoenmaekers, Gerardini Photo/Pete Gerardini, Porscha Herron Personal Training — all Kaiserslautern/Ramstein-area, all 2026-09-08) |
 
-**Next for KMC:** real-estate (7 sent), healthcare (5 sent), home-services
-(2 sent), restaurants (4 sent), shopping (5 sent), legal-business (4 sent)
-and education (4 sent, just opened) all now have real depth. hbb is still
-completely untouched for KMC and should be the priority for the next run —
-look for military-spouse-run home businesses (photography, baking,
-fitness/coaching, Etsy-style crafts) near Ramstein/Kaiserslautern/Landstuhl,
-the same pattern as Stuttgart's Cookies with Dolly / Hair and There /
-Coached With Flavor. Full coverage is still a long way off, this base needs
-many more runs.
+**Next for KMC:** all 9 categories now have at least initial outreach —
+real-estate (7 sent), healthcare (5 sent), home-services (2 sent),
+restaurants (4 sent), shopping (5 sent), legal-business (4 sent), education
+(4 sent) and hbb (5 sent, just opened), plus pre-existing automotive.
+**home-services is now the shallowest category (only 2 sent) and should be
+the priority for the next run** — search again for Stuttgart Expats
+Handyman/Move Clean Pros-style leads (movers, cleaners, handymen) near
+Ramstein/Kaiserslautern/Landstuhl beyond Mr. Perfect Services/Clean Team
+Ramstein already contacted. hbb also has room for more depth beyond the 5
+photography/fitness leads sent today (e.g. baking — Cravings Corner Co and
+Sparky's Cheesecake were found but had no publicly published email this
+run, worth another look). Full coverage is still a long way off, this base
+needs many more runs.
 
 ### Wiesbaden — not started
 ### Bavaria bases — not started
@@ -165,6 +169,15 @@ routine.
    sampling once entries start aging past ~90 days (earliest around
    late November 2026) or once a refreshed snapshot adds new confirmed
    listings from this outreach.
+   **Still true as of 2026-09-08:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are ~11 days old, still nowhere
+   near the ~90-day window, so the 2026-09-08 run also did zero new
+   verification-log rows (same reasoning). Today's outreach leads (Sarah
+   Havens Photography, Lena Jones, Studio MS Photography, Gerardini
+   Photo, Porscha Herron) are all solo/home-based businesses without
+   Google Maps listings to check, so their "still open" check for step
+   4 relied on active-site/recent-content evidence instead (see log.csv
+   notes) rather than a Maps closure flag.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
