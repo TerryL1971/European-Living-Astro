@@ -64,7 +64,7 @@ see snapshot). All other 8 categories start from zero.
 | real-estate | ✅ 7 contacted (ImmoHauf, Premium Realestate/David Baker, Prime TLA, Stay Eden — all 2026-08-28; Roth TLA, TLA Office, TLA Ramstein/DODSC — all 2026-09-01, re-verified still active before sending). Strong depth — no action needed for a while |
 | automotive | Pre-existing (3 listings) — solid, no action needed yet |
 | healthcare | ✅ 5 contacted (Flynn Family Medicine, Dillon Orthodontic Care, Lutrina Practice & Clinic, Counseling Germany — all 2026-08-31; Dr. Michelle Ferrell/East to West Counseling 2026-09-01). 2 no-email (Elite Group Therapy — Cloudflare-obfuscated address, use contact form/Setmore booking; Knospe-Lerncenter Ramstein — phone/contact-form only) |
-| home-services | ✅ 2 contacted (Mr. Perfect Services 2026-09-01; Clean Team Ramstein 2026-09-02, previously queued). No urgent action needed for now |
+| home-services | ✅ 6 contacted (Mr. Perfect Services 2026-09-01; Clean Team Ramstein 2026-09-02; Thompson Cleaning Service KMC, G&G International Movers, Möbelspedition Sander, Teppichreinigung24 — all 2026-09-09). 3 no-email (Mike & Mike Cleaning Services — Cloudflare/redacted email, use WhatsApp/phone; Mr. Prosper Express Services — no published email, worth another look; Karakoc Gebäudeservice — German-only site, phone only, lower-priority fit). 1 explicitly NOT recommended: Move Clean Perfect (movecleanperfect.com) — logged 'researched' with a trust/safety flag, its only findable email (princeabiola1000@gmail.com) matches a known PCS-moving-scam pattern, do not email or list without the site owner's own diligence |
 | restaurants | ✅ NEW category opened 2026-09-02: 4 contacted (The Parlour/Landstuhl, Fiesta Mexicana/Mackenbach, KIKO Sushi & Grill/Kaiserslautern, Termeh Persian Restaurant/Kaiserslautern — all 2026-09-02) |
 | shopping | ✅ NEW category opened 2026-09-03: 5 contacted (United Furniture Landstuhl, Tailor Shop Kaiserslautern, Alpha Buchhandlung Landstuhl, Lachmann's/Mackenbach, Goldschmiede Nikl Ramstein-Miesenbach — all 2026-09-03). 2 base-access-only nonprofit thrift shops found (RESA, KLSA) logged as researched but not recommended — same poor-fit call as Patch Thrift Shop in Stuttgart |
 | legal-business | ✅ NEW category opened 2026-09-04: 4 contacted (RFP Tax Advice/RFP Steuerberatung Ramstein-Miesenbach & Kaiserslautern, Kanzlei Albrecht/US military tax disputes Kaiserslautern, Rechtsanwalt Wolfgang Frisch/U.S. Consulate referral list Kaiserslautern, Kanzlei Christin Lehné/family law Landstuhl — all 2026-09-04). 1 no-email (Law Office of Will M. Helixon — Cloudflare-obfuscated contact email, use contact form/phone) |
@@ -72,18 +72,18 @@ see snapshot). All other 8 categories start from zero.
 | hbb | ✅ NEW category opened 2026-09-08: 5 contacted (Sarah Havens Photography/family+motherhood portraits, Lena Jones Doula & Birth Photography, Studio MS Photography/Maud Schoenmaekers, Gerardini Photo/Pete Gerardini, Porscha Herron Personal Training — all Kaiserslautern/Ramstein-area, all 2026-09-08) |
 
 **Next for KMC:** all 9 categories now have at least initial outreach —
-real-estate (7 sent), healthcare (5 sent), home-services (2 sent),
-restaurants (4 sent), shopping (5 sent), legal-business (4 sent), education
-(4 sent) and hbb (5 sent, just opened), plus pre-existing automotive.
-**home-services is now the shallowest category (only 2 sent) and should be
-the priority for the next run** — search again for Stuttgart Expats
-Handyman/Move Clean Pros-style leads (movers, cleaners, handymen) near
-Ramstein/Kaiserslautern/Landstuhl beyond Mr. Perfect Services/Clean Team
-Ramstein already contacted. hbb also has room for more depth beyond the 5
-photography/fitness leads sent today (e.g. baking — Cravings Corner Co and
-Sparky's Cheesecake were found but had no publicly published email this
-run, worth another look). Full coverage is still a long way off, this base
-needs many more runs.
+real-estate (7 sent), healthcare (5 sent), home-services (6 sent, was the
+shallowest, now solid — see table above), restaurants (4 sent), shopping (5
+sent), legal-business (4 sent), education (4 sent) and hbb (5 sent), plus
+pre-existing automotive. **hbb is now the shallowest fully-open category
+(5 sent, all photography/fitness) and should be the priority for the next
+run** — baking is still worth a look: Cravings Corner Co (hotplate.com
+ordering page) and Sparky's Cheesecake (active Facebook/Instagram) were
+found again 2026-09-09 but still no publicly published email in search
+snippets; try their ordering/Facebook pages directly next run, or search
+for other home-based military-spouse businesses (crafts, tutoring, fitness,
+photography) beyond the 5 already contacted. Full coverage is still a long
+way off, this base needs many more runs.
 
 ### Wiesbaden — not started
 ### Bavaria bases — not started
@@ -178,6 +178,15 @@ routine.
    Google Maps listings to check, so their "still open" check for step
    4 relied on active-site/recent-content evidence instead (see log.csv
    notes) rather than a Maps closure flag.
+   **Still true as of 2026-09-09:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are ~12 days old, still nowhere
+   near the ~90-day window, so the 2026-09-09 run also did zero new
+   verification-log rows (same reasoning). Today's 4 new home-services
+   leads (Thompson Cleaning Service KMC, G&G International Movers,
+   Möbelspedition Sander, Teppichreinigung24) were all confirmed
+   still-operating via web search (active sites/directory listings, no
+   Maps closure flags) before sending — see log.csv notes for evidence
+   per lead.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
