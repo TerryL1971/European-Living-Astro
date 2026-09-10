@@ -69,21 +69,29 @@ see snapshot). All other 8 categories start from zero.
 | shopping | ✅ NEW category opened 2026-09-03: 5 contacted (United Furniture Landstuhl, Tailor Shop Kaiserslautern, Alpha Buchhandlung Landstuhl, Lachmann's/Mackenbach, Goldschmiede Nikl Ramstein-Miesenbach — all 2026-09-03). 2 base-access-only nonprofit thrift shops found (RESA, KLSA) logged as researched but not recommended — same poor-fit call as Patch Thrift Shop in Stuttgart |
 | legal-business | ✅ NEW category opened 2026-09-04: 4 contacted (RFP Tax Advice/RFP Steuerberatung Ramstein-Miesenbach & Kaiserslautern, Kanzlei Albrecht/US military tax disputes Kaiserslautern, Rechtsanwalt Wolfgang Frisch/U.S. Consulate referral list Kaiserslautern, Kanzlei Christin Lehné/family law Landstuhl — all 2026-09-04). 1 no-email (Law Office of Will M. Helixon — Cloudflare-obfuscated contact email, use contact form/phone) |
 | education | ✅ NEW category opened 2026-09-07: 4 contacted (Mathe Coach/DoDEA math tutoring, International School Westpfalz/Landstuhl Cambridge school, Agape International Academy/Ramstein West Gate K-6, Faith Baptist School/Kaiserslautern Pre-K-6 — all 2026-09-07). 2 no-email (St David's School — British international school, contact form/phone only; Children's Learning Academy/Kids Learning Center Mackenbach — Facebook/phone only) |
-| hbb | ✅ NEW category opened 2026-09-08: 5 contacted (Sarah Havens Photography/family+motherhood portraits, Lena Jones Doula & Birth Photography, Studio MS Photography/Maud Schoenmaekers, Gerardini Photo/Pete Gerardini, Porscha Herron Personal Training — all Kaiserslautern/Ramstein-area, all 2026-09-08) |
+| hbb | ✅ NEW category opened 2026-09-08: 5 contacted (Sarah Havens Photography/family+motherhood portraits, Lena Jones Doula & Birth Photography, Studio MS Photography/Maud Schoenmaekers, Gerardini Photo/Pete Gerardini, Porscha Herron Personal Training — all Kaiserslautern/Ramstein-area, all 2026-09-08). ✅ +1 2026-09-10: Marta Sobczak Photography (newborn/family/maternity, comes to the client's home on or off base) — now 6 sent. Still no email found for Cravings Corner Co, Sparky's Cheesecake (baking), KlaudiAlmonteFitness (fitness/nutrition), or Sophia's Makeup Artist Services (mobile makeup) despite repeated searches — all Facebook/Instagram/contact-form only |
 
 **Next for KMC:** all 9 categories now have at least initial outreach —
-real-estate (7 sent), healthcare (5 sent), home-services (6 sent, was the
-shallowest, now solid — see table above), restaurants (4 sent), shopping (5
-sent), legal-business (4 sent), education (4 sent) and hbb (5 sent), plus
-pre-existing automotive. **hbb is now the shallowest fully-open category
-(5 sent, all photography/fitness) and should be the priority for the next
-run** — baking is still worth a look: Cravings Corner Co (hotplate.com
-ordering page) and Sparky's Cheesecake (active Facebook/Instagram) were
-found again 2026-09-09 but still no publicly published email in search
-snippets; try their ordering/Facebook pages directly next run, or search
-for other home-based military-spouse businesses (crafts, tutoring, fitness,
-photography) beyond the 5 already contacted. Full coverage is still a long
-way off, this base needs many more runs.
+real-estate (7 sent), healthcare (5 sent), home-services (6 sent), restaurants
+(5 sent as of 2026-09-10), shopping (6 sent as of 2026-09-10), legal-business
+(4 sent), education (5 sent as of 2026-09-10) and hbb (6 sent as of
+2026-09-10), plus pre-existing automotive. 2026-09-10 added depth across
+several categories rather than only hbb, since hbb's remaining known leads
+(Cravings Corner Co, Sparky's Cheesecake, KlaudiAlmonteFitness, Sophia's
+Makeup Artist Services) all still lack a publicly published email —
+**shopping** gained Trophy Center (engraving/awards, Kaiserslautern-
+Einsiedlerhof — a distinct family business from Lachmann's, not a
+duplicate), **education** gained StimmWerkstatt (German lessons for English
+speakers + piano/singing, Ramstein-Miesenbach), and **restaurants** gained
+Military Services Germany/Käsemann Catering (full-service catering
+explicitly built for the military community, Kaiserslautern). hbb remains
+the category with the fewest sends (6) and should stay a priority — next
+run, try KlaudiAlmonteFitness's contact page directly (dedicated contact
+page exists, just no email in search snippets) and keep searching for
+other home-based military-spouse businesses (crafts, tutoring, pet-sitting,
+personal chef/catering not yet found) beyond those already contacted or
+logged as no-email. Full coverage is still a long way off, this base needs
+many more runs.
 
 ### Wiesbaden — not started
 ### Bavaria bases — not started
@@ -187,6 +195,14 @@ routine.
    still-operating via web search (active sites/directory listings, no
    Maps closure flags) before sending — see log.csv notes for evidence
    per lead.
+   **Still true as of 2026-09-10:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are ~13 days old, still nowhere
+   near the ~90-day window, so the 2026-09-10 run also did zero new
+   verification-log rows (same reasoning). Today's 4 new leads (Trophy
+   Center, StimmWerkstatt, Marta Sobczak Photography, Military Services
+   Germany/Käsemann Catering) were all confirmed still-operating via web
+   search (active sites, current reviews, no closure flags) before
+   sending — see log.csv notes for evidence per lead.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
