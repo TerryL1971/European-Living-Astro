@@ -67,31 +67,32 @@ see snapshot). All other 8 categories start from zero.
 | home-services | ✅ 6 contacted (Mr. Perfect Services 2026-09-01; Clean Team Ramstein 2026-09-02; Thompson Cleaning Service KMC, G&G International Movers, Möbelspedition Sander, Teppichreinigung24 — all 2026-09-09). 3 no-email (Mike & Mike Cleaning Services — Cloudflare/redacted email, use WhatsApp/phone; Mr. Prosper Express Services — no published email, worth another look; Karakoc Gebäudeservice — German-only site, phone only, lower-priority fit). 1 explicitly NOT recommended: Move Clean Perfect (movecleanperfect.com) — logged 'researched' with a trust/safety flag, its only findable email (princeabiola1000@gmail.com) matches a known PCS-moving-scam pattern, do not email or list without the site owner's own diligence |
 | restaurants | ✅ NEW category opened 2026-09-02: 4 contacted (The Parlour/Landstuhl, Fiesta Mexicana/Mackenbach, KIKO Sushi & Grill/Kaiserslautern, Termeh Persian Restaurant/Kaiserslautern — all 2026-09-02) |
 | shopping | ✅ NEW category opened 2026-09-03: 5 contacted (United Furniture Landstuhl, Tailor Shop Kaiserslautern, Alpha Buchhandlung Landstuhl, Lachmann's/Mackenbach, Goldschmiede Nikl Ramstein-Miesenbach — all 2026-09-03). 2 base-access-only nonprofit thrift shops found (RESA, KLSA) logged as researched but not recommended — same poor-fit call as Patch Thrift Shop in Stuttgart |
-| legal-business | ✅ NEW category opened 2026-09-04: 4 contacted (RFP Tax Advice/RFP Steuerberatung Ramstein-Miesenbach & Kaiserslautern, Kanzlei Albrecht/US military tax disputes Kaiserslautern, Rechtsanwalt Wolfgang Frisch/U.S. Consulate referral list Kaiserslautern, Kanzlei Christin Lehné/family law Landstuhl — all 2026-09-04). 1 no-email (Law Office of Will M. Helixon — Cloudflare-obfuscated contact email, use contact form/phone) |
+| legal-business | ✅ 8 contacted (RFP Tax Advice/RFP Steuerberatung Ramstein-Miesenbach & Kaiserslautern, Kanzlei Albrecht/US military tax disputes Kaiserslautern, Rechtsanwalt Wolfgang Frisch/U.S. Consulate referral list Kaiserslautern, Kanzlei Christin Lehné/family law Landstuhl — all 2026-09-04; Notar Dr. David Siegel/Landstuhl notary, Top Gun Tax Solutions/Kaiserslautern US tax prep, Walsh Agency/Kaiserslautern insurance broker, Winter Agency/Ramstein-Miesenbach military insurance — all 2026-09-11). 3 no-email (Law Office of Will M. Helixon — Cloudflare-obfuscated contact email, use contact form/phone; Stephen F. Mitchell CPA — only a masked/redacted email surfaced, use stephenmitchellcpa.net contact form; taxpatation — inquiry-form-only, also location mismatch/Parsberg-Bavaria-registered). 1 researched (Milinsure — no email found in search snippets, worth checking its contact page directly). 1 phone-only/not-a-fit (Certified Interpreter & Translator — Privacy Act, no email by design) |
 | education | ✅ NEW category opened 2026-09-07: 4 contacted (Mathe Coach/DoDEA math tutoring, International School Westpfalz/Landstuhl Cambridge school, Agape International Academy/Ramstein West Gate K-6, Faith Baptist School/Kaiserslautern Pre-K-6 — all 2026-09-07). 2 no-email (St David's School — British international school, contact form/phone only; Children's Learning Academy/Kids Learning Center Mackenbach — Facebook/phone only) |
 | hbb | ✅ NEW category opened 2026-09-08: 5 contacted (Sarah Havens Photography/family+motherhood portraits, Lena Jones Doula & Birth Photography, Studio MS Photography/Maud Schoenmaekers, Gerardini Photo/Pete Gerardini, Porscha Herron Personal Training — all Kaiserslautern/Ramstein-area, all 2026-09-08). ✅ +1 2026-09-10: Marta Sobczak Photography (newborn/family/maternity, comes to the client's home on or off base) — now 6 sent. Still no email found for Cravings Corner Co, Sparky's Cheesecake (baking), KlaudiAlmonteFitness (fitness/nutrition), or Sophia's Makeup Artist Services (mobile makeup) despite repeated searches — all Facebook/Instagram/contact-form only |
 
 **Next for KMC:** all 9 categories now have at least initial outreach —
 real-estate (7 sent), healthcare (5 sent), home-services (6 sent), restaurants
-(5 sent as of 2026-09-10), shopping (6 sent as of 2026-09-10), legal-business
-(4 sent), education (5 sent as of 2026-09-10) and hbb (6 sent as of
-2026-09-10), plus pre-existing automotive. 2026-09-10 added depth across
-several categories rather than only hbb, since hbb's remaining known leads
-(Cravings Corner Co, Sparky's Cheesecake, KlaudiAlmonteFitness, Sophia's
-Makeup Artist Services) all still lack a publicly published email —
-**shopping** gained Trophy Center (engraving/awards, Kaiserslautern-
-Einsiedlerhof — a distinct family business from Lachmann's, not a
-duplicate), **education** gained StimmWerkstatt (German lessons for English
-speakers + piano/singing, Ramstein-Miesenbach), and **restaurants** gained
-Military Services Germany/Käsemann Catering (full-service catering
-explicitly built for the military community, Kaiserslautern). hbb remains
-the category with the fewest sends (6) and should stay a priority — next
-run, try KlaudiAlmonteFitness's contact page directly (dedicated contact
-page exists, just no email in search snippets) and keep searching for
-other home-based military-spouse businesses (crafts, tutoring, pet-sitting,
-personal chef/catering not yet found) beyond those already contacted or
-logged as no-email. Full coverage is still a long way off, this base needs
-many more runs.
+(5 sent), shopping (6 sent), legal-business (8 sent as of 2026-09-11),
+education (5 sent), and hbb (6 sent), plus pre-existing automotive.
+2026-09-11 focused on legal-business since its raw sent-count (4) was
+actually the lowest of any active category — added Notar Dr. David Siegel
+(Landstuhl notary, English service), Top Gun Tax Solutions (Kaiserslautern
+US tax prep), Walsh Agency and Winter Agency (both English-speaking
+insurance brokers serving the military community, Kaiserslautern/Ramstein-
+Miesenbach) — legal-business now leads at 8 sent. hbb (6), shopping (6),
+and home-services (6) are next-weakest by raw count and worth attention
+next run; hbb's known remaining leads (Cravings Corner Co, Sparky's
+Cheesecake, KlaudiAlmonteFitness, Sophia's Makeup Artist Services) all still
+lack a publicly published email — next run, try KlaudiAlmonteFitness's
+contact page directly (dedicated contact page exists, just no email in
+search snippets) and keep searching for other home-based military-spouse
+businesses (crafts, tutoring, pet-sitting, personal chef/catering not yet
+found) beyond those already contacted or logged as no-email. Also worth a
+follow-up: Milinsure's contact page directly (no email in search snippets)
+and Stephen F. Mitchell CPA's contact form (email keeps surfacing masked/
+redacted in search results). Full coverage is still a long way off, this
+base needs many more runs.
 
 ### Wiesbaden — not started
 ### Bavaria bases — not started
@@ -202,6 +203,14 @@ routine.
    Center, StimmWerkstatt, Marta Sobczak Photography, Military Services
    Germany/Käsemann Catering) were all confirmed still-operating via web
    search (active sites, current reviews, no closure flags) before
+   sending — see log.csv notes for evidence per lead.
+   **Still true as of 2026-09-11:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are ~14 days old, still nowhere
+   near the ~90-day window, so the 2026-09-11 run also did zero new
+   verification-log rows (same reasoning). Today's 4 new legal-business
+   leads (Notar Dr. David Siegel, Top Gun Tax Solutions, Walsh Agency,
+   Winter Agency) were all confirmed still-operating via web search
+   (active sites/local news/current reviews, no closure flags) before
    sending — see log.csv notes for evidence per lead.
 
 **Recording results** — append every existing-listing check to
