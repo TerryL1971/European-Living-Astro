@@ -69,28 +69,30 @@ see snapshot). All other 8 categories start from zero.
 | shopping | ✅ NEW category opened 2026-09-03: 5 contacted (United Furniture Landstuhl, Tailor Shop Kaiserslautern, Alpha Buchhandlung Landstuhl, Lachmann's/Mackenbach, Goldschmiede Nikl Ramstein-Miesenbach — all 2026-09-03). 2 base-access-only nonprofit thrift shops found (RESA, KLSA) logged as researched but not recommended — same poor-fit call as Patch Thrift Shop in Stuttgart |
 | legal-business | ✅ 8 contacted (RFP Tax Advice/RFP Steuerberatung Ramstein-Miesenbach & Kaiserslautern, Kanzlei Albrecht/US military tax disputes Kaiserslautern, Rechtsanwalt Wolfgang Frisch/U.S. Consulate referral list Kaiserslautern, Kanzlei Christin Lehné/family law Landstuhl — all 2026-09-04; Notar Dr. David Siegel/Landstuhl notary, Top Gun Tax Solutions/Kaiserslautern US tax prep, Walsh Agency/Kaiserslautern insurance broker, Winter Agency/Ramstein-Miesenbach military insurance — all 2026-09-11). 3 no-email (Law Office of Will M. Helixon — Cloudflare-obfuscated contact email, use contact form/phone; Stephen F. Mitchell CPA — only a masked/redacted email surfaced, use stephenmitchellcpa.net contact form; taxpatation — inquiry-form-only, also location mismatch/Parsberg-Bavaria-registered). 1 researched (Milinsure — no email found in search snippets, worth checking its contact page directly). 1 phone-only/not-a-fit (Certified Interpreter & Translator — Privacy Act, no email by design) |
 | education | ✅ NEW category opened 2026-09-07: 4 contacted (Mathe Coach/DoDEA math tutoring, International School Westpfalz/Landstuhl Cambridge school, Agape International Academy/Ramstein West Gate K-6, Faith Baptist School/Kaiserslautern Pre-K-6 — all 2026-09-07). 2 no-email (St David's School — British international school, contact form/phone only; Children's Learning Academy/Kids Learning Center Mackenbach — Facebook/phone only) |
-| hbb | ✅ NEW category opened 2026-09-08: 5 contacted (Sarah Havens Photography/family+motherhood portraits, Lena Jones Doula & Birth Photography, Studio MS Photography/Maud Schoenmaekers, Gerardini Photo/Pete Gerardini, Porscha Herron Personal Training — all Kaiserslautern/Ramstein-area, all 2026-09-08). ✅ +1 2026-09-10: Marta Sobczak Photography (newborn/family/maternity, comes to the client's home on or off base) — now 6 sent. Still no email found for Cravings Corner Co, Sparky's Cheesecake (baking), KlaudiAlmonteFitness (fitness/nutrition), or Sophia's Makeup Artist Services (mobile makeup) despite repeated searches — all Facebook/Instagram/contact-form only |
+| hbb | ✅ NEW category opened 2026-09-08: 5 contacted (Sarah Havens Photography/family+motherhood portraits, Lena Jones Doula & Birth Photography, Studio MS Photography/Maud Schoenmaekers, Gerardini Photo/Pete Gerardini, Porscha Herron Personal Training — all Kaiserslautern/Ramstein-area, all 2026-09-08). ✅ +1 2026-09-10: Marta Sobczak Photography (newborn/family/maternity, comes to the client's home on or off base) — now 6 sent. Still no email found for Cravings Corner Co, Sparky's Cheesecake (baking), KlaudiAlmonteFitness (fitness/nutrition), or Sophia's Makeup Artist Services (mobile makeup) despite repeated searches — all Facebook/Instagram/contact-form only. 2026-09-14: tried KlaudiAlmonteFitness's contact page directly again and searched for new home-based leads (pet-sitting, tutoring, personal chef/catering) — still nothing with a publicly published email; the KMC military-spouse-HBB space genuinely seems to run almost entirely on Facebook/Instagram/Hotplate, still 6 sent |
+| shopping | ✅ +3 2026-09-14: Benny's Doggy Depot (pet grooming, English site section for Kaiserslautern/Landstuhl/Ramstein), eBike Store Kaiserslautern (dedicated page for US customers), Gärtnerei Hanns (English-speaking staff for US military customers, Landstuhl) — now 9 sent total. Gear Up Sports Store found but NOT recommended (on-base only, Ramstein AB Building 2113, same base-access-fit issue as the thrift shops) |
+| home-services | ✅ +1 2026-09-14: J. Blaze (Stevo John) — moving/cleaning/lawn-care/trash-removal, founded 2017 specifically for KMC military families — now 7 sent total; checked for the Move Clean Perfect-style trust flag and found none |
 
 **Next for KMC:** all 9 categories now have at least initial outreach —
-real-estate (7 sent), healthcare (5 sent), home-services (6 sent), restaurants
-(5 sent), shopping (6 sent), legal-business (8 sent as of 2026-09-11),
-education (5 sent), and hbb (6 sent), plus pre-existing automotive.
-2026-09-11 focused on legal-business since its raw sent-count (4) was
-actually the lowest of any active category — added Notar Dr. David Siegel
-(Landstuhl notary, English service), Top Gun Tax Solutions (Kaiserslautern
-US tax prep), Walsh Agency and Winter Agency (both English-speaking
-insurance brokers serving the military community, Kaiserslautern/Ramstein-
-Miesenbach) — legal-business now leads at 8 sent. hbb (6), shopping (6),
-and home-services (6) are next-weakest by raw count and worth attention
-next run; hbb's known remaining leads (Cravings Corner Co, Sparky's
-Cheesecake, KlaudiAlmonteFitness, Sophia's Makeup Artist Services) all still
-lack a publicly published email — next run, try KlaudiAlmonteFitness's
-contact page directly (dedicated contact page exists, just no email in
-search snippets) and keep searching for other home-based military-spouse
-businesses (crafts, tutoring, pet-sitting, personal chef/catering not yet
-found) beyond those already contacted or logged as no-email. Also worth a
-follow-up: Milinsure's contact page directly (no email in search snippets)
-and Stephen F. Mitchell CPA's contact form (email keeps surfacing masked/
+real-estate (7 sent), healthcare (5 sent), home-services (7 sent as of
+2026-09-14), restaurants (5 sent), shopping (9 sent as of 2026-09-14),
+legal-business (8 sent), education (5 sent), and hbb (6 sent), plus
+pre-existing automotive. 2026-09-14 focused on shopping (its known
+follow-up leads paid off well — Benny's Doggy Depot, eBike Store
+Kaiserslautern, Gärtnerei Hanns, all with genuine English/US-military
+personalization hooks) plus one home-services add (J. Blaze) — shopping now
+clearly leads KMC at 9 sent. hbb (6) and restaurants/healthcare/education (5
+each) are next-weakest by raw count and worth attention next run. hbb in
+particular is proving genuinely hard to grow further: repeated searches
+(2026-09-10 and again 2026-09-14) for new home-based military-spouse
+businesses (crafts, tutoring, pet-sitting, personal chef/catering) keep
+surfacing only Facebook/Instagram/Hotplate-only operations with no
+published email — may be close to real ceiling for this category without a
+different research approach (e.g. asking the site owner if any HBB owners
+have reached out directly, since that community skews mobile-first and
+under-indexed on the open web). Also still worth a follow-up: Milinsure's
+contact page directly (legal-business, no email in search snippets) and
+Stephen F. Mitchell CPA's contact form (email keeps surfacing masked/
 redacted in search results). Full coverage is still a long way off, this
 base needs many more runs.
 
@@ -211,6 +213,15 @@ routine.
    leads (Notar Dr. David Siegel, Top Gun Tax Solutions, Walsh Agency,
    Winter Agency) were all confirmed still-operating via web search
    (active sites/local news/current reviews, no closure flags) before
+   sending — see log.csv notes for evidence per lead.
+   **Still true as of 2026-09-14:** re-checked before this run (skipped
+   the weekend per the Mon-Fri cron) — oldest verification-log entries
+   (2026-08-28) are ~17 days old, still nowhere near the ~90-day window,
+   so the 2026-09-14 run also did zero new verification-log rows (same
+   reasoning). Today's 4 new leads (Benny's Doggy Depot, eBike Store
+   Kaiserslautern, Gärtnerei Hanns, J. Blaze) were all confirmed
+   still-operating via web search (active sites, current reviews, explicit
+   "permanently closed" checks came back negative for all four) before
    sending — see log.csv notes for evidence per lead.
 
 **Recording results** — append every existing-listing check to
