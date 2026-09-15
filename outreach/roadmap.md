@@ -63,7 +63,7 @@ see snapshot). All other 8 categories start from zero.
 |---|---|
 | real-estate | ✅ 7 contacted (ImmoHauf, Premium Realestate/David Baker, Prime TLA, Stay Eden — all 2026-08-28; Roth TLA, TLA Office, TLA Ramstein/DODSC — all 2026-09-01, re-verified still active before sending). Strong depth — no action needed for a while |
 | automotive | Pre-existing (3 listings) — solid, no action needed yet |
-| healthcare | ✅ 5 contacted (Flynn Family Medicine, Dillon Orthodontic Care, Lutrina Practice & Clinic, Counseling Germany — all 2026-08-31; Dr. Michelle Ferrell/East to West Counseling 2026-09-01). 2 no-email (Elite Group Therapy — Cloudflare-obfuscated address, use contact form/Setmore booking; Knospe-Lerncenter Ramstein — phone/contact-form only) |
+| healthcare | ✅ +3 2026-09-15: Chiropractic White Ramstein (Dr. Renee & Dr. Erik White), American Ramstein Chiropractic (Dr. Tim Holmes), EO-Chiropractic (Erin Odgers) — now 8 sent total. 8 contacted (Flynn Family Medicine, Dillon Orthodontic Care, Lutrina Practice & Clinic, Counseling Germany — all 2026-08-31; Dr. Michelle Ferrell/East to West Counseling 2026-09-01; the 3 chiropractic practices above 2026-09-15). 2 no-email (Elite Group Therapy — Cloudflare-obfuscated address, use contact form/Setmore booking; Knospe-Lerncenter Ramstein — phone/contact-form only). +1 no-email 2026-09-15: Family Dental Practice/Dr. Tam Hager — no genuinely published email found (a search-tool-suggested contact@hagerdental.com does not actually appear anywhere; don't reuse it). 1 researched: Chiropraxis White Kaiserslautern (Ingrid & Eva White) — same family as the Ramstein practice sent today, held back one day to avoid a same-family double-send, queued for a future run |
 | home-services | ✅ 6 contacted (Mr. Perfect Services 2026-09-01; Clean Team Ramstein 2026-09-02; Thompson Cleaning Service KMC, G&G International Movers, Möbelspedition Sander, Teppichreinigung24 — all 2026-09-09). 3 no-email (Mike & Mike Cleaning Services — Cloudflare/redacted email, use WhatsApp/phone; Mr. Prosper Express Services — no published email, worth another look; Karakoc Gebäudeservice — German-only site, phone only, lower-priority fit). 1 explicitly NOT recommended: Move Clean Perfect (movecleanperfect.com) — logged 'researched' with a trust/safety flag, its only findable email (princeabiola1000@gmail.com) matches a known PCS-moving-scam pattern, do not email or list without the site owner's own diligence |
 | restaurants | ✅ NEW category opened 2026-09-02: 4 contacted (The Parlour/Landstuhl, Fiesta Mexicana/Mackenbach, KIKO Sushi & Grill/Kaiserslautern, Termeh Persian Restaurant/Kaiserslautern — all 2026-09-02) |
 | shopping | ✅ NEW category opened 2026-09-03: 5 contacted (United Furniture Landstuhl, Tailor Shop Kaiserslautern, Alpha Buchhandlung Landstuhl, Lachmann's/Mackenbach, Goldschmiede Nikl Ramstein-Miesenbach — all 2026-09-03). 2 base-access-only nonprofit thrift shops found (RESA, KLSA) logged as researched but not recommended — same poor-fit call as Patch Thrift Shop in Stuttgart |
@@ -74,27 +74,30 @@ see snapshot). All other 8 categories start from zero.
 | home-services | ✅ +1 2026-09-14: J. Blaze (Stevo John) — moving/cleaning/lawn-care/trash-removal, founded 2017 specifically for KMC military families — now 7 sent total; checked for the Move Clean Perfect-style trust flag and found none |
 
 **Next for KMC:** all 9 categories now have at least initial outreach —
-real-estate (7 sent), healthcare (5 sent), home-services (7 sent as of
-2026-09-14), restaurants (5 sent), shopping (9 sent as of 2026-09-14),
-legal-business (8 sent), education (5 sent), and hbb (6 sent), plus
-pre-existing automotive. 2026-09-14 focused on shopping (its known
-follow-up leads paid off well — Benny's Doggy Depot, eBike Store
-Kaiserslautern, Gärtnerei Hanns, all with genuine English/US-military
-personalization hooks) plus one home-services add (J. Blaze) — shopping now
-clearly leads KMC at 9 sent. hbb (6) and restaurants/healthcare/education (5
-each) are next-weakest by raw count and worth attention next run. hbb in
-particular is proving genuinely hard to grow further: repeated searches
-(2026-09-10 and again 2026-09-14) for new home-based military-spouse
-businesses (crafts, tutoring, pet-sitting, personal chef/catering) keep
-surfacing only Facebook/Instagram/Hotplate-only operations with no
-published email — may be close to real ceiling for this category without a
-different research approach (e.g. asking the site owner if any HBB owners
-have reached out directly, since that community skews mobile-first and
-under-indexed on the open web). Also still worth a follow-up: Milinsure's
-contact page directly (legal-business, no email in search snippets) and
-Stephen F. Mitchell CPA's contact form (email keeps surfacing masked/
-redacted in search results). Full coverage is still a long way off, this
-base needs many more runs.
+real-estate (7 sent), healthcare (8 sent as of 2026-09-15), home-services (7
+sent as of 2026-09-14), restaurants (5 sent), shopping (9 sent as of
+2026-09-14), legal-business (8 sent), education (5 sent), and hbb (6 sent),
+plus pre-existing automotive. 2026-09-15 focused on healthcare (found a
+genuine cluster of 3 distinct chiropractic practices around Ramstein-
+Miesenbach, all with real published emails and real personalization hooks)
+— healthcare now ties legal-business/real-estate/home-services for depth.
+restaurants/education (5 each) are now the next-weakest by raw count and
+worth attention next run. hbb (6) is proving genuinely hard to grow further:
+repeated searches (2026-09-10 and again 2026-09-14) for new home-based
+military-spouse businesses (crafts, tutoring, pet-sitting, personal
+chef/catering) keep surfacing only Facebook/Instagram/Hotplate-only
+operations with no published email — may be close to real ceiling for this
+category without a different research approach (e.g. asking the site owner
+if any HBB owners have reached out directly, since that community skews
+mobile-first and under-indexed on the open web). Also still worth a
+follow-up: Milinsure's contact page directly (legal-business, no email in
+search snippets), Stephen F. Mitchell CPA's contact form (email keeps
+surfacing masked/redacted in search results), Chiropraxis White
+Kaiserslautern's contact page directly (healthcare, held back today to
+avoid a same-family double-send), and Family Dental Practice/Dr. Hager's
+own site directly for a real contact email (search results kept conflating
+it with an unrelated Konstanz dentist of the same surname). Full coverage is
+still a long way off, this base needs many more runs.
 
 ### Wiesbaden — not started
 ### Bavaria bases — not started
@@ -223,6 +226,16 @@ routine.
    still-operating via web search (active sites, current reviews, explicit
    "permanently closed" checks came back negative for all four) before
    sending — see log.csv notes for evidence per lead.
+   **Still true as of 2026-09-15:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are ~18 days old
+   (`git log -1 --format=%ad -- outreach/verification-log.csv` confirms the
+   file itself was last touched 2026-09-02), still nowhere near the ~90-day
+   window, so the 2026-09-15 run also did zero new verification-log rows
+   (same reasoning). Today's 3 new healthcare leads (Chiropractic White
+   Ramstein, American Ramstein Chiropractic, EO-Chiropractic) were all
+   confirmed still-operating via web search (active sites, current 2026
+   Yelp/Facebook reviews, no closure signals) before sending — see log.csv
+   notes for evidence per lead.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
