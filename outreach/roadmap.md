@@ -65,7 +65,7 @@ see snapshot). All other 8 categories start from zero.
 | automotive | Pre-existing (3 listings) — solid, no action needed yet |
 | healthcare | ✅ +3 2026-09-15: Chiropractic White Ramstein (Dr. Renee & Dr. Erik White), American Ramstein Chiropractic (Dr. Tim Holmes), EO-Chiropractic (Erin Odgers) — now 8 sent total. 8 contacted (Flynn Family Medicine, Dillon Orthodontic Care, Lutrina Practice & Clinic, Counseling Germany — all 2026-08-31; Dr. Michelle Ferrell/East to West Counseling 2026-09-01; the 3 chiropractic practices above 2026-09-15). 2 no-email (Elite Group Therapy — Cloudflare-obfuscated address, use contact form/Setmore booking; Knospe-Lerncenter Ramstein — phone/contact-form only). +1 no-email 2026-09-15: Family Dental Practice/Dr. Tam Hager — no genuinely published email found (a search-tool-suggested contact@hagerdental.com does not actually appear anywhere; don't reuse it). 1 researched: Chiropraxis White Kaiserslautern (Ingrid & Eva White) — same family as the Ramstein practice sent today, held back one day to avoid a same-family double-send, queued for a future run |
 | home-services | ✅ 6 contacted (Mr. Perfect Services 2026-09-01; Clean Team Ramstein 2026-09-02; Thompson Cleaning Service KMC, G&G International Movers, Möbelspedition Sander, Teppichreinigung24 — all 2026-09-09). 3 no-email (Mike & Mike Cleaning Services — Cloudflare/redacted email, use WhatsApp/phone; Mr. Prosper Express Services — no published email, worth another look; Karakoc Gebäudeservice — German-only site, phone only, lower-priority fit). 1 explicitly NOT recommended: Move Clean Perfect (movecleanperfect.com) — logged 'researched' with a trust/safety flag, its only findable email (princeabiola1000@gmail.com) matches a known PCS-moving-scam pattern, do not email or list without the site owner's own diligence |
-| restaurants | ✅ NEW category opened 2026-09-02: 4 contacted (The Parlour/Landstuhl, Fiesta Mexicana/Mackenbach, KIKO Sushi & Grill/Kaiserslautern, Termeh Persian Restaurant/Kaiserslautern — all 2026-09-02) |
+| restaurants | ✅ NEW category opened 2026-09-02: 4 contacted (The Parlour/Landstuhl, Fiesta Mexicana/Mackenbach, KIKO Sushi & Grill/Kaiserslautern, Termeh Persian Restaurant/Kaiserslautern — all 2026-09-02). ✅ +1 2026-09-10: Military Services Germany/Käsemann Catering — 5 sent. ✅ +4 2026-09-16: Burgschänke Nanstein (English menu+staff, Landstuhl castle restaurant), Cockpit Lounge (aviation-themed, #1 of 41 in Landstuhl, right by Ramstein AB), The Big Emma (huge Ramstein-Miesenbach brewhouse, 1,173 FB reviews), Chacarero Steakhouse (dedicated English page for reservations) — now 9 sent total, ties shopping for deepest KMC category. 5 no-email (The Alamo, Sascha's Grill/Ali's Landstuhl Grill, Roadhouse Ktown — a suggested gmail address didn't actually appear on any indexed page, same false-positive pattern as the 2026-09-15 Hager Dental case, so treated as unpublished — Memory Burger Ramstein, Mr. Lian both locations) |
 | shopping | ✅ NEW category opened 2026-09-03: 5 contacted (United Furniture Landstuhl, Tailor Shop Kaiserslautern, Alpha Buchhandlung Landstuhl, Lachmann's/Mackenbach, Goldschmiede Nikl Ramstein-Miesenbach — all 2026-09-03). 2 base-access-only nonprofit thrift shops found (RESA, KLSA) logged as researched but not recommended — same poor-fit call as Patch Thrift Shop in Stuttgart |
 | legal-business | ✅ 8 contacted (RFP Tax Advice/RFP Steuerberatung Ramstein-Miesenbach & Kaiserslautern, Kanzlei Albrecht/US military tax disputes Kaiserslautern, Rechtsanwalt Wolfgang Frisch/U.S. Consulate referral list Kaiserslautern, Kanzlei Christin Lehné/family law Landstuhl — all 2026-09-04; Notar Dr. David Siegel/Landstuhl notary, Top Gun Tax Solutions/Kaiserslautern US tax prep, Walsh Agency/Kaiserslautern insurance broker, Winter Agency/Ramstein-Miesenbach military insurance — all 2026-09-11). 3 no-email (Law Office of Will M. Helixon — Cloudflare-obfuscated contact email, use contact form/phone; Stephen F. Mitchell CPA — only a masked/redacted email surfaced, use stephenmitchellcpa.net contact form; taxpatation — inquiry-form-only, also location mismatch/Parsberg-Bavaria-registered). 1 researched (Milinsure — no email found in search snippets, worth checking its contact page directly). 1 phone-only/not-a-fit (Certified Interpreter & Translator — Privacy Act, no email by design) |
 | education | ✅ NEW category opened 2026-09-07: 4 contacted (Mathe Coach/DoDEA math tutoring, International School Westpfalz/Landstuhl Cambridge school, Agape International Academy/Ramstein West Gate K-6, Faith Baptist School/Kaiserslautern Pre-K-6 — all 2026-09-07). 2 no-email (St David's School — British international school, contact form/phone only; Children's Learning Academy/Kids Learning Center Mackenbach — Facebook/phone only) |
@@ -75,14 +75,14 @@ see snapshot). All other 8 categories start from zero.
 
 **Next for KMC:** all 9 categories now have at least initial outreach —
 real-estate (7 sent), healthcare (8 sent as of 2026-09-15), home-services (7
-sent as of 2026-09-14), restaurants (5 sent), shopping (9 sent as of
-2026-09-14), legal-business (8 sent), education (5 sent), and hbb (6 sent),
-plus pre-existing automotive. 2026-09-15 focused on healthcare (found a
-genuine cluster of 3 distinct chiropractic practices around Ramstein-
-Miesenbach, all with real published emails and real personalization hooks)
-— healthcare now ties legal-business/real-estate/home-services for depth.
-restaurants/education (5 each) are now the next-weakest by raw count and
-worth attention next run. hbb (6) is proving genuinely hard to grow further:
+sent as of 2026-09-14), restaurants (9 sent as of 2026-09-16), shopping (9
+sent as of 2026-09-14), legal-business (8 sent), education (5 sent), and hbb
+(6 sent), plus pre-existing automotive. 2026-09-16 focused on restaurants
+(Burgschänke Nanstein, Cockpit Lounge, The Big Emma, Chacarero Steakhouse —
+all verified still-operating despite one stale/contradicted Yelp "closed"
+review for The Big Emma) — restaurants now ties shopping for deepest KMC
+category. **education (5) is now the clear next-weakest and worth attention
+next run.** hbb (6) is proving genuinely hard to grow further:
 repeated searches (2026-09-10 and again 2026-09-14) for new home-based
 military-spouse businesses (crafts, tutoring, pet-sitting, personal
 chef/catering) keep surfacing only Facebook/Instagram/Hotplate-only
@@ -236,6 +236,17 @@ routine.
    confirmed still-operating via web search (active sites, current 2026
    Yelp/Facebook reviews, no closure signals) before sending — see log.csv
    notes for evidence per lead.
+   **Still true as of 2026-09-16:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are ~19 days old, still nowhere
+   near the ~90-day window, so the 2026-09-16 run also did zero new
+   verification-log rows (same reasoning). Today's 4 new restaurant leads
+   (Burgschänke Nanstein, Cockpit Lounge, The Big Emma, Chacarero
+   Steakhouse) were all confirmed still-operating via web search before
+   sending — see log.csv notes for evidence per lead, including the extra
+   digging done on The Big Emma to resolve a stale/contradicted Yelp
+   "permanently closed" review (no actual Maps closure flag, strong
+   contrary evidence from the business's own site, Facebook, and a current
+   same-address Yelp listing under "Zur Dicken Emma").
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
