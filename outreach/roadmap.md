@@ -138,6 +138,30 @@ real constraint, not resolved
 history — don't skip the workarounds below on the assumption someone
 already fixed everything.
 
+3. **WebSearch tool itself down — NEW as of the 2026-09-17 run, not
+   the same as item 1.** Item 1 is about the sandbox's network egress
+   allowlist (curl/WebFetch to arbitrary domains); WebSearch is a
+   separate first-party tool that was previously working fine through
+   that same restriction. On 2026-09-17, 6 of 7 WebSearch calls
+   returned `Web search error: unavailable` outright, including for
+   completely generic, non-business queries (e.g. "weather
+   Kaiserslautern Germany"). The one call that didn't hard-fail
+   ("Ramstein Air Base news") returned only stale (2023-vintage)
+   Wikipedia-type encyclopedic links — no current local-business
+   results, no dates newer than 2023 — so even the "working" case was
+   useless for finding real, currently-operating businesses or their
+   published contact emails. Tried varying query phrasing/topic
+   several times; the failure was consistent, not a one-off. Since
+   this run's whole job (new-lead research, published-email discovery,
+   still-open verification for both new leads and the existing-listing
+   sweep) depends entirely on WebSearch, **the 2026-09-17 run sent zero
+   emails and added zero new log.csv/verification-log.csv rows** rather
+   than guess, reuse a stale/unconfirmed email, or skip the
+   verification guardrail. If a future run hits this again, treat it as
+   a real regression and report it plainly (per the same policy as
+   item 2's GitHub-403 case) rather than pushing ahead without the
+   research/verification step it's meant to gate.
+
 ## Still-in-business verification
 
 Goal: keep the live directory free of businesses that have permanently
@@ -247,6 +271,15 @@ routine.
    "permanently closed" review (no actual Maps closure flag, strong
    contrary evidence from the business's own site, Facebook, and a current
    same-address Yelp listing under "Zur Dicken Emma").
+   **2026-09-17: zero new verification-log rows, for two independent
+   reasons.** First, same as every prior run: the oldest
+   verification-log entries (2026-08-28) are ~20 days old, still nowhere
+   near the ~90-day window, and the 17-business snapshot hasn't grown
+   since the 2026-09-03 full sweep. Second, moot this run anyway — see
+   Known Issues #3: WebSearch itself was down for nearly every query, so
+   no read-only web verification (new-lead or existing-listing) could be
+   done even if entries had aged out. No new outreach leads were
+   researched or sent today either, for the same reason.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
