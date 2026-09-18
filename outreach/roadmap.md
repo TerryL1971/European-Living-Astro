@@ -63,41 +63,40 @@ see snapshot). All other 8 categories start from zero.
 |---|---|
 | real-estate | ✅ 7 contacted (ImmoHauf, Premium Realestate/David Baker, Prime TLA, Stay Eden — all 2026-08-28; Roth TLA, TLA Office, TLA Ramstein/DODSC — all 2026-09-01, re-verified still active before sending). Strong depth — no action needed for a while |
 | automotive | Pre-existing (3 listings) — solid, no action needed yet |
-| healthcare | ✅ +3 2026-09-15: Chiropractic White Ramstein (Dr. Renee & Dr. Erik White), American Ramstein Chiropractic (Dr. Tim Holmes), EO-Chiropractic (Erin Odgers) — now 8 sent total. 8 contacted (Flynn Family Medicine, Dillon Orthodontic Care, Lutrina Practice & Clinic, Counseling Germany — all 2026-08-31; Dr. Michelle Ferrell/East to West Counseling 2026-09-01; the 3 chiropractic practices above 2026-09-15). 2 no-email (Elite Group Therapy — Cloudflare-obfuscated address, use contact form/Setmore booking; Knospe-Lerncenter Ramstein — phone/contact-form only). +1 no-email 2026-09-15: Family Dental Practice/Dr. Tam Hager — no genuinely published email found (a search-tool-suggested contact@hagerdental.com does not actually appear anywhere; don't reuse it). 1 researched: Chiropraxis White Kaiserslautern (Ingrid & Eva White) — same family as the Ramstein practice sent today, held back one day to avoid a same-family double-send, queued for a future run |
+| healthcare | ✅ +3 2026-09-15: Chiropractic White Ramstein (Dr. Renee & Dr. Erik White), American Ramstein Chiropractic (Dr. Tim Holmes), EO-Chiropractic (Erin Odgers) — now 8 sent total. ✅ +1 2026-09-18: Chiropraxis White Kaiserslautern (Ingrid & Eva White) — distinct 35+-year practice in central Kaiserslautern, same family as the Ramstein practice but a different location; email found on its own Impressum page — now 9 sent total. 9 contacted (Flynn Family Medicine, Dillon Orthodontic Care, Lutrina Practice & Clinic, Counseling Germany — all 2026-08-31; Dr. Michelle Ferrell/East to West Counseling 2026-09-01; the 3 chiropractic practices above 2026-09-15; Chiropraxis White Kaiserslautern 2026-09-18). 2 no-email (Elite Group Therapy — Cloudflare-obfuscated address, use contact form/Setmore booking; Knospe-Lerncenter Ramstein — phone/contact-form only). +1 no-email 2026-09-15: Family Dental Practice/Dr. Tam Hager — no genuinely published email found (a search-tool-suggested contact@hagerdental.com does not actually appear anywhere; don't reuse it) |
 | home-services | ✅ 6 contacted (Mr. Perfect Services 2026-09-01; Clean Team Ramstein 2026-09-02; Thompson Cleaning Service KMC, G&G International Movers, Möbelspedition Sander, Teppichreinigung24 — all 2026-09-09). 3 no-email (Mike & Mike Cleaning Services — Cloudflare/redacted email, use WhatsApp/phone; Mr. Prosper Express Services — no published email, worth another look; Karakoc Gebäudeservice — German-only site, phone only, lower-priority fit). 1 explicitly NOT recommended: Move Clean Perfect (movecleanperfect.com) — logged 'researched' with a trust/safety flag, its only findable email (princeabiola1000@gmail.com) matches a known PCS-moving-scam pattern, do not email or list without the site owner's own diligence |
 | restaurants | ✅ NEW category opened 2026-09-02: 4 contacted (The Parlour/Landstuhl, Fiesta Mexicana/Mackenbach, KIKO Sushi & Grill/Kaiserslautern, Termeh Persian Restaurant/Kaiserslautern — all 2026-09-02). ✅ +1 2026-09-10: Military Services Germany/Käsemann Catering — 5 sent. ✅ +4 2026-09-16: Burgschänke Nanstein (English menu+staff, Landstuhl castle restaurant), Cockpit Lounge (aviation-themed, #1 of 41 in Landstuhl, right by Ramstein AB), The Big Emma (huge Ramstein-Miesenbach brewhouse, 1,173 FB reviews), Chacarero Steakhouse (dedicated English page for reservations) — now 9 sent total, ties shopping for deepest KMC category. 5 no-email (The Alamo, Sascha's Grill/Ali's Landstuhl Grill, Roadhouse Ktown — a suggested gmail address didn't actually appear on any indexed page, same false-positive pattern as the 2026-09-15 Hager Dental case, so treated as unpublished — Memory Burger Ramstein, Mr. Lian both locations) |
 | shopping | ✅ NEW category opened 2026-09-03: 5 contacted (United Furniture Landstuhl, Tailor Shop Kaiserslautern, Alpha Buchhandlung Landstuhl, Lachmann's/Mackenbach, Goldschmiede Nikl Ramstein-Miesenbach — all 2026-09-03). 2 base-access-only nonprofit thrift shops found (RESA, KLSA) logged as researched but not recommended — same poor-fit call as Patch Thrift Shop in Stuttgart |
-| legal-business | ✅ 8 contacted (RFP Tax Advice/RFP Steuerberatung Ramstein-Miesenbach & Kaiserslautern, Kanzlei Albrecht/US military tax disputes Kaiserslautern, Rechtsanwalt Wolfgang Frisch/U.S. Consulate referral list Kaiserslautern, Kanzlei Christin Lehné/family law Landstuhl — all 2026-09-04; Notar Dr. David Siegel/Landstuhl notary, Top Gun Tax Solutions/Kaiserslautern US tax prep, Walsh Agency/Kaiserslautern insurance broker, Winter Agency/Ramstein-Miesenbach military insurance — all 2026-09-11). 3 no-email (Law Office of Will M. Helixon — Cloudflare-obfuscated contact email, use contact form/phone; Stephen F. Mitchell CPA — only a masked/redacted email surfaced, use stephenmitchellcpa.net contact form; taxpatation — inquiry-form-only, also location mismatch/Parsberg-Bavaria-registered). 1 researched (Milinsure — no email found in search snippets, worth checking its contact page directly). 1 phone-only/not-a-fit (Certified Interpreter & Translator — Privacy Act, no email by design) |
-| education | ✅ NEW category opened 2026-09-07: 4 contacted (Mathe Coach/DoDEA math tutoring, International School Westpfalz/Landstuhl Cambridge school, Agape International Academy/Ramstein West Gate K-6, Faith Baptist School/Kaiserslautern Pre-K-6 — all 2026-09-07). 2 no-email (St David's School — British international school, contact form/phone only; Children's Learning Academy/Kids Learning Center Mackenbach — Facebook/phone only) |
+| legal-business | ✅ 8 contacted (RFP Tax Advice/RFP Steuerberatung Ramstein-Miesenbach & Kaiserslautern, Kanzlei Albrecht/US military tax disputes Kaiserslautern, Rechtsanwalt Wolfgang Frisch/U.S. Consulate referral list Kaiserslautern, Kanzlei Christin Lehné/family law Landstuhl — all 2026-09-04; Notar Dr. David Siegel/Landstuhl notary, Top Gun Tax Solutions/Kaiserslautern US tax prep, Walsh Agency/Kaiserslautern insurance broker, Winter Agency/Ramstein-Miesenbach military insurance — all 2026-09-11). 3 no-email (Law Office of Will M. Helixon — Cloudflare-obfuscated contact email, use contact form/phone; Stephen F. Mitchell CPA — re-checked 2026-09-18, still only a masked/redacted placeholder on stephenmitchellcpa.net/contact-us, and third-party aggregators (RocketReach) surfaced an inconsistent, not-own-site address not used per the never-fabricate/aggregator guardrail; taxpatation — inquiry-form-only, also location mismatch/Parsberg-Bavaria-registered). 1 researched (Milinsure — re-checked 2026-09-18, own site confirms phone/email/WhatsApp contact exists but the address itself still never surfaces in search results; still worth a direct-site visit if a WebFetch-capable path ever opens up). 1 phone-only/not-a-fit (Certified Interpreter & Translator — Privacy Act, no email by design) |
+| education | ✅ NEW category opened 2026-09-07: 4 contacted (Mathe Coach/DoDEA math tutoring, International School Westpfalz/Landstuhl Cambridge school, Agape International Academy/Ramstein West Gate K-6, Faith Baptist School/Kaiserslautern Pre-K-6 — all 2026-09-07). ✅ +1 2026-09-10: StimmWerkstatt (German lessons for English speakers + piano/singing). ✅ +2 2026-09-18: C & K Children's House (Montessori preschool/kindergarten, Ramstein-Miesenbach, DODEA before/after-school care), Musikschule Abt (English-language piano/guitar school, Landstuhl) — now 7 sent total. 2 no-email (St David's School — British international school, contact form/phone only; Children's Learning Academy/Kids Learning Center Mackenbach — Facebook/phone only) |
 | hbb | ✅ NEW category opened 2026-09-08: 5 contacted (Sarah Havens Photography/family+motherhood portraits, Lena Jones Doula & Birth Photography, Studio MS Photography/Maud Schoenmaekers, Gerardini Photo/Pete Gerardini, Porscha Herron Personal Training — all Kaiserslautern/Ramstein-area, all 2026-09-08). ✅ +1 2026-09-10: Marta Sobczak Photography (newborn/family/maternity, comes to the client's home on or off base) — now 6 sent. Still no email found for Cravings Corner Co, Sparky's Cheesecake (baking), KlaudiAlmonteFitness (fitness/nutrition), or Sophia's Makeup Artist Services (mobile makeup) despite repeated searches — all Facebook/Instagram/contact-form only. 2026-09-14: tried KlaudiAlmonteFitness's contact page directly again and searched for new home-based leads (pet-sitting, tutoring, personal chef/catering) — still nothing with a publicly published email; the KMC military-spouse-HBB space genuinely seems to run almost entirely on Facebook/Instagram/Hotplate, still 6 sent |
 | shopping | ✅ +3 2026-09-14: Benny's Doggy Depot (pet grooming, English site section for Kaiserslautern/Landstuhl/Ramstein), eBike Store Kaiserslautern (dedicated page for US customers), Gärtnerei Hanns (English-speaking staff for US military customers, Landstuhl) — now 9 sent total. Gear Up Sports Store found but NOT recommended (on-base only, Ramstein AB Building 2113, same base-access-fit issue as the thrift shops) |
 | home-services | ✅ +1 2026-09-14: J. Blaze (Stevo John) — moving/cleaning/lawn-care/trash-removal, founded 2017 specifically for KMC military families — now 7 sent total; checked for the Move Clean Perfect-style trust flag and found none |
 
 **Next for KMC:** all 9 categories now have at least initial outreach —
-real-estate (7 sent), healthcare (8 sent as of 2026-09-15), home-services (7
+real-estate (7 sent), healthcare (9 sent as of 2026-09-18), home-services (7
 sent as of 2026-09-14), restaurants (9 sent as of 2026-09-16), shopping (9
-sent as of 2026-09-14), legal-business (8 sent), education (5 sent), and hbb
-(6 sent), plus pre-existing automotive. 2026-09-16 focused on restaurants
-(Burgschänke Nanstein, Cockpit Lounge, The Big Emma, Chacarero Steakhouse —
-all verified still-operating despite one stale/contradicted Yelp "closed"
-review for The Big Emma) — restaurants now ties shopping for deepest KMC
-category. **education (5) is now the clear next-weakest and worth attention
-next run.** hbb (6) is proving genuinely hard to grow further:
-repeated searches (2026-09-10 and again 2026-09-14) for new home-based
+sent as of 2026-09-14), legal-business (8 sent), education (7 sent as of
+2026-09-18), and hbb (6 sent), plus pre-existing automotive. 2026-09-18
+closed the education gap flagged 2026-09-16 (C & K Children's House
+Montessori preschool + Musikschule Abt English-language music school, both
+Landstuhl/Ramstein-Miesenbach area) and cleared two carried-over follow-ups:
+Chiropraxis White Kaiserslautern (distinct practice from the Ramstein one,
+email found on its own Impressum page — sent) and a fresh direct-site check
+on Milinsure/Stephen F. Mitchell CPA (still genuinely no published email on
+either's own site, not re-attempted with a third-party-aggregator address).
+**hbb (6) is now the clear next-weakest** and still proving genuinely hard
+to grow: repeated searches (2026-09-10, 2026-09-14) for new home-based
 military-spouse businesses (crafts, tutoring, pet-sitting, personal
 chef/catering) keep surfacing only Facebook/Instagram/Hotplate-only
 operations with no published email — may be close to real ceiling for this
 category without a different research approach (e.g. asking the site owner
 if any HBB owners have reached out directly, since that community skews
-mobile-first and under-indexed on the open web). Also still worth a
-follow-up: Milinsure's contact page directly (legal-business, no email in
-search snippets), Stephen F. Mitchell CPA's contact form (email keeps
-surfacing masked/redacted in search results), Chiropraxis White
-Kaiserslautern's contact page directly (healthcare, held back today to
-avoid a same-family double-send), and Family Dental Practice/Dr. Hager's
-own site directly for a real contact email (search results kept conflating
-it with an unrelated Konstanz dentist of the same surname). Full coverage is
-still a long way off, this base needs many more runs.
+mobile-first and under-indexed on the open web). Family Dental
+Practice/Dr. Hager's own site is still worth a direct look for a real
+contact email (search results keep conflating it with an unrelated Konstanz
+dentist of the same surname) — not resolved today. Full coverage is still a
+long way off, this base needs many more runs.
 
 ### Wiesbaden — not started
 ### Bavaria bases — not started
@@ -132,6 +131,30 @@ afternoon run:
    with `git checkout -B main origin/main` before committing. If a
    future run hits a 403 again, treat it as a real regression and
    report it plainly rather than assuming user error.
+3. **WebSearch tool itself down — occurred 2026-09-17, RESOLVED as of
+   2026-09-18.** On 2026-09-17, 6 of 7 WebSearch calls returned `Web
+   search error: unavailable` outright, including for completely
+   generic, non-business queries. The one call that didn't hard-fail
+   returned only stale (2023-vintage) encyclopedic content, useless for
+   finding real, currently-operating businesses or their published
+   contact emails. That run sent zero emails and added zero new
+   log.csv/verification-log.csv rows rather than guess, reuse a
+   stale/unconfirmed email, or skip the verification guardrail — and its
+   documentation of this got lost from this file because the run never
+   made it past `git checkout -B main origin/main` before pushing (same
+   detached-HEAD wrinkle item 2 warns about), so its commit was never
+   pushed to `origin/main` and had to be reconstructed here from the
+   session's own local state on 2026-09-18. On 2026-09-18, WebSearch
+   worked normally again for every query (roughly a dozen calls, no
+   errors) — treat the 2026-09-17 outage as resolved unless a future run
+   hits it again, in which case treat that as a new regression and
+   report it plainly, per the same policy as item 2's GitHub-403 case.
+   **Also confirmed 2026-09-18: after a `git checkout -B main
+   origin/main`, always double-check `git log --oneline -3 origin/main`
+   actually shows your expected recent history before trusting the
+   working tree — a stray unpushed commit from a prior run can sit in
+   detached HEAD and silently vanish on the next run's fresh clone/reset
+   if that run doesn't specifically preserve or push it.**
 
 If item 1 above still says "worked around, not fixed," treat it as a
 real constraint, not resolved
@@ -247,6 +270,28 @@ routine.
    "permanently closed" review (no actual Maps closure flag, strong
    contrary evidence from the business's own site, Facebook, and a current
    same-address Yelp listing under "Zur Dicken Emma").
+   **2026-09-17: zero new verification-log rows, for two independent
+   reasons** (reconstructed here on 2026-09-18 — the 09-17 run's own
+   documentation of this never reached `origin/main`; see Known Issues
+   #3). First, same as every prior run: the oldest verification-log
+   entries (2026-08-28) were ~20 days old that day, nowhere near the
+   ~90-day window. Second, moot anyway — WebSearch itself was down for
+   nearly every query that run (see Known Issues #3), so no read-only
+   web verification could be done even if entries had aged out. No new
+   outreach leads were researched or sent that day either, for the same
+   reason.
+   **Still true as of 2026-09-18:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are ~21 days old, still nowhere
+   near the ~90-day window, and the 17-business snapshot hasn't grown
+   since the 2026-09-03 full sweep, so the 2026-09-18 run also did zero
+   new verification-log rows (same reasoning). WebSearch itself worked
+   normally today (see Known Issues #3) — confirmed via a live test
+   query before relying on it for research. Today's 3 new leads (C & K
+   Children's House, Chiropraxis White Kaiserslautern, Musikschule Abt)
+   were all confirmed still-operating via web search (active
+   sites/directories, no closure signals, consistent contact info across
+   independent sources) before sending — see log.csv notes for evidence
+   per lead.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
