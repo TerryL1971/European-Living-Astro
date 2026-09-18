@@ -131,35 +131,44 @@ afternoon run:
    with `git checkout -B main origin/main` before committing. If a
    future run hits a 403 again, treat it as a real regression and
    report it plainly rather than assuming user error.
-3. **WebSearch tool itself down — occurred 2026-09-17, RESOLVED as of
-   2026-09-18.** On 2026-09-17, 6 of 7 WebSearch calls returned `Web
-   search error: unavailable` outright, including for completely
-   generic, non-business queries. The one call that didn't hard-fail
-   returned only stale (2023-vintage) encyclopedic content, useless for
-   finding real, currently-operating businesses or their published
-   contact emails. That run sent zero emails and added zero new
-   log.csv/verification-log.csv rows rather than guess, reuse a
-   stale/unconfirmed email, or skip the verification guardrail — and its
-   documentation of this got lost from this file because the run never
-   made it past `git checkout -B main origin/main` before pushing (same
-   detached-HEAD wrinkle item 2 warns about), so its commit was never
-   pushed to `origin/main` and had to be reconstructed here from the
-   session's own local state on 2026-09-18. On 2026-09-18, WebSearch
-   worked normally again for every query (roughly a dozen calls, no
-   errors) — treat the 2026-09-17 outage as resolved unless a future run
-   hits it again, in which case treat that as a new regression and
-   report it plainly, per the same policy as item 2's GitHub-403 case.
-   **Also confirmed 2026-09-18: after a `git checkout -B main
-   origin/main`, always double-check `git log --oneline -3 origin/main`
-   actually shows your expected recent history before trusting the
-   working tree — a stray unpushed commit from a prior run can sit in
-   detached HEAD and silently vanish on the next run's fresh clone/reset
-   if that run doesn't specifically preserve or push it.**
 
 If item 1 above still says "worked around, not fixed," treat it as a
 real constraint, not resolved
 history — don't skip the workarounds below on the assumption someone
 already fixed everything.
+
+3. **WebSearch tool itself down — occurred 2026-09-17, RESOLVED as of
+   2026-09-18.** Item 1 is about the sandbox's network egress
+   allowlist (curl/WebFetch to arbitrary domains); WebSearch is a
+   separate first-party tool that was previously working fine through
+   that same restriction. On 2026-09-17, 6 of 7 WebSearch calls
+   returned `Web search error: unavailable` outright, including for
+   completely generic, non-business queries (e.g. "weather
+   Kaiserslautern Germany"). The one call that didn't hard-fail
+   ("Ramstein Air Base news") returned only stale (2023-vintage)
+   Wikipedia-type encyclopedic links — no current local-business
+   results, no dates newer than 2023 — so even the "working" case was
+   useless for finding real, currently-operating businesses or their
+   published contact emails. Tried varying query phrasing/topic
+   several times; the failure was consistent, not a one-off. Since
+   this run's whole job (new-lead research, published-email discovery,
+   still-open verification for both new leads and the existing-listing
+   sweep) depends entirely on WebSearch, **the 2026-09-17 run sent zero
+   emails and added zero new log.csv/verification-log.csv rows** rather
+   than guess, reuse a stale/unconfirmed email, or skip the
+   verification guardrail. On 2026-09-18, WebSearch worked normally
+   again for every query (roughly a dozen calls, no errors) — treat the
+   2026-09-17 outage as resolved unless a future run hits it again, in
+   which case treat that as a new regression and report it plainly, per
+   the same policy as item 2's GitHub-403 case.
+   **Also confirmed 2026-09-18: after a `git checkout -B main
+   origin/main`, always run `git fetch origin main` first and check
+   `git log --oneline -3 origin/main` shows the expected recent
+   history before trusting a stale local `origin/main` ref — this run's
+   first push attempt was rejected as non-fast-forward because the
+   09-17 run's commit had, in fact, reached the real remote (it just
+   hadn't been fetched locally yet), which briefly looked like a lost
+   commit but wasn't.**
 
 ## Still-in-business verification
 
@@ -271,15 +280,14 @@ routine.
    contrary evidence from the business's own site, Facebook, and a current
    same-address Yelp listing under "Zur Dicken Emma").
    **2026-09-17: zero new verification-log rows, for two independent
-   reasons** (reconstructed here on 2026-09-18 — the 09-17 run's own
-   documentation of this never reached `origin/main`; see Known Issues
-   #3). First, same as every prior run: the oldest verification-log
-   entries (2026-08-28) were ~20 days old that day, nowhere near the
-   ~90-day window. Second, moot anyway — WebSearch itself was down for
-   nearly every query that run (see Known Issues #3), so no read-only
-   web verification could be done even if entries had aged out. No new
-   outreach leads were researched or sent that day either, for the same
-   reason.
+   reasons.** First, same as every prior run: the oldest
+   verification-log entries (2026-08-28) are ~20 days old, still nowhere
+   near the ~90-day window, and the 17-business snapshot hasn't grown
+   since the 2026-09-03 full sweep. Second, moot this run anyway — see
+   Known Issues #3: WebSearch itself was down for nearly every query, so
+   no read-only web verification (new-lead or existing-listing) could be
+   done even if entries had aged out. No new outreach leads were
+   researched or sent today either, for the same reason.
    **Still true as of 2026-09-18:** re-checked before this run — oldest
    verification-log entries (2026-08-28) are ~21 days old, still nowhere
    near the ~90-day window, and the 17-business snapshot hasn't grown
