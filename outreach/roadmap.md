@@ -71,32 +71,37 @@ see snapshot). All other 8 categories start from zero.
 | education | ✅ NEW category opened 2026-09-07: 4 contacted (Mathe Coach/DoDEA math tutoring, International School Westpfalz/Landstuhl Cambridge school, Agape International Academy/Ramstein West Gate K-6, Faith Baptist School/Kaiserslautern Pre-K-6 — all 2026-09-07). ✅ +1 2026-09-10: StimmWerkstatt (German lessons for English speakers + piano/singing). ✅ +2 2026-09-18: C & K Children's House (Montessori preschool/kindergarten, Ramstein-Miesenbach, DODEA before/after-school care), Musikschule Abt (English-language piano/guitar school, Landstuhl) — now 7 sent total. 2 no-email (St David's School — British international school, contact form/phone only; Children's Learning Academy/Kids Learning Center Mackenbach — Facebook/phone only) |
 | hbb | ✅ NEW category opened 2026-09-08: 5 contacted (Sarah Havens Photography/family+motherhood portraits, Lena Jones Doula & Birth Photography, Studio MS Photography/Maud Schoenmaekers, Gerardini Photo/Pete Gerardini, Porscha Herron Personal Training — all Kaiserslautern/Ramstein-area, all 2026-09-08). ✅ +1 2026-09-10: Marta Sobczak Photography (newborn/family/maternity, comes to the client's home on or off base) — now 6 sent. Still no email found for Cravings Corner Co, Sparky's Cheesecake (baking), KlaudiAlmonteFitness (fitness/nutrition), or Sophia's Makeup Artist Services (mobile makeup) despite repeated searches — all Facebook/Instagram/contact-form only. 2026-09-14: tried KlaudiAlmonteFitness's contact page directly again and searched for new home-based leads (pet-sitting, tutoring, personal chef/catering) — still nothing with a publicly published email; the KMC military-spouse-HBB space genuinely seems to run almost entirely on Facebook/Instagram/Hotplate, still 6 sent |
 | shopping | ✅ +3 2026-09-14: Benny's Doggy Depot (pet grooming, English site section for Kaiserslautern/Landstuhl/Ramstein), eBike Store Kaiserslautern (dedicated page for US customers), Gärtnerei Hanns (English-speaking staff for US military customers, Landstuhl) — now 9 sent total. Gear Up Sports Store found but NOT recommended (on-base only, Ramstein AB Building 2113, same base-access-fit issue as the thrift shops) |
-| home-services | ✅ +1 2026-09-14: J. Blaze (Stevo John) — moving/cleaning/lawn-care/trash-removal, founded 2017 specifically for KMC military families — now 7 sent total; checked for the Move Clean Perfect-style trust flag and found none |
+| home-services | ✅ +1 2026-09-14: J. Blaze (Stevo John) — moving/cleaning/lawn-care/trash-removal, founded 2017 specifically for KMC military families — now 7 sent total; checked for the Move Clean Perfect-style trust flag and found none. ✅ +1 2026-09-21: K&M Computer Kaiserslautern (PC/notebook sales+repair, Merkurstrasse 49) — now 8 sent total. 1 no-email (Eva's Express housekeeping, Ramstein-Miesenbach — phone/Find-It Guide contact form only) |
+| education | ✅ +3 2026-09-21: Grace Studio/Ballettschule Kaiserslautern (English-language dance school), Sweeney Irish Dance/Irish Dance Germany (30+-year Irish dance school explicitly welcoming US military children, Landstuhl/Ramstein AB), Loveless Academy of Karate & Kobudo (Okinawa Goju Ryu karate/kobudo since 1982, Kaiserslautern American-featured) — now 10 sent total, deepest KMC category |
+| hbb | 2026-09-21: another full research pass (tutoring, virtual assistant, crafts/Etsy, event planning/balloons, DJ, lactation/doula, pet sitting, cake baking) found nothing new with a genuinely published email — 1 more no-email (KMC Healing Hearts/The SBD Doula). Still 6 sent, confirms this category is at or very near its real ceiling for now (see below) |
 
-**Next for KMC:** all 9 categories now have at least initial outreach —
-real-estate (7 sent), healthcare (9 sent as of 2026-09-18), home-services (7
-sent as of 2026-09-14), restaurants (9 sent as of 2026-09-16), shopping (9
-sent as of 2026-09-14), legal-business (8 sent), education (7 sent as of
-2026-09-18), and hbb (6 sent), plus pre-existing automotive. 2026-09-18
-closed the education gap flagged 2026-09-16 (C & K Children's House
-Montessori preschool + Musikschule Abt English-language music school, both
-Landstuhl/Ramstein-Miesenbach area) and cleared two carried-over follow-ups:
-Chiropraxis White Kaiserslautern (distinct practice from the Ramstein one,
-email found on its own Impressum page — sent) and a fresh direct-site check
-on Milinsure/Stephen F. Mitchell CPA (still genuinely no published email on
-either's own site, not re-attempted with a third-party-aggregator address).
-**hbb (6) is now the clear next-weakest** and still proving genuinely hard
-to grow: repeated searches (2026-09-10, 2026-09-14) for new home-based
-military-spouse businesses (crafts, tutoring, pet-sitting, personal
-chef/catering) keep surfacing only Facebook/Instagram/Hotplate-only
-operations with no published email — may be close to real ceiling for this
-category without a different research approach (e.g. asking the site owner
-if any HBB owners have reached out directly, since that community skews
-mobile-first and under-indexed on the open web). Family Dental
-Practice/Dr. Hager's own site is still worth a direct look for a real
-contact email (search results keep conflating it with an unrelated Konstanz
-dentist of the same surname) — not resolved today. Full coverage is still a
-long way off, this base needs many more runs.
+**Next for KMC:** all 9 categories now have real outreach depth —
+real-estate (7 sent), healthcare (9 sent as of 2026-09-18), home-services (8
+sent as of 2026-09-21), restaurants (9 sent as of 2026-09-16), shopping (9
+sent as of 2026-09-14), legal-business (8 sent), education (10 sent as of
+2026-09-21, now the deepest category), and hbb (6 sent), plus pre-existing
+automotive. 2026-09-21 opened real depth in education (Grace Studio, Sweeney
+Irish Dance, Loveless Academy of Karate & Kobudo — all English-speaking,
+long-running, real off-base businesses with published emails) and added one
+more home-services lead (K&M Computer Kaiserslautern), after a second
+full-effort hbb search pass across a dozen new sub-categories (tutoring,
+virtual assistant, crafts/Etsy, event planning/balloons, DJ,
+lactation/doula, pet sitting, cake baking) again turned up nothing sendable
+— every findable candidate was either already contacted, Facebook/Instagram/
+Hotplate-only with no published email (KMC Healing Hearts doula joins that
+list), or base-access-only (Celebrations Balloon Shop, Mitchell Ave Bldg
+2113 — same on-base complex as the already-flagged Gear Up Sports Store;
+KMCC Computer and Mobile Repair, KMCC Mall Bldg 3336 — same issue). **hbb (6)
+is now confirmed at or very near its real ceiling** for this base without a
+different research approach (e.g. asking the site owner if any HBB owners
+have reached out directly, since that community skews mobile-first and
+under-indexed on the open web) — future runs should check it opportunistically
+but default to building out the categories still showing real room (real-estate,
+hbb itself if a new angle appears) rather than re-running the same dead-end
+searches. Family Dental Practice/Dr. Hager's own site is still worth a direct
+look for a real contact email (search results keep conflating it with an
+unrelated Konstanz dentist of the same surname) — not resolved today. Full
+coverage is still a long way off, this base needs many more runs.
 
 ### Wiesbaden — not started
 ### Bavaria bases — not started
@@ -300,6 +305,16 @@ routine.
    sites/directories, no closure signals, consistent contact info across
    independent sources) before sending — see log.csv notes for evidence
    per lead.
+   **Still true as of 2026-09-21:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are ~24 days old, still nowhere
+   near the ~90-day window, and the 17-business snapshot hasn't grown since
+   the 2026-09-03 full sweep, so the 2026-09-21 run also did zero new
+   verification-log rows (same reasoning). Today's 4 new leads (K&M
+   Computer Kaiserslautern, Grace Studio, Sweeney Irish Dance, Loveless
+   Academy of Karate & Kobudo) were all confirmed still-operating via web
+   search (active sites/directories/Facebook, 2026-dated activity, no
+   closure signals) before sending — see log.csv notes for evidence per
+   lead.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
