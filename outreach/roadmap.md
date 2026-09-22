@@ -61,7 +61,7 @@ see snapshot). All other 8 categories start from zero.
 
 | Category | Status |
 |---|---|
-| real-estate | ✅ 7 contacted (ImmoHauf, Premium Realestate/David Baker, Prime TLA, Stay Eden — all 2026-08-28; Roth TLA, TLA Office, TLA Ramstein/DODSC — all 2026-09-01, re-verified still active before sending). Strong depth — no action needed for a while |
+| real-estate | ✅ 10 contacted (ImmoHauf, Premium Realestate/David Baker, Prime TLA, Stay Eden — all 2026-08-28; Roth TLA, TLA Office, TLA Ramstein/DODSC — all 2026-09-01, re-verified still active before sending). ✅ +3 2026-09-22: Piscione Immobilien/Jana (dedicated 2026 PCS-to-Ramstein housing guide, English listings built for the US military network), TLA Rentals (Weilerbach/Rodenbach, distinct small operator with its own domain/phone), HousingOffice.com/Sylvia (full-service KMC housing network since 2004, TLA through real-estate sale) — now 10 sent total, ties education for deepest KMC category. 2 no-email (Immobilien-4-You — WhatsApp-only contact, worth a direct-site look if a fetch-capable path opens; TDY Ramstein/tdyramstein.com — search kept attributing a different domain's email (info@kmc-tla.com / info@tla-ramstein.com, the latter already sent 2026-09-01 as TLA Ramstein/DODSC) to its FAQ page — too much cross-domain ambiguity in this crowded TLA-brand space to trust without a direct-site read) |
 | automotive | Pre-existing (3 listings) — solid, no action needed yet |
 | healthcare | ✅ +3 2026-09-15: Chiropractic White Ramstein (Dr. Renee & Dr. Erik White), American Ramstein Chiropractic (Dr. Tim Holmes), EO-Chiropractic (Erin Odgers) — now 8 sent total. ✅ +1 2026-09-18: Chiropraxis White Kaiserslautern (Ingrid & Eva White) — distinct 35+-year practice in central Kaiserslautern, same family as the Ramstein practice but a different location; email found on its own Impressum page — now 9 sent total. 9 contacted (Flynn Family Medicine, Dillon Orthodontic Care, Lutrina Practice & Clinic, Counseling Germany — all 2026-08-31; Dr. Michelle Ferrell/East to West Counseling 2026-09-01; the 3 chiropractic practices above 2026-09-15; Chiropraxis White Kaiserslautern 2026-09-18). 2 no-email (Elite Group Therapy — Cloudflare-obfuscated address, use contact form/Setmore booking; Knospe-Lerncenter Ramstein — phone/contact-form only). +1 no-email 2026-09-15: Family Dental Practice/Dr. Tam Hager — no genuinely published email found (a search-tool-suggested contact@hagerdental.com does not actually appear anywhere; don't reuse it) |
 | home-services | ✅ 6 contacted (Mr. Perfect Services 2026-09-01; Clean Team Ramstein 2026-09-02; Thompson Cleaning Service KMC, G&G International Movers, Möbelspedition Sander, Teppichreinigung24 — all 2026-09-09). 3 no-email (Mike & Mike Cleaning Services — Cloudflare/redacted email, use WhatsApp/phone; Mr. Prosper Express Services — no published email, worth another look; Karakoc Gebäudeservice — German-only site, phone only, lower-priority fit). 1 explicitly NOT recommended: Move Clean Perfect (movecleanperfect.com) — logged 'researched' with a trust/safety flag, its only findable email (princeabiola1000@gmail.com) matches a known PCS-moving-scam pattern, do not email or list without the site owner's own diligence |
@@ -76,32 +76,27 @@ see snapshot). All other 8 categories start from zero.
 | hbb | 2026-09-21: another full research pass (tutoring, virtual assistant, crafts/Etsy, event planning/balloons, DJ, lactation/doula, pet sitting, cake baking) found nothing new with a genuinely published email — 1 more no-email (KMC Healing Hearts/The SBD Doula). Still 6 sent, confirms this category is at or very near its real ceiling for now (see below) |
 
 **Next for KMC:** all 9 categories now have real outreach depth —
-real-estate (7 sent), healthcare (9 sent as of 2026-09-18), home-services (8
-sent as of 2026-09-21), restaurants (9 sent as of 2026-09-16), shopping (9
-sent as of 2026-09-14), legal-business (8 sent), education (10 sent as of
-2026-09-21, now the deepest category), and hbb (6 sent), plus pre-existing
-automotive. 2026-09-21 opened real depth in education (Grace Studio, Sweeney
-Irish Dance, Loveless Academy of Karate & Kobudo — all English-speaking,
-long-running, real off-base businesses with published emails) and added one
-more home-services lead (K&M Computer Kaiserslautern), after a second
-full-effort hbb search pass across a dozen new sub-categories (tutoring,
-virtual assistant, crafts/Etsy, event planning/balloons, DJ,
-lactation/doula, pet sitting, cake baking) again turned up nothing sendable
-— every findable candidate was either already contacted, Facebook/Instagram/
-Hotplate-only with no published email (KMC Healing Hearts doula joins that
-list), or base-access-only (Celebrations Balloon Shop, Mitchell Ave Bldg
-2113 — same on-base complex as the already-flagged Gear Up Sports Store;
-KMCC Computer and Mobile Repair, KMCC Mall Bldg 3336 — same issue). **hbb (6)
-is now confirmed at or very near its real ceiling** for this base without a
-different research approach (e.g. asking the site owner if any HBB owners
-have reached out directly, since that community skews mobile-first and
-under-indexed on the open web) — future runs should check it opportunistically
-but default to building out the categories still showing real room (real-estate,
-hbb itself if a new angle appears) rather than re-running the same dead-end
-searches. Family Dental Practice/Dr. Hager's own site is still worth a direct
-look for a real contact email (search results keep conflating it with an
-unrelated Konstanz dentist of the same surname) — not resolved today. Full
-coverage is still a long way off, this base needs many more runs.
+real-estate (10 sent as of 2026-09-22, ties education for deepest), healthcare
+(9 sent as of 2026-09-18), home-services (8 sent as of 2026-09-21), restaurants
+(9 sent as of 2026-09-16), shopping (9 sent as of 2026-09-14), legal-business
+(8 sent), education (10 sent as of 2026-09-21), and hbb (6 sent), plus
+pre-existing automotive. 2026-09-22 opened real depth in real-estate beyond
+the original TLA/TDY-focused wave (Piscione Immobilien, TLA Rentals,
+HousingOffice.com — all genuinely distinct operators from the 7 already
+contacted, verified via a careful cross-domain-email check in this crowded
+TLA-brand space). Every remaining KMC category now has real depth; the
+categories with the most realistic room left are legal-business and
+home-services (8 each) and healthcare/restaurants/shopping (9 each) — hbb (6)
+remains at or very near its real ceiling for this base without a different
+research approach (e.g. asking the site owner if any HBB owners have reached
+out directly, since that community skews mobile-first and under-indexed on
+the open web) — future runs should check it opportunistically but default to
+building out the categories still showing real room rather than re-running
+the same dead-end hbb searches. Family Dental Practice/Dr. Hager's own site is
+still worth a direct look for a real contact email (search results keep
+conflating it with an unrelated Konstanz dentist of the same surname) — not
+resolved today. Full coverage is still a long way off, this base needs many
+more runs.
 
 ### Wiesbaden — not started
 ### Bavaria bases — not started
@@ -315,6 +310,19 @@ routine.
    search (active sites/directories/Facebook, 2026-dated activity, no
    closure signals) before sending — see log.csv notes for evidence per
    lead.
+   **Still true as of 2026-09-22:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are ~25 days old, still nowhere
+   near the ~90-day window, and the 17-business snapshot hasn't grown since
+   the 2026-09-03 full sweep (confirmed via `git log -1 --format=%ad --
+   outreach/businesses-snapshot.json`, still dated 2026-08-28) — every
+   snapshot entry has already been checked within the last ~90 days, so
+   there was nothing eligible to re-verify and the 2026-09-22 run did zero
+   new verification-log rows (same reasoning as every run since
+   2026-09-03). Today's 3 new real-estate leads (Piscione Immobilien, TLA
+   Rentals, HousingOffice.com) were all confirmed still-operating via web
+   search (active sites with current 2026-dated content/listings, recent
+   Facebook activity, no closure signals) before sending — see log.csv
+   notes for evidence per lead.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
