@@ -63,7 +63,7 @@ see snapshot). All other 8 categories start from zero.
 |---|---|
 | real-estate | ✅ 10 contacted (ImmoHauf, Premium Realestate/David Baker, Prime TLA, Stay Eden — all 2026-08-28; Roth TLA, TLA Office, TLA Ramstein/DODSC — all 2026-09-01, re-verified still active before sending). ✅ +3 2026-09-22: Piscione Immobilien/Jana (dedicated 2026 PCS-to-Ramstein housing guide, English listings built for the US military network), TLA Rentals (Weilerbach/Rodenbach, distinct small operator with its own domain/phone), HousingOffice.com/Sylvia (full-service KMC housing network since 2004, TLA through real-estate sale) — now 10 sent total, ties education for deepest KMC category. 2 no-email (Immobilien-4-You — WhatsApp-only contact, worth a direct-site look if a fetch-capable path opens; TDY Ramstein/tdyramstein.com — search kept attributing a different domain's email (info@kmc-tla.com / info@tla-ramstein.com, the latter already sent 2026-09-01 as TLA Ramstein/DODSC) to its FAQ page — too much cross-domain ambiguity in this crowded TLA-brand space to trust without a direct-site read) |
 | automotive | Pre-existing (3 listings) — solid, no action needed yet |
-| healthcare | ✅ +3 2026-09-15: Chiropractic White Ramstein (Dr. Renee & Dr. Erik White), American Ramstein Chiropractic (Dr. Tim Holmes), EO-Chiropractic (Erin Odgers) — now 8 sent total. ✅ +1 2026-09-18: Chiropraxis White Kaiserslautern (Ingrid & Eva White) — distinct 35+-year practice in central Kaiserslautern, same family as the Ramstein practice but a different location; email found on its own Impressum page — now 9 sent total. 9 contacted (Flynn Family Medicine, Dillon Orthodontic Care, Lutrina Practice & Clinic, Counseling Germany — all 2026-08-31; Dr. Michelle Ferrell/East to West Counseling 2026-09-01; the 3 chiropractic practices above 2026-09-15; Chiropraxis White Kaiserslautern 2026-09-18). 2 no-email (Elite Group Therapy — Cloudflare-obfuscated address, use contact form/Setmore booking; Knospe-Lerncenter Ramstein — phone/contact-form only). +1 no-email 2026-09-15: Family Dental Practice/Dr. Tam Hager — no genuinely published email found (a search-tool-suggested contact@hagerdental.com does not actually appear anywhere; don't reuse it) |
+| healthcare | ✅ +3 2026-09-15: Chiropractic White Ramstein (Dr. Renee & Dr. Erik White), American Ramstein Chiropractic (Dr. Tim Holmes), EO-Chiropractic (Erin Odgers) — now 8 sent total. ✅ +1 2026-09-18: Chiropraxis White Kaiserslautern (Ingrid & Eva White) — distinct 35+-year practice in central Kaiserslautern, same family as the Ramstein practice but a different location; email found on its own Impressum page — now 9 sent total. ✅ +3 2026-09-24: Landstuhl American Dentistry (dedicated American-population dental practice since 2016), Pediatric Castle/Ritterdoc's (20+-year English-speaking pediatrics, Ramstein-Miesenbach), Praxis Schmalhofer (native English-speaking clinical psychologist, no referral required) — now 12 sent total. 12 contacted (Flynn Family Medicine, Dillon Orthodontic Care, Lutrina Practice & Clinic, Counseling Germany — all 2026-08-31; Dr. Michelle Ferrell/East to West Counseling 2026-09-01; the 3 chiropractic practices above 2026-09-15; Chiropraxis White Kaiserslautern 2026-09-18; the 3 above 2026-09-24). 2 no-email (Elite Group Therapy — Cloudflare-obfuscated address, use contact form/Setmore booking; Knospe-Lerncenter Ramstein — phone/contact-form only). +1 no-email 2026-09-15: Family Dental Practice/Dr. Tam Hager — no genuinely published email found (a search-tool-suggested contact@hagerdental.com does not actually appear anywhere; don't reuse it). +2 no-email 2026-09-24: Augenzentrum Westpfalz Landstuhl (Cloudflare-obfuscated), DOCS Dental (inside Ramstein AB exchange, likely base-access-only). 1 researched 2026-09-24: Dr. Knauss OB/GYN — English-fluent per Yelp, no site/email found yet |
 | home-services | ✅ 6 contacted (Mr. Perfect Services 2026-09-01; Clean Team Ramstein 2026-09-02; Thompson Cleaning Service KMC, G&G International Movers, Möbelspedition Sander, Teppichreinigung24 — all 2026-09-09). 3 no-email (Mike & Mike Cleaning Services — Cloudflare/redacted email, use WhatsApp/phone; Mr. Prosper Express Services — no published email, worth another look; Karakoc Gebäudeservice — German-only site, phone only, lower-priority fit). 1 explicitly NOT recommended: Move Clean Perfect (movecleanperfect.com) — logged 'researched' with a trust/safety flag, its only findable email (princeabiola1000@gmail.com) matches a known PCS-moving-scam pattern, do not email or list without the site owner's own diligence |
 | restaurants | ✅ NEW category opened 2026-09-02: 4 contacted (The Parlour/Landstuhl, Fiesta Mexicana/Mackenbach, KIKO Sushi & Grill/Kaiserslautern, Termeh Persian Restaurant/Kaiserslautern — all 2026-09-02). ✅ +1 2026-09-10: Military Services Germany/Käsemann Catering — 5 sent. ✅ +4 2026-09-16: Burgschänke Nanstein (English menu+staff, Landstuhl castle restaurant), Cockpit Lounge (aviation-themed, #1 of 41 in Landstuhl, right by Ramstein AB), The Big Emma (huge Ramstein-Miesenbach brewhouse, 1,173 FB reviews), Chacarero Steakhouse (dedicated English page for reservations) — now 9 sent total, ties shopping for deepest KMC category. 5 no-email (The Alamo, Sascha's Grill/Ali's Landstuhl Grill, Roadhouse Ktown — a suggested gmail address didn't actually appear on any indexed page, same false-positive pattern as the 2026-09-15 Hager Dental case, so treated as unpublished — Memory Burger Ramstein, Mr. Lian both locations) |
 | shopping | ✅ NEW category opened 2026-09-03: 5 contacted (United Furniture Landstuhl, Tailor Shop Kaiserslautern, Alpha Buchhandlung Landstuhl, Lachmann's/Mackenbach, Goldschmiede Nikl Ramstein-Miesenbach — all 2026-09-03). 2 base-access-only nonprofit thrift shops found (RESA, KLSA) logged as researched but not recommended — same poor-fit call as Patch Thrift Shop in Stuttgart |
@@ -76,32 +76,36 @@ see snapshot). All other 8 categories start from zero.
 | hbb | 2026-09-21: another full research pass (tutoring, virtual assistant, crafts/Etsy, event planning/balloons, DJ, lactation/doula, pet sitting, cake baking) found nothing new with a genuinely published email — 1 more no-email (KMC Healing Hearts/The SBD Doula). Still 6 sent, confirms this category is at or very near its real ceiling for now (see below) |
 
 **Next for KMC:** all 9 categories now have real outreach depth —
-real-estate (10 sent as of 2026-09-22), healthcare (9 sent as of 2026-09-18),
-home-services (8 sent as of 2026-09-21), restaurants (9 sent as of 2026-09-16),
-shopping (9 sent as of 2026-09-14), legal-business (11 sent as of 2026-09-23,
-now the deepest category), education (10 sent as of 2026-09-21), and hbb
-(6 sent), plus pre-existing automotive. 2026-09-23 opened real depth in
-legal-business beyond the tax/notary/insurance-broker wave (MIRASCON
-Insurance Agency, Salusso Translations, Fachübersetzungsdienst Kaiserslautern
-— all genuinely distinct operators, certified-translation being an entirely
-new sub-niche within the category). Home-services searches today (pest
-control, IT/computer repair) again found no new published email — that
-category is starting to show the same diminishing-returns pattern as hbb.
-The categories with the most realistic room left now are home-services (8)
-and healthcare/restaurants/shopping (9 each) — hbb (6) remains at or very
-near its real ceiling for this base without a different research approach
-(e.g. asking the site owner if any HBB owners have reached out directly,
-since that community skews mobile-first and under-indexed on the open web)
-— future runs should check it opportunistically but default to building out
-the categories still showing real room rather than re-running the same
-dead-end hbb/home-services searches. Family Dental Practice/Dr. Hager's own
-site is still worth a direct look for a real contact email (search results
-keep conflating it with an unrelated Konstanz dentist of the same surname)
-— not resolved today. United Sponsor Service (real-estate, Ramstein PCS
-relocation/sponsorship + TLA housing) was found today but not pursued since
-real-estate is already the base's deepest category — worth a look if that
-category needs a future refresh. Full coverage is still a long way off,
-this base needs many more runs.
+real-estate (10 sent as of 2026-09-22), healthcare (12 sent as of
+2026-09-24), home-services (8 sent as of 2026-09-21), restaurants (9 sent
+as of 2026-09-16), shopping (9 sent as of 2026-09-14), legal-business
+(11 sent as of 2026-09-23, still the deepest category), education (10 sent
+as of 2026-09-21), and hbb (6 sent), plus pre-existing automotive.
+2026-09-24 opened three new healthcare sub-niches beyond the primary-care/
+chiropractic/counseling wave: Landstuhl American Dentistry (dedicated
+American-population dental practice), Pediatric Castle/Ritterdoc's
+(20+-year English-speaking pediatrics), and Praxis Schmalhofer (native
+English-speaking clinical psychologist, no referral required) — healthcare
+is now tied with education/real-estate for second-deepest category. 2 more
+no-email (Augenzentrum Westpfalz Landstuhl — Cloudflare-obfuscated;
+DOCS Dental — inside the Ramstein AB exchange, likely base-access-only,
+same fit question as Gear Up Sports Store/KMCC Computer) and 1 researched
+lead queued (Dr. Knauss OB/GYN — English-fluent per Yelp, no site/email
+found yet, worth a dedicated follow-up search). The categories with the
+most realistic room left now are home-services (8) and restaurants/shopping
+(9 each) — hbb (6) remains at or very near its real ceiling for this base
+without a different research approach (e.g. asking the site owner if any
+HBB owners have reached out directly, since that community skews
+mobile-first and under-indexed on the open web) — future runs should check
+it opportunistically but default to building out the categories still
+showing real room rather than re-running the same dead-end hbb searches.
+Family Dental Practice/Dr. Hager's own site is still worth a direct look
+for a real contact email (search results keep conflating it with an
+unrelated Konstanz dentist of the same surname) — not resolved today.
+United Sponsor Service (real-estate, Ramstein PCS relocation/sponsorship +
+TLA housing) was found 2026-09-23 but not pursued since real-estate is
+already deep — still worth a look if that category needs a future refresh.
+Full coverage is still a long way off, this base needs many more runs.
 
 ### Wiesbaden — not started
 ### Bavaria bases — not started
@@ -342,6 +346,17 @@ routine.
    evidence per lead, including the extra check done on MIRASCON to confirm
    its Yelp "Closed" tag was just an after-hours status flag (posted 9-5
    hours), not a permanent-closure marker.
+   **Still true as of 2026-09-24:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are ~27 days old, still nowhere
+   near the ~90-day window, and the 17-business snapshot hasn't grown since
+   the 2026-09-03 full sweep (confirmed via `git log -1 --format=%ad --
+   outreach/businesses-snapshot.json`, still dated 2026-08-28) — every
+   snapshot entry has already been checked within the last ~90 days, so
+   there was nothing eligible to re-verify and the 2026-09-24 run did zero
+   new verification-log rows (same reasoning as every run since 2026-09-03).
+   Today's 3 new healthcare leads (Landstuhl American Dentistry, Pediatric
+   Castle/Ritterdoc's, Praxis Schmalhofer) were all confirmed still-operating
+   via web search before sending — see log.csv notes for evidence per lead.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
