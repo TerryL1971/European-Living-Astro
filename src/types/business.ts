@@ -307,7 +307,7 @@ export function getCategoryDisplayName(category: ServiceCategory): string {
     automotive: 'Automotive Services',
     healthcare: 'Healthcare',
     restaurants: 'Restaurants & Dining',
-    shopping: 'Shopping',
+    shopping: 'Shopping / Personal Services',
     'home-services': 'Home Services',
     'real-estate': 'Real Estate',
     'legal-business': 'Legal & Business Services',

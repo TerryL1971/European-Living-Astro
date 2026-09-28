@@ -97,7 +97,7 @@ export default function BusinessSubmissionForm() {
     { id: 'automotive', name: 'Automotive Services' },
     { id: 'healthcare', name: 'Healthcare' },
     { id: 'restaurants', name: 'Restaurants & Dining' },
-    { id: 'shopping', name: 'Shopping' },
+    { id: 'shopping', name: 'Shopping / Personal Services' },
     { id: 'home-services', name: 'Home Services' },
     { id: 'real-estate', name: 'Real Estate' },
     { id: 'legal-business', name: 'Legal Services' },

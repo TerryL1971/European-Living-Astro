@@ -36,7 +36,7 @@ const serviceCategories = [
   { id: 'automotive', title: 'Automotive Services', icon: Car, tint: '#bd6a4e', description: 'Car dealers, mechanics, and auto services that work with Americans' },
   { id: 'healthcare', title: 'Healthcare', icon: Stethoscope, tint: '#b05e6d', description: 'English-speaking doctors, dentists, veterinarians, and specialists near European US Bases' },
   { id: 'restaurants', title: 'Restaurants & Dining', icon: Utensils, tint: '#b8802f', description: 'English-friendly restaurants throughout Europe serving Americans living abroad' },
-  { id: 'shopping', title: 'Shopping / Personal Services', icon: ShoppingBag, tint: '#7c6bb0', description: 'Stores, malls, and beauty salons with English-speaking staff' },
+  { id: 'shopping', title: 'Shopping / Personal Services', icon: ShoppingBag, tint: '#7c6bb0', description: 'Stores, malls, beauty salons, and photographers with English-speaking staff' },
   { id: 'home-services', title: 'Home Services', icon: Wrench, tint: '#3d8a85', description: 'Plumbers, electricians, and handymen who work with American families' },
   { id: 'real-estate', title: 'Real Estate', icon: Home, tint: '#5e9350', description: 'Housing agents familiar with American military housing needs' },
   // ids match serviceCategories.ts / the businesses table's actual
