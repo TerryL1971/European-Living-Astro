@@ -72,7 +72,7 @@ see snapshot). All other 8 categories start from zero.
 | hbb | ✅ NEW category opened 2026-09-08: 5 contacted (Sarah Havens Photography/family+motherhood portraits, Lena Jones Doula & Birth Photography, Studio MS Photography/Maud Schoenmaekers, Gerardini Photo/Pete Gerardini, Porscha Herron Personal Training — all Kaiserslautern/Ramstein-area, all 2026-09-08). ✅ +1 2026-09-10: Marta Sobczak Photography (newborn/family/maternity, comes to the client's home on or off base) — now 6 sent. Still no email found for Cravings Corner Co, Sparky's Cheesecake (baking), KlaudiAlmonteFitness (fitness/nutrition), or Sophia's Makeup Artist Services (mobile makeup) despite repeated searches — all Facebook/Instagram/contact-form only. 2026-09-14: tried KlaudiAlmonteFitness's contact page directly again and searched for new home-based leads (pet-sitting, tutoring, personal chef/catering) — still nothing with a publicly published email; the KMC military-spouse-HBB space genuinely seems to run almost entirely on Facebook/Instagram/Hotplate, still 6 sent |
 | shopping | ✅ +3 2026-09-14: Benny's Doggy Depot (pet grooming, English site section for Kaiserslautern/Landstuhl/Ramstein), eBike Store Kaiserslautern (dedicated page for US customers), Gärtnerei Hanns (English-speaking staff for US military customers, Landstuhl) — now 9 sent total. Gear Up Sports Store found but NOT recommended (on-base only, Ramstein AB Building 2113, same base-access-fit issue as the thrift shops). ✅ +3 2026-09-29: SecondPlus (largest off-base second-hand/vintage store in the region, Stripes Europe names it popular with Ramstein Americans), KFI Kaufhaus für Import (one of Germany's largest USA-import grocery stores, Merkurstrasse/Vogelweh), Delker Optik (Landstuhl optical + hearing-aid shop, explicitly marked English-spoken by a military-community listing) — now 12 sent total, ties real-estate/education for deepest KMC category not counting restaurants. 1 researched (Candy-Shop GmbH/Ramstein-Miesenbach — went through a 2014 insolvency, no current site/contact found, status genuinely unclear, held back from sending) |
 | home-services | ✅ +1 2026-09-14: J. Blaze (Stevo John) — moving/cleaning/lawn-care/trash-removal, founded 2017 specifically for KMC military families — now 7 sent total; checked for the Move Clean Perfect-style trust flag and found none. ✅ +1 2026-09-21: K&M Computer Kaiserslautern (PC/notebook sales+repair, Merkurstrasse 49) — now 8 sent total. 1 no-email (Eva's Express housekeeping, Ramstein-Miesenbach — phone/Find-It Guide contact form only). 2026-09-23: searched pest control + IT/computer repair for more depth, found no new email (Patriot Laptops/Landstuhl, pestcontrol24.de/DLK Company — both logged skipped_no_email, phone/Yelp/Google Business only); still 8 sent. ✅ +4 2026-09-25: opened three new home-services sub-niches — Rainbow Farm/Tierpension (pet boarding, Landstuhl, dedicated English site), Wash To Go Kaiserslautern (mobile car detailing + PCS vehicle-inspection cleaning), Inas Umzüge & Transporte (moving, dedicated US-military-Ramstein page, 5.0/36 Google reviews), iPhone Sales and Repair (American Veteran Owned, Landstuhl) — now 12 sent total, tied with legal-business for deepest KMC category. 1 held back (Farm Kennel/Pet Holiday Kennel — email found on own Impressum but evidence too stale to send on confidently, see log.csv). 1 not recommended (KMC Movers and Transport — Bookoo classified ad with personal Yahoo emails, same trust-flag pattern as Move Clean Perfect) |
-| education | ✅ +3 2026-09-21: Grace Studio/Ballettschule Kaiserslautern (English-language dance school), Sweeney Irish Dance/Irish Dance Germany (30+-year Irish dance school explicitly welcoming US military children, Landstuhl/Ramstein AB), Loveless Academy of Karate & Kobudo (Okinawa Goju Ryu karate/kobudo since 1982, Kaiserslautern American-featured) — now 10 sent total, deepest KMC category |
+| education | ✅ +3 2026-09-21: Grace Studio/Ballettschule Kaiserslautern (English-language dance school), Sweeney Irish Dance/Irish Dance Germany (30+-year Irish dance school explicitly welcoming US military children, Landstuhl/Ramstein AB), Loveless Academy of Karate & Kobudo (Okinawa Goju Ryu karate/kobudo since 1982, Kaiserslautern American-featured) — 10 sent. ✅ +3 2026-09-30: Study Rooms (Math/English/German/SAT-LSAT-ACT tutoring, Landstuhl), TanzSportVerein Ramstein e.V. (children's dance club, no German required), Lernstudio Barbarossa Kaiserslautern (tutoring franchise since 1988) — now 13 sent total, second only to restaurants (14). 1 verified-but-not-sent (Sprachschule Aktiv Kaiserslautern — Gmail send failed mid-run, queued to retry first) |
 | hbb | 2026-09-21: another full research pass (tutoring, virtual assistant, crafts/Etsy, event planning/balloons, DJ, lactation/doula, pet sitting, cake baking) found nothing new with a genuinely published email — 1 more no-email (KMC Healing Hearts/The SBD Doula). Still 6 sent, confirms this category is at or very near its real ceiling for now (see below) |
 
 **Next for KMC:** all 9 categories now have real outreach depth —
@@ -80,8 +80,17 @@ real-estate (10 sent as of 2026-09-22), healthcare (12 sent as of
 2026-09-24), home-services (12 sent as of 2026-09-25, tied with legal-business),
 restaurants (14 sent as of 2026-09-28, deepest category), shopping
 (12 sent as of 2026-09-29), legal-business (11 sent as of 2026-09-23),
-education (10 sent as of 2026-09-21), and hbb (6 sent), plus pre-existing
-automotive.
+education (13 sent as of 2026-09-30, second-deepest category), and hbb
+(6 sent), plus pre-existing automotive.
+2026-09-30 pushed education from 10 to 13 (Study Rooms tutoring/test-prep,
+TanzSportVerein Ramstein children's dance club, Lernstudio Barbarossa
+tutoring franchise) — a 4th lead, Sprachschule Aktiv Kaiserslautern, was
+fully researched and verified still-open but the Gmail send itself failed
+mid-run ("service currently unavailable"); logged `researched` rather than
+`sent` and queued to retry first next run rather than re-researching or
+risking a double-send. Real-estate (10 sent) is now the weakest actionable
+category after today's push — worth the focus next run, alongside
+retrying the Sprachschule Aktiv send.
 2026-09-25 opened three new home-services sub-niches (pet boarding, mobile
 car detailing/PCS vehicle cleaning, phone/device repair) beyond the
 cleaning/moving/lawn-care/computer-repair wave — see table above for the
@@ -184,6 +193,22 @@ already fixed everything.
    09-17 run's commit had, in fact, reached the real remote (it just
    hadn't been fetched locally yet), which briefly looked like a lost
    commit but wasn't.**
+
+4. **Gmail send_message transient failure — occurred 2026-09-30, status
+   unclear, watch for recurrence.** The 2nd of 4 planned sends
+   (Sprachschule Aktiv Kaiserslautern) returned "The service is currently
+   unavailable" from the Gmail MCP tool. The call immediately before it and
+   the two immediately after (sent in the same batch) all succeeded
+   normally, so this looked like a one-off blip rather than a broken
+   pipe — but per the guardrail ("if Gmail sending fails... stop
+   immediately"), the run did not retry that specific send and stopped at
+   3 successful sends for the day instead of pushing to 4. The lead was
+   logged `researched` (not `sent`, not `skipped_*`) so a future run
+   retries the actual send without re-researching or risking a duplicate
+   email. If a future run hits this same error, especially more than once
+   or alongside other failing sends, treat it as a real regression (per
+   the same policy as items 2 and 3) rather than assuming transient
+   flakiness again.
 
 ## Still-in-business verification
 
@@ -409,6 +434,23 @@ routine.
    see log.csv notes for evidence per lead. Candy-Shop GmbH was researched
    but held back from sending: a 2014 insolvency record plus no current
    site/contact makes its status genuinely unclear, not confirmed closed.
+   **Still true as of 2026-09-30:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are ~33 days old, still nowhere
+   near the ~90-day window, and the 17-business snapshot hasn't grown since
+   the 2026-09-03 full sweep (confirmed via `git log -1 --format=%ad --
+   outreach/businesses-snapshot.json`, still dated 2026-08-28) — every
+   snapshot entry has already been checked within the last ~90 days, so
+   there was nothing eligible to re-verify and the 2026-09-30 run did zero
+   new verification-log rows (same reasoning as every run since 2026-09-03).
+   Today's 4 new education leads (Study Rooms, Sprachschule Aktiv
+   Kaiserslautern, TanzSportVerein Ramstein, Lernstudio Barbarossa
+   Kaiserslautern) were all confirmed still-operating via web search before
+   attempting to send — see log.csv notes for evidence per lead, including
+   catching a 13-year-stale 2013 news-article email for a re-surfaced
+   "Children's Learning Academy" address variant and correctly declining to
+   reuse it. One of the four (Sprachschule Aktiv) was verified open but its
+   send failed on a Gmail-side "service currently unavailable" error, not a
+   verification issue — see Known Issues for a new item on this.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
