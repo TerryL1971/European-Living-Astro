@@ -61,7 +61,7 @@ see snapshot). All other 8 categories start from zero.
 
 | Category | Status |
 |---|---|
-| real-estate | ✅ 10 contacted (ImmoHauf, Premium Realestate/David Baker, Prime TLA, Stay Eden — all 2026-08-28; Roth TLA, TLA Office, TLA Ramstein/DODSC — all 2026-09-01, re-verified still active before sending). ✅ +3 2026-09-22: Piscione Immobilien/Jana (dedicated 2026 PCS-to-Ramstein housing guide, English listings built for the US military network), TLA Rentals (Weilerbach/Rodenbach, distinct small operator with its own domain/phone), HousingOffice.com/Sylvia (full-service KMC housing network since 2004, TLA through real-estate sale) — now 10 sent total, ties education for deepest KMC category. 2 no-email (Immobilien-4-You — WhatsApp-only contact, worth a direct-site look if a fetch-capable path opens; TDY Ramstein/tdyramstein.com — search kept attributing a different domain's email (info@kmc-tla.com / info@tla-ramstein.com, the latter already sent 2026-09-01 as TLA Ramstein/DODSC) to its FAQ page — too much cross-domain ambiguity in this crowded TLA-brand space to trust without a direct-site read) |
+| real-estate | ✅ 10 contacted (ImmoHauf, Premium Realestate/David Baker, Prime TLA, Stay Eden — all 2026-08-28; Roth TLA, TLA Office, TLA Ramstein/DODSC — all 2026-09-01, re-verified still active before sending). ✅ +3 2026-09-22: Piscione Immobilien/Jana (dedicated 2026 PCS-to-Ramstein housing guide, English listings built for the US military network), TLA Rentals (Weilerbach/Rodenbach, distinct small operator with its own domain/phone), HousingOffice.com/Sylvia (full-service KMC housing network since 2004, TLA through real-estate sale) — now 10 sent total, ties education for deepest KMC category. 2 no-email (Immobilien-4-You — WhatsApp-only contact, worth a direct-site look if a fetch-capable path opens; TDY Ramstein/tdyramstein.com — search kept attributing a different domain's email (info@kmc-tla.com / info@tla-ramstein.com, the latter already sent 2026-09-01 as TLA Ramstein/DODSC) to its FAQ page — too much cross-domain ambiguity in this crowded TLA-brand space to trust without a direct-site read). ✅ +3 2026-10-01: United Sponsor Service/Maria Kaulfuss (PCS sponsorship + TLA/shuttle/admin/cleaning, Ramstein-Miesenbach, previously researched 2026-09-23), TDYHOMES (original 20-year TLA/TDY company, founded 2005 by a Ramstein-stationed USAF Reserve pilot, 65+ properties plus own hotel, Landstuhl), Insight Living GmbH (TLA/TLF/TDY + long-term rentals + property management, Ramstein-Miesenbach, 5.0/35 Google reviews) — now 13 sent total, KMC's deepest category tied with restaurants-adjacent depth. 1 more no-email (Hassanzadeh Immobilien-Management/Homburg — two search passes returned two conflicting emails, same false-positive pattern as Hager Dental/Roadhouse Ktown, not used; also a weaker base-area fit at ~30km from Landstuhl). 1 researched (KMC Rentals/kmc-rentals.com — contact info too ambiguous/oddly formatted to trust, cross-contaminated with an unrelated Florida LLC of the same name, worth a direct-site read next run) |
 | automotive | Pre-existing (3 listings) — solid, no action needed yet |
 | healthcare | ✅ +3 2026-09-15: Chiropractic White Ramstein (Dr. Renee & Dr. Erik White), American Ramstein Chiropractic (Dr. Tim Holmes), EO-Chiropractic (Erin Odgers) — now 8 sent total. ✅ +1 2026-09-18: Chiropraxis White Kaiserslautern (Ingrid & Eva White) — distinct 35+-year practice in central Kaiserslautern, same family as the Ramstein practice but a different location; email found on its own Impressum page — now 9 sent total. ✅ +3 2026-09-24: Landstuhl American Dentistry (dedicated American-population dental practice since 2016), Pediatric Castle/Ritterdoc's (20+-year English-speaking pediatrics, Ramstein-Miesenbach), Praxis Schmalhofer (native English-speaking clinical psychologist, no referral required) — now 12 sent total. 12 contacted (Flynn Family Medicine, Dillon Orthodontic Care, Lutrina Practice & Clinic, Counseling Germany — all 2026-08-31; Dr. Michelle Ferrell/East to West Counseling 2026-09-01; the 3 chiropractic practices above 2026-09-15; Chiropraxis White Kaiserslautern 2026-09-18; the 3 above 2026-09-24). 2 no-email (Elite Group Therapy — Cloudflare-obfuscated address, use contact form/Setmore booking; Knospe-Lerncenter Ramstein — phone/contact-form only). +1 no-email 2026-09-15: Family Dental Practice/Dr. Tam Hager — no genuinely published email found (a search-tool-suggested contact@hagerdental.com does not actually appear anywhere; don't reuse it). +2 no-email 2026-09-24: Augenzentrum Westpfalz Landstuhl (Cloudflare-obfuscated), DOCS Dental (inside Ramstein AB exchange, likely base-access-only). 1 researched 2026-09-24: Dr. Knauss OB/GYN — English-fluent per Yelp, no site/email found yet |
 | home-services | ✅ 6 contacted (Mr. Perfect Services 2026-09-01; Clean Team Ramstein 2026-09-02; Thompson Cleaning Service KMC, G&G International Movers, Möbelspedition Sander, Teppichreinigung24 — all 2026-09-09). 3 no-email (Mike & Mike Cleaning Services — Cloudflare/redacted email, use WhatsApp/phone; Mr. Prosper Express Services — no published email, worth another look; Karakoc Gebäudeservice — German-only site, phone only, lower-priority fit). 1 explicitly NOT recommended: Move Clean Perfect (movecleanperfect.com) — logged 'researched' with a trust/safety flag, its only findable email (princeabiola1000@gmail.com) matches a known PCS-moving-scam pattern, do not email or list without the site owner's own diligence |
@@ -76,21 +76,26 @@ see snapshot). All other 8 categories start from zero.
 | hbb | 2026-09-21: another full research pass (tutoring, virtual assistant, crafts/Etsy, event planning/balloons, DJ, lactation/doula, pet sitting, cake baking) found nothing new with a genuinely published email — 1 more no-email (KMC Healing Hearts/The SBD Doula). Still 6 sent, confirms this category is at or very near its real ceiling for now (see below) |
 
 **Next for KMC:** all 9 categories now have real outreach depth —
-real-estate (10 sent as of 2026-09-22), healthcare (12 sent as of
-2026-09-24), home-services (12 sent as of 2026-09-25, tied with legal-business),
-restaurants (14 sent as of 2026-09-28, deepest category), shopping
-(12 sent as of 2026-09-29), legal-business (11 sent as of 2026-09-23),
-education (13 sent as of 2026-09-30, second-deepest category), and hbb
-(6 sent), plus pre-existing automotive.
+real-estate (13 sent as of 2026-10-01, now tied for deepest with
+education), healthcare (12 sent as of 2026-09-24), home-services
+(12 sent as of 2026-09-25, tied with legal-business), restaurants
+(14 sent as of 2026-09-28, deepest category), shopping (12 sent as of
+2026-09-29), legal-business (11 sent as of 2026-09-23), education
+(13 sent as of 2026-09-30), and hbb (6 sent), plus pre-existing
+automotive.
+2026-10-01: first action was retrying the 2026-09-30 Sprachschule Aktiv
+Kaiserslautern send that failed transiently last run — it went through
+cleanly this time with no Gmail errors, confirming Known Issues #4 really
+was a one-off blip, not a broken pipe (now 14 education sent total).
+Then pushed real-estate from 10 to 13 (United Sponsor Service, TDYHOMES,
+Insight Living) — real-estate was the weakest actionable category per the
+prior run's note, and is now tied with education for deepest. hbb (6)
+remains the shallowest category and is still at/near its real ceiling per
+the 2026-09-21 research pass — worth an opportunistic look but legal-business
+or a fresh restaurants/shopping pass is likely more productive next run.
 2026-09-30 pushed education from 10 to 13 (Study Rooms tutoring/test-prep,
 TanzSportVerein Ramstein children's dance club, Lernstudio Barbarossa
-tutoring franchise) — a 4th lead, Sprachschule Aktiv Kaiserslautern, was
-fully researched and verified still-open but the Gmail send itself failed
-mid-run ("service currently unavailable"); logged `researched` rather than
-`sent` and queued to retry first next run rather than re-researching or
-risking a double-send. Real-estate (10 sent) is now the weakest actionable
-category after today's push — worth the focus next run, alongside
-retrying the Sprachschule Aktiv send.
+tutoring franchise).
 2026-09-25 opened three new home-services sub-niches (pet boarding, mobile
 car detailing/PCS vehicle cleaning, phone/device repair) beyond the
 cleaning/moving/lawn-care/computer-repair wave — see table above for the
@@ -194,21 +199,21 @@ already fixed everything.
    hadn't been fetched locally yet), which briefly looked like a lost
    commit but wasn't.**
 
-4. **Gmail send_message transient failure — occurred 2026-09-30, status
-   unclear, watch for recurrence.** The 2nd of 4 planned sends
-   (Sprachschule Aktiv Kaiserslautern) returned "The service is currently
-   unavailable" from the Gmail MCP tool. The call immediately before it and
-   the two immediately after (sent in the same batch) all succeeded
-   normally, so this looked like a one-off blip rather than a broken
-   pipe — but per the guardrail ("if Gmail sending fails... stop
-   immediately"), the run did not retry that specific send and stopped at
-   3 successful sends for the day instead of pushing to 4. The lead was
-   logged `researched` (not `sent`, not `skipped_*`) so a future run
-   retries the actual send without re-researching or risking a duplicate
-   email. If a future run hits this same error, especially more than once
-   or alongside other failing sends, treat it as a real regression (per
-   the same policy as items 2 and 3) rather than assuming transient
-   flakiness again.
+4. **Gmail send_message transient failure — occurred 2026-09-30, RESOLVED
+   as of 2026-10-01.** The 2nd of 4 planned sends (Sprachschule Aktiv
+   Kaiserslautern) returned "The service is currently unavailable" from
+   the Gmail MCP tool. The call immediately before it and the two
+   immediately after (sent in the same batch) all succeeded normally, so
+   this looked like a one-off blip rather than a broken pipe — but per the
+   guardrail ("if Gmail sending fails... stop immediately"), the run did
+   not retry that specific send and stopped at 3 successful sends for the
+   day instead of pushing to 4. The lead was logged `researched` (not
+   `sent`, not `skipped_*`) so a future run retries the actual send
+   without re-researching or risking a duplicate email. On 2026-10-01 the
+   retry send to the same address succeeded immediately, no errors —
+   treat the 2026-09-30 event as resolved unless a future run hits it
+   again, in which case treat that as a new regression and report it
+   plainly (per the same policy as items 2 and 3).
 
 ## Still-in-business verification
 
@@ -451,6 +456,22 @@ routine.
    reuse it. One of the four (Sprachschule Aktiv) was verified open but its
    send failed on a Gmail-side "service currently unavailable" error, not a
    verification issue — see Known Issues for a new item on this.
+   **Still true as of 2026-10-01:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are ~34 days old, still nowhere
+   near the ~90-day window, and the 17-business snapshot hasn't grown since
+   the 2026-09-03 full sweep (confirmed via `git log -1 --format=%ad --
+   outreach/businesses-snapshot.json`, still dated 2026-08-28) — every
+   snapshot entry has already been checked within the last ~90 days, so
+   there was nothing eligible to re-verify and the 2026-10-01 run did zero
+   new verification-log rows (same reasoning as every run since 2026-09-03).
+   Today's run opened with a retry of the 2026-09-30 Sprachschule Aktiv
+   Kaiserslautern send that failed on a Gmail-side error — it succeeded
+   cleanly this time (see Known Issues #4, now resolved). The 3 new
+   real-estate leads (United Sponsor Service, TDYHOMES, Insight Living)
+   were all confirmed still-operating via web search (active sites with
+   matching imprint/contact details, current Google/Facebook reviews, no
+   closure signals) before sending — see log.csv notes for evidence per
+   lead.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
