@@ -70,30 +70,35 @@ see snapshot). All other 8 categories start from zero.
 | legal-business | ✅ 11 contacted (RFP Tax Advice/RFP Steuerberatung Ramstein-Miesenbach & Kaiserslautern, Kanzlei Albrecht/US military tax disputes Kaiserslautern, Rechtsanwalt Wolfgang Frisch/U.S. Consulate referral list Kaiserslautern, Kanzlei Christin Lehné/family law Landstuhl — all 2026-09-04; Notar Dr. David Siegel/Landstuhl notary, Top Gun Tax Solutions/Kaiserslautern US tax prep, Walsh Agency/Kaiserslautern insurance broker, Winter Agency/Ramstein-Miesenbach military insurance — all 2026-09-11). ✅ +3 2026-09-23: MIRASCON Insurance Agency (30+ yr US Military/NATO insurance specialist, Ramstein office inside MAS, USO Kaiserslautern/EMEA sponsor), Salusso Translations/Andrea Salusso (court-authorized German-English-Spanish translator, Kaiserslautern), Fachübersetzungsdienst Kaiserslautern (certified/sworn translation agency, 70+ languages, 4.9/5 rating) — now 11 sent total, ties real-estate/education for deepest KMC category. ✅ +3 2026-10-02: Rechtsanwältin Annette Göbelsmann-Schweitzer (family/tenancy law attorney, central Kaiserslautern, practicing since 1989, fluent English with American clients), Kanzlei Schaumlöffel/Rolf A. Schaumlöffel (general-practice attorney, German/English/French, Lutrinastrasse), RAAC/Ramstein Accident Assistance Center (bilingual accident-claim/insurance coordination for US military, Ramstein-Miesenbach, 18+ years, 4.8/5 across 127 reviews) — now 14 sent total, ties restaurants/education for deepest KMC category. 3 no-email (Law Office of Will M. Helixon — Cloudflare-obfuscated contact email, use contact form/phone; Stephen F. Mitchell CPA — re-checked 2026-09-18, still only a masked/redacted placeholder on stephenmitchellcpa.net/contact-us, and third-party aggregators (RocketReach) surfaced an inconsistent, not-own-site address not used per the never-fabricate/aggregator guardrail; taxpatation — inquiry-form-only, also location mismatch/Parsberg-Bavaria-registered). 1 researched (Milinsure — re-checked 2026-09-18, own site confirms phone/email/WhatsApp contact exists but the address itself still never surfaces in search results; still worth a direct-site visit if a WebFetch-capable path ever opens up). 1 phone-only/not-a-fit (Certified Interpreter & Translator — Privacy Act, no email by design). Also found but NOT recommended 2026-10-02: GACO/German-American Community Office — a joint military/city government liaison office, not a private business, same poor directory fit as the base-access nonprofit precedents |
 | education | ✅ NEW category opened 2026-09-07: 4 contacted (Mathe Coach/DoDEA math tutoring, International School Westpfalz/Landstuhl Cambridge school, Agape International Academy/Ramstein West Gate K-6, Faith Baptist School/Kaiserslautern Pre-K-6 — all 2026-09-07). ✅ +1 2026-09-10: StimmWerkstatt (German lessons for English speakers + piano/singing). ✅ +2 2026-09-18: C & K Children's House (Montessori preschool/kindergarten, Ramstein-Miesenbach, DODEA before/after-school care), Musikschule Abt (English-language piano/guitar school, Landstuhl) — now 7 sent total. 2 no-email (St David's School — British international school, contact form/phone only; Children's Learning Academy/Kids Learning Center Mackenbach — Facebook/phone only) |
 | hbb | ✅ NEW category opened 2026-09-08: 5 contacted (Sarah Havens Photography/family+motherhood portraits, Lena Jones Doula & Birth Photography, Studio MS Photography/Maud Schoenmaekers, Gerardini Photo/Pete Gerardini, Porscha Herron Personal Training — all Kaiserslautern/Ramstein-area, all 2026-09-08). ✅ +1 2026-09-10: Marta Sobczak Photography (newborn/family/maternity, comes to the client's home on or off base) — now 6 sent. Still no email found for Cravings Corner Co, Sparky's Cheesecake (baking), KlaudiAlmonteFitness (fitness/nutrition), or Sophia's Makeup Artist Services (mobile makeup) despite repeated searches — all Facebook/Instagram/contact-form only. 2026-09-14: tried KlaudiAlmonteFitness's contact page directly again and searched for new home-based leads (pet-sitting, tutoring, personal chef/catering) — still nothing with a publicly published email; the KMC military-spouse-HBB space genuinely seems to run almost entirely on Facebook/Instagram/Hotplate, still 6 sent |
-| shopping | ✅ +3 2026-09-14: Benny's Doggy Depot (pet grooming, English site section for Kaiserslautern/Landstuhl/Ramstein), eBike Store Kaiserslautern (dedicated page for US customers), Gärtnerei Hanns (English-speaking staff for US military customers, Landstuhl) — now 9 sent total. Gear Up Sports Store found but NOT recommended (on-base only, Ramstein AB Building 2113, same base-access-fit issue as the thrift shops). ✅ +3 2026-09-29: SecondPlus (largest off-base second-hand/vintage store in the region, Stripes Europe names it popular with Ramstein Americans), KFI Kaufhaus für Import (one of Germany's largest USA-import grocery stores, Merkurstrasse/Vogelweh), Delker Optik (Landstuhl optical + hearing-aid shop, explicitly marked English-spoken by a military-community listing) — now 12 sent total, ties real-estate/education for deepest KMC category not counting restaurants. 1 researched (Candy-Shop GmbH/Ramstein-Miesenbach — went through a 2014 insolvency, no current site/contact found, status genuinely unclear, held back from sending) |
+| shopping | ✅ +3 2026-09-14: Benny's Doggy Depot (pet grooming, English site section for Kaiserslautern/Landstuhl/Ramstein), eBike Store Kaiserslautern (dedicated page for US customers), Gärtnerei Hanns (English-speaking staff for US military customers, Landstuhl) — now 9 sent total. Gear Up Sports Store found but NOT recommended (on-base only, Ramstein AB Building 2113, same base-access-fit issue as the thrift shops). ✅ +3 2026-09-29: SecondPlus (largest off-base second-hand/vintage store in the region, Stripes Europe names it popular with Ramstein Americans), KFI Kaufhaus für Import (one of Germany's largest USA-import grocery stores, Merkurstrasse/Vogelweh), Delker Optik (Landstuhl optical + hearing-aid shop, explicitly marked English-spoken by a military-community listing) — now 12 sent total, ties real-estate/education for deepest KMC category not counting restaurants. 1 researched (Candy-Shop GmbH/Ramstein-Miesenbach — went through a 2014 insolvency, no current site/contact found, status genuinely unclear, held back from sending). ✅ +3 2026-10-06: Ramstein Flowers/ramsteinflowers.com (florist explicitly serving Landstuhl/Ramstein/KMC since 2003), Stützel Buchhandlung (Landstuhl bookstore keeping an English-book selection for American customers), American Nail Spa (Natascha Morgan, 30+ years in the beauty industry, two KMC locations) — now 15 sent total, KMC's new deepest category excluding restaurants/legal-business/education/healthcare. Marcus Herbst Bäckerei was researched but found permanently closed (Dec 2025 Facebook post) and logged skipped_closed before any email was sent. 2 more researched/held back: French Nails Ramstein (English-speaking, but Impressum lists a Munich legal address ~400km away — same location-mismatch concern as taxpatation/Dr. Knauss) and Barbarossa Bäckerei's Landstuhl branch (English-praised in reviews but its only published email reaches the parent chain's central contact, not the branch) |
 | home-services | ✅ +1 2026-09-14: J. Blaze (Stevo John) — moving/cleaning/lawn-care/trash-removal, founded 2017 specifically for KMC military families — now 7 sent total; checked for the Move Clean Perfect-style trust flag and found none. ✅ +1 2026-09-21: K&M Computer Kaiserslautern (PC/notebook sales+repair, Merkurstrasse 49) — now 8 sent total. 1 no-email (Eva's Express housekeeping, Ramstein-Miesenbach — phone/Find-It Guide contact form only). 2026-09-23: searched pest control + IT/computer repair for more depth, found no new email (Patriot Laptops/Landstuhl, pestcontrol24.de/DLK Company — both logged skipped_no_email, phone/Yelp/Google Business only); still 8 sent. ✅ +4 2026-09-25: opened three new home-services sub-niches — Rainbow Farm/Tierpension (pet boarding, Landstuhl, dedicated English site), Wash To Go Kaiserslautern (mobile car detailing + PCS vehicle-inspection cleaning), Inas Umzüge & Transporte (moving, dedicated US-military-Ramstein page, 5.0/36 Google reviews), iPhone Sales and Repair (American Veteran Owned, Landstuhl) — now 12 sent total, tied with legal-business for deepest KMC category. 1 held back (Farm Kennel/Pet Holiday Kennel — email found on own Impressum but evidence too stale to send on confidently, see log.csv). 1 not recommended (KMC Movers and Transport — Bookoo classified ad with personal Yahoo emails, same trust-flag pattern as Move Clean Perfect) |
 | education | ✅ +3 2026-09-21: Grace Studio/Ballettschule Kaiserslautern (English-language dance school), Sweeney Irish Dance/Irish Dance Germany (30+-year Irish dance school explicitly welcoming US military children, Landstuhl/Ramstein AB), Loveless Academy of Karate & Kobudo (Okinawa Goju Ryu karate/kobudo since 1982, Kaiserslautern American-featured) — 10 sent. ✅ +3 2026-09-30: Study Rooms (Math/English/German/SAT-LSAT-ACT tutoring, Landstuhl), TanzSportVerein Ramstein e.V. (children's dance club, no German required), Lernstudio Barbarossa Kaiserslautern (tutoring franchise since 1988) — now 13 sent total, second only to restaurants (14). 1 verified-but-not-sent (Sprachschule Aktiv Kaiserslautern — Gmail send failed mid-run, queued to retry first) |
 | hbb | 2026-09-21: another full research pass (tutoring, virtual assistant, crafts/Etsy, event planning/balloons, DJ, lactation/doula, pet sitting, cake baking) found nothing new with a genuinely published email — 1 more no-email (KMC Healing Hearts/The SBD Doula). Still 6 sent, confirms this category is at or very near its real ceiling for now (see below) |
 
 **Next for KMC:** all 9 categories now have real outreach depth —
-restaurants (14 sent, deepest alongside legal-business/education),
-legal-business (14 sent as of 2026-10-02, pushed up from 11 — now tied
-for deepest), education (14 sent), healthcare (17 sent as of 2026-10-05,
-pushed up from 12 — now KMC's single deepest category), real-estate (13
-sent), home-services (12 sent), shopping (12 sent), and hbb (6 sent,
-shallowest, at/near its real research ceiling), plus pre-existing
-automotive.
+shopping (15 sent as of 2026-10-06, pushed up from 12 — now tied for
+deepest alongside healthcare), healthcare (17 sent as of 2026-10-05,
+pushed up from 12), restaurants (14 sent), legal-business (14 sent),
+education (14 sent), real-estate (13 sent), home-services (12 sent, now
+KMC's weakest actionable category), and hbb (6 sent, shallowest, at/near
+its real research ceiling), plus pre-existing automotive.
+2026-10-06 pushed shopping from 12 to 15 (Ramstein Flowers, Stützel
+Buchhandlung, American Nail Spa) — shopping was tied for weakest
+actionable category (with home-services), and this run's verification
+step also caught a real closure (Marcus Herbst Bäckerei, see Known
+Issues-style note in the table above) before any email went out, plus two
+leads held back on a location/ownership-mismatch concern rather than sent
+on weak confidence. **home-services (12) is now KMC's single weakest
+actionable category** — the most productive next target, alongside an
+opportunistic look at real-estate (13) if it runs dry.
 2026-10-05 pushed healthcare from 12 to 17 (Hautarztpraxis Dr. Karin
 Claren/dermatology, VetCare Veterinary Clinic Kaiserslautern/first KMC vet
 lead, Erlebte Paarberatung/military-couples counseling, American Speech
 Therapy/DLZ Ramstein, Psychotherapy Practice Shirlene Oduber) — healthcare
 was tied for weakest actionable category (with home-services/shopping),
-and after today's run is now ahead of every other category, including the
-restaurants/legal-business/education tie at 14. home-services and shopping
-(both 12) are now KMC's weakest actionable categories — likely the most
-productive next targets, alongside an opportunistic look at real-estate
-(13) if either runs dry. hbb (6) remains at/near its documented research
-ceiling.
+and after that run was ahead of every other category, including the
+restaurants/legal-business/education tie at 14. hbb (6) remains at/near
+its documented research ceiling.
 2026-10-02 pushed legal-business from 11 to 14 (Rechtsanwältin
 Göbelsmann-Schweitzer/family+tenancy law, Kanzlei Schaumlöffel/general
 practice, RAAC/accident-insurance coordination) — legal-business was the
@@ -518,6 +523,26 @@ routine.
    existing-listing sampling once entries start aging past ~90 days
    (late November/early December 2026 for the oldest ones) or once a
    refreshed snapshot adds new confirmed listings from this outreach.
+   **Still true as of 2026-10-06:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are ~39 days old, still nowhere
+   near the ~90-day window, and the 17-business snapshot hasn't grown
+   since the 2026-08-29 commit that added it (confirmed via `git log -1
+   --format=%ad -- outreach/businesses-snapshot.json`) — every snapshot
+   entry has already been checked within the last ~90 days, so there was
+   nothing eligible to re-verify and the 2026-10-06 run also did zero new
+   verification-log rows (same reasoning as every run since 2026-09-03).
+   Today's new-lead verification step (check 1, not the existing-listing
+   sweep) caught a real closure before any email went out: Marcus Herbst
+   Bäckerei was independently confirmed permanently closed via a December
+   2025 Facebook post plus a Restaurant Guru closure flag, and was logged
+   `skipped_closed` rather than emailed. The 3 new shopping leads sent
+   today (Ramstein Flowers, Stützel Buchhandlung, American Nail Spa) were
+   all confirmed still-operating via web search (active sites/current
+   2026 reviews, no closure signals) before sending — see log.csv notes
+   for evidence per lead. Two more shopping leads (French Nails Ramstein,
+   Barbarossa Bäckerei's Landstuhl branch) were researched but held back
+   on a location/branch-ownership-mismatch concern rather than sent on
+   weak confidence — see log.csv notes.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
