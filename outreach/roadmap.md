@@ -75,6 +75,43 @@ see snapshot). All other 8 categories start from zero.
 | education | ✅ +3 2026-09-21: Grace Studio/Ballettschule Kaiserslautern (English-language dance school), Sweeney Irish Dance/Irish Dance Germany (30+-year Irish dance school explicitly welcoming US military children, Landstuhl/Ramstein AB), Loveless Academy of Karate & Kobudo (Okinawa Goju Ryu karate/kobudo since 1982, Kaiserslautern American-featured) — 10 sent. ✅ +3 2026-09-30: Study Rooms (Math/English/German/SAT-LSAT-ACT tutoring, Landstuhl), TanzSportVerein Ramstein e.V. (children's dance club, no German required), Lernstudio Barbarossa Kaiserslautern (tutoring franchise since 1988) — now 13 sent total, second only to restaurants (14). 1 verified-but-not-sent (Sprachschule Aktiv Kaiserslautern — Gmail send failed mid-run, queued to retry first) |
 | hbb | 2026-09-21: another full research pass (tutoring, virtual assistant, crafts/Etsy, event planning/balloons, DJ, lactation/doula, pet sitting, cake baking) found nothing new with a genuinely published email — 1 more no-email (KMC Healing Hearts/The SBD Doula). Still 6 sent, confirms this category is at or very near its real ceiling for now (see below) |
 
+2026-10-07: a genuine research-heavy, zero-send day — targeted KMC's
+weakest actionable category (home-services, 12 sent) per the 2026-10-06
+note, then fell back to real-estate (13 sent) when home-services ran
+dry, then spot-checked healthcare/legal-business for any easy wins. Over
+50 WebSearch calls across handyman, electrician, gardener/landscaper,
+locksmith, self-storage, dry-cleaner, window-cleaner, chimney-sweep,
+mover, pet-sitter, physiotherapy, real-estate-broker, and insurance/tax
+niches turned up zero leads meeting the publish-own-email bar. Notable
+near-misses, all logged (see log.csv for full detail per lead): LBS
+Cargo GmbH (moving/assembly, Kaiserslautern) — a search-suggested
+info@lbscargo.de failed a direct quoted-string verification (same
+false-positive pattern as Hager Dental/Roadhouse Ktown), not used; ITO
+Möbeltransport GmbH (75+-year Germany/USA furniture-transport company
+with a real Ramstein-Miesenbach branch) — two conflicting emails
+surfaced for two different branches, neither clearly Ramstein's own,
+held back; K9s in Camo Dog Care (American-owned pet-sitting business
+explicitly serving KMC, first pet-sitting lead found) and ImmoTeam Jakob
+(Weilerbach real-estate broker explicitly specializing in renting to
+Americans) and Meliva Physio Rehab Ramstein (English-language physio
+clinic explicitly serving American patients) — all three are strong
+fits with zero published email, phone/booking-widget only. Also found
+and explicitly NOT recommended: MOVECLEANFIX (Bookoo classified ad,
+same trust-flag pattern as Move Clean Perfect/KMC Movers) and a
+3-domain Beiladung-Kaiserslautern/Erfolg-Umzug/Kaiserslautern-Umzugsfirma
+cluster that looks like a templated SEO moving-broker network rather
+than genuine distinct local businesses (same template structure recurs
+under "beiladung-kiel" for an unrelated city). Per the never-fabricate
+guardrail, **0 emails were sent today** rather than force a send on an
+unverified or low-trust address — this is a research-coverage gap, not
+an infrastructure failure (WebSearch, Gmail, and GitHub push all worked
+normally). Several of today's no-email leads (K9s in Camo, ImmoTeam
+Jakob, Meliva Physio Rehab, ITO Möbeltransport) are strong enough fits
+to be worth a direct-site/Facebook-page follow-up next run rather than
+re-researching from scratch. home-services and real-estate remain KMC's
+two weakest categories (12 and 13 sent respectively) — next run should
+try a follow-up pass on today's near-misses before opening new ground,
+or pivot to another category if those stay dry.
 **Next for KMC:** all 9 categories now have real outreach depth —
 shopping (15 sent as of 2026-10-06, pushed up from 12 — now tied for
 deepest alongside healthcare), healthcare (17 sent as of 2026-10-05,
@@ -543,6 +580,20 @@ routine.
    Barbarossa Bäckerei's Landstuhl branch) were researched but held back
    on a location/branch-ownership-mismatch concern rather than sent on
    weak confidence — see log.csv notes.
+   **Still true as of 2026-10-07:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are ~40 days old, still nowhere
+   near the ~90-day window, and the 17-business snapshot hasn't grown
+   since the 2026-08-29 commit that added it (confirmed via `git log -1
+   --format=%ad -- outreach/businesses-snapshot.json`) — every snapshot
+   entry has already been checked within the last ~90 days, so there was
+   nothing eligible to re-verify and the 2026-10-07 run also did zero new
+   verification-log rows (same reasoning as every run since 2026-09-03).
+   Today's new-lead research (home-services, then real-estate, then a
+   healthcare/legal-business spot-check) found zero leads meeting the
+   publish-own-email bar — see the "Next for KMC" note above for the
+   full near-miss list — so zero emails went out today, a research-depth
+   gap rather than an infrastructure failure (WebSearch/Gmail/GitHub all
+   worked normally).
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
