@@ -119,6 +119,39 @@ pushed up from 12), restaurants (14 sent), legal-business (14 sent),
 education (14 sent), real-estate (13 sent), home-services (12 sent, now
 KMC's weakest actionable category), and hbb (6 sent, shallowest, at/near
 its real research ceiling), plus pre-existing automotive.
+2026-10-08: a second consecutive zero-send research day, and a more
+thorough one than 2026-10-07 — roughly 30 WebSearch calls across
+appliance repair, HVAC/heating, tree care/landscaping, roofing,
+self-storage, property management/Hausverwaltung, locksmiths, pest
+control, bakeries (a Marcus Herbst replacement), dry cleaners/tailors,
+pharmacies, childcare/nanny agencies, English-capable driving schools,
+and yoga/Pilates studios — found real local businesses in several of
+these (K&U Bäckerei, Lambrecht/Stärz heating, CleanTeam Ramstein already
+sent) but none with independent evidence of English service AND a
+published own-site email; most niches simply returned no matching
+business at all. Also followed up directly on 2026-10-07's three
+strongest near-misses (K9s in Camo Dog Care, ImmoTeam Jakob, Meliva
+Physio Rehab Ramstein) with targeted re-searches — no new email surfaced
+for any of them, 2026-10-07's skipped_no_email status stands for all
+three. Found one new real-estate lead (Sabrina Hermann, Engel & Völkers
+Kaiserslautern/Zweibrücken — English/German/Russian, handles rentals and
+sales) and two new education leads (Studienkreis Kaiserslautern,
+Schülerhilfe Kaiserslautern) but none publish an email, logged
+skipped_no_email. Took another look at French Nails Ramstein (held back
+2026-10-06 on a Munich-address location-mismatch concern) — today's
+search surfaces the operator as Ina Fritzler at a Kaiserslautern-Erlenbach
+studio address, different again from the Munich Impressum name/address,
+with no official page to reconcile the two — concern not resolved, still
+held back. **0 emails sent today, same as 2026-10-07** — per the
+never-fabricate guardrail, this is a genuine two-day research-coverage
+gap in home-services/real-estate specifically (WebSearch/Gmail/GitHub all
+worked normally both days), not an infrastructure failure. Given two dry
+days running in a row on the same two categories, the next run should
+seriously consider pivoting away from home-services/real-estate for a
+while — e.g. a fresh restaurants pass (2026-09-28 still has unresolved
+no-email leads: Restaurant Alexandros, Thai Thai Orchidee, JaMaMaSi
+Foodtruck) or an opportunistic healthcare/legal-business/shopping look —
+rather than a third day of the same dead-end niches.
 2026-10-06 pushed shopping from 12 to 15 (Ramstein Flowers, Stützel
 Buchhandlung, American Nail Spa) — shopping was tied for weakest
 actionable category (with home-services), and this run's verification
@@ -594,6 +627,21 @@ routine.
    full near-miss list — so zero emails went out today, a research-depth
    gap rather than an infrastructure failure (WebSearch/Gmail/GitHub all
    worked normally).
+   **Still true as of 2026-10-08:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are ~41 days old, still nowhere
+   near the ~90-day window, and the 17-business snapshot hasn't grown
+   since the 2026-08-29 commit that added it (confirmed via `git log -1
+   --format=%ad -- outreach/businesses-snapshot.json`) — every snapshot
+   entry has already been checked within the last ~90 days, so there was
+   nothing eligible to re-verify and the 2026-10-08 run also did zero new
+   verification-log rows (same reasoning as every run since 2026-09-03).
+   Today's new-lead research (see "Next for KMC" note above) was a second
+   consecutive zero-send day — roughly 30 WebSearch calls across a wide
+   set of new home-services/real-estate/adjacent niches, plus direct
+   follow-ups on 2026-10-07's strongest near-misses, found nothing
+   meeting the publish-own-email bar, so zero emails went out today
+   either. This is a research-depth gap, not an infrastructure failure —
+   WebSearch, Gmail, and GitHub push all worked normally.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
