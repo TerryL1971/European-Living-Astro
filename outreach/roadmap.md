@@ -642,6 +642,59 @@ routine.
    meeting the publish-own-email bar, so zero emails went out today
    either. This is a research-depth gap, not an infrastructure failure —
    WebSearch, Gmail, and GitHub push all worked normally.
+   **Still true as of 2026-10-09:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are ~42 days old, still nowhere
+   near the ~90-day window, and the 17-business snapshot hasn't grown
+   since the 2026-08-29 commit that added it (confirmed via `git log -1
+   --format=%ad -- outreach/businesses-snapshot.json`) — every snapshot
+   entry has already been checked within the last ~90 days, so there was
+   nothing eligible to re-verify and the 2026-10-09 run also did zero new
+   verification-log rows (same reasoning as every run since 2026-09-03).
+   This was also a zero-send day (see below), so there was no new-lead
+   verification (check 1) to perform either.
+   **2026-10-09: a third consecutive zero-send day, and the hardest
+   research day yet** — ~45 WebSearch calls across restaurants (BBQ,
+   American breakfast cafe, 2 ice cream cafes, 3 Indian restaurants, 2
+   Vietnamese restaurants), healthcare (3 veterinary practices pulled
+   directly off the Ramstein AB Welcome Packet's own June-2026
+   "English-speaking host-nation veterinarian" list, plus fresh
+   OBGYN/dentist/physio searches), shopping (toy store, maternity/baby
+   store, a second American-import grocery), and legal-business (ABC
+   Travel Service — a strong American-military-travel-market fit since
+   1987 — plus a fresh insurance-broker/tax-advisor pass) turned up real,
+   clearly-still-operating businesses with genuine English-service fit in
+   several cases (the 3 Welcome-Packet vets, Minh Lien's confirmed
+   English menu, ABC Travel Service's military-market specialty) but
+   **not one published email** — see log.csv for all 16 KMC leads logged
+   today. A sanity check (re-searching a known-good 2026-09-04 lead,
+   RFP Steuerberatung) confirmed WebSearch itself is working normally;
+   it's simply not surfacing indexed contact pages for today's specific
+   queries, not a repeat of the 2026-09-17 WebSearch outage. Followed up
+   directly on 2026-09-28's two remaining no-email restaurant leads
+   (Restaurant Alexandros, Thai Thai Orchidee) — no new email surfaced for
+   either, status unchanged.
+   Given three dry days in a row on top of KMC's already-deep coverage
+   (healthcare 17, shopping 15, restaurants/legal-business/education 14
+   each, real-estate 13, home-services 12, hbb 6 at its documented
+   ceiling, automotive pre-existing), today also took a first exploratory
+   look at **Wiesbaden** (next in priority order) to test whether KMC is
+   genuinely approaching research saturation for this search-only
+   methodology: 2 Wiesbaden restaurant leads with confirmed English
+   menus (Château Kefraya, Bäckerbrunnen Die Altstadtkneipe) were found,
+   but neither had a published email either, so Wiesbaden is not yet
+   "started" in the sense of having a sent email.
+   **Recommendation for the next run:** several of today's KMC near-misses
+   have a confirmed own-domain or official status that a direct-site read
+   would likely resolve (India Palace's own website per InYourPocket,
+   Tierarztpraxis Dr. Weisgerber's confirmed domain
+   tierarztpraxis-weisgerber.de, ABC Travel Service) — worth trying again
+   with slightly different query phrasing before assuming no email exists.
+   But if a 4th day in KMC's remaining niches also runs dry, seriously
+   consider (a) formally moving the primary focus to Wiesbaden, since KMC
+   now has real depth in 8 of 9 categories, or (b) asking the site owner
+   whether any business owners have reached out directly to list
+   themselves, since the search-only methodology may simply be hitting
+   its practical ceiling for this base.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
