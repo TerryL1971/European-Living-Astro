@@ -215,7 +215,32 @@ Holiday Kennel (home-services, researched 2026-09-25) are both still
 queued — worth a dedicated follow-up search/direct-site check next run.
 Full coverage is still a long way off, this base needs many more runs.
 
-### Wiesbaden — not started
+### Wiesbaden — in progress (started 2026-10-12 run)
+Already had before outreach started: nothing (zero Wiesbaden entries in
+businesses-snapshot.json — all 17 pre-existing snapshot listings are
+Stuttgart/KMC). All 9 categories start from zero.
+
+| Category | Status |
+|---|---|
+| healthcare | ✅ 1 contacted (Tierdermatologie Dr. Wildermuth — veterinary dermatology, Wiesbaden-Nordenstadt, named on Ramstein AB's own June 2026 Welcome Packet as English-speaking, 4.90/216 reviews — 2026-10-12). 3 no-email (Tiergesundheitszentrum Wiesbaden-Bierstadt — English per reviews; felmo Mobiler Tierarzt — English listed on directory; Lisa Rae Francis MSW LICSW — American English-speaking therapist, strong fit, no contact found) |
+| hbb | ✅ NEW category opened 2026-10-12: 2 contacted (Wynning Photography/Julie Wynn, Lynde Elise Photography/Lynde Komar — both sourced from USAG Wiesbaden's own official Home Based Business Directory, Nov 2025 edition) |
+| restaurants | 6 no-email found (Hacienda, Casa Azteca, Indian Palace, Thai Banyan, Chillers American Diner & Bar, Street Burger — all real, findable, several with Stars and Stripes coverage, none with a published email/working site found yet) plus the 2 found 2026-10-09 (Chateau Kefraya, Baeckerbrunnen) — 8 total no-email leads logged, strongest category by lead count but zero sent so far |
+| legal-business | 1 researched (Desch Thorsten Rechtsanwalt — has a published email but English-service fit unconfirmed, held back), 1 no-email (Bechstein Versicherungsmakler — explicitly multilingual incl. English) |
+| real-estate | 2 no-email (AS Immobilien — a Trustpilot review specifically praises its American/expat-tenant rental service, strongest fit found so far; Engel & Völkers Wiesbaden — English listed, contact-form only) |
+| automotive | not yet researched (today's search found only on-post MWR and far-away options, no viable off-base English-speaking lead) |
+| shopping | not yet researched |
+| home-services | not yet researched (today's search found only job postings, no viable lead) |
+| education | not yet researched |
+
+**Next for Wiesbaden:** healthcare and hbb both now have a foothold;
+restaurants has the deepest no-email backlog (8 leads) and is worth a
+dedicated follow-up pass to find any of their sites/emails before opening
+new restaurant ground. automotive, shopping, home-services, and education
+haven't been researched yet at all — good targets for the next run.
+real-estate's AS Immobilien lead (explicit American-tenant review) is
+worth chasing down a working domain/email for specifically, it's the
+strongest fit found in that category so far.
+
 ### Bavaria bases — not started
 
 ## Known issues (as of 2026-08-25)
@@ -695,6 +720,43 @@ routine.
    whether any business owners have reached out directly to list
    themselves, since the search-only methodology may simply be hitting
    its practical ceiling for this base.
+   **Still true as of 2026-10-12:** re-checked before this run (skipped the
+   weekend per the Mon-Fri cron) — oldest verification-log entries
+   (2026-08-28) are ~45 days old, still nowhere near the ~90-day window,
+   and the 17-business snapshot hasn't grown since the 2026-08-29 commit
+   that added it (confirmed via `git log -1 --format=%ad --
+   outreach/businesses-snapshot.json`) — every snapshot entry has already
+   been checked within the last ~90 days, so there was nothing eligible to
+   re-verify and the 2026-10-12 run also did zero new verification-log
+   rows (same reasoning as every run since 2026-09-03). The 3 new leads
+   sent today (Tierdermatologie Dr. Wildermuth, Wynning Photography, Lynde
+   Elise Photography) were all confirmed still-operating before sending —
+   see log.csv notes for evidence per lead (Ramstein AB Welcome Packet
+   citation + aggregator reviews for the vet clinic; active own-site/
+   official-directory listings for both photographers).
+2026-10-12: following the 2026-10-09 recommendation, this run formally
+shifted primary focus to **Wiesbaden** after three consecutive KMC
+dry/near-dry days and KMC already having real depth in 8 of 9 categories.
+~25 WebSearch calls across healthcare (dentists, chiropractors, vets,
+counselors), legal-business (tax advisors, lawyers, insurance brokers),
+real-estate, restaurants, hbb, home-services, and automotive found
+Wiesbaden to be a similarly hard base to mine via search-only methodology
+at first pass (most categories returned real, named businesses but no
+published email), but three leads cleared the bar and were sent: an
+English-speaking veterinary dermatologist literally named on Ramstein AB's
+own June 2026 Welcome Packet (own-domain email), plus two home-based
+photographers sourced from USAG Wiesbaden's own official Home Based
+Business Directory (Nov 2025 edition) — the same official-garrison-roster
+precedent already used for Porscha Herron Personal Training in KMC
+(2026-09-08). This opens Wiesbaden's healthcare and hbb categories.
+Restaurants turned up the most leads by volume (6 new + 2 from 2026-10-09
+= 8) but zero emails among them — worth a dedicated email-finding pass
+next run before researching more Wiesbaden restaurants. AS Immobilien
+(real-estate) is a standout near-miss: an explicit Trustpilot review
+praises its handling of a rental for an American/expat tenant, but no
+working domain/email surfaced — worth chasing specifically. automotive,
+shopping, home-services, and education are all still fully unresearched
+for Wiesbaden.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
