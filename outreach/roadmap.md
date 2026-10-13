@@ -223,23 +223,27 @@ Stuttgart/KMC). All 9 categories start from zero.
 | Category | Status |
 |---|---|
 | healthcare | ✅ 1 contacted (Tierdermatologie Dr. Wildermuth — veterinary dermatology, Wiesbaden-Nordenstadt, named on Ramstein AB's own June 2026 Welcome Packet as English-speaking, 4.90/216 reviews — 2026-10-12). 3 no-email (Tiergesundheitszentrum Wiesbaden-Bierstadt — English per reviews; felmo Mobiler Tierarzt — English listed on directory; Lisa Rae Francis MSW LICSW — American English-speaking therapist, strong fit, no contact found) |
-| hbb | ✅ NEW category opened 2026-10-12: 2 contacted (Wynning Photography/Julie Wynn, Lynde Elise Photography/Lynde Komar — both sourced from USAG Wiesbaden's own official Home Based Business Directory, Nov 2025 edition) |
+| hbb | ✅ +1 2026-10-13: Stacey Brenner Photography (newborn/wedding/family, American photographer based in Wiesbaden, own live site + active Facebook/Instagram independently confirmed beyond the directory source) — now 3 sent total. 1 held back (Four Twigs Photography/Hillary & Nick Chopp — same official HBB directory source, but a conflicting blog mention suggests the family may have relocated to Honolulu, HI since the directory was published; logged `researched`, worth a direct-site check next run before sending) |
+| real-estate | ✅ NEW send 2026-10-13: AS Immobilien Wiesbaden (Arthur Schultek) — operating since 2012, explicit focus renting to US citizens/expats in Wiesbaden/Mainz/Rheingau, email resolved from the 2026-10-12 no-email entry via the owner's own signed Trustpilot reply, 4.5/5 across 13 reviews. 1 no-email remains (Engel & Völkers Wiesbaden — English listed, contact-form only) |
+| education | ✅ NEW category opened 2026-10-13: 1 contacted (Obermayr Europa-Schule Campus Stauferland — bilingual German/English/Spanish immersion primary school, ~44-50% of lessons in English, officially listed on the City of Wiesbaden's own school guide, email on the school's own obermayr.com domain) |
 | restaurants | 6 no-email found (Hacienda, Casa Azteca, Indian Palace, Thai Banyan, Chillers American Diner & Bar, Street Burger — all real, findable, several with Stars and Stripes coverage, none with a published email/working site found yet) plus the 2 found 2026-10-09 (Chateau Kefraya, Baeckerbrunnen) — 8 total no-email leads logged, strongest category by lead count but zero sent so far |
-| legal-business | 1 researched (Desch Thorsten Rechtsanwalt — has a published email but English-service fit unconfirmed, held back), 1 no-email (Bechstein Versicherungsmakler — explicitly multilingual incl. English) |
-| real-estate | 2 no-email (AS Immobilien — a Trustpilot review specifically praises its American/expat-tenant rental service, strongest fit found so far; Engel & Völkers Wiesbaden — English listed, contact-form only) |
-| automotive | not yet researched (today's search found only on-post MWR and far-away options, no viable off-base English-speaking lead) |
-| shopping | not yet researched |
-| home-services | not yet researched (today's search found only job postings, no viable lead) |
-| education | not yet researched |
+| legal-business | 1 researched (Desch Thorsten Rechtsanwalt — has a published email but English-service fit unconfirmed, held back), 1 more researched 2026-10-13 (MTR Legal Wiesbaden — dedicated English-language/German Desk page for Wiesbaden, general firm email found but no Wiesbaden-specific address/email and reads as a larger corporate-client firm, held back pending a clearer fit), 1 no-email (Bechstein Versicherungsmakler — explicitly multilingual incl. English) |
+| automotive | 1 no-email found 2026-10-13 (Autohaus Haese GmbH — Volvo/Lotus/Nissan dealer across 3 Wiesbaden/Mainz-Kastel sites, own-site domain confirmed, but no English-service evidence and no email surfaced) — still no viable English-speaking lead |
+| shopping | not yet researched (today's search found only thrift/vintage shops with no confirmed military/English fit and no contact info) |
+| home-services | 2 no-email found 2026-10-13 (Transport Klose GmbH — 75+-year Wiesbaden mover explicitly listing English, email only ever found on third-party directories, never on transport-klose.de itself, so not used per the never-fabricate guardrail; I.D Handyman — strong English-speaking PCS-fit handyman/removals crew per its findenglish.de directory profile, no own-site/email found) |
 
-**Next for Wiesbaden:** healthcare and hbb both now have a foothold;
-restaurants has the deepest no-email backlog (8 leads) and is worth a
-dedicated follow-up pass to find any of their sites/emails before opening
-new restaurant ground. automotive, shopping, home-services, and education
-haven't been researched yet at all — good targets for the next run.
-real-estate's AS Immobilien lead (explicit American-tenant review) is
-worth chasing down a working domain/email for specifically, it's the
-strongest fit found in that category so far.
+**Next for Wiesbaden:** real-estate and education both opened/advanced
+today (AS Immobilien's email finally resolved; Obermayr Europa-Schule
+Campus Stauferland opens education). hbb now has 3 sent, healthcare 1.
+restaurants still has the deepest no-email backlog (8 leads) and is worth
+a dedicated follow-up pass to find any of their sites/emails before
+opening new restaurant ground. shopping remains fully unresearched —
+good target for the next run. automotive and home-services both turned
+up strong-fit candidates with no findable email today (Autohaus Haese,
+Transport Klose, I.D Handyman) — worth direct-site follow-ups before
+opening new ground in those categories. Four Twigs Photography (hbb) is
+worth a direct fourtwigs.com read to resolve the Wiesbaden-vs-Honolulu
+location conflict before deciding whether to send.
 
 ### Bavaria bases — not started
 
@@ -757,6 +761,39 @@ praises its handling of a rental for an American/expat tenant, but no
 working domain/email surfaced — worth chasing specifically. automotive,
 shopping, home-services, and education are all still fully unresearched
 for Wiesbaden.
+2026-10-13: re-checked before this run — oldest verification-log entries
+(2026-08-28) are ~46 days old, still nowhere near the ~90-day window, and
+the 17-business snapshot hasn't grown since the 2026-08-29 commit that
+added it (confirmed via `git log -1 --format=%ad -- outreach/businesses-snapshot.json`)
+— every snapshot entry has already been checked within the last ~90
+days, so there was nothing eligible to re-verify and the 2026-10-13 run
+also did zero new verification-log rows (same reasoning as every run
+since 2026-09-03). Today's new-lead verification (check 1) resolved
+yesterday's AS Immobilien near-miss: the owner Arthur Schultek's own
+Trustpilot business reply published info@as-immobilien-wiesbaden.com
+under his real name/title, consistent across multiple reviews, and his
+en.as-immobilien-wiesbaden.com profile page confirmed the domain is
+live — sent. Obermayr Europa-Schule Campus Stauferland (education, new
+category) was confirmed current via the City of Wiesbaden's own school
+guide plus 2025/2026/2027-dated enrollment PDFs on the school's own
+domain — sent. Stacey Brenner Photography (hbb) was sourced from the
+same official USAG Wiesbaden HBB Directory as Wynning/Lynde Elise
+(2026-10-12) but today also independently corroborated via her own live
+site, Facebook, and Instagram — sent. A second HBB directory lead, Four
+Twigs Photography, was held back rather than sent: today's deeper check
+found a blog post about co-owner Nick Chopp's separate car-care business
+describing a relocation to Honolulu, HI, conflicting with the business's
+own Wiesbaden-based site/Facebook page — logged `researched` pending a
+direct-site resolution rather than sent on an unresolved location
+conflict. Three more leads (Transport Klose GmbH, I.D Handyman, Autohaus
+Haese) were strong fits with no email ever confirmed on their own sites
+(Transport Klose's email appeared only on third-party directories, the
+same never-confirmed-on-own-site pattern flagged repeatedly for KMC leads
+like Hager Dental/Roadhouse Ktown/LBS Cargo) — logged `skipped_no_email`.
+MTR Legal Wiesbaden was logged `researched` rather than sent: it has a
+dedicated English-language Wiesbaden page and a general firm email, but
+no Wiesbaden-specific contact and a larger corporate-client fit than the
+other legal-business leads sent so far.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
