@@ -228,22 +228,34 @@ Stuttgart/KMC). All 9 categories start from zero.
 | education | ✅ NEW category opened 2026-10-13: 1 contacted (Obermayr Europa-Schule Campus Stauferland — bilingual German/English/Spanish immersion primary school, ~44-50% of lessons in English, officially listed on the City of Wiesbaden's own school guide, email on the school's own obermayr.com domain) |
 | restaurants | 6 no-email found (Hacienda, Casa Azteca, Indian Palace, Thai Banyan, Chillers American Diner & Bar, Street Burger — all real, findable, several with Stars and Stripes coverage, none with a published email/working site found yet) plus the 2 found 2026-10-09 (Chateau Kefraya, Baeckerbrunnen) — 8 total no-email leads logged, strongest category by lead count but zero sent so far |
 | legal-business | 1 researched (Desch Thorsten Rechtsanwalt — has a published email but English-service fit unconfirmed, held back), 1 more researched 2026-10-13 (MTR Legal Wiesbaden — dedicated English-language/German Desk page for Wiesbaden, general firm email found but no Wiesbaden-specific address/email and reads as a larger corporate-client firm, held back pending a clearer fit), 1 no-email (Bechstein Versicherungsmakler — explicitly multilingual incl. English) |
-| automotive | 1 no-email found 2026-10-13 (Autohaus Haese GmbH — Volvo/Lotus/Nissan dealer across 3 Wiesbaden/Mainz-Kastel sites, own-site domain confirmed, but no English-service evidence and no email surfaced) — still no viable English-speaking lead |
-| shopping | not yet researched (today's search found only thrift/vintage shops with no confirmed military/English fit and no contact info) |
-| home-services | 2 no-email found 2026-10-13 (Transport Klose GmbH — 75+-year Wiesbaden mover explicitly listing English, email only ever found on third-party directories, never on transport-klose.de itself, so not used per the never-fabricate guardrail; I.D Handyman — strong English-speaking PCS-fit handyman/removals crew per its findenglish.de directory profile, no own-site/email found) |
+| automotive | 2 no-email leads (Autohaus Haese GmbH — Volvo/Lotus/Nissan dealer across 3 Wiesbaden/Mainz-Kastel sites, found 2026-10-13; its info@autohaus-haese.de surfaced 2026-10-14 but only on AutoScout24 mirrors, never its own site, so still not used. Military AutoSource/MAS Wiesbaden — found 2026-10-14, explicit US-military-market dealer with a multi-year Stars and Stripes "Best of Germany" award history, but no Wiesbaden-specific contact found and a weaker small-business fit as a large pan-European franchise) — still no viable send |
+| shopping | NEW: dedicated research pass 2026-10-14 — 3 no-email/unresolved leads (The American Store/theamericanstore.de — apparent Nuernberg location mismatch, not pursued; KFI Store/kfi-store.de — Wiesbaden location unconfirmed, possibly the same brand as KMC's already-sent KFI Kaufhaus fuer Import under a different domain; City-Bike Wiesbaden — 2017 review confirms English-language service but no email found). Zero sends — see 2026-10-14 verification-log note for the full account of niches tried (grocery import, bookstore, tailor, pet store/vet, nail salon, optician, furniture, bike, computer repair, secondhand/vintage) |
+| home-services | 2 no-email found 2026-10-13 (Transport Klose GmbH — 75+-year Wiesbaden mover explicitly listing English, email only ever found on third-party directories, never on transport-klose.de itself, so not used per the never-fabricate guardrail — re-confirmed via a different third-party directory 2026-10-14, still not used; I.D Handyman — strong English-speaking PCS-fit handyman/removals crew per its findenglish.de directory profile, no own-site/email found, re-checked 2026-10-14 with no new result) |
 
-**Next for Wiesbaden:** real-estate and education both opened/advanced
-today (AS Immobilien's email finally resolved; Obermayr Europa-Schule
-Campus Stauferland opens education). hbb now has 3 sent, healthcare 1.
-restaurants still has the deepest no-email backlog (8 leads) and is worth
-a dedicated follow-up pass to find any of their sites/emails before
-opening new restaurant ground. shopping remains fully unresearched —
-good target for the next run. automotive and home-services both turned
-up strong-fit candidates with no findable email today (Autohaus Haese,
-Transport Klose, I.D Handyman) — worth direct-site follow-ups before
-opening new ground in those categories. Four Twigs Photography (hbb) is
-worth a direct fourtwigs.com read to resolve the Wiesbaden-vs-Honolulu
-location conflict before deciding whether to send.
+**Next for Wiesbaden:** 2026-10-14 was Wiesbaden's first zero-send
+research day (see verification-log note below for detail) — a dedicated
+shopping pass (the category's first, per 2026-10-13's recommendation)
+and automotive/home-services follow-ups both ran dry, and three
+Home-Based-Business-Directory-sourced hbb leads (Homemade by Gia, Ksal
+Beauty and Spa, Angel Face Beauty Studio) were found but held back
+pending independent corroboration — unlike Wynning/Lynde Elise/Stacey
+Brenner Photography, none of these three have any findable own-site,
+Facebook, or Instagram presence beyond the Nov 2025 directory PDF itself,
+and Angel Face's name also collides with a same-named but
+differently-owned US business, raising an identity-mismatch concern
+worth resolving before sending. real-estate and education both
+opened/advanced 2026-10-13 (AS Immobilien's email finally resolved;
+Obermayr Europa-Schule Campus Stauferland opens education). hbb now has
+3 sent, healthcare 1. restaurants still has the deepest no-email backlog
+(8 leads, re-checked 2026-10-14 with no new emails for Chillers, Casa
+Azteca, Street Burger, or Indian Palace) and is worth a dedicated
+follow-up pass to find any of their sites/emails before opening new
+restaurant ground. Four Twigs Photography (hbb) is still worth a direct
+fourtwigs.com read to resolve the Wiesbaden-vs-Honolulu location
+conflict before deciding whether to send. Next run: try resolving one of
+the three held-back hbb directory leads via a direct Facebook search, or
+pivot to a fresh restaurants/healthcare email-finding pass, given
+shopping/automotive/home-services all ran dry two runs in a row now.
 
 ### Bavaria bases — not started
 
@@ -794,6 +806,48 @@ MTR Legal Wiesbaden was logged `researched` rather than sent: it has a
 dedicated English-language Wiesbaden page and a general firm email, but
 no Wiesbaden-specific contact and a larger corporate-client fit than the
 other legal-business leads sent so far.
+**2026-10-14: re-checked before this run** — oldest verification-log
+entries (2026-08-28) are ~47 days old, still nowhere near the ~90-day
+window, and the 17-business snapshot hasn't grown since the 2026-08-29
+commit that added it (confirmed via `git log -1 --format=%ad --
+outreach/businesses-snapshot.json`) — every snapshot entry has already
+been checked within the last ~90 days, so there was nothing eligible to
+re-verify and the 2026-10-14 run also did zero new verification-log rows
+(same reasoning as every run since 2026-09-03).
+**2026-10-14 was Wiesbaden's first zero-send day.** Following
+2026-10-13's recommendation, today opened with shopping — Wiesbaden's
+one fully-unresearched category — and ran roughly 20 WebSearch calls
+across American/import grocery, English bookstore, tailor, pet
+store/vet, nail salon, optician, furniture, bike shop, computer/phone
+repair, and secondhand/vintage niches. Real businesses turned up in
+several (The American Store, KFI Store, City-Bike Wiesbaden) but none
+cleared the publish-own-email bar — see log.csv for all three. A second
+pass followed up 2026-10-13's automotive/home-services near-misses
+(Autohaus Haese, Transport Klose) with more targeted site-specific
+queries; both resolved to the same outcome, an email that only ever
+appears on third-party directories, never the business's own site, so
+the never-fabricate guardrail still applies and both remain
+`skipped_no_email`. A new automotive lead, Military AutoSource/MAS
+Wiesbaden (an explicit US-military-market dealer with a multi-year Stars
+and Stripes "Best of Germany" award history), was found but had no
+findable Wiesbaden-specific contact. The HBB Directory yielded three
+more candidates beyond 2026-10-12/13's photographers (Homemade by Gia,
+Ksal Beauty and Spa, Angel Face Beauty Studio) but, unlike those three,
+none of today's three have any independent corroboration (no own site,
+Facebook, or Instagram) beyond the Nov 2025 directory PDF itself, and
+Angel Face's name also collides with a differently-owned US business of
+the same name — all three logged `researched` and held back rather than
+sent on a bare, uncorroborated, 11-month-old self-reported listing. This
+is a research-coverage gap, not an infrastructure failure — WebSearch
+ran cleanly for all ~40 queries today, and Gmail/GitHub were never
+reached because nothing cleared the bar to send. Per the
+never-fabricate/don't-send-on-weak-confidence guardrails, **0 emails
+were sent today**. This mirrors KMC's 2026-10-07/08/09 dry-day pattern;
+unlike that case there's no second base area to pivot to yet (Bavaria is
+next in priority order but not yet started) — the better next move is
+probably resolving one of today's three held-back hbb leads (a direct
+Facebook search) or a fresh restaurants/healthcare email-finding pass,
+per the "Next for Wiesbaden" note above, before trying Bavaria cold.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
