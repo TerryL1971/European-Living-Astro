@@ -225,7 +225,7 @@ Stuttgart/KMC). All 9 categories start from zero.
 | healthcare | ✅ 1 contacted (Tierdermatologie Dr. Wildermuth — veterinary dermatology, Wiesbaden-Nordenstadt, named on Ramstein AB's own June 2026 Welcome Packet as English-speaking, 4.90/216 reviews — 2026-10-12). 3 no-email (Tiergesundheitszentrum Wiesbaden-Bierstadt — English per reviews; felmo Mobiler Tierarzt — English listed on directory; Lisa Rae Francis MSW LICSW — American English-speaking therapist, strong fit, no contact found). 1 more researched 2026-10-15 (Zahnarztpraxis Dr. Deitermann & Dr. De Sanctis — English-listed dentist, but registered under postal code 55246/Mainz-Kostheim despite one directory mislabeling it Wiesbaden — same location-mismatch pattern as taxpatation/Dr. Knauss, not pursued) |
 | hbb | ✅ +1 2026-10-13: Stacey Brenner Photography (newborn/wedding/family, American photographer based in Wiesbaden, own live site + active Facebook/Instagram independently confirmed beyond the directory source) — now 3 sent total. 1 held back (Four Twigs Photography/Hillary & Nick Chopp — same official HBB directory source, but a conflicting blog mention suggests the family may have relocated to Honolulu, HI since the directory was published; logged `researched`, worth a direct-site check next run before sending). 3 more held back 2026-10-14 (Homemade by Gia, Ksal Beauty and Spa, Angel Face Beauty Studio — directory-only, no independent corroboration). Re-checked 2026-10-15: still no Facebook/site for Homemade by Gia; Ksal's directory-listed Wix site (ksalbeautyandspa.wixsite.com) could not be independently confirmed either — both remain held back. 3 further directory entries found 2026-10-15 (Humble Lion Leather, LiNi Jewelry, The Bread Library — handicrafts/baking categories) have the same uncorroborated-directory-only gap, also held back |
 | real-estate | ✅ NEW send 2026-10-13: AS Immobilien Wiesbaden (Arthur Schultek) — operating since 2012, explicit focus renting to US citizens/expats in Wiesbaden/Mainz/Rheingau, email resolved from the 2026-10-12 no-email entry via the owner's own signed Trustpilot reply, 4.5/5 across 13 reviews. 1 no-email remains (Engel & Völkers Wiesbaden — English listed, contact-form only) |
-| education | ✅ 2 contacted (Obermayr Europa-Schule Campus Stauferland — bilingual German/English/Spanish immersion primary school, ~44-50% of lessons in English, officially listed on the City of Wiesbaden's own school guide, email on the school's own obermayr.com domain — 2026-10-13; Frankfurt International School/Wiesbaden Campus — established English-medium Preschool-Grade 8 international school in Naurod, ~215-220 students, confirmed current via a Feb 2026 principal-search brief, email on the school's own fis.edu domain — 2026-10-15), now Wiesbaden's deepest category |
+| education | ✅ 3 contacted (Obermayr Europa-Schule Campus Stauferland — bilingual German/English/Spanish immersion primary school, ~44-50% of lessons in English, officially listed on the City of Wiesbaden's own school guide, email on the school's own obermayr.com domain — 2026-10-13; Frankfurt International School/Wiesbaden Campus — established English-medium Preschool-Grade 8 international school in Naurod, ~215-220 students, confirmed current via a Feb 2026 principal-search brief, email on the school's own fis.edu domain — 2026-10-15; Rosenkindergarten (Obermayr) — distinct kita/preschool unit of the same Obermayr organization as Europa-Schule but a different address/age-group/registration contact, bilingual-English focus since 1992, email kita@obermayr.com — 2026-10-16), still Wiesbaden's deepest category |
 | restaurants | 6 no-email found (Hacienda, Casa Azteca, Indian Palace, Thai Banyan, Chillers American Diner & Bar, Street Burger — all real, findable, several with Stars and Stripes coverage, none with a published email/working site found yet) plus the 2 found 2026-10-09 (Chateau Kefraya, Baeckerbrunnen) — 8 total no-email leads logged, strongest category by lead count but zero sent so far. Dedicated email-finding follow-up 2026-10-15 found Chateau Kefraya's own domain (chateau-kefraya.de) but still no email on it; no new email for any of the other 7 either — all 8 remain no-email |
 | legal-business | 1 researched (Desch Thorsten Rechtsanwalt — has a published email but English-service fit unconfirmed, held back; re-checked 2026-10-15, still unconfirmed either way), 1 more researched 2026-10-13 (MTR Legal Wiesbaden — dedicated English-language/German Desk page for Wiesbaden, general firm email found but no Wiesbaden-specific address/email and reads as a larger corporate-client firm, held back pending a clearer fit), 1 no-email (Bechstein Versicherungsmakler — explicitly multilingual incl. English) |
 | automotive | 2 no-email leads (Autohaus Haese GmbH — Volvo/Lotus/Nissan dealer across 3 Wiesbaden/Mainz-Kastel sites, found 2026-10-13; its info@autohaus-haese.de surfaced 2026-10-14 but only on AutoScout24 mirrors, never its own site, so still not used. Military AutoSource/MAS Wiesbaden — found 2026-10-14, explicit US-military-market dealer with a multi-year Stars and Stripes "Best of Germany" award history, but no Wiesbaden-specific contact found and a weaker small-business fit as a large pan-European franchise) — still no viable send |
@@ -256,6 +256,33 @@ if a fetch-capable path opens, or a fresh pass on a not-yet-tried
 Wiesbaden niche (e.g. English-speaking physiotherapy, dry cleaners,
 or a second real-estate agent) given shopping/automotive/home-services
 have now run dry across three runs in a row.
+**2026-10-16:** another wide, mostly-dry research pass (~45 WebSearch
+calls) across physiotherapy, dry cleaners/tailors, a second real-estate
+agent, legal-business/tax, automotive, restaurants (direct follow-ups on
+Chateau Kefraya/Chillers/Street Burger), hairdressers, driving schools,
+preschools, computer repair, music schools, orthodontists, tutoring,
+personal training, and pet grooming — one send cleared the bar:
+Rosenkindergarten (Obermayr), a distinct bilingual kita/preschool unit of
+the same Obermayr organization already sending Europa-Schule Campus
+Stauferland, but at a different address with its own registration contact
+and age group (same multi-location-same-brand precedent as KMC's
+Chiropractic/Chiropraxis White) — pushes education to 3 sent, still
+Wiesbaden's deepest category. Two directory-sourced hbb leads (LiNi
+Jewelry, Humble Lion Leather) and one shopping lead with a found-but-
+weak-fit email (Juwelenkind, a general designer-jewelry brand with no
+English/American-customer signal) were held back rather than sent on
+thin confidence — see log.csv. Follow-ups on 2026-10-12's Wagner
+Immobilien near-miss and the Autohaus Haese/Chateau Kefraya near-misses
+again found only third-party-directory or no contact at all, status
+unchanged. automotive, home-services, legal-business, restaurants, and
+shopping all remain at 0 sent despite real, named businesses turning up
+in nearly every niche tried — this now spans four runs (10-13 through
+10-16) where those categories keep surfacing real businesses but not
+published emails. Worth considering next run: asking the site owner
+whether any Wiesbaden business owners have reached out directly (same
+question already raised for KMC's hbb ceiling), since search-only
+methodology may be close to its practical limit for several Wiesbaden
+categories simultaneously.
 
 ### Bavaria bases — not started
 
@@ -867,6 +894,18 @@ niches but only FIS Wiesbaden cleared the publish-own-email-plus-fit bar
 — one send today, same research-depth-gap pattern as KMC's 2026-10-07/08/09
 and Wiesbaden's own 2026-10-14, not an infrastructure failure
 (WebSearch/Gmail/GitHub all worked normally).
+**Still true as of 2026-10-16:** re-checked before this run — oldest
+verification-log entries (2026-08-28) are ~49 days old, still nowhere
+near the ~90-day window, and the 17-business snapshot hasn't grown since
+the 2026-08-29/30 commit that added it (confirmed via `git log -1
+--format=%ad -- outreach/businesses-snapshot.json`) — every snapshot
+entry has already been checked within the last ~90 days, so there was
+nothing eligible to re-verify and the 2026-10-16 run also did zero new
+verification-log rows (same reasoning as every run since 2026-09-03).
+Today's new-lead verification (check 1) confirmed Rosenkindergarten
+(Obermayr) is current via its own 2026 holiday-plan and pre-registration
+PDFs on the obermayr.com domain before sending — see log.csv for the
+evidence trail.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
