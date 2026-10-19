@@ -135,7 +135,7 @@ public/                  # favicons, manifest, OG image, robots.txt, hero images
 
 ### Prerequisites
 
-- **Node.js ≥ 22.12** (`engines` field in `package.json`)
+- **Node.js ≥ 22.22** (`engines` field in `package.json`, required by Astro 7.4+)
 - A Supabase project with the expected schema (articles, businesses, day_trips,
   destinations, featured_content, reviews, bases)
 
