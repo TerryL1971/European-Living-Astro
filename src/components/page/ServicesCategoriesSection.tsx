@@ -51,7 +51,7 @@ const serviceCategories = [
   // the moment a legal-business row existed).
   { id: 'legal-business', title: 'Legal Services', icon: Scale, tint: '#6a7a94', description: 'Lawyers, Tax advisors, and accountants who understand SOFA status and military regulations' },
   { id: 'education', title: 'Education', icon: GraduationCap, tint: '#4f7cb0', description: 'International schools and tutors for military families' },
-  { id: 'hbb', title: 'Business Services', icon: Briefcase, tint: '#a3862c', description: 'Small, owner-run businesses serving the American community: cleaning, pet care, fitness, beauty, baking, and more.' },
+  { id: 'hbb', title: 'Business Services', icon: Briefcase, tint: '#a3862c', description: 'HBBs and Local entrepreneurs who speak your language, offering everyday services near your base.' },
 ];
 
 export default function ServicesCategoriesSection() {
