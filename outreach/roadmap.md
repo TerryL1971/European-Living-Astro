@@ -310,6 +310,46 @@ whether any Wiesbaden business owners have reached out directly (same
 question already raised for KMC's hbb ceiling), since search-only
 methodology may be close to its practical limit for several Wiesbaden
 categories simultaneously.
+**2026-10-20: a fifth dry run for Wiesbaden's four weakest categories,
+and the first day this base went a full run with zero sends.** ~18
+WebSearch calls deliberately tried niches not yet exhausted in prior
+runs — automotive (Fahrschule/driving school, Kfz-Werkstatt/auto repair),
+home-services (pest control, HVAC, gardening/landscaping, handyman,
+self-storage, locksmith), restaurants (sushi, a dedicated Stripes Europe
+search), shopping (florist, toy store), healthcare (physiotherapy,
+dentist), real-estate (a second agent beyond Wagner/AS Immobilien), and
+legal-business (a Steuerberater/tax-advisor pass) — plus tried an
+official-directory angle (findenglish.de, a USAG Wiesbaden off-post
+business list) that worked well for hbb, which turned up nothing new for
+Wiesbaden specifically. Every niche either found no business at all or
+found one with no genuinely published own-site email; the three
+closest near-misses (Mr. Smart Repair — first Wiesbaden automotive lead
+with actual English-service evidence, but phone-only; a possible
+English-speaking agent "Nessler" at an address only confirmable as
+Koppenhoefer Immobilien GmbH; Dr. Stefan Gerhardt, a dentist who'd be an
+exceptional fit — former US Army dentist, ADA member — but who could not
+be independently confirmed to still exist via two separate searches) are
+logged in log.csv for a follow-up rather than acted on. Per the
+never-fabricate/never-send-on-weak-confidence guardrails, **0 emails
+were sent today** — a research-coverage gap, not an infrastructure
+failure (WebSearch, Gmail, and GitHub push all worked normally; Gmail and
+GitHub were simply never reached because nothing cleared the bar to
+send). This is now five runs (10-13, 10-14, 10-16, 10-19 partially, and
+10-20 fully) where automotive/home-services/restaurants/shopping have
+stayed at 0 Wiesbaden-specific sends despite wide, varied search effort.
+**Recommendation, now stronger than before:** search-only methodology
+appears to have hit a genuine ceiling for these four Wiesbaden categories
+specifically (vs. education/hbb/healthcare/real-estate/legal-business,
+which have all found at least one sendable lead) — the next run should
+strongly consider either (a) asking the site owner whether any Wiesbaden
+business owners have reached out directly to list themselves, since the
+same recommendation has now been raised three times without action, or
+(b) pivoting primary effort to a not-yet-tried Wiesbaden niche entirely
+outside what's been tried (e.g. driving instructors via a different
+search angle, a second translator/notary, or furniture/moving-adjacent
+PCS services), or (c) opening Bavaria (next in priority order, fully
+unstarted) in parallel rather than a sixth consecutive dry day on the
+same four categories.
 
 ### Bavaria bases — not started
 
@@ -950,6 +990,17 @@ Wiesbaden office is current and operating — own-site location page active
 parked-domain or dead-site signal — before sending. See log.csv for the
 full evidence trail and for every no-email/held-back lead from today's
 legal-business/home-services/shopping/restaurants research pass.
+**Still true as of 2026-10-20:** re-checked before this run — oldest
+verification-log entries (2026-08-28) are ~53 days old, still nowhere
+near the ~90-day window, and the 17-business snapshot hasn't grown since
+the 2026-08-29/30 commit that added it (confirmed via `git log -1
+--format=%ad -- outreach/businesses-snapshot.json`) — every snapshot
+entry has already been checked within the last ~90 days, so there was
+nothing eligible to re-verify and the 2026-10-20 run also did zero new
+verification-log rows (same reasoning as every run since 2026-09-03; the
+window starts opening up late November 2026 for the oldest entries).
+This was also a zero-send day (see "Next for Wiesbaden" above), so there
+was no new-lead verification (check 1) to perform either.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
