@@ -351,7 +351,42 @@ PCS services), or (c) opening Bavaria (next in priority order, fully
 unstarted) in parallel rather than a sixth consecutive dry day on the
 same four categories.
 
-### Bavaria bases — not started
+### Bavaria bases — first exploratory pass 2026-10-21
+Already had before outreach started: automotive baseline via pre-existing
+multi-base snapshot listings (The Used Car Guys - Grafenwöhr, plus Spangdahlem/
+Ramstein/Kaiserslautern/Stuttgart sister locations that don't specifically
+cover Ansbach/Vilseck/Illesheim). All 9 categories otherwise start from zero.
+
+**2026-10-21:** opened Bavaria (Grafenwöhr, Vilseck, Ansbach, Illesheim) after
+a sixth Wiesbaden run (healthcare/real-estate/legal-business niches not yet
+tried: pediatrician, pharmacy, dermatologist, psychiatrist/psychologist,
+Engel & Völkers, notary, PCS relocation agency, Steuerberater) again found
+real businesses but no genuinely sendable lead — see the Wiesbaden table
+above for the full list. ~15 more WebSearch calls across Bavaria (TLA/rental
+agencies, restaurants, vets, translators, physiotherapy, tax advisors,
+American import stores, HBB directory) found several strong-fit near-misses
+(HomeRent Immobilien Ansbach's explicit multi-language English-speaking
+staff; Hotel-Restaurant Böhm literally gate-adjacent to Grafenwöhr Training
+Area and Stripes-covered as catering to Americans; three English-speaking
+vets sourced from USAG Bavaria's own host-nation vet list; two sworn
+translators from USAG Ansbach's own certified-translator list) but none
+cleared the publish-own-email-plus-current-operation bar — see log.csv for
+the full account of why each was held back (third-party-only email, no
+indexed own domain, or a 5-6-year-old source with no current confirmation).
+**0 emails sent today, across either base area** — a genuine, unusually
+deep research-coverage gap (WebSearch/Gmail/GitHub all worked normally;
+Gmail/GitHub were never reached because nothing cleared the bar to send),
+not an infrastructure failure. This is now a 6th consecutive dry day for
+Wiesbaden's hardest categories and a 1st dry day for Bavaria.
+**Next for Bavaria:** several of today's near-misses are worth a direct
+follow-up before researching fresh ground — HomeRent's own homerent.de site
+(to see if a non-monteurzimmer contact email exists), Tierarztpraxis Weigl's
+own domain (tierarztpraxis-weigl.de, unexpectedly not indexed at all today),
+and a phone-based ask to ExpatTax LLC Wiesbaden/Karin Bauerfeind/Eva Vasel
+for a current email. Also worth trying: Illesheim specifically (not yet
+searched at all today), a USAG Ansbach-specific HBB directory (none found
+today, unlike Wiesbaden's), and English-speaking real-estate/insurance
+agents via a direct Von Poll/Engel & Völkers Ansbach-office query.
 
 ## Known issues (as of 2026-08-25)
 
@@ -1001,6 +1036,19 @@ verification-log rows (same reasoning as every run since 2026-09-03; the
 window starts opening up late November 2026 for the oldest entries).
 This was also a zero-send day (see "Next for Wiesbaden" above), so there
 was no new-lead verification (check 1) to perform either.
+
+   **Still true as of 2026-10-21:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are ~54 days old, still nowhere
+   near the ~90-day window, and the 17-business snapshot hasn't grown since
+   the 2026-08-29/30 commit that added it (confirmed via `git log -1
+   --format=%ad -- outreach/businesses-snapshot.json`) — every snapshot
+   entry has already been checked within the last ~90 days, so there was
+   nothing eligible to re-verify and the 2026-10-21 run also did zero new
+   verification-log rows (same reasoning as every run since 2026-09-03; the
+   window starts opening up late November 2026 for the oldest entries). This
+   was also a zero-send day across both Wiesbaden and Bavaria (see the
+   Bavaria section above), so there was no new-lead verification (check 1)
+   to perform either.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
