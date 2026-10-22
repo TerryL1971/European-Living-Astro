@@ -25,6 +25,39 @@ function slugify(name: string): string {
   return `${base}-${suffix}`;
 }
 
+// Was a plain-text paragraph link ("Confirm my business listing") — easy
+// to miss sitting in a wall of body text, and a cautious recipient has no
+// visual signal it's a legitimate action rather than something to ignore.
+// A real button (brand color, high contrast, impossible to miss) is the
+// standard pattern for a one-click confirmation email. Kept as a function
+// so resend-business-consent can reuse the exact same template for the
+// SAME token on a re-send, rather than drifting out of sync.
+function buildRequestEmailHtml(submittedByName: string, businessName: string | undefined, confirmLink: string) {
+  return `
+    <div style="font-family: -apple-system, Segoe UI, Roboto, sans-serif; max-width: 520px; margin: 0 auto; color: #1F2937;">
+      <p>Hi ${submittedByName},</p>
+      <p>We received a request to list <strong>${businessName ?? "your business"}</strong>
+      on European Living's English-Speaking Services Directory.</p>
+      <p>To confirm you submitted this yourself and authorize us to publish it, click the button below:</p>
+      <p style="margin: 28px 0; text-align: center;">
+        <a href="${confirmLink}"
+           style="display: inline-block; background-color: #0284C7; color: #ffffff;
+                  padding: 14px 32px; border-radius: 8px; text-decoration: none;
+                  font-weight: 600; font-size: 16px;">
+          Confirm My Business Listing →
+        </a>
+      </p>
+      <p style="font-size: 13px; color: #6b7280;">
+        Button not working? Paste this link into your browser:<br/>
+        <a href="${confirmLink}" style="color: #0284C7; word-break: break-all;">${confirmLink}</a>
+      </p>
+      <p>If you didn't request this, just ignore this email — nothing will be published.</p>
+      <p>Questions? Reply to this email or contact privacy@european-living.live.</p>
+      <p>Best,<br/>Terrell C Lombardi<br/>European Living<br/>Untere Burggasse 4, 71063 Sindelfingen, Germany</p>
+    </div>
+  `;
+}
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*", // tighten to your domain in production
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
@@ -88,25 +121,16 @@ Deno.serve(async (req) => {
       token: business.consent_token,
     });
 
-    // Routed through european-living.live (vercel.json rewrites
-    // /confirm-business -> this function) instead of linking the raw
+    // Routed through european-living.live (src/pages/confirm-business.astro
+    // proxies server-side to this function) instead of linking the raw
     // *.supabase.co URL directly — a bare Supabase project URL with a
     // UUID token reads as a phishing link to anyone receiving it, and
-    // exposes the project ref publicly. The rewrite keeps the browser
+    // exposes the project ref publicly. The proxy keeps the browser
     // URL on our own domain the whole way through.
     const siteUrl = Deno.env.get("SITE_URL") ?? "https://european-living.live";
     const confirmLink = `${siteUrl}/confirm-business?token=${business.consent_token}`;
 
-    const emailHtml = `
-      <p>Hi ${submitted_by_name},</p>
-      <p>We received a request to list <strong>${businessFields.name ?? "your business"}</strong>
-      on European Living's English-Speaking Services Directory.</p>
-      <p>To confirm you submitted this yourself and authorize us to publish it, please click below:</p>
-      <p><a href="${confirmLink}">Confirm my business listing</a></p>
-      <p>If you didn't request this, just ignore this email — nothing will be published.</p>
-      <p>Questions? Reply to this email or contact privacy@european-living.live.</p>
-      <p>Best,<br/>Terrell C Lombardi<br/>European Living<br/>Untere Burggasse 4, 71063 Sindelfingen, Germany</p>
-    `;
+    const emailHtml = buildRequestEmailHtml(submitted_by_name, businessFields.name, confirmLink);
 
     const resendResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
