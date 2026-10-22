@@ -23,12 +23,6 @@
       ]
     }
   ],
-  "rewrites": [
-    {
-      "source": "/confirm-business",
-      "destination": "https://pkacbcohrygpyapgtzpq.supabase.co/functions/v1/confirm-business-consent"
-    }
-  ],
   "redirects": [
     {
       "source": "/articles/buying-a-car-in-germany-american-guide",

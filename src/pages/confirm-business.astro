@@ -1,0 +1,40 @@
+---
+// src/pages/confirm-business.astro
+//
+// Proxies the business-consent confirmation link through our own domain
+// instead of emailing a raw *.supabase.co URL with a bare UUID token in
+// the query string — that's indistinguishable from a phishing link to
+// anyone receiving it, and it exposes the Supabase project ref publicly.
+// A business owner flagged this (2026-10-22).
+//
+// Tried a vercel.json `rewrites` entry first (proxy to the Supabase
+// function) — it 404'd on the live site even after a confirmed-fresh
+// deploy, so this project's Build Output API output apparently doesn't
+// honor external rewrites from the root vercel.json reliably. This page
+// does the proxying itself instead: fetches the real Edge Function
+// server-side (on-demand, like the /admin/* pages) and returns its
+// response directly, so the browser URL bar stays on
+// european-living.live the whole time — full masking, not just a
+// redirect hop.
+//
+// request-business-consent/index.ts builds the email link as
+// `${SITE_URL}/confirm-business?token=...` — keep that in sync with
+// this route's path if it ever moves.
+export const prerender = false;
+
+const token = Astro.url.searchParams.get('token');
+
+if (!token) {
+  return new Response('Missing confirmation token.', { status: 400 });
+}
+
+const upstream = await fetch(
+  `https://pkacbcohrygpyapgtzpq.supabase.co/functions/v1/confirm-business-consent?token=${encodeURIComponent(token)}`
+);
+const body = await upstream.text();
+
+return new Response(body, {
+  status: upstream.status,
+  headers: { 'Content-Type': upstream.headers.get('content-type') ?? 'text/html; charset=utf-8' },
+});
+---
