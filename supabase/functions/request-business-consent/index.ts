@@ -88,9 +88,14 @@ Deno.serve(async (req) => {
       token: business.consent_token,
     });
 
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const confirmLink =
-      `${supabaseUrl}/functions/v1/confirm-business-consent?token=${business.consent_token}`;
+    // Routed through european-living.live (vercel.json rewrites
+    // /confirm-business -> this function) instead of linking the raw
+    // *.supabase.co URL directly — a bare Supabase project URL with a
+    // UUID token reads as a phishing link to anyone receiving it, and
+    // exposes the project ref publicly. The rewrite keeps the browser
+    // URL on our own domain the whole way through.
+    const siteUrl = Deno.env.get("SITE_URL") ?? "https://european-living.live";
+    const confirmLink = `${siteUrl}/confirm-business?token=${business.consent_token}`;
 
     const emailHtml = `
       <p>Hi ${submitted_by_name},</p>
