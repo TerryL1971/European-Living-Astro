@@ -388,6 +388,52 @@ searched at all today), a USAG Ansbach-specific HBB directory (none found
 today, unlike Wiesbaden's), and English-speaking real-estate/insurance
 agents via a direct Von Poll/Engel & Völkers Ansbach-office query.
 
+**2026-10-22: a second consecutive zero-send day for Bavaria, and the
+deepest single-day research effort yet (~40 WebSearch calls).** Followed up
+on every one of 2026-10-21's recommendations plus opened fresh ground:
+Illesheim itself turned up no businesses at all beyond Wikipedia/Army
+background (its practical draw area is Ansbach, ~15 miles away); the USAG
+Ansbach HBB directory does not exist (confirmed only an application-form
+process, unlike Wiesbaden's published PDF directory); HomeRent's own
+homerent.de still never surfaces an email beyond the third-party
+monteurzimmer.de-only address; Tierarztpraxis Weigl's own domain was
+unindexed for a second run in a row. Fresh niches tried today — Ansbach
+Steuerberater/tax advisors, auto repair shops, American import/grocery
+stores, movers/cleaners, tailors, hair salons, chiropractors/physio,
+Engel & Völkers and Von Poll Ansbach (the latter has an English-language
+site and a named managing partner, Florian Wittmann, but every email is
+redacted across von-poll.com and directory mirrors), a sworn-translator
+database check (no current Ansbach/Illesheim-area entry found, only the
+same stale May-2020 list already logged), and 3 more English-speaking
+restaurant candidates sourced from Stars and Stripes/Wanderlog (Mama's
+Fresh Streetfood Co., Zum Stich'n, Zum Südlager Burger Bar) — all turned up
+real, named businesses but not one genuinely published own-site email that
+would clear the bar to send. A side pass on Tierarztpraxis Dr. Landgraf
+(Ansbach) looked promising at first (English listed, a plausible own-domain
+email) but the email traces only to a third-party directory, never
+dr-landgraf.de itself, so it was declined on the same never-confirmed-
+on-own-site guardrail used for Hager Dental/Roadhouse Ktown/Transport
+Klose/Autohaus Haese. A few Wiesbaden near-misses were also re-tried
+(Jessica Schwerdt, AllDent Zahnzentrum, Mr. Smart Repair) with no change in
+outcome. **0 emails sent today, same as 2026-10-21** — WebSearch, Gmail, and
+GitHub all worked normally; Gmail/GitHub were simply never reached because
+nothing cleared the publish-own-email-plus-current-operation bar. See
+log.csv for the full per-lead account.
+**Recommendation, now spanning all three non-Stuttgart base areas
+simultaneously:** Bavaria (2 dry days), Wiesbaden (6+ dry days across its
+4 hardest categories), and even KMC's last few categories have all reached
+a point where search-only methodology keeps finding real, named businesses
+but only rarely a genuinely published own-site email. Several near-misses
+across all three base areas now depend on a direct site visit or a phone
+call to resolve (dr-landgraf.de, tierarztpraxis-weigl.de, Von Poll Ansbach's
+contact form, ExpatTax LLC Wiesbaden) rather than another round of the same
+search queries. Worth raising with the site owner: (a) whether a
+fetch-capable research path could ever be opened for this sandbox, since a
+growing list of leads are blocked only by an indexing/third-party-directory
+gap rather than a real absence of a published email, and (b) whether any
+business owners in Bavaria/Wiesbaden have reached out directly to list
+themselves, since that would unblock categories search alone cannot reach.
+
 ## Known issues (as of 2026-08-25)
 
 Runs from 2026-08-21 through 2026-08-25 sent **zero** emails — not a
@@ -1049,6 +1095,19 @@ was no new-lead verification (check 1) to perform either.
    was also a zero-send day across both Wiesbaden and Bavaria (see the
    Bavaria section above), so there was no new-lead verification (check 1)
    to perform either.
+
+   **Still true as of 2026-10-22:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are ~55 days old, still nowhere
+   near the ~90-day window, and the 17-business snapshot hasn't grown since
+   the 2026-08-29/30 commit that added it (confirmed via `git log -1
+   --format=%ad -- outreach/businesses-snapshot.json`) — every snapshot
+   entry has already been checked within the last ~90 days, so there was
+   nothing eligible to re-verify and the 2026-10-22 run also did zero new
+   verification-log rows (same reasoning as every run since 2026-09-03; the
+   window starts opening up late November 2026 for the oldest entries). This
+   was also a zero-send day across Bavaria (see the Bavaria section above
+   for the full ~40-query research account), so there was no new-lead
+   verification (check 1) to perform either.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
