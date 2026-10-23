@@ -1,0 +1,45 @@
+---
+// src/components/MapPlaceholder.astro
+//
+// Shown in place of the real Leaflet/OpenStreetMap when a business has no
+// address to geocode (or geocoding failed) — same idea as
+// BusinessImage.tsx's category-icon fallback for a missing photo. Plain
+// inline SVG + CSS gradient, same pattern ServicesTeaser.astro already
+// uses for its category icons: nothing fetched from anywhere, nothing
+// scraped, no third-party map screenshot or stock photo. 100% self-drawn,
+// so there's no licensing question to worry about.
+interface Props {
+  height?: string; // Tailwind height class, matches MapView's `height` prop convention
+}
+const { height = 'h-64' } = Astro.props;
+---
+
+<div class={`map-placeholder ${height}`}>
+  <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z" />
+    <circle cx="12" cy="10" r="3" />
+  </svg>
+  <p>Location details coming soon</p>
+</div>
+
+<style>
+  .map-placeholder {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #94a3b8, #475569);
+    color: white;
+  }
+  .map-placeholder svg {
+    opacity: 0.45;
+  }
+  .map-placeholder p {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    opacity: 0.85;
+  }
+</style>

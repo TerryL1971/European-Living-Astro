@@ -20,6 +20,7 @@ import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
 import MapView from '../../components/MapView.tsx';
 import ReviewForm from '../../components/ReviewForm.tsx';
 import BusinessImage from '../../components/BusinessImage.tsx';
+import MapPlaceholder from '../../components/MapPlaceholder.astro';
 import { localBusinessSchema } from '../../lib/seo/schema';
 import { fetchBusinesses, fetchBusinessBySlug, fetchReviews } from '../../services/businessServices';
 
@@ -90,27 +91,29 @@ const directionsUrl =
     {business.featured ? (
       <div class="business-detail__featured">
         <div class="business-detail__media-grid">
-          {business.imageUrl && (
-            <div class="business-detail__image-wrap">
-              <BusinessImage imageUrl={business.imageUrl} category={business.category} businessName={business.name} className="w-full h-64 object-cover" client:load />
-            </div>
-          )}
-          {business.latitude && business.longitude && (
-            <div class="business-detail__map-wrap">
-              <MapView
-                client:only="react"
-                center={[business.latitude, business.longitude]}
-                zoom={15}
-                height="h-64"
-                markers={[{ position: [business.latitude, business.longitude], title: business.name, description: business.address ?? undefined }]}
-              />
-              {directionsUrl && (
-                <a href={directionsUrl} target="_blank" rel="noopener noreferrer" class="business-detail__directions-btn">
-                  Get Directions
-                </a>
-              )}
-            </div>
-          )}
+          <div class="business-detail__image-wrap">
+            <BusinessImage imageUrl={business.imageUrl} category={business.category} businessName={business.name} className="w-full h-64 object-cover" client:load />
+          </div>
+          <div class="business-detail__map-wrap">
+            {business.latitude && business.longitude ? (
+              <>
+                <MapView
+                  client:only="react"
+                  center={[business.latitude, business.longitude]}
+                  zoom={15}
+                  height="h-64"
+                  markers={[{ position: [business.latitude, business.longitude], title: business.name, description: business.address ?? undefined }]}
+                />
+                {directionsUrl && (
+                  <a href={directionsUrl} target="_blank" rel="noopener noreferrer" class="business-detail__directions-btn">
+                    Get Directions
+                  </a>
+                )}
+              </>
+            ) : (
+              <MapPlaceholder height="h-64" />
+            )}
+          </div>
         </div>
 
         <div class="business-detail__badges">
@@ -143,11 +146,31 @@ const directionsUrl =
       </div>
     ) : (
       <div class="business-detail__standard">
-        {business.imageUrl && (
-          <div class="business-detail__standard-image">
+        <div class="business-detail__media-grid business-detail__media-grid--standard">
+          <div class="business-detail__image-wrap">
             <BusinessImage imageUrl={business.imageUrl} category={business.category} businessName={business.name} className="w-full h-64 object-cover" client:load />
           </div>
-        )}
+          <div class="business-detail__map-wrap">
+            {business.latitude && business.longitude ? (
+              <>
+                <MapView
+                  client:only="react"
+                  center={[business.latitude, business.longitude]}
+                  zoom={15}
+                  height="h-64"
+                  markers={[{ position: [business.latitude, business.longitude], title: business.name, description: business.address ?? undefined }]}
+                />
+                {directionsUrl && (
+                  <a href={directionsUrl} target="_blank" rel="noopener noreferrer" class="business-detail__directions-btn">
+                    Get Directions
+                  </a>
+                )}
+              </>
+            ) : (
+              <MapPlaceholder height="h-64" />
+            )}
+          </div>
+        </div>
 
         <div class="business-detail__standard-body">
           <div class="business-detail__header-row">
@@ -372,9 +395,9 @@ const directionsUrl =
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     overflow: hidden;
   }
-  .business-detail__standard-image {
-    width: 100%;
-    height: 16rem;
+  .business-detail__media-grid--standard {
+    margin-bottom: 0;
+    gap: 2px; /* thin seam between image/map so they don't look pasted together with zero contrast — no outer margin, so they still fill the card edge-to-edge like the old single-image block did */
   }
   .business-detail__standard-body {
     padding: 2rem;

@@ -23,9 +23,11 @@
 // consent requires knowing who to send the confirmation link to.
 
 import React, { useState } from 'react';
-import { Building2, MapPin, Phone, Languages, Award, Clock, CheckCircle, Loader, AlertCircle, User } from 'lucide-react';
+import { Building2, MapPin, Phone, Languages, Award, Clock, CheckCircle, Loader, AlertCircle, User, Image as ImageIcon, X } from 'lucide-react';
 import { supabase } from '../services/supabaseClient';
 import { BASES } from '../data/bases';
+
+const MAX_PHOTO_BYTES = 5 * 1024 * 1024; // 5MB — generous for a phone photo, small enough Resend/Storage don't blink
 
 interface FormData {
   businessName: string;
@@ -84,6 +86,39 @@ export default function BusinessSubmissionForm() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormData>(EMPTY_FORM);
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [photoPreviewUrl, setPhotoPreviewUrl] = useState<string | null>(null);
+
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      setError('Please choose an image file (JPG, PNG, WebP, etc.).');
+      e.target.value = '';
+      return;
+    }
+    if (file.size > MAX_PHOTO_BYTES) {
+      setError('That photo is over 5MB — please choose a smaller one.');
+      e.target.value = '';
+      return;
+    }
+
+    setError(null);
+    setPhotoFile(file);
+    setPhotoPreviewUrl((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return URL.createObjectURL(file);
+    });
+  };
+
+  const clearPhoto = () => {
+    setPhotoFile(null);
+    setPhotoPreviewUrl((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return null;
+    });
+  };
 
   // ids must match serviceCategories.ts / the businesses table's actual
   // `category` values. This is a write path — picking the wrong id here
@@ -130,6 +165,26 @@ export default function BusinessSubmissionForm() {
     }
 
     try {
+      // Upload to the private pending-images bucket (anon INSERT is
+      // allowed there by its storage policy) rather than the public
+      // images bucket — an unreviewed photo shouldn't go live until the
+      // submitter actually confirms consent. confirm-business-consent
+      // promotes it to the public bucket and sets image_url at that
+      // point; until then this is just a path sitting in storage.
+      let pendingLogoPath: string | null = null;
+      if (photoFile) {
+        const ext = photoFile.name.split('.').pop()?.toLowerCase() || 'jpg';
+        const path = `${crypto.randomUUID()}.${ext}`;
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from('pending-images')
+          .upload(path, photoFile, { contentType: photoFile.type });
+
+        if (uploadError) {
+          throw new Error(`Photo upload failed: ${uploadError.message}`);
+        }
+        pendingLogoPath = uploadData.path;
+      }
+
       const locationParts = [formData.city];
       if (formData.postalCode) locationParts.push(formData.postalCode);
       const location = locationParts.join(', ');
@@ -162,6 +217,7 @@ export default function BusinessSubmissionForm() {
         notes: notes || null,
         submitted_by_name: formData.submitterName,
         submitted_by_email: formData.submitterEmail,
+        ...(pendingLogoPath ? { pending_logo_path: pendingLogoPath } : {}),
       };
 
       // Calls the request-business-consent Edge Function instead of
@@ -247,6 +303,7 @@ export default function BusinessSubmissionForm() {
                 onClick={() => {
                   setSubmitted(false);
                   setFormData(EMPTY_FORM);
+                  clearPhoto();
                 }}
                 className="px-6 py-3 bg-[var(--brand-gold)] text-white rounded-lg font-semibold hover:bg-[var(--brand-primary)] transition-colors duration-200"
               >
@@ -343,6 +400,41 @@ export default function BusinessSubmissionForm() {
                   className="w-full px-4 py-2 border border-[var(--border)] rounded-lg bg-[var(--brand-bg-card)] text-[var(--brand-dark)] focus:ring-2 focus:ring-[var(--brand-primary)] focus:outline-none transition-all duration-200"
                   placeholder="Describe your business and what makes it great for American families..."
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-[var(--brand-dark)] mb-2">
+                  Business Photo <span className="font-normal text-[var(--muted-foreground)]">(optional)</span>
+                </label>
+                {photoPreviewUrl ? (
+                  <div className="relative inline-block">
+                    <img
+                      src={photoPreviewUrl}
+                      alt="Selected business photo preview"
+                      className="h-32 w-auto rounded-lg border border-[var(--border)] object-cover"
+                    />
+                    <button
+                      type="button"
+                      onClick={clearPhoto}
+                      aria-label="Remove photo"
+                      className="absolute -top-2 -right-2 bg-white rounded-full p-1 shadow-md border border-[var(--border)] hover:bg-gray-50"
+                    >
+                      <X className="w-4 h-4 text-[var(--brand-dark)]" />
+                    </button>
+                  </div>
+                ) : (
+                  <label className="flex items-center gap-3 px-4 py-3 border-2 border-dashed border-[var(--border)] rounded-lg cursor-pointer hover:border-[var(--brand-primary)] transition-colors duration-200">
+                    <ImageIcon className="w-5 h-5 text-[var(--muted-foreground)] flex-shrink-0" />
+                    <span className="text-sm text-[var(--muted-foreground)]">
+                      Choose a storefront or logo photo (JPG, PNG, up to 5MB)
+                    </span>
+                    <input type="file" accept="image/*" onChange={handlePhotoChange} className="hidden" />
+                  </label>
+                )}
+                <p className="mt-2 text-xs text-[var(--muted-foreground)]">
+                  No photo? No problem — we'll show a category icon instead. You can always add
+                  one later by contacting us.
+                </p>
               </div>
             </div>
           </div>

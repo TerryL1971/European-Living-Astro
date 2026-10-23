@@ -15,6 +15,39 @@
 
 import { createClient } from "@supabase/supabase-js";
 
+// Geocodes the submitted address so the detail page's map + "Get
+// Directions" link work (businesses/[slug].astro only renders those
+// when latitude/longitude are set — the public submission form never
+// collected coordinates at all, so every public submission landed with
+// no map). Nominatim (OpenStreetMap) — same data source already used
+// by Leaflet elsewhere in this project, free, no API key, 1 req/sec
+// limit is irrelevant at this form's submission volume. Best-effort:
+// a failed/empty geocode just leaves lat/lng null, same as before.
+async function geocodeAddress(address: string | undefined, location: string | undefined) {
+  const query = [address, location].filter(Boolean).join(", ").trim();
+  if (!query) return { latitude: null, longitude: null };
+
+  try {
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`,
+      {
+        headers: {
+          // Nominatim's usage policy requires an identifying User-Agent.
+          "User-Agent": "european-living.live business-submission geocoder (privacy@european-living.live)",
+        },
+      },
+    );
+    if (!res.ok) return { latitude: null, longitude: null };
+    const results = await res.json();
+    const first = results?.[0];
+    if (!first) return { latitude: null, longitude: null };
+    return { latitude: parseFloat(first.lat), longitude: parseFloat(first.lon) };
+  } catch (err) {
+    console.error("Geocoding failed:", err);
+    return { latitude: null, longitude: null };
+  }
+}
+
 function slugify(name: string): string {
   const base = name
     .toLowerCase()
@@ -90,11 +123,19 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
     );
 
+    // Only geocode if the form didn't already send coordinates (it
+    // doesn't today, but don't clobber a future caller that does).
+    const needsGeocode = businessFields.latitude == null || businessFields.longitude == null;
+    const geocoded = needsGeocode
+      ? await geocodeAddress(businessFields.address, businessFields.location)
+      : { latitude: null, longitude: null };
+
     // Insert the pending, invisible business row.
     const { data: business, error: insertError } = await supabase
       .from("businesses")
       .insert({
         ...businessFields,
+        ...(needsGeocode ? geocoded : {}),
         slug: slugify(businessFields.name ?? "business"),
         submitted_by_name,
         submitted_by_email,

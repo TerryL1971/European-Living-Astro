@@ -40,7 +40,7 @@ Deno.serve(async (req) => {
 
   const { data: business, error: findError } = await supabase
     .from("businesses")
-    .select("id, name, submitted_by_email, submitted_by_name, consent_status")
+    .select("id, name, submitted_by_email, submitted_by_name, consent_status, pending_logo_path, image_url")
     .eq("consent_token", token)
     .single();
 
@@ -64,6 +64,51 @@ Deno.serve(async (req) => {
     "unknown";
   const now = new Date().toISOString();
 
+  // Promote the submission's photo (if any) from the private pending-images
+  // bucket to the public images bucket, now that an admin-free but
+  // owner-verified confirmation has happened — unreviewed uploads never go
+  // public on their own, only once the submitter has actually confirmed
+  // consent. Best-effort: a failed promotion just leaves image_url unset,
+  // same as a submission with no photo at all (BusinessImage.tsx's
+  // category-icon fallback covers that case, no broken image).
+  let promotedImageUrl: string | null = null;
+  if (business.pending_logo_path && !business.image_url) {
+    try {
+      const { data: fileData, error: downloadError } = await supabase.storage
+        .from("pending-images")
+        .download(business.pending_logo_path);
+
+      if (downloadError || !fileData) {
+        console.error("Pending image download failed:", downloadError);
+      } else {
+        const ext = business.pending_logo_path.split(".").pop() || "jpg";
+        const publicPath = `business-submissions/${business.id}.${ext}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from("images")
+          .upload(publicPath, fileData, { upsert: true, contentType: fileData.type });
+
+        if (uploadError) {
+          console.error("Public image upload failed:", uploadError);
+        } else {
+          const { data: publicUrlData } = supabase.storage.from("images").getPublicUrl(publicPath);
+          promotedImageUrl = publicUrlData.publicUrl;
+
+          // Clean up the now-redundant pending copy — non-blocking, storage
+          // hygiene only, don't fail confirmation over it.
+          supabase.storage
+            .from("pending-images")
+            .remove([business.pending_logo_path])
+            .then(({ error }) => {
+              if (error) console.error("Failed to remove pending image:", error);
+            });
+        }
+      }
+    } catch (err) {
+      console.error("Image promotion failed:", err);
+    }
+  }
+
   const { error: updateError } = await supabase
     .from("businesses")
     .update({
@@ -73,6 +118,7 @@ Deno.serve(async (req) => {
       is_visible: true,
       status: "active", // existing frontend queries filter on this — keep it in sync
       confirmation_email_sent_at: now,
+      ...(promotedImageUrl ? { image_url: promotedImageUrl } : {}),
     })
     .eq("id", business.id);
 
