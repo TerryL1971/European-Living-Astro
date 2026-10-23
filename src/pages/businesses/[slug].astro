@@ -173,10 +173,15 @@ const directionsUrl =
         </div>
 
         <div class="business-detail__standard-body">
+          {(business.verified || business.englishFluency) && (
+            <div class="business-detail__badges">
+              {business.verified && <span class="badge badge--verified">✓ VERIFIED</span>}
+              {business.englishFluency && <span class="badge badge--fluency-light">{business.englishFluency} English</span>}
+            </div>
+          )}
           <div class="business-detail__header-row">
             <div>
               <h1 class="business-detail__title">{business.name}</h1>
-              {business.verified && <span class="badge badge--verified">✓ VERIFIED</span>}
             </div>
             {reviews.length > 0 && (
               <div class="business-detail__rating-summary">
@@ -217,12 +222,6 @@ const directionsUrl =
                 <>
                   <p class="business-detail__field-label">Website</p>
                   <a href={business.website} target="_blank" rel="noopener noreferrer">Visit Website</a>
-                </>
-              )}
-              {business.englishFluency && (
-                <>
-                  <p class="business-detail__field-label">English Fluency</p>
-                  <p>{business.englishFluency}</p>
                 </>
               )}
             </div>
@@ -332,6 +331,17 @@ const directionsUrl =
   }
   .badge--fluency {
     background: rgba(255, 255, 255, 0.2);
+    text-transform: uppercase;
+  }
+  /* Same pill as .badge--fluency, but with its own explicit background +
+     text color instead of currentColor/rgba(255,255,255) — those only
+     read correctly against .business-detail__featured's blue card and
+     white text. The standard layout's badge row sits on a plain white
+     card, where that combination would be a near-invisible white-on-white
+     pill. */
+  .badge--fluency-light {
+    background: var(--brand-bg-alt, #f1f5f9);
+    color: var(--brand-dark);
     text-transform: uppercase;
   }
   .business-detail__title {
