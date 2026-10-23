@@ -434,6 +434,36 @@ gap rather than a real absence of a published email, and (b) whether any
 business owners in Bavaria/Wiesbaden have reached out directly to list
 themselves, since that would unblock categories search alone cannot reach.
 
+**2026-10-23: a third consecutive zero-send day for Bavaria, and a
+re-confirmed WebFetch test.** Before researching, this run tested whether
+a fetch-capable path had opened (the standing blocker behind dr-landgraf.de,
+tierarztpraxis-weigl.de, and roughly a dozen other near-misses across all
+three base areas) by attempting a direct WebFetch to www.dr-landgraf.de -
+it failed with `getaddrinfo ENOTFOUND`, confirming the sandbox's egress
+allowlist still blocks arbitrary external domains exactly as Known Issues
+#1 describes. Treat that constraint as still fully in force. Research then
+deliberately targeted Bavaria's four still-untouched categories
+(home-services, shopping, education, hbb) via ~15 WebSearch calls -
+confirmed no USAG Ansbach HBB directory or welcome-packet business list
+exists (consistent with 2026-10-22's finding) and found no single named
+Bavaria business in any of the four categories with a genuinely published
+own-site email. Shifted to Wiesbaden's hardest categories next (~15 more
+calls: dentists/physiotherapy for healthcare depth, automotive, home-services
+movers/cleaners, a findenglish.de-style directory check, and direct
+Facebook/Instagram-specific follow-ups on the restaurants no-email backlog
+and three held-back HBB Directory leads) - two new named dental practices
+surfaced (Zahnarztpraxis Dr. Frank Thoese, Praxis Dr. Petra Achenbach, both
+explicitly English-listed) but neither publishes an email anywhere found,
+and every follow-up (Wagner Immobilien, ABC Travel Service, K9s in Camo Dog
+Care, Amyleanna's/Belle Vie/LiNi Jewelry corroboration) reconfirmed its
+prior status rather than resolving it. **0 emails sent today across any
+base area** - WebSearch, Gmail, and GitHub all worked normally; Gmail/GitHub
+were simply never reached because nothing cleared the publish-own-email bar.
+This is now an 8th+ day across the three non-Stuttgart base areas combined
+where search-only methodology is hitting the same wall - the (a)/(b)
+recommendation above is now strong enough to put directly to the site
+owner rather than keep re-raising it in this file.
+
 ## Known issues (as of 2026-08-25)
 
 Runs from 2026-08-21 through 2026-08-25 sent **zero** emails — not a
@@ -1108,6 +1138,17 @@ was no new-lead verification (check 1) to perform either.
    was also a zero-send day across Bavaria (see the Bavaria section above
    for the full ~40-query research account), so there was no new-lead
    verification (check 1) to perform either.
+
+   **Still true as of 2026-10-23:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are 56 days old, still nowhere
+   near the ~90-day window, and the 17-business snapshot hasn't grown
+   (confirmed via `git log -1 --format=%ad -- outreach/businesses-snapshot.json`)
+   — every snapshot entry has already been checked within the last ~90
+   days, so there was nothing eligible to re-verify and the 2026-10-23 run
+   also did zero new verification-log rows (same reasoning as every run
+   since 2026-09-03). This was also a zero-send day across both Bavaria and
+   Wiesbaden (see the Bavaria section above for the full account), so there
+   was no new-lead verification (check 1) to perform either.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
