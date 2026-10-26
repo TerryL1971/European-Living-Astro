@@ -464,6 +464,33 @@ where search-only methodology is hitting the same wall - the (a)/(b)
 recommendation above is now strong enough to put directly to the site
 owner rather than keep re-raising it in this file.
 
+**2026-10-26: a fourth consecutive zero-send day for Bavaria, and
+continuation of Wiesbaden's dry streak — escalated to the site owner this
+run per 2026-10-23's note.** ~19 WebSearch calls targeted niches genuinely
+not yet tried in either base: for Wiesbaden, English-speaking driving
+schools, dry cleaners, hair salons/barbers, locksmiths, movers (a Zapf
+Umzüge Wiesbaden-branch follow-up — only Berlin/Mannheim branch emails
+found, no Wiesbaden branch confirmed), and physiotherapy (Andreas Rohde
+Praxis — rare case of an own-domain+email practice, but zero English-service
+evidence found, held back on that guardrail alone); for Bavaria, bakeries,
+pharmacies, chiropractors, handymen, a USAG Ansbach welcome-packet/business-
+list re-check (confirmed a third time none exists), and branch follow-ups
+on three chains already sending elsewhere (KERN Global Language Services —
+Nuremberg listed among locations but no branch-level contact; MIRASCON —
+confirms "an agency at every major base" claim but no Grafenwöhr/Ansbach/
+Vilseck address surfaced; Military AutoSource — a Vilseck On Base listing
+exists but its email/phone are masked in every directory result, logged
+`skipped_no_email`). Also confirmed findenglish.de's own directory does not
+cover Wiesbaden or Ansbach at all. Every niche either found no business or
+found one without a genuinely published own-site email plus confirmed
+English service — a research-coverage gap, not an infrastructure failure
+(WebSearch worked normally for all 19 calls; Gmail/GitHub were never
+reached because nothing cleared the bar to send). **0 emails sent today.**
+Per 2026-10-23's own recommendation, this run is flagging the (a)/(b)
+question to the site owner directly in its summary rather than opening a
+5th/9th consecutive dry-research day blind — see the run summary for the
+actual ask.
+
 ## Known issues (as of 2026-08-25)
 
 Runs from 2026-08-21 through 2026-08-25 sent **zero** emails — not a
@@ -1149,6 +1176,19 @@ was no new-lead verification (check 1) to perform either.
    since 2026-09-03). This was also a zero-send day across both Bavaria and
    Wiesbaden (see the Bavaria section above for the full account), so there
    was no new-lead verification (check 1) to perform either.
+
+   **Still true as of 2026-10-26:** re-checked before this run (skipped the
+   weekend per the Mon-Fri cron) — oldest verification-log entries
+   (2026-08-28) are 59 days old, still nowhere near the ~90-day window, and
+   the 17-business snapshot hasn't grown (confirmed via `git log -1
+   --format=%ad -- outreach/businesses-snapshot.json`) — every snapshot
+   entry has already been checked within the last ~90 days, so there was
+   nothing eligible to re-verify and the 2026-10-26 run also did zero new
+   verification-log rows (same reasoning as every run since 2026-09-03; the
+   window starts opening up late November 2026 for the oldest entries). This
+   was also a zero-send day across both Bavaria and Wiesbaden (see the
+   Bavaria section above for the full account), so there was no new-lead
+   verification (check 1) to perform either.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
