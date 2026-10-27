@@ -351,6 +351,45 @@ PCS services), or (c) opening Bavaria (next in priority order, fully
 unstarted) in parallel rather than a sixth consecutive dry day on the
 same four categories.
 
+**2026-10-27: a fifth consecutive Bavaria zero-send day, and Wiesbaden's
+hardest four categories remain at 0 sends too.** ~27 WebSearch calls in
+two parts. Part one targeted Wiesbaden's four stuck categories
+(automotive, home-services, restaurants, shopping) with niches not yet
+exhausted — Kfz-Werkstatt/Autowerkstatt, tire shops, electricians,
+gardeners/Landschaftsbau, a fresh English-menu restaurant search, bakeries,
+phone/computer repair, and driving schools/license-conversion — every
+query returned either generic job-listing/directory noise with no named
+business, or named businesses (several Wiesbaden phone-repair shops, 2
+driving schools) with no English-service evidence and no email anywhere;
+the closest-to-useful find, a 2016 Stars and Stripes piece on the AAFES
+Mainz-Kastel garage closure, is a decade stale. Part two tried a new
+angle for Bavaria — looking for a KMC-style dedicated TLA/TDY furnished-housing
+operator (found only Airbnb/monteurzimmer-style rooms, not a dedicated
+agency), checking the "Welcome to the Bavarian Military Community"
+advertiser guide and a Mission:Milspouse Ansbach page for a ready-made
+English-speaking business list (the guide is a plain advertiser index with
+no language tags; Mission:Milspouse named two new Ansbach restaurants,
+Maharaja and China Thai Wok, but neither has an email or website), and
+followed up directly on four of the standing near-misses across both bases
+(HomeRent Ansbach, Tierarztpraxis Dr. Landgraf Ansbach, ExpatTax LLC
+Wiesbaden, Tierarztpraxis Dr. Birgit Weigl Vilseck) plus three Wiesbaden
+HBB-directory photographers (Amyleanna's, Four Twigs, Belle Vie) — every
+one resolved to the exact same third-party-only-contact or
+no-independent-corroboration outcome as its last check, no new information
+either way. **0 emails sent today** — a continuation of the
+research-coverage gap flagged and escalated on 2026-10-26, not an
+infrastructure failure (WebSearch, Gmail, and GitHub all would have worked
+normally; Gmail/GitHub were never reached because nothing cleared the bar
+to send). This is now a 5th consecutive dry day for Bavaria and roughly an
+11th day where Wiesbaden's automotive/home-services/restaurants/shopping
+categories have stayed at 0 sends despite wide, varied search effort
+across two base areas. The 2026-10-26 recommendation to the site owner
+(ask whether any Bavaria/Wiesbaden business owners have reached out
+directly, and/or whether a fetch-capable research path could be opened)
+stands unchanged and unactioned — worth repeating clearly in today's
+run summary rather than silently re-trying the same search-only ceiling a
+sixth time.
+
 ### Bavaria bases — first exploratory pass 2026-10-21
 Already had before outreach started: automotive baseline via pre-existing
 multi-base snapshot listings (The Used Car Guys - Grafenwöhr, plus Spangdahlem/
@@ -1189,6 +1228,19 @@ was no new-lead verification (check 1) to perform either.
    was also a zero-send day across both Bavaria and Wiesbaden (see the
    Bavaria section above for the full account), so there was no new-lead
    verification (check 1) to perform either.
+
+   **Still true as of 2026-10-27:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are 60 days old, still nowhere
+   near the ~90-day window, and the 17-business snapshot content is
+   unchanged (still the same 17 entries; confirmed by reading the file) —
+   every snapshot entry has already been checked within the last ~90 days,
+   so there was nothing eligible to re-verify and the 2026-10-27 run also
+   did zero new verification-log rows (same reasoning as every run since
+   2026-09-03; the window starts opening up late November 2026 for the
+   oldest entries). This was also a zero-send day across both Bavaria and
+   Wiesbaden (see the Bavaria section above for the full 2026-10-27
+   account), so there was no new-lead verification (check 1) to perform
+   either.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
