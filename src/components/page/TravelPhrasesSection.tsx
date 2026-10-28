@@ -64,6 +64,7 @@ export default function TravelPhrasesSection() {
   // like it had done nothing at all.
   const [speakingKey, setSpeakingKey] = useState<string | null>(null);
   const silentAudioRef = useRef<HTMLAudioElement | null>(null);
+  const hasUnlockedAudioRef = useRef(false);
 
   useEffect(() => {
     setFavorites(readFavorites());
@@ -170,7 +171,7 @@ export default function TravelPhrasesSection() {
       ? favoritePhrases
       : allByCat[selectedCategory] || [];
 
-  const speak = (text: string, code: string, key: string) => {
+  const speak = async (text: string, code: string, key: string) => {
     if (!('speechSynthesis' in window)) return;
 
     // iOS Safari routes speechSynthesis through the "ambient" audio
@@ -182,12 +183,26 @@ export default function TravelPhrasesSection() {
     // own audio rides on that same session. Started here (inside this
     // user-gesture click handler) because iOS requires an actual tap to
     // start any audio at all — can't pre-start this on page load.
+    //
+    // This has to actually be AWAITED, not fire-and-forget: calling
+    // speechSynthesis.speak() immediately after silent.play() (without
+    // waiting for it) was the bug in the first attempt — .play() resolving
+    // doesn't mean iOS has finished switching the audio route over to
+    // "playback" yet, so the speech call could still land on the old
+    // "ambient" session a few milliseconds too early. First-ever call
+    // also gets a short extra buffer for that route switch to settle.
     const silent = silentAudioRef.current;
     if (silent && silent.paused) {
-      silent.play().catch(() => {
+      try {
+        await silent.play();
+        if (!hasUnlockedAudioRef.current) {
+          hasUnlockedAudioRef.current = true;
+          await new Promise((resolve) => setTimeout(resolve, 150));
+        }
+      } catch {
         // Autoplay/gesture requirements vary by iOS version — if this
         // fails, speech still plays, it just won't bypass silent mode.
-      });
+      }
     }
 
     // Cancel any utterance already in flight — without this, tapping a
