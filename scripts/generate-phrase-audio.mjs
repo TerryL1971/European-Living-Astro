@@ -60,9 +60,29 @@ async function synthesize(text, languageCode) {
   return Buffer.from(audioContent, 'base64');
 }
 
+async function fetchRowsNeedingAudio() {
+  // PostgREST caps a single select at 1000 rows (same limit
+  // src/services/phraseService.ts's getAllPhrases() already works
+  // around) — page through with .range() instead of one unbounded
+  // select, or anything past the first 1000 silently never gets
+  // picked up.
+  const PAGE = 1000;
+  let rows = [];
+  for (let from = 0; ; from += PAGE) {
+    const { data: page, error } = await supabase
+      .from('phrases')
+      .select('id, translation, language_code')
+      .is('audio_url', null)
+      .range(from, from + PAGE - 1);
+    if (error) throw error;
+    rows = rows.concat(page ?? []);
+    if (!page || page.length < PAGE) break;
+  }
+  return rows;
+}
+
 async function main() {
-  const { data: rows, error } = await supabase.from('phrases').select('id, translation, language_code').is('audio_url', null);
-  if (error) throw error;
+  const rows = await fetchRowsNeedingAudio();
 
   console.log(`${rows.length} phrases need audio`);
   let done = 0,
