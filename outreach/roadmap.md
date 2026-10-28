@@ -222,7 +222,7 @@ Stuttgart/KMC). All 9 categories start from zero.
 
 | Category | Status |
 |---|---|
-| healthcare | ✅ 1 contacted (Tierdermatologie Dr. Wildermuth — veterinary dermatology, Wiesbaden-Nordenstadt, named on Ramstein AB's own June 2026 Welcome Packet as English-speaking, 4.90/216 reviews — 2026-10-12). 3 no-email (Tiergesundheitszentrum Wiesbaden-Bierstadt — English per reviews; felmo Mobiler Tierarzt — English listed on directory; Lisa Rae Francis MSW LICSW — American English-speaking therapist, strong fit, no contact found). 1 more researched 2026-10-15 (Zahnarztpraxis Dr. Deitermann & Dr. De Sanctis — English-listed dentist, but registered under postal code 55246/Mainz-Kostheim despite one directory mislabeling it Wiesbaden — same location-mismatch pattern as taxpatation/Dr. Knauss, not pursued) |
+| healthcare | ✅ 1 contacted (Tierdermatologie Dr. Wildermuth — veterinary dermatology, Wiesbaden-Nordenstadt, named on Ramstein AB's own June 2026 Welcome Packet as English-speaking, 4.90/216 reviews — 2026-10-12). 3 no-email (Tiergesundheitszentrum Wiesbaden-Bierstadt — English per reviews; felmo Mobiler Tierarzt — English listed on directory; Lisa Rae Francis MSW LICSW — American English-speaking therapist, strong fit, no contact found). 1 more researched 2026-10-15 (Zahnarztpraxis Dr. Deitermann & Dr. De Sanctis — English-listed dentist, but registered under postal code 55246/Mainz-Kostheim despite one directory mislabeling it Wiesbaden — same location-mismatch pattern as taxpatation/Dr. Knauss, not pursued). ✅ +4 2026-10-28: Cranbury Counseling/Sarah Cranbury LCSW (Army Reserve captain + LCSW running a private practice explicitly for military-connected Americans in Wiesbaden since 2014 — resolves the 2026-10-21 no-email entry via her own site's Contact page, cranburycounseling.org, not a third party), Engemann & Wüst Logopädische Praxisgemeinschaft (speech therapy, two Wiesbaden locations, own English page states real experience with English-speaking patients + therapy in English on request), Chiropraktik Zentrum Wiesbaden/Hanna Fröhlich (Goldgasse, full English-language site including its own /en/contact page), Andrea Hillenbrand Psychologische Psychotherapeutin (Wiesbaden-Nordenstadt, English listed as an offered language on the official Hessen psychotherapist-chamber directory, TRICARE historically accepted per therapie.de) — now 5 sent total, Wiesbaden's new deepest category, ahead of education/hbb (3 each). All 4 found via a broader English-speaking-provider sweep (therapist/counselor, chiropractor niches) rather than the four already-exhausted stuck categories. 1 more no-email (BaseResidences — furnished apartments explicitly marketed to U.S. military near Clay Kaserne, replies in English within one business day per its own site, but no email found anywhere, contact-form only; real-estate, worth a follow-up) |
 | hbb | ✅ +1 2026-10-13: Stacey Brenner Photography (newborn/wedding/family, American photographer based in Wiesbaden, own live site + active Facebook/Instagram independently confirmed beyond the directory source) — now 3 sent total. 1 held back (Four Twigs Photography/Hillary & Nick Chopp — same official HBB directory source, but a conflicting blog mention suggests the family may have relocated to Honolulu, HI since the directory was published; logged `researched`, worth a direct-site check next run before sending). 3 more held back 2026-10-14 (Homemade by Gia, Ksal Beauty and Spa, Angel Face Beauty Studio — directory-only, no independent corroboration). Re-checked 2026-10-15: still no Facebook/site for Homemade by Gia; Ksal's directory-listed Wix site (ksalbeautyandspa.wixsite.com) could not be independently confirmed either — both remain held back. 3 further directory entries found 2026-10-15 (Humble Lion Leather, LiNi Jewelry, The Bread Library — handicrafts/baking categories) have the same uncorroborated-directory-only gap, also held back |
 | real-estate | ✅ NEW send 2026-10-13: AS Immobilien Wiesbaden (Arthur Schultek) — operating since 2012, explicit focus renting to US citizens/expats in Wiesbaden/Mainz/Rheingau, email resolved from the 2026-10-12 no-email entry via the owner's own signed Trustpilot reply, 4.5/5 across 13 reviews. 1 no-email remains (Engel & Völkers Wiesbaden — English listed, contact-form only) |
 | education | ✅ 3 contacted (Obermayr Europa-Schule Campus Stauferland — bilingual German/English/Spanish immersion primary school, ~44-50% of lessons in English, officially listed on the City of Wiesbaden's own school guide, email on the school's own obermayr.com domain — 2026-10-13; Frankfurt International School/Wiesbaden Campus — established English-medium Preschool-Grade 8 international school in Naurod, ~215-220 students, confirmed current via a Feb 2026 principal-search brief, email on the school's own fis.edu domain — 2026-10-15; Rosenkindergarten (Obermayr) — distinct kita/preschool unit of the same Obermayr organization as Europa-Schule but a different address/age-group/registration contact, bilingual-English focus since 1992, email kita@obermayr.com — 2026-10-16), still Wiesbaden's deepest category |
@@ -529,6 +529,54 @@ Per 2026-10-23's own recommendation, this run is flagging the (a)/(b)
 question to the site owner directly in its summary rather than opening a
 5th/9th consecutive dry-research day blind — see the run summary for the
 actual ask.
+
+**2026-10-28: a 6th consecutive Bavaria zero-send day, but the first
+genuine break in Wiesbaden's research-coverage gap in two weeks.** ~26
+WebSearch calls in two parts. Part one stayed on Bavaria (Ansbach/
+Grafenwöhr/Vilseck/Illesheim) via niches not yet fully exhausted —
+bilingual/international schools, American import grocery stores, HBB
+photographers (San Nguyen Tran Photography/Grafenwöhr-Vilseck and
+Quesenberry Photography/Vilseck, both real but with no findable contact),
+tailors, a direct Ansbach real-estate-agent search, hairdressers/barbers
+(including Theodora's Beauty Experts near Grafenwöhr/Vilseck — a Facebook-
+listed email exists but with zero independent English-service evidence,
+held back), pharmacies, a USAG Bavaria welcome-guide/advertiser-list
+re-check (still none), and a dermatology/OB-GYN pass (the closest-fit
+dermatologist, Dr. Zajitschek, turned out to be Nürnberg-based, ~65km
+away — too far a location mismatch, same guardrail as prior holds) — every
+query again found either nothing or a real business with no genuinely
+published own-site email. Part two pivoted Wiesbaden away from its four
+exhausted categories (automotive/home-services/restaurants/shopping,
+still untouched today) toward a fresh angle: English-speaking
+counselors/therapists and chiropractors. This broke the streak —
+**4 emails sent**, all healthcare: Cranbury Counseling/Sarah Cranbury LCSW
+(an Army Reserve captain's own private practice for military-connected
+Americans, resolving the 2026-10-21 no-email entry via her own site's
+Contact page rather than a third party), Engemann & Wüst Logopädische
+Praxisgemeinschaft, Chiropraktik Zentrum Wiesbaden/Hanna Fröhlich, and
+Andrea Hillenbrand Psychologische Psychotherapeutin (English listed on
+the official Hessen psychotherapist-chamber directory, TRICARE history
+per therapie.de) — see the Wiesbaden table above for full detail. This
+pushes Wiesbaden healthcare from 1 to 5, now the base's deepest category,
+and shows the standing recommendation (pivot to a not-yet-tried niche
+rather than re-running the same four dead ends) works when actually
+followed. One strong near-miss held back: BaseResidences (furnished
+apartments explicitly for U.S. military near Clay Kaserne, replies in
+English, but no email found anywhere). Verification sweep: skipped today
+— all 16 businesses in `businesses-snapshot.json` were already checked
+within the last ~90 days (most recently 2026-09-02, so none are yet due
+for re-verification); this is expected to start coming due again in
+early December. **Bavaria remains at 0 sends across all 9 categories
+after 6 consecutive run-days** — the standing recommendation to the site
+owner (ask whether any Bavaria business owners have reached out directly,
+and/or whether a fetch-capable research path could be opened to resolve
+the growing list of own-site-indexing near-misses like dr-landgraf.de and
+tierarztpraxis-weigl.de) stands, now demonstrated to be solvable for
+Wiesbaden simply by trying new niches — Bavaria may need the same
+treatment (untried niches: Illesheim-specific businesses, a second
+real-estate/insurance pass, English-speaking counselors/therapists the
+same way that worked for Wiesbaden today) rather than another repeat of
+exhausted ground.
 
 ## Known issues (as of 2026-08-25)
 
