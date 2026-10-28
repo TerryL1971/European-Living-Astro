@@ -56,9 +56,27 @@ const CookieConsentModal: React.FC = () => {
           console.error('Error parsing cookie preferences', e);
         }
       }
-    } else {
+    } else if (localStorage.getItem('hasVisitedSite')) {
+      // Returning visitor who has never set cookie prefs (rare, e.g. cleared
+      // this one key only) — BaseSelectionModal won't auto-open for them, so
+      // there's nothing to wait for.
       const timer = setTimeout(() => setShowBanner(true), 500);
       return () => clearTimeout(timer);
+    } else {
+      // First-ever visit: BaseSelectionModal is about to auto-open too (see
+      // that component), on its own 800ms timer, with no shared state between
+      // the two islands. Showing both at once stacks two full-screen prompts
+      // and its backdrop (fixed inset-0, higher z-index) sits on top of the
+      // base modal and blocks it entirely — confirmed via an automated click
+      // on a base card timing out while both were open. Let the base modal
+      // go first and only start our own timer once it's been resolved
+      // (BaseSelectionModal dispatches 'baseChanged' on Continue, Skip, and
+      // the X close button alike).
+      const handleBaseResolved = () => {
+        setTimeout(() => setShowBanner(true), 500);
+      };
+      window.addEventListener('baseChanged', handleBaseResolved, { once: true });
+      return () => window.removeEventListener('baseChanged', handleBaseResolved);
     }
   }, []);
 
@@ -153,12 +171,16 @@ const CookieConsentModal: React.FC = () => {
     <AnimatePresence>
       {showBanner && (
         <>
+          {/* No onClick here: a stray tap meant for something else (the nav
+              menu behind it, a base-selection card while both modals were
+              stacked — see the gating in the useEffect above) must not be
+              read as "Accept All", including marketing cookies. Consent
+              needs an explicit button press, not an accidental dismiss. */}
           <motion.div
             className="fixed inset-0 bg-black/30 z-[100]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => !showSettings && handleAcceptAll()}
           />
 
           <AnimatePresence>
