@@ -19,7 +19,7 @@
 //     by the English text so it follows whatever language you view).
 //     "♥ Saved" acts as a category; Copy / Print make an offline list.
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import {
@@ -29,6 +29,7 @@ import {
   type Category,
   type GroupedPhrase,
 } from '../../services/phraseService';
+import { SILENT_AUDIO_SRC } from '../../data/silentAudio';
 
 const FAV_KEY = 'el:phrase-favorites';
 const FAV_VIEW = '__favorites__';
@@ -62,6 +63,7 @@ export default function TravelPhrasesSection() {
   // category rule web content can't override) and the button looked
   // like it had done nothing at all.
   const [speakingKey, setSpeakingKey] = useState<string | null>(null);
+  const silentAudioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     setFavorites(readFavorites());
@@ -170,6 +172,24 @@ export default function TravelPhrasesSection() {
 
   const speak = (text: string, code: string, key: string) => {
     if (!('speechSynthesis' in window)) return;
+
+    // iOS Safari routes speechSynthesis through the "ambient" audio
+    // category, which always respects the ringer/silent switch — unlike
+    // a real <audio>/<video> element, which iOS plays through "playback"
+    // regardless of the switch (why videos/audio players work in silent
+    // mode but TTS alone doesn't). Looping a silent real <audio> element
+    // keeps the page's session in "playback" mode, and speechSynthesis's
+    // own audio rides on that same session. Started here (inside this
+    // user-gesture click handler) because iOS requires an actual tap to
+    // start any audio at all — can't pre-start this on page load.
+    const silent = silentAudioRef.current;
+    if (silent && silent.paused) {
+      silent.play().catch(() => {
+        // Autoplay/gesture requirements vary by iOS version — if this
+        // fails, speech still plays, it just won't bypass silent mode.
+      });
+    }
+
     // Cancel any utterance already in flight — without this, tapping a
     // second phrase before the first finishes leaves two speakingKeys
     // racing (the first one's `onend` would fire after the second one's
@@ -184,11 +204,13 @@ export default function TravelPhrasesSection() {
     window.speechSynthesis.speak(u);
   };
 
-  // Don't leave an utterance (or a stuck "playing" button) running after
-  // the user navigates away from this section.
+  // Don't leave an utterance (or a stuck "playing" button) running — or
+  // the silent unlock loop playing in the background — after the user
+  // navigates away from this section.
   useEffect(() => {
     return () => {
       if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      silentAudioRef.current?.pause();
     };
   }, []);
 
@@ -301,6 +323,9 @@ export default function TravelPhrasesSection() {
 
   return (
     <section id="german-phrases" className="py-16 bg-[var(--brand-bg-alt)]">
+      {/* Silent looped clip that unlocks iOS's "playback" audio session
+          for speechSynthesis — see speak() and src/data/silentAudio.ts. */}
+      <audio ref={silentAudioRef} src={SILENT_AUDIO_SRC} loop playsInline preload="auto" style={{ display: 'none' }} />
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
           <h2 className="text-4xl font-bold mb-4 text-[var(--brand-text)]">Essential Travel Phrases</h2>
