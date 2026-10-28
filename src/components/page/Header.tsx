@@ -93,6 +93,16 @@ export default function Header() {
                 </a>
               ))}
 
+              {/* The actual searchable business directory — the site's core
+                  function — had no top-level nav link at all; it was only
+                  reachable via the footer or a scroll down the homepage. */}
+              <a
+                href="/services-directory"
+                className="px-2.5 py-2 text-sm font-semibold text-[var(--brand-primary)] hover:bg-[var(--brand-bg-alt)] rounded-lg whitespace-nowrap"
+              >
+                Find a Business
+              </a>
+
               <a href="/day-trips" className="px-2.5 py-2 text-sm rounded-lg hover:bg-[var(--brand-bg-alt)] whitespace-nowrap">
                 Day Trips
               </a>
@@ -186,6 +196,14 @@ export default function Header() {
                   {section.label}
                 </a>
               ))}
+
+              <a
+                href="/services-directory"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block w-full text-left px-4 py-3 text-base font-semibold text-[var(--brand-primary)] hover:bg-[var(--brand-bg-alt)] rounded-lg transition"
+              >
+                Find a Business
+              </a>
 
               <a
                 href="/day-trips"
