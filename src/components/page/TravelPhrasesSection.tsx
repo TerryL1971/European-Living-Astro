@@ -54,6 +54,14 @@ export default function TravelPhrasesSection() {
   const [activeSearch, setActiveSearch] = useState('');
   const [favorites, setFavorites] = useState<string[]>([]);
   const [copied, setCopied] = useState(false);
+  // Keyed by phrase.english (unique within a language view, same key
+  // favorites already uses) — tracks which speaker button is actively
+  // speaking so it can show a visible "playing" state. Added because a
+  // tap gave zero visual feedback: with the device's ringer switch off,
+  // iOS Safari silently mutes page audio (an OS-level "ambient" audio
+  // category rule web content can't override) and the button looked
+  // like it had done nothing at all.
+  const [speakingKey, setSpeakingKey] = useState<string | null>(null);
 
   useEffect(() => {
     setFavorites(readFavorites());
@@ -160,13 +168,29 @@ export default function TravelPhrasesSection() {
       ? favoritePhrases
       : allByCat[selectedCategory] || [];
 
-  const speak = (text: string, code: string) => {
+  const speak = (text: string, code: string, key: string) => {
     if (!('speechSynthesis' in window)) return;
+    // Cancel any utterance already in flight — without this, tapping a
+    // second phrase before the first finishes leaves two speakingKeys
+    // racing (the first one's `onend` would fire after the second one's
+    // `onstart`, clearing the wrong button's playing state).
+    window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = speechLangMap[code] || code;
     u.rate = 0.8;
+    u.onstart = () => setSpeakingKey(key);
+    u.onend = () => setSpeakingKey((cur) => (cur === key ? null : cur));
+    u.onerror = () => setSpeakingKey((cur) => (cur === key ? null : cur));
     window.speechSynthesis.speak(u);
   };
+
+  // Don't leave an utterance (or a stuck "playing" button) running after
+  // the user navigates away from this section.
+  useEffect(() => {
+    return () => {
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    };
+  }, []);
 
   const toggleFavorite = (english: string) => {
     setFavorites((prev) => {
@@ -481,6 +505,26 @@ export default function TravelPhrasesSection() {
                 const translation = phrase.translations[selectedLanguage];
                 if (!translation) return null;
                 const isFav = favorites.includes(phrase.english);
+                const isSpeaking = speakingKey === phrase.english;
+
+                const speakerButton = (size: string, iconSize: string) => (
+                  <button
+                    onClick={() => speak(translation.text, selectedLanguage, phrase.english)}
+                    title={isSpeaking ? 'Playing…' : 'Listen to pronunciation'}
+                    aria-pressed={isSpeaking}
+                    aria-label={isSpeaking ? 'Playing pronunciation' : 'Listen to pronunciation'}
+                    className={`shrink-0 ${size} rounded-lg transition-all hover:opacity-90 flex items-center justify-center ${
+                      isSpeaking ? 'animate-pulse ring-2 ring-offset-1' : ''
+                    }`}
+                    style={{
+                      background: isSpeaking ? 'var(--brand-primary)' : 'var(--brand-secondary)',
+                      color: isSpeaking ? 'white' : 'var(--brand-text)',
+                      ...(isSpeaking ? ({ '--tw-ring-color': 'var(--brand-primary)' } as React.CSSProperties) : {}),
+                    }}
+                  >
+                    <span className={iconSize}>{isSpeaking ? '🔈' : '🔊'}</span>
+                  </button>
+                );
 
                 const heart = (size: string) => (
                   <button
@@ -519,13 +563,7 @@ export default function TravelPhrasesSection() {
                       </div>
                       <div className="flex flex-col gap-2">
                         {heart('w-10 h-10')}
-                        <button
-                          onClick={() => speak(translation.text, selectedLanguage)}
-                          className="shrink-0 w-10 h-10 rounded-lg transition-all hover:opacity-90 flex items-center justify-center bg-[var(--brand-secondary)] text-[var(--brand-text)]"
-                          title="Listen to pronunciation"
-                        >
-                          <span className="text-lg">🔊</span>
-                        </button>
+                        {speakerButton('w-10 h-10', 'text-lg')}
                       </div>
                     </div>
 
@@ -548,13 +586,7 @@ export default function TravelPhrasesSection() {
                       </div>
                       <div className="flex gap-2 shrink-0">
                         {heart('w-12 h-12')}
-                        <button
-                          onClick={() => speak(translation.text, selectedLanguage)}
-                          className="w-12 h-12 rounded-lg transition-all hover:opacity-90 flex items-center justify-center bg-[var(--brand-secondary)] text-[var(--brand-text)]"
-                          title="Listen to pronunciation"
-                        >
-                          <span className="text-xl">🔊</span>
-                        </button>
+                        {speakerButton('w-12 h-12', 'text-xl')}
                       </div>
                     </div>
                   </div>
