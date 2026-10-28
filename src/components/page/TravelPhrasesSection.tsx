@@ -19,17 +19,16 @@
 //     by the English text so it follows whatever language you view).
 //     "♥ Saved" acts as a category; Copy / Print make an offline list.
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import {
   phraseService,
   languages,
-  speechLangMap,
   type Category,
   type GroupedPhrase,
 } from '../../services/phraseService';
-import { SILENT_AUDIO_SRC } from '../../data/silentAudio';
+import { useSpeech } from '../../hooks/useSpeech';
 
 const FAV_KEY = 'el:phrase-favorites';
 const FAV_VIEW = '__favorites__';
@@ -57,14 +56,10 @@ export default function TravelPhrasesSection() {
   const [copied, setCopied] = useState(false);
   // Keyed by phrase.english (unique within a language view, same key
   // favorites already uses) — tracks which speaker button is actively
-  // speaking so it can show a visible "playing" state. Added because a
-  // tap gave zero visual feedback: with the device's ringer switch off,
-  // iOS Safari silently mutes page audio (an OS-level "ambient" audio
-  // category rule web content can't override) and the button looked
-  // like it had done nothing at all.
+  // playing so it can show a visible "playing" state (a tap gave zero
+  // visual feedback before this existed).
   const [speakingKey, setSpeakingKey] = useState<string | null>(null);
-  const silentAudioRef = useRef<HTMLAudioElement | null>(null);
-  const hasUnlockedAudioRef = useRef(false);
+  const { speak, message: speechMessage } = useSpeech();
 
   useEffect(() => {
     setFavorites(readFavorites());
@@ -171,63 +166,21 @@ export default function TravelPhrasesSection() {
       ? favoritePhrases
       : allByCat[selectedCategory] || [];
 
-  const speak = async (text: string, code: string, key: string) => {
-    if (!('speechSynthesis' in window)) return;
-
-    // iOS Safari routes speechSynthesis through the "ambient" audio
-    // category, which always respects the ringer/silent switch — unlike
-    // a real <audio>/<video> element, which iOS plays through "playback"
-    // regardless of the switch (why videos/audio players work in silent
-    // mode but TTS alone doesn't). Looping a silent real <audio> element
-    // keeps the page's session in "playback" mode, and speechSynthesis's
-    // own audio rides on that same session. Started here (inside this
-    // user-gesture click handler) because iOS requires an actual tap to
-    // start any audio at all — can't pre-start this on page load.
-    //
-    // This has to actually be AWAITED, not fire-and-forget: calling
-    // speechSynthesis.speak() immediately after silent.play() (without
-    // waiting for it) was the bug in the first attempt — .play() resolving
-    // doesn't mean iOS has finished switching the audio route over to
-    // "playback" yet, so the speech call could still land on the old
-    // "ambient" session a few milliseconds too early. First-ever call
-    // also gets a short extra buffer for that route switch to settle.
-    const silent = silentAudioRef.current;
-    if (silent && silent.paused) {
-      try {
-        await silent.play();
-        if (!hasUnlockedAudioRef.current) {
-          hasUnlockedAudioRef.current = true;
-          await new Promise((resolve) => setTimeout(resolve, 150));
-        }
-      } catch {
-        // Autoplay/gesture requirements vary by iOS version — if this
-        // fails, speech still plays, it just won't bypass silent mode.
-      }
-    }
-
-    // Cancel any utterance already in flight — without this, tapping a
-    // second phrase before the first finishes leaves two speakingKeys
-    // racing (the first one's `onend` would fire after the second one's
-    // `onstart`, clearing the wrong button's playing state).
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = speechLangMap[code] || code;
-    u.rate = 0.8;
-    u.onstart = () => setSpeakingKey(key);
-    u.onend = () => setSpeakingKey((cur) => (cur === key ? null : cur));
-    u.onerror = () => setSpeakingKey((cur) => (cur === key ? null : cur));
-    window.speechSynthesis.speak(u);
+  // key = phrase.english, same uniqueness guarantee favorites relies on.
+  // Prefers translation.audioUrl (a real pre-generated MP3 — plays via
+  // "playback" audio session, ignores the silent switch) and only falls
+  // back to speechSynthesis (muted by the silent switch; see
+  // useSpeech.ts) when no audio has been generated for that phrase yet.
+  const speakPhrase = (text: string, code: string, languageName: string, audioUrl: string | null | undefined, key: string) => {
+    speak(
+      text,
+      code,
+      languageName,
+      audioUrl,
+      () => setSpeakingKey(key),
+      () => setSpeakingKey((cur) => (cur === key ? null : cur))
+    );
   };
-
-  // Don't leave an utterance (or a stuck "playing" button) running — or
-  // the silent unlock loop playing in the background — after the user
-  // navigates away from this section.
-  useEffect(() => {
-    return () => {
-      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-      silentAudioRef.current?.pause();
-    };
-  }, []);
 
   const toggleFavorite = (english: string) => {
     setFavorites((prev) => {
@@ -338,9 +291,6 @@ export default function TravelPhrasesSection() {
 
   return (
     <section id="german-phrases" className="py-16 bg-[var(--brand-bg-alt)]">
-      {/* Silent looped clip that unlocks iOS's "playback" audio session
-          for speechSynthesis — see speak() and src/data/silentAudio.ts. */}
-      <audio ref={silentAudioRef} src={SILENT_AUDIO_SRC} loop playsInline preload="auto" style={{ display: 'none' }} />
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
           <h2 className="text-4xl font-bold mb-4 text-[var(--brand-text)]">Essential Travel Phrases</h2>
@@ -522,6 +472,11 @@ export default function TravelPhrasesSection() {
 
         {/* ── Phrase list ─────────────────────────────────────────── */}
         <div className="max-w-4xl mx-auto px-2">
+          {speechMessage && (
+            <p className="mb-3 text-sm text-center text-[var(--brand-text-muted)] bg-[var(--brand-bg-card)] border border-[var(--brand-border)] rounded-lg px-4 py-2">
+              {speechMessage}
+            </p>
+          )}
           {shown.length === 0 ? (
             <Card className="p-8 text-center bg-[var(--brand-bg-card)] border border-[var(--brand-border)]">
               <p className="text-[var(--brand-text-muted)]">
@@ -549,7 +504,9 @@ export default function TravelPhrasesSection() {
 
                 const speakerButton = (size: string, iconSize: string) => (
                   <button
-                    onClick={() => speak(translation.text, selectedLanguage, phrase.english)}
+                    onClick={() =>
+                      speakPhrase(translation.text, selectedLanguage, selectedLang?.name ?? 'this language', translation.audioUrl, phrase.english)
+                    }
                     title={isSpeaking ? 'Playing…' : 'Listen to pronunciation'}
                     aria-pressed={isSpeaking}
                     aria-label={isSpeaking ? 'Playing pronunciation' : 'Listen to pronunciation'}

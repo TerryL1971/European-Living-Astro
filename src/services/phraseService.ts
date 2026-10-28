@@ -23,6 +23,7 @@ export interface PhraseTranslation {
   pronunciation: string;
   icon: string | null;
   sort_order: number;
+  audio_url: string | null;
 }
 
 export interface GroupedPhrase {
@@ -33,6 +34,7 @@ export interface GroupedPhrase {
     [languageCode: string]: {
       text: string;
       pronunciation: string;
+      audioUrl?: string | null;
     };
   };
 }
@@ -161,6 +163,7 @@ class PhraseService {
       grouped.translations[phrase.language_code] = {
         text: phrase.translation,
         pronunciation: phrase.pronunciation,
+        audioUrl: phrase.audio_url,
       };
     });
 
