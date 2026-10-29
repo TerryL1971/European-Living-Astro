@@ -530,6 +530,53 @@ question to the site owner directly in its summary rather than opening a
 5th/9th consecutive dry-research day blind — see the run summary for the
 actual ask.
 
+**2026-10-29: a 7th consecutive Bavaria zero-send day, and Wiesbaden's/KMC's
+pivot targets also came up dry.** Ran two dedicated research passes
+(~56 WebSearch calls total) after Bavaria's standing recommendation to try
+the niche that just worked for Wiesbaden. Pass one targeted Bavaria
+specifically: English-speaking counselors/therapists near Ansbach/
+Grafenwöhr/Vilseck/Illesheim (the exact angle that broke Wiesbaden's streak
+on 2026-10-28) — it did not reproduce; Bavaria's English-tagged independent
+practices cluster in Munich/Nuremberg/Regensburg, not these small towns.
+Also tried Illesheim-specific businesses directly (confirmed again it has
+almost no independent off-base footprint online — the one restaurant found,
+Gasthaus Schmidt, is flagged temporarily closed; the other, a "Flight Line
+Cafe/Warrior Restaurant," reads as an on-post DFAC) and a second real-estate/
+insurance pass (AARON Immobilien, K&K Immobilien, Engel & Völkers Ansbach,
+R+V/Eyrisch — none clear the email+English-evidence bar). Pass two pivoted
+to Wiesbaden healthcare (pediatricians/OB-GYN/psychiatrists/nutritionists/
+GPs/ophthalmologists — all directory-sourced with no own-site email found)
+and KMC home-services fresh niches (driving schools, appliance repair,
+pool/spa, home security, dry cleaners, mail-forwarding) — the only three
+concrete near-misses were SPIC AND SPAN's Kaiserslautern landing page
+(same company/email already sent under Stuttgart 2026-08-26, logged
+`skipped_duplicate`), Rümpel Meister D.A.CH GmbH's KMC clearance-cleaning
+page (candidate email never confirmed on its own domain), and Bablon
+Alterations (on-base, no contact at all). One multi-base near-miss, Joy
+Center Family Institute (explicitly serves US-military-connected families
+in Stuttgart/Wiesbaden/Kaiserslautern), had its only email surface
+exclusively on third-party job boards, never its own site — not used.
+**0 emails sent today, across all three base areas worked** — a research-
+coverage gap, not an infrastructure failure (WebSearch, Gmail, and GitHub
+all would have worked normally; Gmail/GitHub were never reached because
+nothing cleared the publish-own-email-plus-English-evidence-plus-
+still-operating bar). This is now the widest single-day research effort to
+come up fully empty — the standing recommendation to the site owner (ask
+whether any Bavaria/Wiesbaden/KMC business owners have reached out directly
+to list themselves, and/or whether a fetch-capable research path could be
+opened to resolve the now-large pile of near-misses blocked only by an
+own-site-indexing gap — dr-landgraf.de, tierarztpraxis-weigl.de,
+ruempelmeister.de, joycenterfamily.com, kmc-rentals.com, Immobilien-4-You,
+engelvoelkers.com/.../ansbach, among others) is repeated here with added
+urgency, since search-only methodology appears to be approaching its
+practical ceiling simultaneously across Bavaria, Wiesbaden's hardest
+categories, and now even KMC's weakest category (home-services).
+Verification sweep: skipped again today — every one of the 17 snapshot
+businesses has a verification-log check dated 2026-08-28 through
+2026-09-02, all still well under the ~90-day re-check window (oldest is
+~62 days old as of today); none are due until late November at the
+earliest.
+
 **2026-10-28: a 6th consecutive Bavaria zero-send day, but the first
 genuine break in Wiesbaden's research-coverage gap in two weeks.** ~26
 WebSearch calls in two parts. Part one stayed on Bavaria (Ansbach/
