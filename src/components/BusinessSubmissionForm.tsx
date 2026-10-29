@@ -29,6 +29,61 @@ import { BASES } from '../data/bases';
 
 const MAX_PHOTO_BYTES = 5 * 1024 * 1024; // 5MB — generous for a phone photo, small enough Resend/Storage don't blink
 
+// Same allowlist as request-business-consent's isGoogleMapsUrl — keep in
+// sync. Only Google Maps links, so the field can't carry an arbitrary URL
+// onto a listing.
+const GOOGLE_HOSTS = new Set(
+  ['com', 'de', 'at', 'ch', 'co.uk', 'fr', 'it', 'nl', 'es', 'pl', 'cz', 'dk', 'be'].flatMap((tld) => [
+    `google.${tld}`,
+    `www.google.${tld}`,
+    `maps.google.${tld}`,
+  ])
+);
+
+// Looked up from the visitor's browser (like the admin page does) rather
+// than only server-side: the same Nominatim request from the Edge
+// Function returned nothing for addresses that resolve fine from a
+// normal connection. Best-effort with a short timeout, so a slow or
+// failed lookup never holds up the submission; request-business-consent
+// still tries its own lookup when no coordinates arrive.
+async function geocodeInBrowser(query: string): Promise<{ latitude: number; longitude: number } | null> {
+  if (!query.trim()) return null;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 5000);
+  try {
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`,
+      { signal: controller.signal }
+    );
+    if (!res.ok) return null;
+    const [first] = await res.json();
+    if (!first) return null;
+    const latitude = parseFloat(first.lat);
+    const longitude = parseFloat(first.lon);
+    return Number.isFinite(latitude) && Number.isFinite(longitude) ? { latitude, longitude } : null;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function isGoogleMapsUrl(value: string): boolean {
+  if (value.length > 2048) return false;
+  let url: URL;
+  try {
+    url = new URL(value.trim());
+  } catch {
+    return false;
+  }
+  if (url.protocol !== 'https:') return false;
+  const host = url.hostname.toLowerCase();
+  if (host === 'maps.app.goo.gl') return true;
+  if (host === 'goo.gl') return url.pathname.startsWith('/maps');
+  if (!GOOGLE_HOSTS.has(host)) return false;
+  return host.startsWith('maps.') || url.pathname.startsWith('/maps');
+}
+
 interface FormData {
   businessName: string;
   category: string;
@@ -37,6 +92,7 @@ interface FormData {
   address: string;
   city: string;
   postalCode: string;
+  googleMapsUrl: string;
   nearbyBases: string[];
   phone: string;
   email: string;
@@ -63,6 +119,7 @@ const EMPTY_FORM: FormData = {
   address: '',
   city: '',
   postalCode: '',
+  googleMapsUrl: '',
   nearbyBases: [],
   phone: '',
   email: '',
@@ -164,6 +221,12 @@ export default function BusinessSubmissionForm() {
       return;
     }
 
+    if (formData.googleMapsUrl.trim() && !isGoogleMapsUrl(formData.googleMapsUrl)) {
+      setError('The Google Maps link doesn’t look right. In Google Maps, tap Share → Copy link and paste it here, or leave the field empty.');
+      setSubmitting(false);
+      return;
+    }
+
     try {
       // Upload to the private pending-images bucket (anon INSERT is
       // allowed there by its storage policy) rather than the public
@@ -188,6 +251,7 @@ export default function BusinessSubmissionForm() {
       const locationParts = [formData.city];
       if (formData.postalCode) locationParts.push(formData.postalCode);
       const location = locationParts.join(', ');
+      const coords = await geocodeInBrowser([formData.address, location].filter(Boolean).join(', '));
 
       const notesArray = [];
       if (formData.sofaFamiliar) notesArray.push('SOFA-familiar');
@@ -209,6 +273,7 @@ export default function BusinessSubmissionForm() {
         description: formData.description || null,
         location: location,
         address: formData.address || null,
+        google_maps_url: formData.googleMapsUrl.trim() || null,
         phone: formData.phone,
         email: formData.email,
         website: formData.website || null,
@@ -218,6 +283,7 @@ export default function BusinessSubmissionForm() {
         submitted_by_name: formData.submitterName,
         submitted_by_email: formData.submitterEmail,
         ...(pendingLogoPath ? { pending_logo_path: pendingLogoPath } : {}),
+        ...(coords ?? {}),
       };
 
       // Calls the request-business-consent Edge Function instead of
@@ -478,6 +544,26 @@ export default function BusinessSubmissionForm() {
                   className="w-full px-4 py-2 border border-[var(--border)] rounded-lg bg-[var(--brand-bg-card)] text-[var(--brand-dark)] focus:ring-2 focus:ring-[var(--brand-primary)] focus:outline-none transition-all duration-200"
                   placeholder="70173"
                 />
+              </div>
+
+              <div className="md:col-span-2">
+                <label htmlFor="googleMapsUrl" className="block text-sm font-medium text-[var(--brand-dark)] mb-2">
+                  Google Maps Link (optional)
+                </label>
+                <input
+                  id="googleMapsUrl"
+                  type="url"
+                  inputMode="url"
+                  autoComplete="off"
+                  value={formData.googleMapsUrl}
+                  onChange={(e) => handleChange('googleMapsUrl', e.target.value)}
+                  className="w-full px-4 py-2 border border-[var(--border)] rounded-lg bg-[var(--brand-bg-card)] text-[var(--brand-dark)] focus:ring-2 focus:ring-[var(--brand-primary)] focus:outline-none transition-all duration-200"
+                  placeholder="https://maps.app.goo.gl/..."
+                  aria-describedby="googleMapsUrl-help"
+                />
+                <p id="googleMapsUrl-help" className="mt-2 text-xs text-[var(--muted-foreground)]">
+                  Find your business in Google Maps, tap <strong>Share</strong> → <strong>Copy link</strong>, and paste it here so customers can see your reviews and hours. No link? We&rsquo;ll create a map pin from your address.
+                </p>
               </div>
 
               <div className="md:col-span-2">

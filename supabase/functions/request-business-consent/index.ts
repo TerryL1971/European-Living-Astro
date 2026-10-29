@@ -15,11 +15,11 @@
 
 import { createClient } from "@supabase/supabase-js";
 
-// Geocodes the submitted address so the detail page's map + "Get
-// Directions" link work (businesses/[slug].astro only renders those
-// when latitude/longitude are set — the public submission form never
-// collected coordinates at all, so every public submission landed with
-// no map). Nominatim (OpenStreetMap) — same data source already used
+// Fallback geocoder, used only when the form didn't send coordinates
+// (it normally looks them up in the visitor's browser — this same
+// request from here returned nothing for addresses that resolve fine
+// elsewhere). businesses/[slug].astro only renders the map + "Get
+// Directions" when latitude/longitude are set. Nominatim (OpenStreetMap) — same data source already used
 // by Leaflet elsewhere in this project, free, no API key, 1 req/sec
 // limit is irrelevant at this form's submission volume. Best-effort:
 // a failed/empty geocode just leaves lat/lng null, same as before.
@@ -37,15 +37,48 @@ async function geocodeAddress(address: string | undefined, location: string | un
         },
       },
     );
-    if (!res.ok) return { latitude: null, longitude: null };
+    if (!res.ok) {
+      console.error(`Geocoding HTTP ${res.status}: ${(await res.text()).slice(0, 200)}`);
+      return { latitude: null, longitude: null };
+    }
     const results = await res.json();
     const first = results?.[0];
-    if (!first) return { latitude: null, longitude: null };
+    if (!first) {
+      console.error(`Geocoding found no match for: ${query}`);
+      return { latitude: null, longitude: null };
+    }
     return { latitude: parseFloat(first.lat), longitude: parseFloat(first.lon) };
   } catch (err) {
     console.error("Geocoding failed:", err);
     return { latitude: null, longitude: null };
   }
+}
+
+// Same allowlist as BusinessSubmissionForm.tsx's isGoogleMapsUrl — keep
+// in sync. Rechecked here because this function inserts whatever fields
+// the caller sends, so the browser-side check alone can't be trusted.
+const GOOGLE_HOSTS = new Set(
+  ["com", "de", "at", "ch", "co.uk", "fr", "it", "nl", "es", "pl", "cz", "dk", "be"].flatMap((tld) => [
+    `google.${tld}`,
+    `www.google.${tld}`,
+    `maps.google.${tld}`,
+  ]),
+);
+
+function isGoogleMapsUrl(value: unknown): value is string {
+  if (typeof value !== "string" || value.length > 2048) return false;
+  let url: URL;
+  try {
+    url = new URL(value.trim());
+  } catch {
+    return false;
+  }
+  if (url.protocol !== "https:") return false;
+  const host = url.hostname.toLowerCase();
+  if (host === "maps.app.goo.gl") return true;
+  if (host === "goo.gl") return url.pathname.startsWith("/maps");
+  if (!GOOGLE_HOSTS.has(host)) return false;
+  return host.startsWith("maps.") || url.pathname.startsWith("/maps");
 }
 
 function slugify(name: string): string {
@@ -123,19 +156,36 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
     );
 
-    // Only geocode if the form didn't already send coordinates (it
-    // doesn't today, but don't clobber a future caller that does).
-    const needsGeocode = businessFields.latitude == null || businessFields.longitude == null;
-    const geocoded = needsGeocode
-      ? await geocodeAddress(businessFields.address, businessFields.location)
-      : { latitude: null, longitude: null };
+    // The form looks coordinates up in the visitor's browser and sends
+    // them along; use those when they're real lat/lng values, and only
+    // fall back to geocoding here when they're missing or malformed.
+    const lat = businessFields.latitude;
+    const lng = businessFields.longitude;
+    const hasValidCoords =
+      typeof lat === "number" && typeof lng === "number" &&
+      Number.isFinite(lat) && Number.isFinite(lng) &&
+      Math.abs(lat) <= 90 && Math.abs(lng) <= 180;
+    const { latitude, longitude } = hasValidCoords
+      ? { latitude: lat, longitude: lng }
+      : await geocodeAddress(businessFields.address, businessFields.location);
+
+    // The business's own Share link (opens their Google profile with
+    // reviews/hours) when they pasted a valid one; otherwise a pin link
+    // built from the coordinates, the same format the admin page makes.
+    const google_maps_url = isGoogleMapsUrl(businessFields.google_maps_url)
+      ? businessFields.google_maps_url.trim()
+      : latitude != null && longitude != null
+        ? `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`
+        : null;
 
     // Insert the pending, invisible business row.
     const { data: business, error: insertError } = await supabase
       .from("businesses")
       .insert({
         ...businessFields,
-        ...(needsGeocode ? geocoded : {}),
+        latitude,
+        longitude,
+        google_maps_url,
         slug: slugify(businessFields.name ?? "business"),
         submitted_by_name,
         submitted_by_email,
