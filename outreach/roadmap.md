@@ -351,6 +351,53 @@ PCS services), or (c) opening Bavaria (next in priority order, fully
 unstarted) in parallel rather than a sixth consecutive dry day on the
 same four categories.
 
+**2026-10-30: an 8th consecutive Bavaria zero-send day, and Wiesbaden's
+hardest four categories now span roughly 13 run-days dry.** ~28 WebSearch
+calls in two parts, each deliberately trying angles not yet exhausted.
+Part one (Bavaria) tried a franchise-branch angle — large German tutoring
+and music-school chains (Schülerhilfe, Studienkreis, Lernstudio Barbarossa,
+a generic Musikschule Ansbach search) that have hundreds of branches
+nationwide, on the theory that one might have an Ansbach location the way
+Lernstudio Barbarossa Kaiserslautern worked for KMC (2026-09-30) — found no
+Ansbach/Grafenwöhr/Vilseck branch for any of them. Also re-tried
+English-speaking dentists (Ansbach/Grafenwöhr/Vilseck — none confirmed),
+Von Poll/Engel & Völkers Ansbach (same redacted-contact status as
+2026-10-22), and a USAG Ansbach MWR personal-trainer roster / military-spouse
+fitness-coach search (no current Ansbach-based match, only a decade-old
+article about a different spouse). Part two (Wiesbaden) tried a
+German-law-Impressum angle on 4 of the restaurant no-email backlog's
+strongest leads (Chillers, Chateau Kefraya, Street Burger, Thai Banyan) —
+no Impressum/email surfaced for any of them — plus fresh niches (tailor,
+American import grocery, doula/midwife, osteopath/physiotherapist, American
+bakery/cafe, vet, florist, driving school, German-for-English-speakers
+tutor, notary). Three concrete near-misses were found and held back rather
+than sent: Blumenhaus Inge (Erbenheim florist, genuine own-domain email, but
+the only English signal is a templated delivery-platform page shared by
+many florists — not independent evidence of English-speaking staff, same
+guardrail as Theodora's Beauty Experts); Wellness in Practice (a reviewer
+explicitly calls practitioner Benjamin an English speaker — the strongest
+English-evidence signal found all day — but Setmore-booking-only, no email);
+and a September-2023 US Army Wiesbaden notary list (Delia Reinders, a
+genuine own-domain email, but the list is 3 years stale and never states
+English service, same guardrail as the May-2020 Ansbach sworn-translator
+list). **0 emails sent today, across all three base areas worked** — a
+continuation of the documented research-coverage gap, not an infrastructure
+failure (WebSearch, Gmail, and GitHub all would have worked normally;
+Gmail/GitHub were never reached because nothing cleared the bar to send).
+This run independently re-confirms, via its own ~28 fresh queries across
+genuinely new angles (franchise branches, Impressum pages, several
+niches untried until today), the same ceiling flagged repeatedly since
+2026-10-07 — the standing recommendation to the site owner (ask whether any
+Bavaria/Wiesbaden business owners have reached out directly to list
+themselves, and/or whether a fetch-capable research path could be opened to
+resolve the now-substantial pile of near-misses blocked only by an
+own-site-indexing gap) is repeated here with the full weight of today's
+independent confirmation behind it. Verification sweep: skipped again
+today — every one of the 17 snapshot businesses has a verification-log
+check dated 2026-08-28 through 2026-09-02, all still well under the ~90-day
+re-check window (oldest is ~63 days old as of today); none are due until
+late November at the earliest.
+
 **2026-10-27: a fifth consecutive Bavaria zero-send day, and Wiesbaden's
 hardest four categories remain at 0 sends too.** ~27 WebSearch calls in
 two parts. Part one targeted Wiesbaden's four stuck categories
