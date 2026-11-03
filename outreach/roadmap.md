@@ -720,6 +720,58 @@ real-estate/insurance pass, English-speaking counselors/therapists the
 same way that worked for Wiesbaden today) rather than another repeat of
 exhausted ground.
 
+**2026-11-03: a 10th consecutive Bavaria zero-send day, and Wiesbaden's
+hardest four categories now span roughly 16 run-days dry — 0 emails sent
+anywhere today, across ~24 WebSearch calls in three parts.** Part one
+targeted KMC's two weakest actionable categories (home-services 12,
+real-estate 13) with niches not yet tried — massage therapist/spa,
+property management companies, mortgage brokers/financial advisors, key
+cutting/upholstery/mattress shops, dog trainers/driving instructors,
+serviced-apartment/corporate-housing operators, and private chefs/caterers
+— every query found either nothing or a real option with no genuinely
+published own-site email. The closest near-miss, Engel & Völkers
+Kaiserslautern's residential shop (explicitly covering
+Kaiserslautern/Landstuhl/Zweibrücken/Ramstein-Miesenbach with several
+English-speaking advisors), turned out to publish only a commercial-branch
+email (Kaiserslauterncommercial@engelvoelkers.com) — a different
+department, not a fit for residential military-family housing, so not
+used; the residential shop itself offers only a "Contact me" form per
+advisor. RentYourNest's Grafenwöhr/Vilseck furnished-apartment listings
+explicitly target military families but publish no contact email and flag
+some listing text as AI-generated, the same genuine-business-vs-templated-
+platform doubt raised for the 2026-10-07 beiladung-Kaiserslautern cluster
+— held back. Part two tried fresh Wiesbaden angles (an off-post
+business-guide/PDF check — none exists beyond the HBB application
+process — and Clay Kaserne car wash/detailing/tire shop, which turned up
+only the MWR Auto Skills Center itself) plus a direct Impressum/email
+follow-up on three of the restaurants no-email backlog's strongest fits
+(Chillers American Diner and Bar, Street Burger, Hacienda) — no Impressum
+or email surfaced for any of the three. Part three re-tried Bavaria (dog
+groomer/pet store, English tutoring/music lessons, American food import
+grocery, notary/Steuerberater/sworn translator) — every niche again found
+either no named business or one with no English-service evidence and no
+published email; the sworn-translator search re-surfaced only the same
+stale May-2020 USAG Ansbach list already logged 2026-10-21. **This is a
+research-coverage gap, not an infrastructure failure** — WebSearch worked
+normally for all ~24 calls today; Gmail and GitHub were simply never
+reached because nothing cleared the publish-own-email-plus-English-
+evidence-plus-still-operating bar. Verification sweep: skipped again
+today — every one of the 17 snapshot businesses has a verification-log
+check dated 2026-08-28 through 2026-09-02 (62-67 days old), still under
+the ~90-day re-check window; the oldest won't come due until roughly
+2026-11-26. **The standing recommendation to the site owner is repeated
+here for the fourth time with no indication it has been acted on**: (a)
+ask whether any Bavaria/Wiesbaden business owners have reached out
+directly to list themselves, since search-only methodology has now gone
+10 straight Bavaria run-days and ~16 Wiesbaden run-days without a single
+sendable lead in their hardest categories, and (b) whether a
+fetch-capable research path could ever be opened for this sandbox, since
+a growing, specifically-named list of near-misses (Engel & Völkers
+Kaiserslautern, RentYourNest, dr-landgraf.de, tierarztpraxis-weigl.de,
+ansbach-maharaja.de, ruempelmeister.de, delorme-goldberg.de, among others)
+are blocked only by an own-site-indexing/contact-form gap, not a genuine
+absence of a real, English-friendly business.
+
 ## Known issues (as of 2026-08-25)
 
 Runs from 2026-08-21 through 2026-08-25 sent **zero** emails — not a
@@ -1444,6 +1496,21 @@ was no new-lead verification (check 1) to perform either.
    oldest entries). This was also a zero-send day across all three base
    areas worked (see the Bavaria section above for the full account), so
    there was no new-lead verification (check 1) to perform either.
+
+   **Still true as of 2026-11-03:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are 67 days old, still nowhere
+   near the ~90-day window, and the snapshot (17 entries per a direct
+   read of `outreach/businesses-snapshot.json` this run) is unchanged
+   since 2026-10-01 per `git log -1 --format=%ad --
+   outreach/businesses-snapshot.json` — every snapshot entry has already
+   been checked within the last ~90 days, so there was nothing eligible
+   to re-verify and the 2026-11-03 run also did zero new
+   verification-log rows (same reasoning as every run since 2026-09-03;
+   the window starts opening up around 2026-11-26 for the oldest
+   entries). This was also a zero-send day across all three base areas
+   worked (see the Bavaria section above for the full 2026-11-03
+   account), so there was no new-lead verification (check 1) to perform
+   either.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
