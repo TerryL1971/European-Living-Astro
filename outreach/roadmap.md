@@ -772,6 +772,59 @@ ansbach-maharaja.de, ruempelmeister.de, delorme-goldberg.de, among others)
 are blocked only by an own-site-indexing/contact-form gap, not a genuine
 absence of a real, English-friendly business.
 
+**2026-11-04: an 11th consecutive Bavaria zero-send day, and Wiesbaden's
+hardest four categories now span roughly 17 run-days dry — 0 emails sent
+anywhere today, across ~25 WebSearch calls in three parts.** Part one
+tried Bavaria niches not yet fully exhausted: English-speaking
+osteopath/physiotherapist (found a few named practices, incl. Physiotherapie
+Uwe Fröhlich with its own domain, but zero English-service evidence for
+any of them), doula/midwife near Grafenwöhr/Vilseck (nothing found beyond
+general base health-clinic resources), an Ansbach insurance-broker search
+(Timo Haas/Württembergische — a genuine English-evidence hit, his own
+agent profile page lists English as an offered advice language, but no
+individual email surfaced anywhere, only the parent company's general
+info@wuerttembergische.de mailbox — wrong-department fit, same guardrail
+as Engel & Völkers Kaiserslautern-commercial), nail salon/massage therapist
+(only the same stale Nov-2020 Stroell's Hairteam reference already logged
+2026-11-02), a moving-company search, a Reddit/milspouse-forum angle
+looking for direct business recommendations (found none specific enough to
+act on), a military-spouse Etsy/crafts angle (US-general results only,
+nothing Ansbach-specific), and a fresh English-speaking dentist/vet pass
+(nothing new). Part two tried Wiesbaden's four stuck categories with fresh
+niches: mobile car detailing (no English-speaking provider found), Vietnamese/
+Korean/BBQ restaurants (two genuine English-evidence hits via reviews — Non
+La Vietnam Imbiss and Hoang Minh — but no own-site/email/phone beyond a
+reservation-only number found for either), pest control (MARNI-Hygiene-Dienst
+GmbH — email sourced only from a city-government pest-controller PDF list,
+never confirmed on the company's own site, and zero English-service
+evidence either way, so held back on two separate guardrails), a Mr. Smart
+Repair follow-up (still no site/email, only directory profiles), and a toy
+store/jeweler search (nothing found at all). Part three tried KMC's two
+weakest categories with fresh niches: a furnished-apartment/TLA operator
+search surfaced a strong-looking new lead, "Hindi TLA Lodging" (likely a
+Google Business listing-name quirk) at Spesbacher Str. 45b,
+Ramstein-Miesenbach — 5.0/21 reviews, a named host (Josef) repeatedly
+praised for going above and beyond — but no phone, email, or website
+surfaced anywhere; a property-management search found Immoplan (Otterbach)
+listing English among its languages on a JACASA directory profile, but no
+email on its own site; and a Grafenwoehr Furnished Apartments / window-
+cleaning pass found only the same standing Rümpel Meister/RentYourNest
+near-misses already logged. **This is a research-coverage gap, not an
+infrastructure failure** — WebSearch worked normally for all ~25 calls
+today; Gmail and GitHub were never reached because nothing cleared the
+publish-own-email-plus-English-evidence-plus-still-operating bar. This is
+now an 11th consecutive Bavaria dry day and roughly a 17th Wiesbaden
+stuck-category dry day. **The standing recommendation to the site owner
+is repeated again, now a fifth time**: (a) ask whether any Bavaria/
+Wiesbaden business owners have reached out directly to list themselves,
+and (b) whether a fetch-capable research path could ever be opened for
+this sandbox to resolve the growing, specifically-named pile of near-misses
+that keep surfacing a real, named, English-friendly business with no
+contact info indexable by web search alone (Hindi TLA Lodging/Josef, Timo
+Haas/Württembergische, Non La Vietnam Imbiss, Hoang Minh, Immoplan
+Otterbach, dr-landgraf.de, tierarztpraxis-weigl.de, ansbach-maharaja.de,
+ruempelmeister.de, delorme-goldberg.de, among others).
+
 ## Known issues (as of 2026-08-25)
 
 Runs from 2026-08-21 through 2026-08-25 sent **zero** emails — not a
@@ -1509,6 +1562,20 @@ was no new-lead verification (check 1) to perform either.
    the window starts opening up around 2026-11-26 for the oldest
    entries). This was also a zero-send day across all three base areas
    worked (see the Bavaria section above for the full 2026-11-03
+   account), so there was no new-lead verification (check 1) to perform
+   either.
+
+   **Still true as of 2026-11-04:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are 68 days old, still nowhere
+   near the ~90-day window, and the snapshot (17 entries per a direct
+   read of `outreach/businesses-snapshot.json` this run) shows no new
+   confirmed listings to add to the rotation — every snapshot entry has
+   already been checked within the last ~90 days, so there was nothing
+   eligible to re-verify and the 2026-11-04 run also did zero new
+   verification-log rows (same reasoning as every run since 2026-09-03;
+   the window starts opening up around 2026-11-26 for the oldest
+   entries). This was also a zero-send day across all three base areas
+   worked (see the Bavaria section above for the full 2026-11-04
    account), so there was no new-lead verification (check 1) to perform
    either.
 
