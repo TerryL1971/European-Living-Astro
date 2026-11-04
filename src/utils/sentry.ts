@@ -57,7 +57,12 @@ export function initSentry() {
       'Transition was aborted',
       'Transition was skipped',
       'AbortError',
+      // Facebook's Android in-app browser injects its own scripts (iabjs://),
+      // which throw this when the page unloads. Not our code.
+      'Java object is gone',
     ],
+
+    denyUrls: [/^iabjs:\/\//],
   });
 }
 
