@@ -772,6 +772,47 @@ ansbach-maharaja.de, ruempelmeister.de, delorme-goldberg.de, among others)
 are blocked only by an own-site-indexing/contact-form gap, not a genuine
 absence of a real, English-friendly business.
 
+**2026-11-05: a 12th consecutive Bavaria zero-send day, and Wiesbaden's
+hardest four categories now span roughly 18 run-days dry — 0 emails sent
+anywhere today, across ~10 WebSearch calls in three parts.** Part one
+tried Bavaria angles not yet tried: a direct check for a current (not
+archived/decade-old) USAG Bavaria off-post vendor list or Find-It Guide
+edition (none found, same negative result as 2026-10-22/23), an
+English-speaking pediatrician/OB-GYN search for Ansbach specifically (only
+a hospital OB-GYN department with no language info, nothing off-post with
+English confirmed), an English-language Fahrschule/driving-school search
+(nothing beyond ACS's free ESL classes, which aren't a commercial driving
+school), a military-spouse Facebook/HBB-recommendation angle (only
+USO/ACS/SBA entrepreneurship-support pages, no named local business
+surfaced), a Steuerberater/tax-advisor search (a Rödl & Partner Ansbach
+branch exists but with no confirmed English service; RFP Steuerberatung,
+already sent under KMC, has no distinct Ansbach presence), and a dry
+cleaner/laundromat/alterations search (only a decade-old archived AAFES
+Grafenwöhr Exchange listing, not usable). Part two tried two fresh
+Wiesbaden angles for its four stuck categories: auto repair/garage English
+reviews (found only the Wiesbaden Auto Skills Center, an MWR facility, and
+AHG BMW/MINI's English-service page with no confirmed Wiesbaden location)
+and an American Legion/VFW local-business-recommendation angle (found only
+a passing VFW Post 27 community-involvement mention, no actual
+recommendations). Part three tried two fresh KMC angles for its weakest
+categories: English-speaking notary/sworn translator (no current
+Kaiserslautern-area own-site/email found) and key-cutting/locksmith/shoe
+repair (only Ramstein AB's own government-facility locksmith shop, not a
+private business, and no shoe-repair business at all). **This is a
+research-coverage gap, not an infrastructure failure** — WebSearch worked
+normally for all ~10 calls today; Gmail and GitHub were never reached
+because nothing cleared the publish-own-email-plus-English-evidence-plus-
+still-operating bar. **The standing recommendation to the site owner is
+repeated again, now a sixth time, with no indication it has been acted
+on**: (a) ask whether any Bavaria/Wiesbaden business owners have reached
+out directly to list themselves, since search-only methodology has now
+gone 12 straight Bavaria run-days and ~18 Wiesbaden run-days without a
+single sendable lead in their hardest categories, and (b) whether a
+fetch-capable research path could ever be opened for this sandbox to
+resolve the growing, specifically-named pile of near-misses that keep
+surfacing a real, named, English-friendly business with no contact info
+indexable by web search alone.
+
 **2026-11-04: an 11th consecutive Bavaria zero-send day, and Wiesbaden's
 hardest four categories now span roughly 17 run-days dry — 0 emails sent
 anywhere today, across ~25 WebSearch calls in three parts.** Part one
@@ -1576,6 +1617,20 @@ was no new-lead verification (check 1) to perform either.
    the window starts opening up around 2026-11-26 for the oldest
    entries). This was also a zero-send day across all three base areas
    worked (see the Bavaria section above for the full 2026-11-04
+   account), so there was no new-lead verification (check 1) to perform
+   either.
+
+   **Still true as of 2026-11-05:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are 69 days old, still nowhere
+   near the ~90-day window, and the snapshot (17 entries per a direct
+   read of `outreach/businesses-snapshot.json` this run) shows no new
+   confirmed listings to add to the rotation — every snapshot entry has
+   already been checked within the last ~90 days, so there was nothing
+   eligible to re-verify and the 2026-11-05 run also did zero new
+   verification-log rows (same reasoning as every run since 2026-09-03;
+   the window starts opening up around 2026-11-26 for the oldest
+   entries). This was also a zero-send day across all three base areas
+   worked (see the Bavaria section above for the full 2026-11-05
    account), so there was no new-lead verification (check 1) to perform
    either.
 
