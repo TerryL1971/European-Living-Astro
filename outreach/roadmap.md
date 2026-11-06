@@ -866,6 +866,55 @@ Haas/Württembergische, Non La Vietnam Imbiss, Hoang Minh, Immoplan
 Otterbach, dr-landgraf.de, tierarztpraxis-weigl.de, ansbach-maharaja.de,
 ruempelmeister.de, delorme-goldberg.de, among others).
 
+**2026-11-06: a 13th consecutive Bavaria zero-send day, and Wiesbaden's
+hardest four categories now span roughly 19 run-days dry — 0 emails sent
+anywhere today, across ~21 WebSearch calls in three parts.** Part one
+targeted KMC's two weakest categories (home-services 12, real-estate 13)
+with fresh niches: furniture rental (found only the government LQA
+program and TDYHOMES' furnished-housing option, not standalone rental),
+a vehicle-registration/Zulassungsdienst-for-Americans angle (found only
+the USAG Rheinland-Pfalz/Ramstein military registration office itself,
+not a private business), roofing/paving contractors (real local roofers,
+no English evidence), and a direct follow-up on Engel & Völkers
+Kaiserslautern's residential shop (re-confirmed the 2026-11-03 finding —
+still no email for the shop or for English-speaking advisors Guy
+Hendriks/Eduard Max, only the wrong-department commercial/Zweibrücken
+addresses). Part two tried fresh Wiesbaden angles for its four stuck
+categories: an automatic-transmission/English-language driving-school
+search surfaced **Fahrschule Next Drive** (Dotzheim) — the first
+Wiesbaden automotive lead with a genuine own-listed English-language tag
+(German/English/Pashto) plus an automatic-transmission option, a strong
+fit for American students, but no email anywhere, only a phone number
+and directory request form, logged `skipped_no_email` as a fresh
+near-miss worth a follow-up call; car detailing, American diner/pub
+(Yours American Sports Bar remains the strongest standing no-email
+match), and thrift store (only the base-access Spouses' Club shop) all
+reconfirmed prior status with no new contact. Part three opened a 13th
+Bavaria research day: automatic/English Fahrschule (Ansbach), American
+import grocery, karate dojo/dance school, English yoga/Pilates, a
+family-photographer search that surfaced Tapia-Calderon Photography
+(Grafenwöhr-based since 2022, Pixieset site, no findable email — a
+direct WebFetch to confirm its contact page reconfirmed Known Issues #1,
+`getaddrinfo ENOTFOUND`, rather than finding a new regression), and a
+Stripes Europe/Mission:Milspouse restaurant-guide check (only a paid,
+unreadable food-guide product and one out-of-area steakhouse). **This is
+a research-coverage gap, not an infrastructure failure** — WebSearch
+worked normally for all ~21 calls today; Gmail and GitHub were never
+reached because nothing cleared the publish-own-email-plus-English-
+evidence-plus-still-operating bar. **The standing recommendation to the
+site owner is repeated again, now a seventh time, with no indication it
+has been acted on**: (a) ask whether any Bavaria/Wiesbaden business
+owners have reached out directly to list themselves, since search-only
+methodology has now gone 13 straight Bavaria run-days and ~19 Wiesbaden
+run-days without a single sendable lead in their hardest categories, and
+(b) whether a fetch-capable research path could ever be opened for this
+sandbox to resolve the growing, specifically-named pile of near-misses
+that keep surfacing a real, named, English-friendly business with no
+contact info indexable by web search alone (Fahrschule Next Drive,
+Tapia-Calderon Photography, Engel & Völkers Kaiserslautern residential
+advisors, dr-landgraf.de, tierarztpraxis-weigl.de, ansbach-maharaja.de,
+ruempelmeister.de, delorme-goldberg.de, among others).
+
 ## Known issues (as of 2026-08-25)
 
 Runs from 2026-08-21 through 2026-08-25 sent **zero** emails — not a
@@ -1633,6 +1682,15 @@ was no new-lead verification (check 1) to perform either.
    worked (see the Bavaria section above for the full 2026-11-05
    account), so there was no new-lead verification (check 1) to perform
    either.
+
+   **Still true as of 2026-11-06:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are 70 days old, still short of
+   the ~90-day window (opens up ~2026-11-26), and the snapshot (17
+   entries, file dated 2026-10-07 per git log, no fresher copy available)
+   shows no new confirmed listings to rotate in, so the 2026-11-06 run
+   also did zero new verification-log rows. Zero-send day again (see the
+   Bavaria section above for the full 2026-11-06 account), so there was
+   no new-lead verification (check 1) to perform either.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
