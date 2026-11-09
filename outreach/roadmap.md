@@ -915,6 +915,58 @@ Tapia-Calderon Photography, Engel & Völkers Kaiserslautern residential
 advisors, dr-landgraf.de, tierarztpraxis-weigl.de, ansbach-maharaja.de,
 ruempelmeister.de, delorme-goldberg.de, among others).
 
+**2026-11-09: a 14th consecutive Bavaria zero-send day, and Wiesbaden's
+hardest four categories now span roughly 20 run-days dry — 0 emails sent
+anywhere today, across ~30 WebSearch calls in three parts.** Part one
+targeted Bavaria niches not yet tried: English-speaking chiropractor
+(found only the on-post US Army Health Clinic Vilseck, not a private
+business), Logopädie/speech therapy (no English-confirmed Ansbach
+practice), a military-focused barbershop (nothing specific to
+Ansbach/Grafenwöhr beyond generic AAFES/MWR barbershop-pricing pages),
+a military-spouse personal trainer (only official on-post MWR trainers
+and remote/unlocated coaches), two Ansbach real-estate agencies that
+list English per directory profiles (TK-Immobilienwelt, RE/MAX — both
+logged separately, neither publishes an email anywhere), an SAT/ACT math
+tutor and an English yoga instructor (nothing found within range), a
+direct follow-up on two 2026-10-28 HBB photographer near-misses (San
+Nguyen Tran Photography, Quesenberry Photography — still no contact for
+either), a sworn-translator/notary recheck (same stale May-2020 USAG
+Ansbach list), and a Facebook/community-directory angle plus a check for
+a still-live grafenwoehr.com business directory referenced in a 2007
+Stars and Stripes article (neither turned up anything current). Part two
+tried fresh Wiesbaden angles for its four stuck categories: Irish/English
+pub (Scotch 'n Soda, Murphys Pub — standing no-email venues, reconfirmed),
+English bookstore/American gift shop (none found in Wiesbaden at all),
+car rental agencies (only large franchises, poor small-business fit
+regardless), furniture-assembly handymen (I.D Handyman and a new
+Fixando-platform find, MRMOBELMONTAGE — neither has an own-site contact),
+and a genuine new healthcare near-miss, Dr. Barbara Gellrich
+(orthopedics/osteopathy, Sonnenberger Str. 66 — English+Dutch listed on
+arzt-auskunft.de, but no practice website/email found anywhere, logged
+separately). Part three tried KMC's weakest actionable category
+(home-services) with self-storage and dog-walker/pet-sitter niches —
+found one genuinely English-speaking pet sitter, Olena L. (Ramstein, via
+Rover.com, explicitly serves the US base community), logged separately,
+but Rover is a booking-platform marketplace with no published email.
+**This is a research-coverage gap, not an infrastructure failure** —
+WebSearch worked normally for all ~30 calls today; Gmail and GitHub were
+never reached because nothing cleared the publish-own-email-plus-English-
+evidence-plus-still-operating bar. This is now a 14th consecutive Bavaria
+dry day and roughly a 20th Wiesbaden stuck-category dry day. **The
+standing recommendation to the site owner is repeated again, now an
+eighth time, with no indication it has been acted on**: (a) ask whether
+any Bavaria/Wiesbaden business owners have reached out directly to list
+themselves, since search-only methodology has now gone 14 straight
+Bavaria run-days and ~20 Wiesbaden run-days without a single sendable
+lead in their hardest categories, and (b) whether a fetch-capable
+research path could ever be opened for this sandbox to resolve the
+growing, specifically-named pile of near-misses that keep surfacing a
+real, named, English-friendly business with no contact info indexable by
+web search alone (TK-Immobilienwelt Ansbach, RE/MAX Immobilien Ansbach,
+Dr. Barbara Gellrich, Olena L./Ramstein, Fahrschule Next Drive,
+dr-landgraf.de, tierarztpraxis-weigl.de, ansbach-maharaja.de,
+ruempelmeister.de, delorme-goldberg.de, among others).
+
 ## Known issues (as of 2026-08-25)
 
 Runs from 2026-08-21 through 2026-08-25 sent **zero** emails — not a
@@ -1690,6 +1742,15 @@ was no new-lead verification (check 1) to perform either.
    shows no new confirmed listings to rotate in, so the 2026-11-06 run
    also did zero new verification-log rows. Zero-send day again (see the
    Bavaria section above for the full 2026-11-06 account), so there was
+   no new-lead verification (check 1) to perform either.
+
+   **Still true as of 2026-11-09:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are 73 days old, still short of
+   the ~90-day window (opens up ~2026-11-26), and the snapshot (17
+   entries, file dated 2026-10-07 per git log, no fresher copy available)
+   shows no new confirmed listings to rotate in, so the 2026-11-09 run
+   also did zero new verification-log rows. Zero-send day again (see the
+   Bavaria section above for the full 2026-11-09 account), so there was
    no new-lead verification (check 1) to perform either.
 
 **Recording results** — append every existing-listing check to
