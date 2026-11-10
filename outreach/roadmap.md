@@ -967,6 +967,56 @@ Dr. Barbara Gellrich, Olena L./Ramstein, Fahrschule Next Drive,
 dr-landgraf.de, tierarztpraxis-weigl.de, ansbach-maharaja.de,
 ruempelmeister.de, delorme-goldberg.de, among others).
 
+**2026-11-10: a 15th consecutive Bavaria zero-send day, and Wiesbaden's
+hardest four categories now span roughly 21 run-days dry — 0 emails sent
+anywhere today, across ~17 WebSearch calls in three parts.** Part one
+tried fresh Bavaria angles: a sworn-translator re-check (re-surfaced only
+the same stale May-2020 USAG Ansbach list), an English-speaking-attorney
+search (found a genuine new lead, Graf von Seckendorff und Kollegen,
+Ansbach, established 1947, English listed per a legal directory — but no
+email found anywhere and its own domain isn't indexed, logged separately),
+an insurance-broker search (only nationwide expat brokers with no
+Ansbach/Grafenwöhr/Vilseck presence), and a Steuerberater/US-tax search
+(only Rödl & Partner's Ansbach branch, no confirmed English service).
+Part two tried Wiesbaden's four stuck categories: a direct Impressum
+follow-up on Chillers American Diner (still nothing beyond
+OpenTable/Lieferando/Bahnhof.de phone listings), a Steuerberater/US-tax
+search (only German-language local firms plus non-local US-tax
+specialists), and a Kfz-Werkstatt English-speaking-mechanic search
+(re-confirmed Mr. Smart Repair as the only hit, still no email). Part
+three tried KMC's weakest categories: an English-speaking financial
+advisor search (only the already-flagged templated us-germany-navi
+SEO network), a furnished-apartment/TLA operator search (found a genuine
+new lead, Mumo's Inn — a furnished TLA/TQSA apartment in Landstuhl near
+Ramstein AB/LRMC with a free loaner car, logged separately — but its site
+exposes only an Email/WhatsApp button, no address visible in search
+results), and an English-speaking physical-therapy search (only
+staffing-agency job postings, no clinic-level contact). **This is a
+research-coverage gap, not an infrastructure failure** — WebSearch
+worked normally for all ~17 calls today; Gmail and GitHub were never
+reached because nothing cleared the publish-own-email-plus-English-
+evidence-plus-still-operating bar. Also worth flagging: this run's first
+`git checkout -B main origin/main` was run *before* `git fetch`, using a
+stale local tracking ref and briefly rewinding the working tree to the
+prior commit (e41adc4) before the mistake was caught via a lower-than-
+expected line count and fixed with a fetch + fast-forward + stash-pop —
+no data was lost (the only pending change was today's own log.csv
+append), but this is exactly the failure mode Known Issues #3's
+"always fetch before trusting origin/main" note warns about; future runs
+should double down on that order. **The standing recommendation to the
+site owner is repeated again, now a ninth time, with no indication it
+has been acted on**: (a) ask whether any Bavaria/Wiesbaden business
+owners have reached out directly to list themselves, since search-only
+methodology has now gone 15 straight Bavaria run-days and ~21 Wiesbaden
+run-days without a single sendable lead in their hardest categories, and
+(b) whether a fetch-capable research path could ever be opened for this
+sandbox to resolve the growing, specifically-named pile of near-misses
+that keep surfacing a real, named, English-friendly business with no
+contact info indexable by web search alone (Graf von Seckendorff und
+Kollegen, Mumo's Inn, TK-Immobilienwelt Ansbach, RE/MAX Immobilien
+Ansbach, dr-landgraf.de, tierarztpraxis-weigl.de, ansbach-maharaja.de,
+ruempelmeister.de, delorme-goldberg.de, among others).
+
 ## Known issues (as of 2026-08-25)
 
 Runs from 2026-08-21 through 2026-08-25 sent **zero** emails — not a
@@ -1751,6 +1801,15 @@ was no new-lead verification (check 1) to perform either.
    shows no new confirmed listings to rotate in, so the 2026-11-09 run
    also did zero new verification-log rows. Zero-send day again (see the
    Bavaria section above for the full 2026-11-09 account), so there was
+   no new-lead verification (check 1) to perform either.
+
+   **Still true as of 2026-11-10:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are 74 days old, still short of
+   the ~90-day window (opens up ~2026-11-26), and the snapshot (17
+   entries, still dated 2026-10-07 per git log, no fresher copy available)
+   shows no new confirmed listings to rotate in, so the 2026-11-10 run
+   also did zero new verification-log rows. Zero-send day again (see the
+   Bavaria section above for the full 2026-11-10 account), so there was
    no new-lead verification (check 1) to perform either.
 
 **Recording results** — append every existing-listing check to
