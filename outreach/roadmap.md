@@ -1017,6 +1017,61 @@ Kollegen, Mumo's Inn, TK-Immobilienwelt Ansbach, RE/MAX Immobilien
 Ansbach, dr-landgraf.de, tierarztpraxis-weigl.de, ansbach-maharaja.de,
 ruempelmeister.de, delorme-goldberg.de, among others).
 
+**2026-11-11: a 16th consecutive Bavaria zero-send day, and Wiesbaden's
+hardest four categories now span roughly 23 run-days dry — 0 emails sent
+anywhere today, across ~40 WebSearch calls, the most thorough single-day
+effort in several weeks.** Tried several genuinely new angles rather than
+repeating exhausted niches. Part one (Bavaria): checked for a "Bavarian
+News"/Bavarian Times classifieds or business-directory page (confirmed
+none exists for Ansbach/Grafenwöhr/Vilseck specifically — Bavarian Times
+is a print-only area magazine), a bilingual-kindergarten search (nothing
+found beyond DoDEA/on-post options), the Ansbach Spouses & Civilians Club
+site (no business-recommendation page), and an English orthodontist/
+dermatologist search (nothing confirmed). A Mission Milspouse Ansbach
+dining list (same Jan-2021 source as 2026-10-27's Maharaja/China Thai Wok)
+named three more restaurants — Sai-Thai, Rossano Boutique Hotel &
+Ristorante, Pizzeria da Enzo — none with an email; Sai-Thai also carries a
+single weak, undated third-party closure signal (not a Maps flag), logged
+as unconfirmed rather than acted on. Part two (Wiesbaden): tried the AIWC
+(American International Women's Club Rhein-Main) and Wiesbaden's own
+German-American women's club as a business-recommendation source (AIWC's
+finder tool is members-facing, not publicly indexed), re-checked Wagner
+Immobilien and two individual Engel & Völkers Wiesbaden advisors with
+published English tags (Pascal Bender, Ana-Maria Klisic — both
+contact-form-only, no direct email, same wrong-department pattern as
+Engel & Völkers Kaiserslautern), and ran a physiotherapist/dentist/
+nutritionist/acupuncturist/osteopath sweep that surfaced one new
+genuine-English-evidence lead, Dr. Sera Krieger (GP, arzt-auskunft.de
+lists English/Croatian/Serbian independently of self-report, has her own
+domain dr-sera-krieger.de) — but no email found on it. A follow-up on the
+2026-10-14 held-back Homemade by Gia hbb lead surfaced the owner's name
+(Giannina Sirois) via an older USAG Wiesbaden HBB document but still no
+email. Part three (KMC): tried automatic-transmission English driving
+schools, opticians, massage therapists, and hairdressers/barbers (the
+latter two turning up only on-base Ramstein AB mall shops, same
+base-access poor fit as prior precedent), plus direct follow-ups on three
+standing near-misses (Delorme Goldberg Tierarztpraxis, Tierarztpraxis
+Rahimi, Hassanzadeh Immobilien-Management) — none resolved. **This is a
+research-coverage gap, not an infrastructure failure** — WebSearch worked
+normally for all ~40 calls; Gmail and GitHub were never reached because
+nothing cleared the publish-own-email-plus-English-evidence-plus-
+still-operating bar. **The standing recommendation to the site owner is
+repeated again, now a tenth time, with no indication it has been acted
+on**: search-only methodology has now gone 16 straight Bavaria run-days
+and ~23 Wiesbaden run-days without a single sendable lead in their hardest
+categories, despite today's deliberately wide, fresh-angle effort — this
+looks less like an exhaustible research gap and more like a genuine
+ceiling on what search-only methodology can surface for these
+specific categories/bases. Worth the site owner's input on whether to
+(a) ask Bavaria/Wiesbaden business owners to self-list directly, (b) open
+a fetch-capable research path to resolve the large, specifically-named
+pile of near-misses blocked only by an own-site-indexing gap (now including
+Dr. Sera Krieger, Delorme Goldberg Tierarztpraxis, Wagner Immobilien,
+Hassanzadeh Immobilien-Management, among many others logged across the
+last month), or (c) accept these categories/bases as at-ceiling for now and
+focus future runs on maintaining existing coverage (still-in-business
+verification) rather than continued daily re-search of the same ground.
+
 ## Known issues (as of 2026-08-25)
 
 Runs from 2026-08-21 through 2026-08-25 sent **zero** emails — not a
@@ -1810,6 +1865,15 @@ was no new-lead verification (check 1) to perform either.
    shows no new confirmed listings to rotate in, so the 2026-11-10 run
    also did zero new verification-log rows. Zero-send day again (see the
    Bavaria section above for the full 2026-11-10 account), so there was
+   no new-lead verification (check 1) to perform either.
+
+   **Still true as of 2026-11-11:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are 75 days old, still short of
+   the ~90-day window (opens up ~2026-11-26), and the snapshot (17
+   entries, still dated 2026-10-07 per git log, no fresher copy available)
+   shows no new confirmed listings to rotate in, so the 2026-11-11 run
+   also did zero new verification-log rows. Zero-send day again (see the
+   Bavaria section above for the full 2026-11-11 account), so there was
    no new-lead verification (check 1) to perform either.
 
 **Recording results** — append every existing-listing check to
