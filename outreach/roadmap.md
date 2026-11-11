@@ -30,6 +30,21 @@ legal-business, education, hbb (business services)
 2. **Kaiserslautern Military Community** (Ramstein, Vogelweh, Landstuhl) — largest U.S. population in Germany, do next
 3. **Wiesbaden** (USAG Wiesbaden / Clay Kaserne)
 4. **Bavaria bases** (Grafenwöhr, Vilseck, Ansbach, Illesheim) — more spread out
+5. **Spangdahlem / Trier** (Spangdahlem AB, Bitburg, Trier, Wittlich) — new 2026-11-11, start here next
+6. **Frankfurt** (the Wiesbaden–Frankfurt corridor: Frankfurt, Offenbach, Mainz, Darmstadt) — new 2026-11-11. Leads already parked as "Frankfurt-based, not a fit" for Stuttgart/Wiesbaden (e.g. americanfoodclub.de in Offenbach, RelaxStay24) belong here now
+7. **Garmisch** (Garmisch-Partenkirchen — Edelweiss Lodge and Resort, George C. Marshall Center) — new 2026-11-11
+8. Others as found (e.g. Baumholder, Hohenfels) — Terry, 2026-11-11: "You can also reach Spangdahlem - Trier, Grafenwöhr, Vilseck, Ansbach, Garmisch, Wiesbaden-Frankfurt, etc."
+
+**Rotation rule (added 2026-11-11).** Bavaria and Wiesbaden's remaining
+categories produced zero sends every run from 2026-10-29 to 2026-11-11.
+Coverage there is not "done", but the findable leads have run out, so
+don't keep grinding them. **If a base area produces zero sends on 2
+runs in a row, move on to the next open area in the list above.** Come
+back later only to follow up on that area's `researched` rows. Base-area
+keys for `log.csv`: `spangdahlem`, `frankfurt`, `garmisch` (plus
+`baumholder` / `hohenfels` if used). Each new area starts from the
+snapshot. The Used Car Guys - Spangdahlem is already listed, so
+automotive there isn't empty.
 
 ## Status by base
 
