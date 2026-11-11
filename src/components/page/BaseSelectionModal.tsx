@@ -15,7 +15,15 @@ export function BaseSelectionModal() {
 
   useEffect(() => {
     const visited = localStorage.getItem('hasVisitedSite');
+    // Business owners arriving from an outreach email land on these
+    // pages. The "choose your base" welcome is for American families and
+    // covered the form (found 2026-11-11), so don't auto-open it here.
+    // The header's base button still opens it on request.
+    const businessOwnerPage = ['/submit-business', '/confirm-business'].some((p) =>
+      window.location.pathname.startsWith(p),
+    );
 
+    if (businessOwnerPage) return;
     if (selectedBase && selectedBase !== 'all') {
       setHasVisited(true);
     } else if (!visited) {

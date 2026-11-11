@@ -398,6 +398,39 @@ export default function BusinessSubmissionForm() {
             marked <span className="text-[var(--brand-primary)] font-semibold">*</span> are required —
             it takes about two minutes. Everything else just helps families find you faster.
           </p>
+          {/* Businesses assume "free listing" offers end in an invoice (a
+              listed business told Terry exactly that, 2026-10) — say it
+              plainly where the outreach email's link lands. */}
+          <div className="mt-6 bg-[var(--brand-bg-card)] rounded-lg shadow-md p-6 border border-[var(--border)]">
+            <div className="flex items-center gap-2 mb-3">
+              <CheckCircle className="w-6 h-6 text-[var(--brand-primary)]" />
+              <h2 className="text-xl font-bold text-[var(--brand-dark)]">Listing your business is free</h2>
+            </div>
+            <ul className="space-y-2 text-[var(--muted-foreground)]">
+              <li>
+                <strong className="text-[var(--brand-dark)]">No business pays to be listed.</strong> No fee, no
+                contract, no invoice, no advertising package.
+              </li>
+              <li>
+                <strong className="text-[var(--brand-dark)]">Never a surprise bill.</strong> Nothing is ever
+                charged without your agreement. If hosting costs ever force a change, every listed business
+                hears about it first and can leave owing nothing.
+              </li>
+              <li>
+                <strong className="text-[var(--brand-dark)]">Nothing goes live until you confirm.</strong> After
+                you submit, we email you a one-click confirmation first.
+              </li>
+              <li>
+                <strong className="text-[var(--brand-dark)]">You stay in control.</strong> Change or remove your
+                listing any time with one email.
+              </li>
+            </ul>
+            <p className="mt-3 text-sm text-[var(--muted-foreground)]">
+              Auf Deutsch: Ihr Eintrag ist kostenlos – kein Vertrag, keine Rechnung. Ohne Ihre Zustimmung wird
+              nie etwas berechnet. Der Eintrag wird erst nach Ihrer Bestätigung veröffentlicht und kann jederzeit
+              geändert oder gelöscht werden.
+            </p>
+          </div>
         </div>
 
         {error && (

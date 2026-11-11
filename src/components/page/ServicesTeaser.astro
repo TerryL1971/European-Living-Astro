@@ -1,4 +1,5 @@
 ---
+import FreeListingNote from '../FreeListingNote.astro';
 // Server-rendered homepage teaser for the services directory — replaces
 // the client:visible ServicesCategoriesSection.tsx, whose loading spinner
 // was baked into the homepage HTML (audit finding H-1).
@@ -125,8 +126,9 @@ const payload = rows.map((r) => ({ c: r.category, b: r.bases_served ?? [] }));
 
     <div class="svc__actions">
       <a href="/services-directory" class="svc__btn svc__btn--primary">Browse the full directory</a>
-      <a href="/submit-business" class="svc__btn svc__btn--ghost">List your business</a>
+      <a href="/submit-business" class="svc__btn svc__btn--ghost">List your business free</a>
     </div>
+    <FreeListingNote />
   </div>
 </section>
 

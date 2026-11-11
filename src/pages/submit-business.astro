@@ -4,14 +4,61 @@
 // to be interactive immediately on load — client:load, not
 // client:visible — since it's the entire point of the page and sits
 // above the fold.
+//
+// Title, description and FAQ are worded for searches like "how to list
+// your business for free" (Terry, 2026-11-11). Businesses also assume
+// "free listing" offers end in an invoice, so the FAQ answers that
+// directly. Keep the "is it free" answer honest: listings are free and
+// nothing is ever charged without agreement, but this is NOT a promise
+// of free forever — Terry may need to cover hosting costs one day.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BusinessSubmissionForm from '../components/BusinessSubmissionForm.tsx';
+import FaqBlock from '../components/seo/FaqBlock.astro';
+
+const FAQ = [
+  {
+    question: 'How do I list my business for free?',
+    answer:
+      'Fill in the form on this page. Only a few fields are required, and it takes about two minutes. We then email you a one-click confirmation, and your listing goes live in the European Living Services Directory once you confirm.',
+  },
+  {
+    question: 'Is listing my business really free?',
+    answer:
+      'Yes. No business pays to be listed: there is no fee, no contract, no invoice and no advertising package. Nothing is ever charged without your agreement. If hosting costs ever force a change, every listed business hears about it first and can leave owing nothing.',
+  },
+  {
+    question: 'Who will see my listing?',
+    answer:
+      'Americans living near the U.S. military communities in Germany: service members, civilians, contractors and their families around Ramstein and the Kaiserslautern Military Community, Stuttgart, Wiesbaden, Bavaria (Grafenwöhr, Vilseck, Ansbach), Spangdahlem and Baumholder. New families arrive every year and look for English-speaking businesses all over again, so your listing reaches the people here now and the ones still to come.',
+  },
+  {
+    question: 'Which businesses can be listed?',
+    answer:
+      'Local businesses in Germany that serve customers in English, or are comfortable working with Americans: car services, healthcare, restaurants, shopping, home services, real estate and housing, legal and business services, education, and home-based businesses.',
+  },
+  {
+    question: 'Can I change or remove my listing later?',
+    answer:
+      'Yes, at any time. Email info@european-living.live and the change or removal is made for you. Nothing is published without your confirmation in the first place.',
+  },
+];
 ---
 
 <BaseLayout
-  title="Submit Your Business"
-  description="List your English-speaking business in European Living's directory to reach American military families and expats across Germany."
+  title="List Your Business for Free in Germany"
+  description="Free business listing for English-speaking businesses near U.S. military bases in Germany. Reach American families. No fee, no contract, no invoice."
   canonicalPath="/submit-business"
 >
   <BusinessSubmissionForm client:load />
+  <div class="submit-business__faq">
+    <FaqBlock items={FAQ} heading="Listing your business: common questions" />
+  </div>
 </BaseLayout>
+
+<style>
+  .submit-business__faq {
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 0 1rem 3rem;
+  }
+</style>

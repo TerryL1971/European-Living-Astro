@@ -1,0 +1,42 @@
+---
+// One shared line telling business owners that listing is free, shown
+// everywhere a business might look into joining (directory, category
+// pages, business pages, homepage). Terry, 2026-11-11: "Every business
+// needs to know wherever a business may look." Businesses assume
+// "free listing" means an invoice later, so say it in plain words.
+// Honest wording: free with no invoice, never charged without
+// agreement. Not "free forever" (see src/pages/submit-business.astro).
+interface Props {
+  /** Lead-in for pages where the reader may not be a business owner. */
+  lead?: string;
+}
+const { lead = 'Own a business that serves Americans in Germany?' } = Astro.props;
+---
+
+<p class="free-listing-note">
+  <strong>{lead}</strong>
+  Listing it here is free: no fee, no contract, no invoice.
+  <a href="/submit-business">List your business&nbsp;→</a>
+</p>
+
+<style>
+  .free-listing-note {
+    margin: 2rem auto 0;
+    max-width: 48rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--brand-border, #e5e7eb);
+    border-radius: 0.75rem;
+    background: var(--brand-bg-card, #fff);
+    color: var(--brand-text-muted, #4b5563);
+    text-align: center;
+    line-height: 1.6;
+  }
+  .free-listing-note strong {
+    color: var(--brand-dark, #111827);
+  }
+  .free-listing-note a {
+    font-weight: 600;
+    color: var(--brand-primary, #1d4ed8);
+    white-space: nowrap;
+  }
+</style>

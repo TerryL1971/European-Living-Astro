@@ -9,6 +9,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
 import BusinessListCard from '../../components/BusinessListCard.astro';
+import FreeListingNote from '../../components/FreeListingNote.astro';
 import { fetchBusinessesByCategory } from '../../services/businessServices';
 import { serviceCategories } from '../../data/serviceCategories';
 // Use the real base list (id + name) — the base-filter <option> values
@@ -67,8 +68,10 @@ const sortedBusinesses = [...businesses].sort((a, b) => {
 
     <div class="category-listing__empty" id="category-empty" hidden={sortedBusinesses.length > 0}>
       <p data-empty-msg>No businesses in this category yet.</p>
-      <a href="/submit-business">List your business</a>
+      <a href="/submit-business">List your business for free</a>
     </div>
+
+    <FreeListingNote />
   </div>
 </BaseLayout>
 

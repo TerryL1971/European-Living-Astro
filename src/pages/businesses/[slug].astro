@@ -21,6 +21,7 @@ import MapView from '../../components/MapView.tsx';
 import ReviewForm from '../../components/ReviewForm.tsx';
 import BusinessImage from '../../components/BusinessImage.tsx';
 import MapPlaceholder from '../../components/MapPlaceholder.astro';
+import FreeListingNote from '../../components/FreeListingNote.astro';
 import { localBusinessSchema } from '../../lib/seo/schema';
 import { fetchBusinesses, fetchBusinessBySlug, fetchReviews } from '../../services/businessServices';
 
@@ -263,6 +264,8 @@ const directionsUrl =
       <div class="business-detail__review-form">
         <ReviewForm client:visible businessId={business.id} />
       </div>
+
+      <FreeListingNote lead="Have a business too?" />
     </div>
   </div>
 </BaseLayout>

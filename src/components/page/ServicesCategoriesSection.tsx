@@ -196,14 +196,14 @@ export default function ServicesCategoriesSection() {
             <h3 className="text-2xl font-bold text-white mb-4">Do You Own a Business Near a US Military Base?</h3>
             <p className="text-white/80 mb-6 max-w-2xl mx-auto">
               If your business serves American military families and you speak English, we'd love to feature you in
-              our directory.
+              our directory. Listing is free: no fee, no contract, no invoice.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="/submit-business"
                 className="inline-block bg-[var(--brand-secondary)] text-[var(--brand-text)] px-8 py-3 rounded-lg hover:bg-[var(--brand-secondary-light)] transition font-semibold"
               >
-                List Your Business
+                List Your Business Free
               </a>
               <a
                 href="mailto:info@european-living.live?subject=Business Listing Inquiry"
