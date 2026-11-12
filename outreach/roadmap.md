@@ -30,8 +30,8 @@ legal-business, education, hbb (business services)
 2. **Kaiserslautern Military Community** (Ramstein, Vogelweh, Landstuhl) — largest U.S. population in Germany, do next
 3. **Wiesbaden** (USAG Wiesbaden / Clay Kaserne)
 4. **Bavaria bases** (Grafenwöhr, Vilseck, Ansbach, Illesheim) — more spread out
-5. **Spangdahlem / Trier** (Spangdahlem AB, Bitburg, Trier, Wittlich) — new 2026-11-11, start here next
-6. **Frankfurt** (the Wiesbaden–Frankfurt corridor: Frankfurt, Offenbach, Mainz, Darmstadt) — new 2026-11-11. Leads already parked as "Frankfurt-based, not a fit" for Stuttgart/Wiesbaden (e.g. americanfoodclub.de in Offenbach, RelaxStay24) belong here now
+5. **Spangdahlem / Trier** (Spangdahlem AB, Bitburg, Trier, Wittlich) — opened 2026-11-12, 0 sends so far (genuinely sparse area, see Status by base)
+6. **Frankfurt** (the Wiesbaden–Frankfurt corridor: Frankfurt, Offenbach, Mainz, Darmstadt) — opened 2026-11-12, 0 sends so far. Leads already parked as "Frankfurt-based, not a fit" for Stuttgart/Wiesbaden (e.g. americanfoodclub.de in Offenbach, RelaxStay24) now live here
 7. **Garmisch** (Garmisch-Partenkirchen — Edelweiss Lodge and Resort, George C. Marshall Center) — new 2026-11-11
 8. Others as found (e.g. Baumholder, Hohenfels) — Terry, 2026-11-11: "You can also reach Spangdahlem - Trier, Grafenwöhr, Vilseck, Ansbach, Garmisch, Wiesbaden-Frankfurt, etc."
 
@@ -1087,6 +1087,66 @@ last month), or (c) accept these categories/bases as at-ceiling for now and
 focus future runs on maintaining existing coverage (still-in-business
 verification) rather than continued daily re-search of the same ground.
 
+### Spangdahlem / Trier — opened 2026-11-12
+Already had before outreach started: automotive baseline only (The Used
+Car Guys - Spangdahlem, pre-existing snapshot listing). All 9 categories
+otherwise start from zero.
+
+**2026-11-12:** opened this base per the 2026-11-11 rotation rule (Bavaria
+16 consecutive zero-send days, Wiesbaden's hardest categories ~23 dry
+run-days — both well past the "2 zero-send runs in a row, move on"
+threshold). ~20 WebSearch calls across all 9 categories. This turned out
+to be a genuinely sparse area — Spangdahlem itself is a ~900-person
+village, Bitburg ~12,500, and the practical draw area leans on Trier
+(~110k) for anything beyond base-adjacent services. Found real, often
+English-evidence-confirmed businesses in restaurants (Zur Steipe and
+Burgeramt Trier both explicitly advertise English service; Masons Trier
+has reviewer-praised English-speaking staff), automotive (Fahrschule
+Sauer & Team Trier, 3 independent reviews praising English-speaking
+instructors), real-estate (6 Bitburg agencies via jacasa.de, several
+listing English), and home-services (Rümpel Meister D.A.CH GmbH's
+Spangdahlem-specific landing page) — but none publishes an email that
+clears the bar. Rümpel Meister is the same standing templated
+multi-base near-miss already held back for KMC/Bavaria/Wiesbaden (its
+email has never been independently confirmed off its own promotional
+pages). A 2017 Spangdahlem AB JAG list of English-speaking Trier
+attorneys (Sieglinde Marx, Bettina Hein, Annekatrin Metz) is too stale to
+trust — none of the three turned up in any current Trier attorney
+directory, suggesting none is still practicing. **0 emails sent** — see
+log.csv for the full per-lead account. **Next for Spangdahlem:** Fahrschule
+Sauer & Team, Burgeramt Trier, and Masons Trier are the strongest
+near-misses worth a direct-site follow-up; otherwise try shopping/hbb/
+education niches not yet attempted (American import grocery, HBB
+photographers/doulas, bilingual kindergarten).
+
+### Frankfurt corridor — opened 2026-11-12
+Already had before outreach started: nothing (zero Frankfurt/Offenbach/
+Mainz/Darmstadt entries in businesses-snapshot.json). Two leads carried
+over from Stuttgart/Wiesbaden research (americanfoodclub.de, RelaxStay24)
+now belong here. All 9 categories start from zero.
+
+**2026-11-12:** opened this base the same run as Spangdahlem, splitting
+today's research effort between the two new areas. ~20 WebSearch calls.
+Despite being a much larger metro than Spangdahlem, hit the same
+own-site-email gap: real, named restaurants (Alex, Chicago Williams BBQ,
+StadtBalkon Mainz) with no email; Strothoff International School
+(Dreieich, a genuinely strong IB-school fit for the Rhein-Main American
+community) and StB Anton Braun (an English-speaking Frankfurt tax
+advisor) both have a conflicting-email problem — two directories give two
+different addresses for the same listing, with no way to confirm which is
+current without a direct site read, so both were held back rather than
+guessed. americanfoodclub.de (parked since 2026-08-25) still has no
+findable email or confirmable live site. RelaxStay24 (Frankfurt-HQ'd,
+previously logged under Wiesbaden) keeps its standing held-back status —
+markets to corporate/trade housing, not military families. **0 emails
+sent** — see log.csv. **Next for Frankfurt:** a direct-site read on
+Strothoff/Anton Braun to resolve the conflicting emails would unlock two
+strong leads at once if a fetch-capable path ever opens; otherwise try
+real-estate (English-speaking agents explicitly serving American
+relocations), legal-business (US-tax specialists), and hbb (the USAG
+Wiesbaden HBB directory likely has more Frankfurt-serving entries worth a
+closer read).
+
 ## Known issues (as of 2026-08-25)
 
 Runs from 2026-08-21 through 2026-08-25 sent **zero** emails — not a
@@ -1890,6 +1950,16 @@ was no new-lead verification (check 1) to perform either.
    also did zero new verification-log rows. Zero-send day again (see the
    Bavaria section above for the full 2026-11-11 account), so there was
    no new-lead verification (check 1) to perform either.
+
+   **Still true as of 2026-11-12:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are 76 days old, still short of
+   the ~90-day window (opens up ~2026-11-26), and the snapshot (17
+   entries, now dated 2026-10-15 per git log, no fresher copy available)
+   shows no new confirmed listings to rotate in, so the 2026-11-12 run
+   also did zero new verification-log rows. Zero-send day again (see the
+   new Spangdahlem/Trier and Frankfurt corridor sections above for the
+   full 2026-11-12 account), so there was no new-lead verification
+   (check 1) to perform either.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
