@@ -32,7 +32,7 @@ legal-business, education, hbb (business services)
 4. **Bavaria bases** (Grafenwöhr, Vilseck, Ansbach, Illesheim) — more spread out
 5. **Spangdahlem / Trier** (Spangdahlem AB, Bitburg, Trier, Wittlich) — opened 2026-11-12, 0 sends so far (genuinely sparse area, see Status by base)
 6. **Frankfurt** (the Wiesbaden–Frankfurt corridor: Frankfurt, Offenbach, Mainz, Darmstadt) — opened 2026-11-12, 0 sends so far. Leads already parked as "Frankfurt-based, not a fit" for Stuttgart/Wiesbaden (e.g. americanfoodclub.de in Offenbach, RelaxStay24) now live here
-7. **Garmisch** (Garmisch-Partenkirchen — Edelweiss Lodge and Resort, George C. Marshall Center) — new 2026-11-11
+7. **Garmisch** (Garmisch-Partenkirchen — Edelweiss Lodge and Resort, George C. Marshall Center) — opened 2026-11-13, 0 sends so far
 8. Others as found (e.g. Baumholder, Hohenfels) — Terry, 2026-11-11: "You can also reach Spangdahlem - Trier, Grafenwöhr, Vilseck, Ansbach, Garmisch, Wiesbaden-Frankfurt, etc."
 
 **Rotation rule (added 2026-11-11).** Bavaria and Wiesbaden's remaining
@@ -44,7 +44,10 @@ back later only to follow up on that area's `researched` rows. Base-area
 keys for `log.csv`: `spangdahlem`, `frankfurt`, `garmisch` (plus
 `baumholder` / `hohenfels` if used). Each new area starts from the
 snapshot. The Used Car Guys - Spangdahlem is already listed, so
-automotive there isn't empty.
+automotive there isn't empty. **Update 2026-11-13:** Spangdahlem and
+Frankfurt each hit 2 consecutive zero-send days (2026-11-12, 2026-11-13)
+— per this rule, Garmisch was opened the same run rather than waiting for
+a 3rd dry day on either.
 
 ## Status by base
 
@@ -1119,6 +1122,18 @@ near-misses worth a direct-site follow-up; otherwise try shopping/hbb/
 education niches not yet attempted (American import grocery, HBB
 photographers/doulas, bilingual kindergarten).
 
+**2026-11-13: a 2nd consecutive zero-send day, triggering the rotation
+rule.** Followed up directly on all three 2026-11-12 near-misses (Fahrschule
+Sauer & Team, Burgeramt Trier, Masons Trier) — none resolved, see log.csv.
+Fresh niches (English-speaking counselor/therapist, American import
+grocery, bilingual kindergarten, English-speaking dentist) all came up dry
+for Bitburg/Trier specifically. One new lead, Natalie Crammer Photography
+(hbb) — a military-spouse photographer actually based in Spangdahlem —
+surfaced via a cross-search, but publishes no email, only a booking-request
+form. **0 emails sent**, 2nd dry day in a row for this base area. Per the
+2026-11-11 rotation rule, next run should move on to Garmisch (opened this
+same run, see below) rather than a 3rd Spangdahlem day.
+
 ### Frankfurt corridor — opened 2026-11-12
 Already had before outreach started: nothing (zero Frankfurt/Offenbach/
 Mainz/Darmstadt entries in businesses-snapshot.json). Two leads carried
@@ -1146,6 +1161,56 @@ real-estate (English-speaking agents explicitly serving American
 relocations), legal-business (US-tax specialists), and hbb (the USAG
 Wiesbaden HBB directory likely has more Frankfurt-serving entries worth a
 closer read).
+
+**2026-11-13: a 2nd consecutive zero-send day, triggering the rotation
+rule.** Tried the English-speaking-counselor/therapist angle that broke
+Wiesbaden's streak on 2026-10-28 — found two real candidates (Michael
+Röder/Praxis Gestalt & Psyche, Centers for Counseling and Wellness
+International) but neither has an email confirmable on its own site; a
+direct WebFetch test to www.michaelroeder.de failed with
+`getaddrinfo ENOTFOUND`, reconfirming Known Issues #1 (sandbox egress
+still blocked for arbitrary domains) rather than resolving the gap. The
+iamexpat.de Frankfurt real-estate-agent directory page exists but its
+list didn't surface in search snippets — worth a direct read if a
+fetch-capable path ever opens. **0 emails sent**, 2nd dry day in a row.
+Per the 2026-11-11 rotation rule, next run should move on to Garmisch
+rather than a 3rd Frankfurt day.
+
+### Garmisch — opened 2026-11-13
+Already had before outreach started: nothing (zero Garmisch entries in
+businesses-snapshot.json). All 9 categories start from zero.
+
+**2026-11-13:** opened this base the same run as a 2nd dry Spangdahlem/
+Frankfurt day, per the 2026-11-11 rotation rule (2 consecutive zero-send
+runs → move on), rather than wait for a 3rd dry day on either area. ~12
+WebSearch calls across restaurants, real-estate, healthcare,
+legal-business/insurance, home-services, shopping, and hbb. Garmisch-
+Partenkirchen draws on the Edelweiss Lodge and Resort (DoD recreation
+facility) and the George C. Marshall Center/NATO School rather than a
+large combat-arms population, and is also a major ski-tourism town with
+a correspondingly international service economy — found more
+English-evidence-confirmed businesses in one day than Spangdahlem/Trier
+managed (Zum Wildschütz and Mukkefukk both have independent
+reviewer-confirmed English-speaking service; Engel & Völkers
+Garmisch-Partenkirchen's shop page explicitly lists English) — but hit
+the exact same own-site-email gap as every other base area: none
+publishes a findable email. No USAG Bavaria/Marshall Center off-post
+business list exists (same negative result as the Ansbach welcome-guide
+checks). Edelweiss Lodge and Resort itself is a DoD facility, not a
+private business — same poor fit as the base-access-only precedents
+(Patch Thrift Shop, RESA/KLSA). **0 emails sent** on this base's first
+day — see log.csv for the full per-lead account. **Next for Garmisch:**
+Zum Wildschütz and Mukkefukk are the strongest near-misses worth a
+direct-site/Google-Business follow-up; Engel & Völkers Garmisch-
+Partenkirchen's named advisors (Uwe Meyer, Samuel Dick) are worth a
+follow-up if a fetch-capable path ever opens. Otherwise try education
+(an international/bilingual school serving Marshall Center staff),
+legal-business (Steuerberater/notary), and automotive (English-speaking
+driving school/auto repair) — none tried yet. Verification sweep:
+skipped today — all 17 `businesses-snapshot.json` entries still have a
+verification-log check dated 2026-08-28 through 2026-09-02 (76-77 days
+old as of today), under the ~90-day re-check window; the oldest comes due
+around 2026-11-26.
 
 ## Known issues (as of 2026-08-25)
 
