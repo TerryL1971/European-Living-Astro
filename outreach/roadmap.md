@@ -1212,6 +1212,40 @@ verification-log check dated 2026-08-28 through 2026-09-02 (76-77 days
 old as of today), under the ~90-day re-check window; the oldest comes due
 around 2026-11-26.
 
+**2026-11-16: first Garmisch sends, ending the base's opening dry streak.**
+~24 WebSearch calls, 2nd dedicated Garmisch research day. Tried the
+categories flagged as untried last run (education, legal-business/notary/
+tax, automotive) plus fresh healthcare/shopping/restaurants niches.
+Education: confirmed there is no local bilingual/international school
+option — Garmisch ES/MS is DoDEA-restricted and Munich International
+School is the only English-medium option, ~90km away; this category looks
+genuinely closed off for Garmisch specifically. Two leads cleared the
+publish-own-email-plus-fit bar and were sent: VON POLL Immobilien
+Garmisch-Partenkirchen (real-estate, garmisch-partenkirchen@von-poll.com —
+a genuine own-domain office email appearing consistently across
+von-poll.com's property listings including English-language versions,
+unlike Engel & Völkers' wrong-channel "Contact me" forms) and Sport Conrad
+Garmisch-Partenkirchen (shopping, info@sport-conrad.de — large alpine/
+outdoor-gear retailer, own-domain email on its English-language store
+page). Found several more real, English-evidence-confirmed businesses
+(Dentinic, Medisport, Praxis Zwink dentist, Hobis Backstube, Jerrianne
+Ritter Aesthetics) but none publishes an email anywhere — see log.csv. One
+near-miss, Notarin Monika Schmid, has a consistently repeated email
+(mail@notarin-schmid.de) across the official Bundesnotarkammer notary
+directory and a job posting, but it was held back rather than used because
+it never surfaces on her own site — same guardrail as Stephen Mitchell
+CPA/Milinsure. **Next for Garmisch:** healthcare (3 strong English-evidence
+near-misses with no email: Dentinic, Medisport, Praxis Zwink — worth a
+direct-site/Google-Business follow-up if a fetch-capable path ever opens),
+restaurants (Zum Wildschütz, Mukkefukk, Cafe Thron, Hobis Backstube all
+have English evidence but no email), and legal-business (Auren's Garmisch
+office has an English site section but no office-specific email found yet,
+worth a direct Contact-page check). Automotive and home-services remain
+genuinely dry (no English-evidence business found at all in either niche
+for Garmisch). Verification sweep: skipped again — oldest verification-log
+entries are now ~80 days old, still under the ~90-day window (first
+entries come due ~2026-11-26).
+
 ## Known issues (as of 2026-08-25)
 
 Runs from 2026-08-21 through 2026-08-25 sent **zero** emails — not a
