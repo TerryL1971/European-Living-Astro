@@ -32,7 +32,7 @@ legal-business, education, hbb (business services)
 4. **Bavaria bases** (Grafenwöhr, Vilseck, Ansbach, Illesheim) — more spread out
 5. **Spangdahlem / Trier** (Spangdahlem AB, Bitburg, Trier, Wittlich) — opened 2026-11-12, 0 sends so far (genuinely sparse area, see Status by base)
 6. **Frankfurt** (the Wiesbaden–Frankfurt corridor: Frankfurt, Offenbach, Mainz, Darmstadt) — opened 2026-11-12, 0 sends so far. Leads already parked as "Frankfurt-based, not a fit" for Stuttgart/Wiesbaden (e.g. americanfoodclub.de in Offenbach, RelaxStay24) now live here
-7. **Garmisch** (Garmisch-Partenkirchen — Edelweiss Lodge and Resort, George C. Marshall Center) — opened 2026-11-13, 0 sends so far
+7. **Garmisch** (Garmisch-Partenkirchen — Edelweiss Lodge and Resort, George C. Marshall Center) — opened 2026-11-13, 5 sends as of 2026-11-17
 8. Others as found (e.g. Baumholder, Hohenfels) — Terry, 2026-11-11: "You can also reach Spangdahlem - Trier, Grafenwöhr, Vilseck, Ansbach, Garmisch, Wiesbaden-Frankfurt, etc."
 
 **Rotation rule (added 2026-11-11).** Bavaria and Wiesbaden's remaining
@@ -1246,6 +1246,46 @@ for Garmisch). Verification sweep: skipped again — oldest verification-log
 entries are now ~80 days old, still under the ~90-day window (first
 entries come due ~2026-11-26).
 
+**2026-11-17: 3rd dedicated Garmisch research day, pushing total sends to
+5.** ~20 WebSearch calls. Resolved the 2026-11-16 Auren no-email entry: a
+direct search of auren.com's own Garmisch-Partenkirchen office page (not a
+directory) surfaced its own office email, gapa@auren.de — same own-site
+pattern that worked for KERN Global Language Services in Wiesbaden — sent,
+opening Garmisch's legal-business category. Opened education with
+Skischule Zugspitze-Grainau (info@skischule-zugspitze.de) — a DSLV-certified
+ski school in Grainau, immediately adjacent to Garmisch-Partenkirchen on the
+same Garmisch-Classic ski area, whose own site explicitly lists English
+among six languages taught, with current Feb–Apr 2026 reviews; this is an
+adult/activity-based education fit (same precedent as KMC/Wiesbaden dance
+and karate schools), separate from the K-12 DoDEA/Munich-International-School
+question already closed off 2026-11-16. Opened hbb with The Movement
+Community (Erin Wilson, erinwilsonyoga@gmail.com) — an American yoga/personal
+training instructor with a weekly on-base connection (Mueller Fitness Center)
+alongside her Aja Hotel classes, same solo-operator/no-Maps-listing profile
+as KMC/Wiesbaden's hbb sends. One near-miss held back: Riedel Immobilien has
+current Garmisch-Partenkirchen listings but only a general Munich-office
+email, not Garmisch-specific — same location/specificity-mismatch guardrail
+as RelaxStay24/Smarter Finance 24, logged `researched` rather than sent.
+Everything else tried today (home-services: Handwerker/Umzug/Reinigung sweep
+incl. checking whether the nationwide English-speaking Spic and Span
+cleaning platform covers Garmisch — it doesn't confirm coverage there;
+automotive: Kfz-Werkstatt sweep; a pharmacy and massage/wellness sweep for
+healthcare; a personal-trainer/running-coach sweep for hbb; direct-site-email
+follow-ups on Mukkefukk/Zum Wildschütz/Hobis Backstube/Dentinic/Medisport/
+Engel & Völkers) found no new published email — status unchanged on all of
+them, see log.csv. Automotive and home-services remain genuinely dry across
+all three Garmisch research days (11-13, 11-16, 11-17). **Next for
+Garmisch:** healthcare (Dentinic, Medisport, Praxis Zwink) and restaurants
+(Zum Wildschütz, Mukkefukk, Cafe Thron, Hobis Backstube) still have the
+strongest standing near-misses, all blocked only by no findable email —
+worth a direct-site/Google-Business follow-up if a fetch-capable path ever
+opens; otherwise try a second real-estate agent (beyond Von Poll) and a
+fresh home-services/automotive angle not yet attempted (e.g. a
+ski-equipment-repair shop, a dry cleaner, or an English-speaking
+electrician/plumber). Verification sweep: skipped again — oldest
+verification-log entries are now ~81 days old, still under the ~90-day
+window (first entries come due ~2026-11-26, now 9 days away).
+
 ## Known issues (as of 2026-08-25)
 
 Runs from 2026-08-21 through 2026-08-25 sent **zero** emails — not a
@@ -2059,6 +2099,18 @@ was no new-lead verification (check 1) to perform either.
    new Spangdahlem/Trier and Frankfurt corridor sections above for the
    full 2026-11-12 account), so there was no new-lead verification
    (check 1) to perform either.
+
+   **Still true as of 2026-11-17:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are 81 days old, still short of
+   the ~90-day window (opens up ~2026-11-26, now 9 days away), and the
+   17-business snapshot shows no new confirmed listings to rotate in, so
+   the 2026-11-17 run also did zero new verification-log rows (check 2).
+   Today's 3 new Garmisch leads (Auren Steuerberater Garmisch-Partenkirchen,
+   Skischule Zugspitze-Grainau, The Movement Community/Erin Wilson) were
+   all confirmed still-operating via web search before sending (check 1) —
+   see log.csv notes for evidence per lead, including current Feb-Apr 2026
+   reviews for the ski school and a direct re-read of Auren's own office
+   page resolving its 2026-11-16 no-email status.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
