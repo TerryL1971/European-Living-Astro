@@ -1286,6 +1286,52 @@ electrician/plumber). Verification sweep: skipped again — oldest
 verification-log entries are now ~81 days old, still under the ~90-day
 window (first entries come due ~2026-11-26, now 9 days away).
 
+**2026-11-18: 4th dedicated Garmisch research day, and the base's first
+zero-send day since opening.** ~40 WebSearch calls, deliberately targeting
+automotive and home-services (both genuinely dry across all 3 prior Garmisch
+runs) plus direct-site-email follow-ups on every standing healthcare/
+restaurant near-miss (Dentinic, Medisport, Praxis Zwink, Cafe Thron, Hobis
+Backstube — all unchanged, still no email anywhere) and a second
+real-estate agent beyond Von Poll (Engel & Voelkers' Samuel Dick/Uwe Meyer,
+still "Contact me"-form only). New English-evidence-confirmed near-misses
+surfaced in four categories but none cleared the publish-own-email bar: F.
+Lidl Sicherheitstechnik (home-services, locksmith, English listed since
+1965 — Garmisch's first home-services English-evidence hit, still no
+email), AlpenSport Total and Skischule Sprenzel (education, both
+English-confirmed ski schools — Sprenzel's only candidate email was
+specifically disproven against its own domain via a direct quoted-string
+search, same never-confirmed-on-own-site guardrail as Notarin Monika
+Schmid), Skiverleih Garmisch (shopping, reviewer-confirmed English ski
+rental, no contact at all found), and Techmers Restaurant Diner / 4Eck
+Restaurant & Bar (restaurants, both real with English-service evidence,
+both no-email). Also confirmed no bilingual/Montessori preschool exists in
+Garmisch-Partenkirchen (extends the 2026-11-16 K-12 finding down to
+preschool) and no USAG Bavaria/Edelweiss Lodge off-base vendor list or
+military-spouse business-recommendation group exists. A brief opportunistic
+refresh of three stale Stuttgart no-email leads (Stuttgart Expats Handyman,
+Move Clean Pros, Downtown Apartments Stuttgart) found nothing new, status
+unchanged since 2026-08-26. **0 emails sent today** — a research-coverage
+gap, not an infrastructure failure (WebSearch worked normally for all ~40
+calls; Gmail/GitHub were never reached because nothing cleared the
+publish-own-email-plus-English-evidence-plus-still-operating bar). Per the
+2026-11-11 rotation rule, this is only Garmisch's **1st** zero-send day in
+the current streak (11-16 and 11-17 both had sends) — not yet the 2-in-a-row
+trigger to move on, so the next run should keep trying Garmisch before
+considering a pivot. **Next for Garmisch:** the four new near-misses above
+(F. Lidl Sicherheitstechnik, AlpenSport Total, Skiverleih Garmisch, Techmers/
+4Eck) are all blocked only by no findable email, same as the standing
+healthcare/restaurant near-misses — worth a direct-site/Google-Business
+follow-up if a fetch-capable path ever opens; otherwise try a hairdresser/
+barber sweep, a second insurance broker beyond the Allianz Arne Albl
+precedent, or an American-import-grocery angle not yet fully exhausted.
+Automotive remains completely dry across all 4 Garmisch research days (no
+English-evidence business found at all, not just no-email). Verification
+sweep: skipped again — oldest verification-log entries are now ~82 days
+old, still under the ~90-day window (first entries come due ~2026-11-26,
+now 8 days away); the 17-business snapshot shows no new confirmed listings
+to rotate in, so there was nothing eligible to re-verify, consistent with
+every run since 2026-09-03.
+
 ## Known issues (as of 2026-08-25)
 
 Runs from 2026-08-21 through 2026-08-25 sent **zero** emails — not a
@@ -2111,6 +2157,15 @@ was no new-lead verification (check 1) to perform either.
    see log.csv notes for evidence per lead, including current Feb-Apr 2026
    reviews for the ski school and a direct re-read of Auren's own office
    page resolving its 2026-11-16 no-email status.
+
+   **Still true as of 2026-11-18:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are 82 days old, still short of
+   the ~90-day window (opens up ~2026-11-26, now 8 days away), and the
+   17-business snapshot shows no new confirmed listings to rotate in, so
+   the 2026-11-18 run also did zero new verification-log rows (check 2).
+   This was also a zero-send day (see the Garmisch section above for the
+   full ~40-query account), so there was no new-lead verification
+   (check 1) to perform either.
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
