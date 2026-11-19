@@ -32,8 +32,9 @@ legal-business, education, hbb (business services)
 4. **Bavaria bases** (Grafenwöhr, Vilseck, Ansbach, Illesheim) — more spread out
 5. **Spangdahlem / Trier** (Spangdahlem AB, Bitburg, Trier, Wittlich) — opened 2026-11-12, 0 sends so far (genuinely sparse area, see Status by base)
 6. **Frankfurt** (the Wiesbaden–Frankfurt corridor: Frankfurt, Offenbach, Mainz, Darmstadt) — opened 2026-11-12, 0 sends so far. Leads already parked as "Frankfurt-based, not a fit" for Stuttgart/Wiesbaden (e.g. americanfoodclub.de in Offenbach, RelaxStay24) now live here
-7. **Garmisch** (Garmisch-Partenkirchen — Edelweiss Lodge and Resort, George C. Marshall Center) — opened 2026-11-13, 5 sends as of 2026-11-17
-8. Others as found (e.g. Baumholder, Hohenfels) — Terry, 2026-11-11: "You can also reach Spangdahlem - Trier, Grafenwöhr, Vilseck, Ansbach, Garmisch, Wiesbaden-Frankfurt, etc."
+7. **Garmisch** (Garmisch-Partenkirchen — Edelweiss Lodge and Resort, George C. Marshall Center) — opened 2026-11-13, 5 sends as of 2026-11-17, hit its 2nd consecutive zero-send day 2026-11-19 (1st was 2026-11-18) — per the rotation rule, parked for now
+8. **Baumholder** (USAG Rheinland-Pfalz — Baumholder, a small ~4,200-resident town) — opened 2026-11-19, 1 send so far
+9. Others as found (e.g. Hohenfels) — Terry, 2026-11-11: "You can also reach Spangdahlem - Trier, Grafenwöhr, Vilseck, Ansbach, Garmisch, Wiesbaden-Frankfurt, etc."
 
 **Rotation rule (added 2026-11-11).** Bavaria and Wiesbaden's remaining
 categories produced zero sends every run from 2026-10-29 to 2026-11-11.
@@ -1332,6 +1333,68 @@ now 8 days away); the 17-business snapshot shows no new confirmed listings
 to rotate in, so there was nothing eligible to re-verify, consistent with
 every run since 2026-09-03.
 
+**2026-11-19: 5th dedicated Garmisch research day, and a 2nd consecutive
+zero-send day — triggering the 2026-11-11 rotation rule to move on.** ~35
+WebSearch calls. Automotive and home-services stayed completely dry (no
+new English-evidence business at all). The day's best find was a cluster
+of 5 English-speaking GP/Hausarzt practices surfaced via arzt-auskunft.de
+(Gemeinschaftspraxis Dr. Stuefer & Dr. Zimmermann, Dr. Tünde Szász-Tóth, Dr.
+Kristina Ott/Praxisverbund Werdenfels, Martin Heindl, Dr. Christl
+Scheuber-Maurer) — Garmisch's first-ever healthcare GP leads, every one a
+genuine English-evidence hit, but not one has a findable email anywhere
+(appointments by fax/SMS/platform message form only). Also found Trek
+Bicycle Garmisch-Partenkirchen (no store-specific email; Trek's Munich
+store email was correctly not substituted in) and Drew B., an American
+photographer/tour guide based in Garmisch (ToursByLocals platform-message
+contact only, no email). Direct follow-ups on every standing near-miss
+(Zum Wildschütz, Mukkefukk, Praxis Zwink, Monika Schmid) found nothing new.
+See log.csv for the full list including dead ends (hairdressers, dry
+cleaners, American grocery, insurance brokers, EAT HAPPY — a
+pay-at-supermarket-checkout sushi kiosk, not an independent business).
+**0 emails sent for Garmisch** — per the rotation rule (2 consecutive
+zero-send days: 11-18 and 11-19), the next run should hold off on Garmisch
+and focus elsewhere; the standing near-misses above are all worth a
+follow-up if a fetch-capable path ever opens, since every one is blocked
+only by no findable email, not by a lack of real, English-evidence
+businesses. Opened Baumholder the same run (see below) per the rotation
+rule, and it produced this run's one send.
+
+### Baumholder — opened 2026-11-19
+Already had before outreach started: nothing (zero Baumholder entries in
+businesses-snapshot.json). All 9 categories start from zero.
+
+**2026-11-19:** opened this base the same run as Garmisch's 2nd consecutive
+zero-send day, per the 2026-11-11 rotation rule. ~15 WebSearch calls.
+Baumholder (USAG Rheinland-Pfalz) is a small ~4,200-resident town, sparser
+even than Spangdahlem/Trier was at opening. The official town site
+(baumholder.de/en/commercial) has no business-level directory, only a
+pointer to the Yellow Pages — but its English hotels page
+(baumholder.de/en/tourism/hotels/) directly publishes **Zum Stadtkrug**'s
+(Poststraße 12, steakhouse/barbecue restaurant with an attached 7-room
+hotel) own email (zumstadtkrug@t-online.de) and website
+(zumstadtkrug.de) — a municipal-government source, not a third-party
+aggregator. A Stars and Stripes "After Hours" feature specifically reviewed
+its ribs/barbecue for an American readership, giving genuine
+American-fit evidence; current (if undated) listings on swipein.restaurant
+and hotelscombined.com show posted hours with no Google Maps closure flag
+found anywhere, though no recent 2025/2026-dated review surfaced either —
+logged and sent transparently with that caveat. This is Baumholder's first
+send, opening the restaurants category. Everything else tried today came
+up dry: YOMI | Drink&Dine (sushi restaurant, phone/no-email only), Engel &
+Völkers Baumholder (real-estate, "contact your personal advisor" form
+only, no named local agent), and no chiropractor/pediatrician/
+English-speaking dentist found at all. One templated-SEO-network red flag
+was found and explicitly **not** used: us-germany-navi.lovable.app
+publishes near-identical "US financial advisor" marketing pages
+simultaneously for Baumholder, Kaiserslautern/Ramstein, and
+Grafenwöhr/Vilseck — the same multi-city-template pattern already flagged
+for the Beiladung-Kaiserslautern cluster (2026-10-07) and the standing
+Rümpel Meister near-miss, not a genuine distinct local business. **Next
+for Baumholder:** try real-estate (a second agent beyond Engel & Völkers),
+legal-business/tax, education, and hbb/home-services niches not yet
+attempted — none of the 9 categories has had a full dedicated sweep yet,
+this was an opening/orientation day split with Garmisch's 5th research day.
+
 ## Known issues (as of 2026-08-25)
 
 Runs from 2026-08-21 through 2026-08-25 sent **zero** emails — not a
@@ -2166,6 +2229,17 @@ was no new-lead verification (check 1) to perform either.
    This was also a zero-send day (see the Garmisch section above for the
    full ~40-query account), so there was no new-lead verification
    (check 1) to perform either.
+
+   **Still true as of 2026-11-19:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are exactly 83 days old today,
+   still short of the ~90-day window (opens up ~2026-11-26, now 7 days
+   away), and the 17-business snapshot shows no new confirmed listings to
+   rotate in, so the 2026-11-19 run also did zero new verification-log
+   rows (check 2). Today's one new lead (Zum Stadtkrug, Baumholder) was
+   checked for still-operating status before sending (check 1) — see its
+   log.csv note for the evidence and caveats (current third-party listing
+   hours and no closure flag found anywhere, but no recent dated review
+   either way).
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
