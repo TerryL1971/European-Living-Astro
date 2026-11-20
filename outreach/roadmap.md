@@ -33,7 +33,7 @@ legal-business, education, hbb (business services)
 5. **Spangdahlem / Trier** (Spangdahlem AB, Bitburg, Trier, Wittlich) — opened 2026-11-12, 0 sends so far (genuinely sparse area, see Status by base)
 6. **Frankfurt** (the Wiesbaden–Frankfurt corridor: Frankfurt, Offenbach, Mainz, Darmstadt) — opened 2026-11-12, 0 sends so far. Leads already parked as "Frankfurt-based, not a fit" for Stuttgart/Wiesbaden (e.g. americanfoodclub.de in Offenbach, RelaxStay24) now live here
 7. **Garmisch** (Garmisch-Partenkirchen — Edelweiss Lodge and Resort, George C. Marshall Center) — opened 2026-11-13, 5 sends as of 2026-11-17, hit its 2nd consecutive zero-send day 2026-11-19 (1st was 2026-11-18) — per the rotation rule, parked for now
-8. **Baumholder** (USAG Rheinland-Pfalz — Baumholder, a small ~4,200-resident town) — opened 2026-11-19, 1 send so far
+8. **Baumholder** (USAG Rheinland-Pfalz — Baumholder, a small ~4,200-resident town) — opened 2026-11-19, 2 sends so far across 2 categories (restaurants, real-estate) as of 2026-11-20
 9. Others as found (e.g. Hohenfels) — Terry, 2026-11-11: "You can also reach Spangdahlem - Trier, Grafenwöhr, Vilseck, Ansbach, Garmisch, Wiesbaden-Frankfurt, etc."
 
 **Rotation rule (added 2026-11-11).** Bavaria and Wiesbaden's remaining
@@ -1395,6 +1395,38 @@ legal-business/tax, education, and hbb/home-services niches not yet
 attempted — none of the 9 categories has had a full dedicated sweep yet,
 this was an opening/orientation day split with Garmisch's 5th research day.
 
+**2026-11-20:** 2nd dedicated Baumholder research day, ~40 WebSearch calls.
+Confirmed the town itself is as dry as 2026-11-19 found - no business-level
+directory anywhere on its own site, and even the municipal English
+"health-care" page surfaced only an unrelated senior day-care service, not
+a doctor or dentist. Widened the search radius to Idar-Oberstein (the
+nearest larger town, ~15-20km away), the same hub-town approach that
+already worked for Landstuhl/Ramstein and Grainau/Garmisch - this found
+VON POLL IMMOBILIEN's Idar-Oberstein office, which holds its own trade
+license from the Baumholder municipal administration and publishes
+English-language listing pages, with an own-domain email
+(idar-oberstein@von-poll.com) confirmed across multiple von-poll.com
+property-expose pages. Sent - opens Baumholder's 2nd category
+(real-estate), alongside restaurants (1 sent, 2026-11-19). Everything else
+tried in both Baumholder and Idar-Oberstein (tax advisors, attorneys, a
+dentist, cleaning/moving - Rumpel Meister's Baumholder/Idar-Oberstein page
+re-surfaced but remains the same standing declined multi-base template,
+see Known Issues precedent - restaurants, electricians, gardeners,
+hairdressers) found real named businesses but no English-service evidence
+combined with a genuinely published own-site email. A few spare-capacity
+follow-ups on standing near-misses from Garmisch (F. Lidl
+Sicherheitstechnik) and KMC (K9s in Camo) and Wiesbaden (Wagner Immobilien)
+found nothing new either. **1 email sent today** - a research-coverage
+gap beyond that one lead, not an infrastructure failure (WebSearch worked
+normally for all ~40 calls, Gmail send succeeded cleanly, GitHub push to
+follow). **Next for Baumholder:** legal-business/tax, education, and
+healthcare/hbb/home-services/shopping/automotive all remain fully
+unattempted or dry - try the Idar-Oberstein-widening approach again for
+those categories (a second real-estate agent beyond Von Poll, an
+Idar-Oberstein-based tax advisor or insurance broker with explicit English
+evidence, an Idar-Oberstein tutor/school) before concluding the base has
+hit its ceiling the way Wiesbaden's four hardest categories have.
+
 ## Known issues (as of 2026-08-25)
 
 Runs from 2026-08-21 through 2026-08-25 sent **zero** emails — not a
@@ -2240,6 +2272,17 @@ was no new-lead verification (check 1) to perform either.
    log.csv note for the evidence and caveats (current third-party listing
    hours and no closure flag found anywhere, but no recent dated review
    either way).
+
+   **Still true as of 2026-11-20:** re-checked before this run — oldest
+   verification-log entries (2026-08-28) are 84 days old today, still
+   short of the ~90-day window (opens up ~2026-11-26, now 6 days away),
+   and the 17-business snapshot (last touched 2026-10-20 per git history,
+   still 17 entries) shows no new confirmed listings to rotate in, so the
+   2026-11-20 run also did zero new verification-log rows (check 2).
+   Today's one new lead (VON POLL IMMOBILIEN Idar-Oberstein, Baumholder
+   real-estate) was checked for still-operating status before sending
+   (check 1) — see its log.csv note for the evidence (large active
+   national franchise, current office/listing pages, no closure signal).
 
 **Recording results** — append every existing-listing check to
 `outreach/verification-log.csv` (columns:
