@@ -1395,6 +1395,48 @@ legal-business/tax, education, and hbb/home-services niches not yet
 attempted — none of the 9 categories has had a full dedicated sweep yet,
 this was an opening/orientation day split with Garmisch's 5th research day.
 
+**2026-11-23: a 3rd dedicated Baumholder research day, and the base's 1st
+zero-send day since opening (11-19 and 11-20 both had 1 send each, so this
+does not yet trigger the 2-in-a-row rotation rule).** ~20 WebSearch calls
+widened the 2026-11-20 Idar-Oberstein hub-town approach further (legal-
+business, healthcare, home-services, shopping, hbb, automotive) plus tried
+Birkenfeld (the Landkreis seat, ~9km from Baumholder, smaller than
+Idar-Oberstein) for the first time - Birkenfeld turned up nothing beyond
+generic expat-guide noise, no actual local business. Found real,
+English-evidence-confirmed near-misses in legal-business (Notar Robin
+Collenburg via the official Bundesnotarkammer register - but the
+register's own listed email conflicts with a second third-party profile
+giving a different address under an older firm name, same
+never-use-conflicting-email guardrail as Hager Dental/French Nails
+Ramstein, not used; Anwaltskanzlei Hahn, English-speaking per Lawzana, no
+email anywhere) and healthcare (two Idar-Oberstein GP practices -
+Nahetalpraxis Kaplan & Storz, Praxis Dr. Graf & Dr. Graf - both English-
+listed on arzt-auskunft.de, neither with a findable email) - see log.csv
+for full detail. Rümpel Meister's Baumholder/Idar-Oberstein page
+re-surfaced again, still the same standing declined multi-base template.
+Spent the rest of the day's research budget on direct follow-ups across
+other active base areas rather than reopening parked Spangdahlem/Frankfurt
+blind: Garmisch's 4Eck Restaurant/AlpenSport Total (still no email),
+Wiesbaden's tailor/dry-cleaner niche (dry), and fresh KMC niches
+(massage therapist, driving school, hair salon) which surfaced one new
+genuine English-evidence hit - Selina's Barber & Beauty Shop,
+Ramstein-Miesenbach (Planity listing explicitly states English/Spanish/
+German/French service) - still blocked on no findable email. **0 emails
+sent anywhere today** - a research-coverage-gap day, not an infrastructure
+failure (WebSearch worked normally for all ~30+ calls across every base
+area touched; Gmail/GitHub were never reached because nothing cleared the
+bar to send). Verification sweep: skipped today - every one of the 17
+snapshot businesses has a verification-log check dated 2026-08-28 through
+2026-09-02 (82-87 days old as of today), still just under the ~90-day
+re-check window; the oldest become due in the next few run-days (around
+2026-11-26). **Next for Baumholder:** legal-business and healthcare both
+now have a strong-fit-but-no-email near-miss each (Notar Collenburg,
+pending a phone-confirmed current email; the two GP practices) worth a
+direct-site/phone follow-up; home-services, shopping, hbb, education, and
+automotive remain fully dry for both Baumholder and Idar-Oberstein -
+Birkenfeld did not help. KMC's Selina's Barber & Beauty Shop (shopping) is
+also worth a follow-up next run.
+
 **2026-11-20:** 2nd dedicated Baumholder research day, ~40 WebSearch calls.
 Confirmed the town itself is as dry as 2026-11-19 found - no business-level
 directory anywhere on its own site, and even the municipal English
