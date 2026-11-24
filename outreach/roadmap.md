@@ -1395,6 +1395,51 @@ legal-business/tax, education, and hbb/home-services niches not yet
 attempted — none of the 9 categories has had a full dedicated sweep yet,
 this was an opening/orientation day split with Garmisch's 5th research day.
 
+**2026-11-24: a 4th dedicated Baumholder research day, 1 send (Hotel &
+Restaurant Berghof, opening a 2nd restaurants-category contact alongside
+Zum Stadtkrug).** ~45 WebSearch calls, the most exhaustive single-day
+sweep yet of Baumholder/Idar-Oberstein across every remaining category
+(education, home-services, hbb, automotive all still fully dry; legal-
+business and healthcare both still blocked on 2026-11-23's same
+near-misses - Notar Collenburg's conflicting emails, Anwaltskanzlei Hahn's
+no-email status, and the two Idar-Oberstein GP practices all re-checked
+with no change). Hotel & Restaurant Berghof (Korngasse 12, downtown
+Baumholder, info@berghof-baumholder.de sourced from baumholder.de's own
+municipal tourism page - same first-party-source standard already used for
+Zum Stadtkrug) cleared the bar: English listed as a spoken language on a
+hotel-aggregator profile, restaurant serves international+regional cuisine,
+live booking data across 3 aggregators (~362 reviews, 8.6/10, last refresh
+March 2025), no Google Maps closure flag found. New near-misses found and
+held back, all logged in log.csv: Schmucksteinshop24/BK Gems/Global
+Gems/Juchem GmbH (Idar-Oberstein gemstone shops, fitting the town's
+"Edelsteinmetropole" identity, but only third-party-eBay-surfaced emails or
+phone-only, no own-site-confirmed email); H&R Block Idar-Oberstein/
+Baumholder (international tax chain explicitly serving the US military, but
+no email found and 2 of 3 locations are base-access/Exchange counters, a
+poor directory fit regardless); Engel & Völkers Idar-Oberstein (routes to
+the Bad Kreuznach office, no local agent/email); Café Carré (likely 13+
+years stale, predates the 1st Armored Division's ~2012-2013 departure, not
+pursued); Edinger's Restaurant (genuine 1950-era American-customer history
+per Stars and Stripes, still no email). Rolling Hills Golf Club Baumholder
+e.V. found and explicitly not recommended - an Army MWR-run program, same
+poor off-base-directory fit as GACO/Patch Thrift Shop. Checked the official
+USAG Rheinland-Pfalz Welcome Packet directly for a curated off-post
+English-speaking-provider list (the approach that worked for Wiesbaden's
+Tierdermatologie Dr. Wildermuth) - found only a generic pointer to "host
+nation veterinarian specialists," no names. Verification sweep: skipped
+again today - all 17 snapshot businesses are ~84 days past their last
+check (2026-08-28 through 2026-09-02), still just under the ~90-day
+window; the oldest become due around 2026-11-26-28. **Next for
+Baumholder:** education, home-services, hbb, and automotive remain fully
+unattempted/dry for both Baumholder and Idar-Oberstein despite wide search
+effort across 4 dedicated run-days now - worth considering the same
+site-owner-outreach escalation already standing for Wiesbaden's hardest
+categories, or widening the hub-town radius past Idar-Oberstein/Birkenfeld
+(e.g. Idar-Oberstein's Kirn or Herrstein) next run. legal-business and
+healthcare each still have a genuine-English-evidence-but-no-email
+near-miss (Notar Collenburg; the two Idar-Oberstein GP practices) worth a
+phone-confirmed follow-up if that ever becomes practical.
+
 **2026-11-23: a 3rd dedicated Baumholder research day, and the base's 1st
 zero-send day since opening (11-19 and 11-20 both had 1 send each, so this
 does not yet trigger the 2-in-a-row rotation rule).** ~20 WebSearch calls
