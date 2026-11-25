@@ -1395,6 +1395,55 @@ legal-business/tax, education, and hbb/home-services niches not yet
 attempted — none of the 9 categories has had a full dedicated sweep yet,
 this was an opening/orientation day split with Garmisch's 5th research day.
 
+**2026-11-25: a 5th dedicated Baumholder research day, 2nd Baumholder-specific
+zero-send day (1st was 2026-11-23; non-consecutive, since 2026-11-24 had 1
+send) — no 2-in-a-row rotation trigger yet.** ~29 WebSearch calls. Widened
+past the established Idar-Oberstein/Birkenfeld hub-town radius to Kirn and
+Herrstein for the first time — both came up with no named local business at
+all, not even directory noise, so not a productive new angle. Re-tried every
+fully-dry category (education, home-services, hbb, automotive — all still at
+0 Baumholder-specific sends) plus fresh niches in already-open categories
+(restaurants, shopping, legal-business, healthcare). Genuine near-misses
+found and held back, all logged individually in log.csv: Svenja's Diner and
+Eckstein bar & food (Idar-Oberstein, restaurants) both have real American-fit
+evidence (1950s-diner styling; a Stars and Stripes "bar with soul" feature)
+but no email or own website anywhere; Der Florist/Michael Hartmann
+(Idar-Oberstein, shopping) has an own-published email sourced from the City
+of Idar-Oberstein's own gift-voucher-acceptance PDF — the same
+first-party-municipal-source standard already used for Zum Stadtkrug/Hotel
+Berghof — but held back for lacking any independent English-speaking-staff
+or American-customer evidence, the same guardrail already applied to
+Wiesbaden's Blumenhaus Inge (2026-10-30). Also found and not recommended:
+Baumholder Army Health Clinic Physical Therapy (a US Army TRICARE facility,
+not a private off-post business, same poor fit as GACO/Rolling Hills Golf
+Club); Hundezentrum Kynopolis and Martins Tierpension (pet boarding,
+Idar-Oberstein/Baumholder) — neither could be located with any contact info;
+DHZ Reinigungs-Service (Idar-Oberstein dry cleaner) and Modern Music School
+Idar-Oberstein/Birkenfeld — both phone/address only, no email, no English
+evidence. One re-surfaced lead, Dr. Michelle Ferrell PsyD/East to West
+Counseling, was confirmed as an already-sent KMC business (2026-09-01) whose
+own send note already states she reaches Baumholder — not a new lead, logged
+as `skipped_duplicate` so a future run doesn't re-research her.
+2026-11-23's near-misses (Notar Collenburg, the two Idar-Oberstein GP
+practices) were re-checked and remain unchanged, no new email surfaced for
+any of them. **0 emails sent today** — a continuation of the documented
+research-coverage gap (WebSearch worked normally for all ~29 calls;
+Gmail/GitHub were never reached because nothing cleared the
+publish-own-email-plus-English-evidence-plus-still-operating bar).
+Verification sweep: skipped again today — all 17 snapshot businesses are
+84-89 days past their last check (2026-08-28 through 2026-09-02), still just
+under the ~90-day window; the oldest become due 2026-11-26, so the next run
+should be able to resume the rolling sweep. **Next for Baumholder:**
+education, home-services, hbb, and automotive remain fully unattempted/dry
+for both Baumholder and Idar-Oberstein across 5 research days now;
+restaurants (2 sent) gained two strong near-misses (Svenja's Diner, Eckstein)
+worth a fetch-capable follow-up; shopping has its first
+first-party-sourced-but-weak-English-evidence near-miss (Der Florist). Given
+5 research days producing only 3 total sends, worth weighing the same
+site-owner-escalation recommendation already standing for Wiesbaden's
+hardest categories, and/or trying a third ring of towns beyond Kirn/Herrstein
+(both empty today), next run.
+
 **2026-11-24: a 4th dedicated Baumholder research day, 1 send (Hotel &
 Restaurant Berghof, opening a 2nd restaurants-category contact alongside
 Zum Stadtkrug).** ~45 WebSearch calls, the most exhaustive single-day
