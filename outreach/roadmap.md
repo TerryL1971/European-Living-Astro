@@ -243,7 +243,7 @@ Stuttgart/KMC). All 9 categories start from zero.
 |---|---|
 | healthcare | ✅ 1 contacted (Tierdermatologie Dr. Wildermuth — veterinary dermatology, Wiesbaden-Nordenstadt, named on Ramstein AB's own June 2026 Welcome Packet as English-speaking, 4.90/216 reviews — 2026-10-12). 3 no-email (Tiergesundheitszentrum Wiesbaden-Bierstadt — English per reviews; felmo Mobiler Tierarzt — English listed on directory; Lisa Rae Francis MSW LICSW — American English-speaking therapist, strong fit, no contact found). 1 more researched 2026-10-15 (Zahnarztpraxis Dr. Deitermann & Dr. De Sanctis — English-listed dentist, but registered under postal code 55246/Mainz-Kostheim despite one directory mislabeling it Wiesbaden — same location-mismatch pattern as taxpatation/Dr. Knauss, not pursued). ✅ +4 2026-10-28: Cranbury Counseling/Sarah Cranbury LCSW (Army Reserve captain + LCSW running a private practice explicitly for military-connected Americans in Wiesbaden since 2014 — resolves the 2026-10-21 no-email entry via her own site's Contact page, cranburycounseling.org, not a third party), Engemann & Wüst Logopädische Praxisgemeinschaft (speech therapy, two Wiesbaden locations, own English page states real experience with English-speaking patients + therapy in English on request), Chiropraktik Zentrum Wiesbaden/Hanna Fröhlich (Goldgasse, full English-language site including its own /en/contact page), Andrea Hillenbrand Psychologische Psychotherapeutin (Wiesbaden-Nordenstadt, English listed as an offered language on the official Hessen psychotherapist-chamber directory, TRICARE historically accepted per therapie.de) — now 5 sent total, Wiesbaden's new deepest category, ahead of education/hbb (3 each). All 4 found via a broader English-speaking-provider sweep (therapist/counselor, chiropractor niches) rather than the four already-exhausted stuck categories. 1 more no-email (BaseResidences — furnished apartments explicitly marketed to U.S. military near Clay Kaserne, replies in English within one business day per its own site, but no email found anywhere, contact-form only; real-estate, worth a follow-up) |
 | hbb | ✅ +1 2026-10-13: Stacey Brenner Photography (newborn/wedding/family, American photographer based in Wiesbaden, own live site + active Facebook/Instagram independently confirmed beyond the directory source) — now 3 sent total. 1 held back (Four Twigs Photography/Hillary & Nick Chopp — same official HBB directory source, but a conflicting blog mention suggests the family may have relocated to Honolulu, HI since the directory was published; logged `researched`, worth a direct-site check next run before sending). 3 more held back 2026-10-14 (Homemade by Gia, Ksal Beauty and Spa, Angel Face Beauty Studio — directory-only, no independent corroboration). Re-checked 2026-10-15: still no Facebook/site for Homemade by Gia; Ksal's directory-listed Wix site (ksalbeautyandspa.wixsite.com) could not be independently confirmed either — both remain held back. 3 further directory entries found 2026-10-15 (Humble Lion Leather, LiNi Jewelry, The Bread Library — handicrafts/baking categories) have the same uncorroborated-directory-only gap, also held back |
-| real-estate | ✅ NEW send 2026-10-13: AS Immobilien Wiesbaden (Arthur Schultek) — operating since 2012, explicit focus renting to US citizens/expats in Wiesbaden/Mainz/Rheingau, email resolved from the 2026-10-12 no-email entry via the owner's own signed Trustpilot reply, 4.5/5 across 13 reviews. 1 no-email remains (Engel & Völkers Wiesbaden — English listed, contact-form only) |
+| real-estate | ✅ NEW send 2026-10-13: AS Immobilien Wiesbaden (Arthur Schultek) — operating since 2012, explicit focus renting to US citizens/expats in Wiesbaden/Mainz/Rheingau, email resolved from the 2026-10-12 no-email entry via the owner's own signed Trustpilot reply, 4.5/5 across 13 reviews. 1 no-email remains (Engel & Völkers Wiesbaden — English listed, contact-form only). 1 strong-English-evidence near-miss found 2026-11-26 (Wagner Immobilien, Hauberrisserstr. 15A — multiple reviews explicitly call it "your specialist for rentals to Americans in Wiesbaden", 4.79/5 across 476 reviews — but its only email, info@makler-wiesbaden.de, surfaces only on a company-branded JotForm and a direct site: search of makler-wiesbaden.de itself returns zero indexed pages, so held back pending a direct browser confirmation of that domain) |
 | education | ✅ 3 contacted (Obermayr Europa-Schule Campus Stauferland — bilingual German/English/Spanish immersion primary school, ~44-50% of lessons in English, officially listed on the City of Wiesbaden's own school guide, email on the school's own obermayr.com domain — 2026-10-13; Frankfurt International School/Wiesbaden Campus — established English-medium Preschool-Grade 8 international school in Naurod, ~215-220 students, confirmed current via a Feb 2026 principal-search brief, email on the school's own fis.edu domain — 2026-10-15; Rosenkindergarten (Obermayr) — distinct kita/preschool unit of the same Obermayr organization as Europa-Schule but a different address/age-group/registration contact, bilingual-English focus since 1992, email kita@obermayr.com — 2026-10-16), still Wiesbaden's deepest category |
 | restaurants | 6 no-email found (Hacienda, Casa Azteca, Indian Palace, Thai Banyan, Chillers American Diner & Bar, Street Burger — all real, findable, several with Stars and Stripes coverage, none with a published email/working site found yet) plus the 2 found 2026-10-09 (Chateau Kefraya, Baeckerbrunnen) — 8 total no-email leads logged, strongest category by lead count but zero sent so far. Dedicated email-finding follow-up 2026-10-15 found Chateau Kefraya's own domain (chateau-kefraya.de) but still no email on it; no new email for any of the other 7 either — all 8 remain no-email. 2 more found 2026-10-19 (Daeli's Pizzeria To Go — explicitly described as English-customer-friendly, no contact at all found; Pizza Punto IT — weaker evidence, one reviewer's incidental English-menu mention, no contact found) — now 10 no-email leads, still zero sent |
 | legal-business | ✅ NEW send 2026-10-19: KERN Global Language Services (Wiesbaden office) — certified/sworn translation agency at Wilhelmstrasse 18, operating since 2001, part of the nationwide ISO-certified KERN AG network, own-site email (kern.wiesbaden@e-kern.com) — same translator-agency fit as KMC's Salusso Translations/Fachübersetzungsdienst Kaiserslautern, opens Wiesbaden's legal-business category. 1 researched (Desch Thorsten Rechtsanwalt — has a published email but English-service fit unconfirmed, held back; re-checked 2026-10-15, still unconfirmed either way), 1 more researched 2026-10-13 (MTR Legal Wiesbaden — dedicated English-language/German Desk page for Wiesbaden, general firm email found but no Wiesbaden-specific address/email and reads as a larger corporate-client firm, held back pending a clearer fit), 1 no-email (Bechstein Versicherungsmakler — explicitly multilingual incl. English). 4 more no-email 2026-10-19 (Jessica Schwerdt and Ursula Weddig — both Wiesbaden family-law attorneys with English listed, no email/own site found; Smarter Finance 24 GmbH/Smarter Investment — US-citizen-focused financial broker with a dedicated Wiesbaden marketing page but no real company site/contact found; Erik M. Eisenberg/Kanzlei Eisenberg — traffic-law attorney, email only ever surfaced on a 2022 Army referral-list PDF, never his own site, and English service unconfirmed, so not used on two separate guardrails). 1 more researched (Mirascon Insurance Agency — already sent in KMC, no distinct Wiesbaden-office contact found despite the company's own claim of agencies at every major German base) |
@@ -1395,6 +1395,50 @@ legal-business/tax, education, and hbb/home-services niches not yet
 attempted — none of the 9 categories has had a full dedicated sweep yet,
 this was an opening/orientation day split with Garmisch's 5th research day.
 
+**2026-11-26: a 6th dedicated Baumholder research day, 0 sends, plus the
+first still-in-business verification sweep since the snapshot's 90-day
+window opened.** Two parallel research tracks (~63 combined WebSearch
+calls) targeted Baumholder's 4 fully-dry categories (automotive,
+home-services, hbb, education) with genuinely fresh angles, re-checked
+Studienkreis Nachhilfe Idar-Oberstein directly against studienkreis.de
+(no branch page found, status unchanged), and widened to 4 new towns
+(Hoppstädten-Weiersbach, Berschweiler bei Baumholder, Fohren-Linden,
+Wadern) - all empty or no-fit. Found Baumholder's first automotive
+email+operating-confirmed lead, Autohaus Nahetal GmbH & Co. KG
+(info@autohaus-nahetal.de, own-domain-confirmed, 4.8-4.89★ across 3
+aggregators) - held back for zero English-speaking-staff evidence found
+anywhere, the same guardrail already applied to Der Florist. Found
+Baumholder's first two hbb leads with explicit area ties (Sydney Snaps,
+Danielle Gengenbach Photography, both Pixieset-hosted) - no plain-text
+email surfaced for either, contact-form only. A second, opportunistic
+research track followed up standing near-misses across Wiesbaden, Stuttgart,
+and KMC once Baumholder ran dry: found Wagner Immobilien Wiesbaden
+(real-estate) has the strongest English-evidence hit of the day -
+multiple reviews explicitly call it "your specialist for rentals to
+Americans in Wiesbaden" - but its only email (info@makler-wiesbaden.de)
+surfaces only on a company-branded JotForm, and a direct `site:`
+search of makler-wiesbaden.de itself returned zero indexed pages from
+that domain, so it was held back on the same unresolved-domain concern
+as Chateau Kefraya rather than sent on an unconfirmed address. Everything
+else followed up (Mr. Smart Repair, Chateau Kefraya, Autohaus Haese,
+Wiesbaden dry cleaners/tailors, Stuttgart's two standing no-email leads,
+KMC mobile notary/pet-groomer/junk-removal) found nothing new - Rümpel
+Meister D.A.CH GmbH re-surfaced yet again and remains the same standing
+declined multi-base template. **0 emails sent today, across every base
+area touched** - per the never-fabricate/never-send-on-weak-evidence
+guardrails, a continuation of the well-documented research-coverage gap
+(WebSearch worked normally throughout; Gmail/GitHub were never reached
+because nothing cleared the bar to send anywhere). **Verification sweep
+resumed today** (see "Still-in-business verification" below) - the
+5 oldest snapshot entries (dated 2026-08-28) hit the ~90-day re-check
+window exactly today; all 5 re-checked with no closures found. **Next
+for Baumholder:** education, home-services, hbb, and automotive all
+remain at 0 Baumholder-specific sends after 6 research days against only
+3 total sends - worth weighing the standing site-owner-escalation
+recommendation seriously now, alongside a possible phone-confirmation
+follow-up on Autohaus Nahetal (English evidence) and Wagner Immobilien
+Wiesbaden (domain confirmation) if that ever becomes practical.
+
 **2026-11-25: a 5th dedicated Baumholder research day, 2nd Baumholder-specific
 zero-send day (1st was 2026-11-23; non-consecutive, since 2026-11-24 had 1
 send) — no 2-in-a-row rotation trigger yet.** ~29 WebSearch calls. Widened
@@ -2397,6 +2441,25 @@ was no new-lead verification (check 1) to perform either.
    This was also a zero-send day (see the Garmisch section above for the
    full ~40-query account), so there was no new-lead verification
    (check 1) to perform either.
+
+   **Resumed as of 2026-11-26:** the oldest 5 verification-log entries
+   (dated 2026-08-28: The Used Car Guys - Kaiserslautern, The Used Car
+   Guys - Grafenwöhr, Cookies with Dolly, Wine Kult, Kleintierpraxis
+   Sindelfingen) hit exactly 90 days old today, so the rolling sweep
+   resumed for the first time since the full initial pass completed
+   2026-09-02. All 5 re-checked (check 2): the two Used Car Guys
+   locations and Kleintierpraxis Sindelfingen remain `open` (current
+   aggregator listings/job postings, no Maps "permanently closed" flag
+   or closure news found for any); Cookies with Dolly and Wine Kult
+   remain `unclear` exactly as before — still no website, Maps listing,
+   or social-media presence found under either name via several
+   query variants, but nothing suggesting closure either, just a
+   persistently unfindable small/home-based operation. No new rows
+   needed demotion to `likely_closed` or `moved`. This was also a
+   zero-send day for new leads (see the Baumholder section above for
+   the full account), so there was no new-lead verification (check 1)
+   to perform. The next 5 oldest entries (dated 2026-08-31) become due
+   around 2026-11-29.
 
    **Still true as of 2026-11-19:** re-checked before this run — oldest
    verification-log entries (2026-08-28) are exactly 83 days old today,
