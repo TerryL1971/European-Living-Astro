@@ -34,7 +34,7 @@ legal-business, education, hbb (business services)
 6. **Frankfurt** (the Wiesbaden–Frankfurt corridor: Frankfurt, Offenbach, Mainz, Darmstadt) — opened 2026-11-12, 0 sends so far. Leads already parked as "Frankfurt-based, not a fit" for Stuttgart/Wiesbaden (e.g. americanfoodclub.de in Offenbach, RelaxStay24) now live here
 7. **Garmisch** (Garmisch-Partenkirchen — Edelweiss Lodge and Resort, George C. Marshall Center) — opened 2026-11-13, 5 sends as of 2026-11-17, hit its 2nd consecutive zero-send day 2026-11-19 (1st was 2026-11-18) — per the rotation rule, parked for now
 8. **Baumholder** (USAG Rheinland-Pfalz — Baumholder, a small ~4,200-resident town) — opened 2026-11-19, 2 sends so far across 2 categories (restaurants, real-estate) as of 2026-11-20
-9. Others as found (e.g. Hohenfels) — Terry, 2026-11-11: "You can also reach Spangdahlem - Trier, Grafenwöhr, Vilseck, Ansbach, Garmisch, Wiesbaden-Frankfurt, etc."
+9. **Hohenfels** (USAG Bavaria — Hohenfels Training Area / JMRC) — opened 2026-11-27 after Baumholder hit its 2nd consecutive zero-send day (11-25, 11-26), triggering the rotation rule. 1 send so far (legal-business). Terry, 2026-11-11: "You can also reach Spangdahlem - Trier, Grafenwöhr, Vilseck, Ansbach, Garmisch, Wiesbaden-Frankfurt, etc."
 
 **Rotation rule (added 2026-11-11).** Bavaria and Wiesbaden's remaining
 categories produced zero sends every run from 2026-10-29 to 2026-11-11.
@@ -1607,6 +1607,67 @@ Idar-Oberstein-based tax advisor or insurance broker with explicit English
 evidence, an Idar-Oberstein tutor/school) before concluding the base has
 hit its ceiling the way Wiesbaden's four hardest categories have.
 
+**2026-11-27: Baumholder's 2nd consecutive zero-send day (11-25, 11-26)
+triggered the 2026-11-11 rotation rule — moved on to Hohenfels, the next
+open area in the priority list.** Baumholder stands at 3 total sends
+(restaurants 2: Zum Stadtkrug, Hotel & Restaurant Berghof; real-estate 1:
+VON POLL IMMOBILIEN Idar-Oberstein) after 6 dedicated research days;
+education, home-services, hbb, and automotive all remain at 0. Per the
+rotation rule this base is now parked — come back only to follow up on its
+`researched`/strong-near-miss rows (Autohaus Nahetal's English-evidence
+gap, Sydney Snaps/Danielle Gengenbach Photography's Pixieset contact
+pages, Svenja's Diner/Eckstein's missing contact info, Notar
+Collenburg's conflicting-email gap) rather than re-opening a full sweep.
+
+### Hohenfels — opened 2026-11-27
+USAG Bavaria's Hohenfels Training Area / JMRC. Already had before
+outreach started: nothing (zero Hohenfels entries in
+businesses-snapshot.json, confirmed by grep — the only prior "Hohenfels"
+mentions in log.csv are incidental, naming it as a served area for
+Milinsure and the Used Car Guys franchise, not a dedicated lead). All 9
+categories start from zero.
+
+| Category | Status |
+|---|---|
+| legal-business | ✅ 1 contacted (Notar Dr. Christian Mickisch, Neumarkt i.d.OPf. — 2026-11-27) |
+| automotive, healthcare, restaurants, shopping, home-services, real-estate, education, hbb | 0 sent — see 2026-11-27 research note below |
+
+**2026-11-27 (opening day):** ~37 WebSearch calls (a dedicated research
+agent plus direct follow-ups). Hohenfels itself (~2,038 residents) has no
+business-level directory of its own (markt-hohenfels.de is a
+newsletter/PDF-only site) — widened to the hub towns Neumarkt in der
+Oberpfalz (~20km) and Parsberg (~8km), the same hub-town pattern that
+already worked for Baumholder→Idar-Oberstein and Garmisch→Grainau. One
+sendable lead cleared the bar: Notar Dr. Christian Mickisch (Nürnberger
+Str. 2, Neumarkt), English+French confirmed via the official
+Bundesnotarkammer notary registry, own-domain email
+info@notar-mickisch.de — same notary-category evidence standard already
+used for KMC's Notar Dr. David Siegel. Everything else found real, named
+businesses (Parsberg restaurants, VON POLL's Altdorf/Nürnberger Land real
+estate office, Studienkreis/Schülerhilfe Neumarkt tutoring branches,
+Neumarkt auto dealers, a Grafenwöhr-based photographer, no English-tagged
+healthcare provider at all) but none combined a genuinely published
+own-site email with independent English/American-fit evidence — see
+log.csv for the full per-lead detail. This is the same research ceiling
+already documented for broader Bavaria (16+ consecutive zero-send days
+under the same methodology), not an infrastructure failure — WebSearch
+worked normally throughout. Once Hohenfels proved thin, remaining research
+budget went to a fresh-niche sweep in KMC/Wiesbaden (pharmacies,
+equestrian stables, picture framing, tattoo studios, financial planners,
+opticians, a 2nd vet clinic, wine shops, driving schools) looking for 2-4
+more sends — also came back with zero candidates clearing the full bar
+(near-misses: Diana's Horse Farm, Rubly Stable, Bonanza Ranch, Gabani
+Tattoo — see log.csv). Wagner Immobilien Wiesbaden (the standing
+real-estate near-miss) was re-checked directly and remains unresolved —
+its only email still surfaces only on a third-party JotForm, not an
+indexed page of its own domain. **1 email sent today, across every base
+area touched** — a research-coverage-gap day rather than a quota miss,
+consistent with the never-fabricate/never-send-on-weak-evidence
+guardrails. **Next for Hohenfels:** try tax advisors/Steuerberater,
+pharmacies, and a second real-estate/property-management search in
+Neumarkt; the town is sparse enough that, like Baumholder, it may take
+several more dedicated research days before most categories open.
+
 ## Known issues (as of 2026-08-25)
 
 Runs from 2026-08-21 through 2026-08-25 sent **zero** emails — not a
@@ -2460,6 +2521,19 @@ was no new-lead verification (check 1) to perform either.
    the full account), so there was no new-lead verification (check 1)
    to perform. The next 5 oldest entries (dated 2026-08-31) become due
    around 2026-11-29.
+
+   **2026-11-27:** re-checked before this run — the next 5 oldest entries
+   (dated 2026-08-31: The Used Car Guys - Ramstein, American Business
+   Center, Mobile Tierarztpraxis Mobipet, The Auld Rogue, Hair and There)
+   are 88 days old today, still 2 days short of the ~90-day window (due
+   around 2026-11-29/11-30). Per the don't-batch-early guardrail, the
+   2026-11-27 run did zero new verification-log rows (check 2) — the next
+   run (2026-11-30, the first weekday on/after the due date) should be
+   able to resume the sweep with that batch. One new lead was sent today
+   (check 1): Notar Dr. Christian Mickisch (Hohenfels/Neumarkt) — verified
+   via the official Bundesnotarkammer registry's current (3 Nov 2026)
+   snapshot showing him still actively practicing, no closure signal of
+   any kind.
 
    **Still true as of 2026-11-19:** re-checked before this run — oldest
    verification-log entries (2026-08-28) are exactly 83 days old today,
